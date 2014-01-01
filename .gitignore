@@ -1,1 +1,6 @@
 _site
+cv/private
+cv/public/*.aux
+cv/public/*.log
+cv/public/*.out
+cv/public/*.synctex.gz
