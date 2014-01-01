@@ -1,0 +1,9 @@
+@page {
+	margin: 20mm;
+}
+@page :first {
+	margin: 10mm 20mm 20mm 20mm;
+}
+body {
+	margin: 0;
+}

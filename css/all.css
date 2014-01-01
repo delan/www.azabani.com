@@ -1,0 +1,67 @@
+html {
+	overflow-y: scroll;
+}
+body {
+	width: 170mm;
+	margin: 10mm auto 20mm auto;
+	font-family: 'LM Roman 12';
+	font-size: 12pt;
+	line-height: 1.5;
+}
+p, table {
+	margin: 0.5em 0;
+}
+header {
+	font-size: 4em;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.13em;
+}
+header span {
+	letter-spacing: 0;
+}
+h1, h2, h3, h4 {
+	margin-top: 0.5em;
+}
+h1 {
+	font-size: 2.5em;
+}
+h2 {
+	font-size: 1.5em;
+}
+h3 {
+	font-size: 1em;
+	font-style: italic;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-left: 2em;
+}
+pre, code {
+	font-family: 'LM Mono 10';
+	font-size: 10pt;
+}
+pre {
+	background: #e0e0e0;
+	padding: 0.5em;
+}
+a {
+	color: black;
+}
+i, i * {
+	font-style: italic;
+}
+ul {
+	list-style: disc inside none;
+}
+nav {
+	text-align: center;
+	font-family: 'LM Mono 10';
+	font-size: 15pt;
+	color: #808080;
+}
+nav a {
+	color: black;
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>
+			{% if page.title != %}
+				{{ page.title }} |
+			{% endif %}
+			Delan Azabani
+		</title>
+		<link rel="stylesheet" href="/css/style.css">
+	</head>
+	<body>
+		<header>Delan Azaban<span>i</span></header>
+		<nav>
+			<a href="/">~/</a> ::
+			<a href="/cv/">~/cv/</a> ::
+			<a href="/labs/">~/labs/</a> ::
+			<a href="/words/">~/words/</a> ::
+			<a href="/chain/">~/chain/</a> ::
+			<a href="/contact/">~/contact/</a>
+		</nav>
+		<h1>{{ page.title }}</h1>
+		<article>
+
+{{ content }}
+
+		</article>
+	</body>
+</html>
