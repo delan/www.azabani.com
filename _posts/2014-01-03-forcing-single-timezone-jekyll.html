@@ -1,0 +1,46 @@
+---
+layout: default
+title: Forcing a single timezone in Jekyll
+date: 2014-01-03 07:00:00 +0800
+---
+
+<p>Alternatively, <i>How I Learned to Stop Worrying and Love UTC</i>. It was a
+little more subtle than I had expected to ensure that Jekyll uses an arbitrary
+timezone for dates in posts and their generated URLs, but is that even a Good
+Thing™ to do?
+
+<p>My posts were timestamped in their YAML front matter like so:
+
+<pre>date: 2014-01-03 07:00:00 +0800</pre>
+
+<p>Then I tried adding this to <code>_config.yml</code>:
+
+<pre>timezone: Australia/Perth</pre>
+
+<p>Technically the same date, but not quite what I wanted. It appeared that
+this had no effect at all. URLs were still being generated in UTC, and
+displayed post dates were still:
+
+<pre>2014-01-02 23:00 UTC</pre>
+
+<p>After emailing GitHub and receiving very quick and friendly responses, it
+turns out that both the timezone offset and <i>the seconds</i> must be omitted:
+
+<pre>date: 2014-01-03 07:00</pre>
+
+<p>However, in the time that passed, I realised that doing this would actually
+be short-sighted; it would lock this website into one timezone. Not permanently,
+perhaps, but one would have to use the same timezone for all posts.
+
+<p>What if, one day, I decide that Perth no longer has the same homely charm,
+and I grow tired of living in a city where absolutely nothing happens? Heresy,
+I know, but it's possible.
+
+<p>As an aside, when doing the above, the displayed post dates would be like:
+
+<pre>2014-01-03 07:00 Aus</pre>
+
+<p>Perhaps using <code>%Z</code> in Jekyll simply takes the first three
+characters of the tzdata name.
+
+<p>Just stick with UTC.
