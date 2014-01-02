@@ -67,6 +67,12 @@ ul {
 ol {
 	list-style: decimal outside none;
 }
+sub {
+	vertical-align: sub;
+}
+sup {
+	vertical-align: super;
+}
 nav {
 	text-align: center;
 	font-family: 'LM Mono 10';
