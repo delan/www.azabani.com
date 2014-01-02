@@ -1,0 +1,38 @@
+---
+layout: default
+title: Renaming GitHub branches
+---
+
+<p>Now that I have a website hosted with <a href="https://pages.github.com/"
+>GitHub Pages</a>, I've been looking to rename <code>gh-pages</code> branches
+back to <code>master</code> for some of my repositories so that the root URL
+namespace isn't automatically polluted.
+
+<p>Unfortunately, some of the solutions I found didn't work because GitHub doesn't allow deleting a repository's default branch. Based on Matthew Brett's
+<a href="http://matthew-brett.github.io/pydagogue/gh_delete_master.html"
+>Deleting your master branch</a>, a working method for renaming branches is as
+follows. Start by switching to your old branch, create a new branch based on it, then switch to the new branch:
+
+<pre>git checkout $old_branch
+git branch $new_branch
+git checkout $new_branch</pre>
+
+<p>Next, delete your old branch locally:
+
+<pre>git branch -D $old_branch</pre>
+
+<p>Now, push the new branch up to GitHub:
+
+<pre>git push origin $new_branch</pre>
+
+<p>Before you can delete the branch on GitHub, go to <code
+>https://github.com/$user/$repo/settings</code> and change the default branch to
+<code>$new_branch</code>. Finally, delete the old remote branch:
+
+<pre>git push origin :$old_branch</pre>
+
+<p>To rename a non-default branch, the process is actually the same, minus
+changing the default branch on GitHub's repository settings page. If you're
+using GitHub for Windows, it may fail to load the repository after renaming the
+default branch; I simply deleted and recloned my local copy, although there is
+almost certainly a cleaner way.
