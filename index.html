@@ -2,22 +2,11 @@
 layout: default
 ---
 
-<p>Hello, world! I am a second year computer science student at <a
-href="https://www.curtin.edu.au/">Curtin University</a>, and a committee member
-of its <a href="http://www.comssa.org.au/">Computer Science Students
-Association</a>.
-
-<p>I'm a mad scientist regardless of the Sun's position relative to Earth.
-Undeterred by possible practical applications, anything is fair game as long as
-it satisfies some intellectual curiosity.
-
-<p>I'm also an active user of <a href="https://github.com/delan">GitHub</a> and
-<a href="https://stackoverflow.com/u/330644">Stack Overflow</a>. Unless
-otherwise specified, I release all code and content under the terms of the <a
-href="http://opensource.org/licenses/MIT">MIT license</a> and the <a
-href="https://creativecommons.org/licenses/by/3.0/au/">CC BY license</a>
-respectively.
-
-<p>You can reach me at <a href="mailto:delan@azabani.com">delan@azabani.com</a>
-using my <a href="/keys/pgp.pub">PGP key</a>, with a fingerprint of <code
->18416AA7</code>.
+{% for post in site.posts %}
+{% if post._link == %}
+	<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+{% else %}
+	<h1><i><a href="{{ post._link }}">{{ post.title }}</a></i></h1>
+{% endif %}
+	{{ post.excerpt }}
+{% endfor %}
