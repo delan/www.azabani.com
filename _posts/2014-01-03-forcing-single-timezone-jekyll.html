@@ -17,14 +17,14 @@ Thing™ to do?
 
 <pre>timezone: Australia/Perth</pre>
 
-<p>Technically the same date, but not quite what I wanted. It appeared that
-this had no effect at all. URLs were still being generated in UTC, and
-displayed post dates were still:
+<p>It appeared that this had no effect at all. URLs were still being generated
+based on the date in UTC, and displayed post dates were still:
 
 <pre>2014-01-02 23:00 UTC</pre>
 
-<p>After emailing GitHub and receiving very quick and friendly responses, it
-turns out that both the timezone offset and <i>the seconds</i> must be omitted:
+<p>Technically the same date, but not quite what I wanted. After emailing
+GitHub and receiving very quick and friendly responses, it turns out that both
+the timezone offset and <i>the seconds</i> must be omitted:
 
 <pre>date: 2014-01-03 07:00</pre>
 
