@@ -19,11 +19,7 @@
 			<a href="/contact/">~/contact/</a>
 		</nav>
 		{% if page.title != %}
-			{% if page._link %}
-				<h1><a href="{{ page._link }}">
-					{{ page.title }}
-				</a></h1>
-			{% elsif page.date %}
+			{% if page.date %}
 				<h1><a href="{{ page.url }}">
 					{{ page.title }}
 				</a></h1>
