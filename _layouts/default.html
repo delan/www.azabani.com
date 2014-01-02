@@ -32,7 +32,9 @@
 			{% endif %}
 		{% endif %}
 		{% if page.date %}
-			<p><i>{{ page.date | date: '%Y-%m-%d %H:%M %Z' }}</i>
+			<p><a href="{{ page.url }}"><i>
+				{{ page.date | date: '%Y-%m-%d %H:%M %Z' }}
+			</i></a>
 		{% endif %}
 		<article>
 
