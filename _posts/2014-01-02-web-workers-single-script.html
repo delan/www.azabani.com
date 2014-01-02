@@ -1,0 +1,97 @@
+---
+layout: default
+title: Web workers in a single script
+---
+
+<p>Web workers are an immensely useful tool, enabling parallelism and perhaps
+concurrency with JavaScript. Before their introduction, any non-trivial
+computation would completely lock up the user interface of the current
+document, or even the entire browser.
+
+<p>One could work around this by breaking up a large job into very small parts and chain them with timers, but this is highly inefficient and choosing an ideal
+amount of work for each part across all clients is almost impossible.
+
+<p>However, the interface for creating workers is tricky; the <code
+>Worker</code> constructor takes an external script's filename to execute.
+Suppose you are developing a JavaScript library that relies upon workers
+heavily. Are you forced to have two separate script files? No!
+
+<p>Interestingly, it is possible to have a single JavaScript file act as both a
+parent and a worker, but the implementation is not completely intuitive.
+
+<p>First of all, the single-file library must be aware of whether it is the
+parent or a worker. This can be achieved by detecting the presence of the DOM
+<code>document</code>:
+
+<pre>var is_worker = !this.document;</pre>
+
+<p>Of course, if you need to execute the above in a context where <code
+>this</code> isn't the global object, then you can reliably obtain the global
+with something like
+
+<pre>var global = (function(){ return this; })();</pre>
+
+<p>Surely, spawning a worker from the parent is now as simple as this, right?
+
+<pre>var worker = new Worker('mylibrary.js');</pre>
+
+<p>Not quite. Worker paths are not resolved relative to the parent script file's
+path, but instead, relative to the path of the parent page. If the script isn't
+in the same directory as the page, the above will fail. Also, if the user has
+renamed the library file, workers will break.
+
+<p>The path of the script relative to the page must be used instead. This can be
+obtained by appending a dummy element with <code>document.write</code> and
+getting the previous element's <code>src</code>. The previous element, of
+course, is the <code>script</code> tag of the parent script, as conveniently for
+this situation, scripts block the building of the DOM tree while running.
+
+<pre>var script_path = is_worker ? null : (function() {
+	var id = +new Date + Math.random();
+	document.write('&lt;script id="dummy' + id + '">&lt;\/script>');
+	return document.getElementById('dummy' + id).
+		previousSibling.src;
+})();</pre>
+
+<p>The test for <code>is_worker</code> is present because DOM manipulation can
+only be done when the script isn't running as a worker. Thankfully, only the
+parent script needs to know the path to start workers, unless you want to start
+subworkers, but the method to do that already resolves paths relative to the
+worker's location.
+
+<p>A <code>&lt;script&gt;</code> tag is used as the dummy element because it's
+guaranteed to be a valid child element, be it <code>&lt;head&gt;</code> or <code
+>&lt;body&gt;</code>, unlike context-sensitive elements such as <code
+>&lt;div&gt;</code>. It's also not an element that might have side-effects on
+page display depending on CSS.
+
+<p>Now, workers can be spawned in the script with
+
+<pre>var worker = new Worker(script_path);</pre>
+
+<p>The library in a single file might look something like this:
+
+<pre>(function(global) {
+	var is_worker = !this.document;
+	var script_path = is_worker ? null : (function() {
+		var id = +new Date + Math.random();
+		document.write('&lt;script id="dummy' + id + '">&lt;\/script>');
+		return document.getElementById('dummy' + id).
+			previousSibling.src;
+	})();
+	function msg_from_parent(e) {
+		// event handler for parent -> worker messages
+	}
+	function msg_from_worker(e) {
+		// event handler for worker -> parent messages
+	}
+	function new_worker() {
+		var w = new Worker(script_path);
+		w.addEventListener('message', msg_from_worker, false);
+		return w;
+	}
+	if (is_worker)
+		global.addEventListener('message', msg_from_parent, false);
+	// the rest of the library goes here
+	// to spawn a worker, use new_worker()
+})(this);</pre>
