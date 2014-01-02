@@ -20,9 +20,13 @@
 		</nav>
 		{% if page.title != %}
 			{% if page.date %}
-				<h1><a href="{{ page.url }}">
-					{{ page.title }}
-				</a></h1>
+				{% if page._link %}
+					<h1><a href="{{ page._link }}">
+						{{ page.title }}
+					</a></h1>
+				{% else %}
+					<h1>{{ page.title }}</h1>
+				{% endif %}
 			{% else %}
 				<h1>{{ page.title }}</h1>
 			{% endif %}
