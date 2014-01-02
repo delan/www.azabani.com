@@ -17,9 +17,9 @@ layout: default
 		</time>
 	</div>
 {% if post._link == %}
-	<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 {% else %}
-	<h1><i><a href="{{ post._link }}">{{ post.title }}</a></i></h1>
+	<h2><i><a href="{{ post._link }}">{{ post.title }}</a></i></h2>
 {% endif %}
 	{{ post.excerpt }}
 {% endfor %}
