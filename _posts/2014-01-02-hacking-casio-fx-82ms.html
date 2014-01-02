@@ -1,0 +1,88 @@
+---
+layout: default
+title: Hacking the Casio fx-82MS
+date: 2014-01-02 22:00:00 +0800
+---
+
+<p>The fx-82MS is a cheap two-line scientific calculator that I fondly remember
+using for countless hours since the beginning of high school. It's so reliable
+that after using the same one for over six years, the worst that's happened is
+a bit of corrosion on the rear screws. Here are a couple of useful tricks I've
+found after digging through forums and videos.
+
+<h2>Upgrade your calculator to an fx-570MS</h2>
+
+<p>Casio's two-line scientific calculators all appear to use the same circuit
+board and firmware. A combination of several soldered contacts determine which
+features of the firmware to enable by default. A pencil can be used to
+permanently change the effective model on older hardware revisions, but this
+has since been prevented with a hard black obstacle injected onto that area of
+the board.
+
+<p>You can also 'upgrade' your calculator to an fx-570MS, which is one of the
+most feature-complete and expensive Casio scientific calculators by exploiting
+an overflow bug, which lasts until the next reboot.
+
+<ol>
+	<li>Enter standard deviation mode, by pressing <code>[MODE] [2]</code>.
+	<li>Press <code>[0]</code>, then press <code>[M+]</code> until the words
+	    "Data full" appear on the screen.
+	<li>Press <code>[M+]</code> again.
+	<li>Press <code>[2]</code>.
+	<li>Press <code>[UP]</code>.
+	<li>Press <code>[1] [3]</code> repeatedly until no more can be entered.
+	<li>Press <code>[=]</code>. You will see the words "Data full".
+	<li>Press <code>[=]</code> again.
+	<li>Press <code>[0] [1]</code>.
+	<li>Press <code>[AC]</code>.
+</ol>
+
+<p>With a few caveats, the available modes should be expanded to:
+
+<ul>
+	<li>COMP (general computation)
+	<li>CMPLX (complex numbers)
+	<li>SD (standard deviation)
+	<li>REG (regressions)
+	<li>BASE (base conversions)
+	<li>EQN (solving equations)
+	<li>MAT (matrices)
+	<li>VCT (vectors)
+</ul>
+
+<p>Of particular note is an <a href="fx570ms.jpg">an image of the fx-570MS</a>,
+which will become very useful for you when you need to find a key, because
+although the key layout will be the same as on your calculator, the labels will
+not be.
+
+<h2>Diagnostic routine</h2>
+
+<p>This is a capability built into the firmware, presumably to allow easy,
+initial in-factory testing of the screen and keypad. At any time during the
+routine, pressing <code>[ON]</code> will reboot the calculator, ending the test.
+
+<ol>
+	<li>While holding <code>[SHIFT]</code> and <code>[7]</code> down, press
+	    <code>[ON]</code>. The display will turn on all of its elements.
+	<li>Press <code>[SHIFT]</code>. The display will clear completely.
+	<li>Press <code>[SHIFT]</code>. The display will turn on half of its
+	    elements in a pattern.
+	<li>Press <code>[SHIFT]</code>. The display will turn on the other half
+	    of its elements.
+	<li>Press <code>[SHIFT]</code>. On the first line of the display, you
+	    will see "25" on the left, and "4" on the right. On the second line
+	    of the display, you will see all zeroes, including in the exponent.
+	<li>Press <code>[SHIFT]</code> nine times. The display will cycle its
+	    second line through all ones, then all twos, and so on, until the
+	    second line consists of all nines.
+	<li>Press <code>[SHIFT]</code>. The display will clear and the second
+	    line will be set to "0". This commences the keypad testing routine.
+	<li>Press the keys of the keypad in the order,<br>
+	    <code>[SHIFT] [ALPHA] [MODE] [LEFT] [UP] [RIGHT] [x^-1] [nCr] [Pol(]
+	    [x^3] [DOWN]</code><br>
+	    then the rest of the keys, as you would read them left to right,
+	    until <code>[=]</code>. On the first line of the display, you will
+	    see "25" on the left, and "OK" on the right. On the second line of
+	    the display, you will see "4".
+	<li>Press <code>[ON]</code> to reboot the calculator and exit the test.
+</ol>
