@@ -53,8 +53,19 @@ a {
 i, i * {
 	font-style: italic;
 }
+ul, ol, dl {
+	margin: 0.5em 0 0.5em 2em;
+}
+ul ul, ul ol, ul dl,
+ol ul, ol ol, ol dl,
+dl ul, dl ol, dl dl {
+	margin: 0 0 0 2em;
+}
 ul {
-	list-style: disc inside none;
+	list-style: disc outside none;
+}
+ol {
+	list-style: decimal outside none;
 }
 nav {
 	text-align: center;
