@@ -1,0 +1,178 @@
+---
+layout: default
+title: Digital and analogue signals
+---
+
+<style>
+	canvas {
+		vertical-align: middle;
+	}
+</style>
+
+<p>Cable quality matters for analogue signal transmission, but not for digital,
+except where the interference is so intense that the SNR is less than 0 dB. Even
+if everything Monster claims about their HDMI cables is true, they're still
+negligibly better than any no-name $5 cable.
+
+<p>Interference amplitude: <input id="interferenceAmplitude" value="0.2"
+	type="range" min="0" max="2" step="0.01">
+	<span id="interferenceAmplitudeLabel"></span>
+
+<table>
+<tr>
+	<th>signal
+	<th>+
+	<th>interference
+	<th>=
+	<th>result
+	<th>interpretation
+	<th>error
+<tr>
+	<td><canvas width="120" height="100" id="source1"></canvas>
+	<td>+
+	<td><canvas width="120" height="100" id="interference1"></canvas>
+	<td>=
+	<td><canvas width="120" height="100" id="sum1"></canvas>
+	<td><canvas width="120" height="100" id="interpretation1"></canvas>
+	<td><canvas width="120" height="100" id="difference1"></canvas>
+<tr>
+	<td><canvas width="120" height="100" id="source2"></canvas>
+	<td>+
+	<td><canvas width="120" height="100" id="interference2"></canvas>
+	<td>=
+	<td><canvas width="120" height="100" id="sum2"></canvas>
+	<td><canvas width="120" height="100" id="interpretation2"></canvas>
+	<td><canvas width="120" height="100" id="difference2"></canvas>
+</table>
+<script>
+	var fps = 30;
+	function Signal(canvas) {
+		var o = this;
+		this.canvas = canvas;
+		this.context = canvas.getContext('2d');
+		this.value = 0;
+		this.history = [];
+		this.fps = 20;
+		this.step = function() {
+			o.history.shift();
+			o.history.push(o.value);
+			o.context.fillStyle = '#000000';
+			o.context.fillRect(0, 0,
+				o.canvas.width, o.canvas.height);
+			o.context.fillStyle = '#FFFFFF';
+			o.context.fillRect(1, 1,
+				o.canvas.width - 2, o.canvas.height - 2);
+			o.context.beginPath();
+			for (var i = 0; i < o.canvas.width - 4; i++)
+				o.context.lineTo(i + 2,
+					(o.canvas.height - 4) * 0.5 *
+					(1 - o.history[i]) + 2);
+			o.context.stroke();
+		};
+		for (var i = 0; i < o.canvas.width - 4; i++)
+			o.history.push(0);
+		setInterval(this.step, 1000 / this.fps);
+	}
+	function DigitalSignal(signal) {
+		var o = signal;
+		signal.value = 0.5;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = -signal.value;
+		}, 1000);
+		return signal;
+	}
+	function AnalogueSignal(signal) {
+		var o = signal;
+		signal.phase = 0;
+		signal.value = 0.5;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = 0.5 * Math.sin(Math.PI * signal.phase * 2);
+			o.phase = (o.phase > 1) ? 0 : (o.phase + 0.01);
+		}, 20);
+		return signal;
+	}
+	function DigitalInterpretationSignal(signal, source) {
+		var o = signal;
+		signal.source = source;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = (o.source.value < 0) ? -0.5 : 0.5;
+		}, 20);
+		return signal;
+	}
+	function AnalogueInterpretationSignal(signal, source) {
+		var o = signal;
+		signal.source = source;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = o.source.value;
+		}, 20);
+		return signal;
+	}
+	function InterferenceSignal(signal, maximumAmplitude) {
+		var o = signal, m = maximumAmplitude;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = Math.random() * m - m / 2;
+		}, 10);
+		return signal;
+	}
+	function SumSignal(signal, signal1, signal2) {
+		var o = signal;
+		signal.source1 = signal1;
+		signal.source2 = signal2;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = o.source1.value + o.source2.value;
+		}, 10);
+		return signal;
+	}
+	function DifferenceSignal(signal, signal1, signal2) {
+		var o = signal;
+		signal.source1 = signal1;
+		signal.source2 = signal2;
+		if (signal.timer)
+			clearInterval(signal.timer);
+		signal.timer = setInterval(function() {
+			o.value = o.source1.value - o.source2.value;
+		}, 10);
+		return signal;
+	}
+var source1 =         new Signal(document.getElementById('source1'));
+var interference1 =   new Signal(document.getElementById('interference1'));
+var sum1 =            new Signal(document.getElementById('sum1'));
+var interpretation1 = new Signal(document.getElementById('interpretation1'));
+var difference1 =     new Signal(document.getElementById('difference1'));
+var source2 =         new Signal(document.getElementById('source2'));
+var interference2 =   new Signal(document.getElementById('interference2'));
+var sum2 =            new Signal(document.getElementById('sum2'));
+var interpretation2 = new Signal(document.getElementById('interpretation2'));
+var difference2 =     new Signal(document.getElementById('difference2'));
+	function startSimulation() {
+		var interference = Number(
+			document.getElementById('interferenceAmplitude').value);
+source1 =         DigitalSignal(source1);
+interference1 =   InterferenceSignal(interference1, interference);
+sum1 =            SumSignal(sum1, source1, interference1);
+interpretation1 = DigitalInterpretationSignal(interpretation1, sum1);
+difference1 =     DifferenceSignal(difference1, interpretation1, source1);
+source2 =         AnalogueSignal(source2);
+interference2 =   InterferenceSignal(interference2, interference);
+sum2 =            SumSignal(sum2, source2, interference2);
+interpretation2 = AnalogueInterpretationSignal(interpretation2, sum2);
+difference2 =     DifferenceSignal(difference2, interpretation2, source2);
+		document.getElementById('interferenceAmplitudeLabel').
+			textContent = interference;
+	}
+	document.getElementById('interferenceAmplitude').
+		addEventListener('change', startSimulation, false);
+	startSimulation();
+</script>
