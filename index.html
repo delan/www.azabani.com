@@ -5,7 +5,7 @@ layout: default
 {% for post in site.posts %}
 	<div class="post_date">
 		<a href="{{ post.url }}">
-		<time datetime="{{ post.date | date: '%Y-%m-%d' }}">
+		<time datetime="{{ post.date | date: '%Y-%m-%dT%H:%M:%SZ' }}">
 			<span class="month">
 				{{ post.date | date: '%b' }}
 			</span><br>
