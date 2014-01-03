@@ -3,7 +3,7 @@ layout: default
 ---
 
 {% for post in site.posts %}
-{% if post._link == %}
+{% if post._link != %}
 	<div class="post_date">
 		<a href="{{ post.url }}">
 		<time datetime="{{ post.date | date: '%Y-%m-%dT%H:%M:%SZ' }}">
@@ -19,7 +19,7 @@ layout: default
 		</time>
 		</a>
 	</div>
-	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+	<h2><a href="{{ post._link }}">{{ post.title }}</a></h2>
 	{{ post.excerpt }}
 {% endif %}
 {% endfor %}
