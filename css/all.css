@@ -81,6 +81,17 @@ sub {
 sup {
 	vertical-align: super;
 }
+blockquote {
+	margin: 1em 1em 1em 4em;
+}
+blockquote:before {
+	content: '“';
+	display: block;
+	float: left;
+	margin: -0.25em 0 0 -1em;
+	font-size: 4em;
+	color: #808080;
+}
 nav {
 	text-align: center;
 	font-family: 'LM Mono 10';
