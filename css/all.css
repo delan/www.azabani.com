@@ -6,6 +6,10 @@
 	background: black;
 	color: white;
 }
+* {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
 html {
 	overflow-y: scroll;
 }
@@ -110,4 +114,12 @@ nav a {
 }
 .post_date .date {
 	font-size: 2em;
+}
+.post_image {
+	max-width: 100%;
+}
+.post_col2 {
+	float: left;
+	width: 50%;
+	padding-right: 0.5em;
 }
