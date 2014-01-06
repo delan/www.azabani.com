@@ -116,10 +116,7 @@ nav a {
 	font-size: 2em;
 }
 .post_image {
-	max-width: 100%;
-}
-.post_col2 {
-	float: left;
-	width: 50%;
-	padding-right: 0.5em;
+	max-width: 30%;
+	margin: 1em;
+	vertical-align: middle;
 }
