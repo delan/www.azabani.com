@@ -1,0 +1,112 @@
+---
+layout: default
+title: After PGP key signing parties
+date: 2014-01-08 01:30:00 +0800
+---
+
+<p>Yesterday I attended a PGP key signing BoF session at linux.conf.au. Being
+a novice at PGP, and never having done this before, it took me a couple of
+tries to get the actual signing process right after the party. Here's what I
+learned, and how you should do it. Probably.
+
+<p>I used a fresh installation of Debian, and a similar setup will be assumed
+for the remainder of this post. This leads naturally into a disclaimer: as I'm
+using a VM solely for party signing, and this is a quick dump of what I've done,
+please don't follow this blindly in a home directory with your complete
+keyrings, etc.
+
+<p>Start by installing <code>caff</code>:
+
+<pre># apt-get install signing-party</pre>
+
+<p><code>exim4</code> will be automatically installed for email support, but
+it won't work until configured. Assuming you're using Gmail or Google Apps:
+
+<pre># dpkg-reconfigure exim4-config</pre>
+
+<ul>
+	<li><code>mail sent by smarthost; received via SMTP or fetchmail</code>
+	<li>System mail name: <code>localhost</code>
+	<li>IP addresses to listen on: <code>127.0.0.1</code>
+	<li>Other destinations: empty
+	<li>Machines to relay mail for: empty
+	<li>Outgoing smarthost: <code>smtp.gmail.com::587</code>
+	<li>Hide local mail name: NO
+	<li>Minimise DNS queries: NO
+	<li>Delivery method: <code>mbox format in /var/mail/</code>
+	<li>Split configuration: YES
+</ul>
+
+<p>If you use two-factor authentication, generate and use an
+application-specific password here now; your primary password will not work.
+
+<pre>
+# LOCALUSER='delan'
+# EMAILADDR='delan@azabani.com'
+# EMAILPW='...'
+# echo "*.google.com:$EMAILADDR:$EMAILPW" >> /etc/exim4/passwd.client
+# echo "$LOCALUSER: $EMAILADDR' >> /etc/email-addresses
+# echo "$LOCALUSER@localhost: $EMAILADDR' >> /etc/email-addresses
+# echo "$LOCALUSER@$HOSTNAME: $EMAILADDR' >> /etc/email-addresses
+# echo "$LOCALUSER@$HOSTNAME.localdomain: $EMAILADDR' >> /etc/email-addresses
+# update-exim4.conf
+# invoke-rc.d exim4 restart
+</pre>
+
+<p>Send a testing email to yourself to make sure the mail server actually
+works, ending your message entered on stdin by pressing <code>^D</code>:
+
+<pre>
+$ mail -s 'Testing exim4 configuration' delan@azabani.com
+Hello, world!
+</pre>
+
+<p>Now that the mail server is configured, set up caff and gnupg. The former is
+pretty simple, just add something like this to <code>~/.caffrc</code>:
+
+<pre>
+$CONFIG{'owner'} = 'Delan Azabani';
+$CONFIG{'email'} = 'delan@azabani.com';
+$CONFIG{'keyid'} = [ qw{0548747618416AA7} ];
+</pre>
+
+<p>Now you'll need to add <code>ask-cert-level</code> to <code>gpg.conf</code>
+if you want to be able to create <code>sig3</code> trusted signatures (which
+you should only do if your party carefully checked photo identification). The
+<code>keyserver</code> declaration is simply because I prefer MIT's PGP
+keyserver.
+
+<pre>
+$ echo 'ask-cert-level' >> ~/.gnupg/gpg.conf
+$ echo 'keyserver hkp://pgp.mit.edu' >> ~/.gnupg/gpg.conf
+</pre>
+
+<p>It's probably a bad idea, but if you want to temporarily remove your private
+key's passphrase to make signing easier, do this:
+
+<pre>
+$ gpg --edit-key Delan
+gpg> passwd
+</pre>
+
+<p>If you do, remember to secure it again afterwards, of course. Now import the
+public keys you want with gpg, and set up caff to read from <code
+>~/.gnupg/</code>:
+
+<pre>
+$ caff
+$ for i in `ls .gnupg`; do ln -sv ~/.gnupg/$i ~/.caff/gnupghome/$i; done
+</pre>
+
+<p>Finally, run <code>caff</code> on the key IDs you want to sign:
+
+<pre>$ caff --no-download $KEYID1 $KEYID2 ... $KEYIDn</pre>
+
+<p>If you want to push your signatures to a public keyserver immediately,
+you'll first need to copy caff's <code>pubring.gpg</code> back to <code
+>~/.gnupg/</code> because it replaces the symlink with a separate file.
+
+<pre>
+$ cp -v ~/.caff/gnupghome/pubring.gpg ~/.gnupg/
+$ gpg --send-keys $KEYID1 $KEYID2 ... $KEYIDn
+</pre>
