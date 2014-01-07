@@ -1,0 +1,53 @@
+---
+layout: default
+title: make error 253 when installing any Ruby gems on Windows
+date: 2014-01-07 23:30:00 +0800
+---
+
+<p>Recently I've been unable to install any gems that require native extensions.
+This included both rdiscount and wdm, the latter of which I need to run <code
+>jekyll serve -w</code> and automatically rebuild sites as needed on Windows.
+The cause of the problem turned out to make no sense.
+
+<pre>
+Active code page: 65001
+generating rdiscount-x64-mingw32.def
+make: *** [rdiscount-x64-mingw32.def] Error 253
+</pre>
+
+<p>Perhaps it was the code page? To force the use of UTF-8 everywhere, mainly
+so that Liquid doesn't break on Unicode characters when running Jekyll, I had
+set up <code>cmd.exe</code> to <code>chcp 65001</code> whenever opened by
+creating the registry key:
+
+<pre>
+HKEY_CURRENT_USER\Software\Microsoft\Command Processor\AutoRun REG_EXPAND_SZ
+</pre>
+
+<p>Disabled that, tried again, no change, so I put it back. Stuck for an hour
+or two, I came back and tried running <code>make</code> manually on the gem
+directory, and lo and behold, a window exclaimed that <code>sh.exe has stopped
+working</code>.
+
+<pre>
+Problem signature:
+  Problem Event Name:	APPCRASH
+  Application Name:	sh.exe
+  Fault Module Name:	KERNELBASE.dll
+  Exception Code:	c00000fd
+</pre>
+
+<p>Confirming this, running the DevKit's <code>sh</code> crashes, while <code
+>bash</code> does not. I then took the opportunity to upgrade from Ruby 1.9.3
+to 2.0.0, but sadly nothing changed still.
+
+<p>After some further investigation, it turns out that <code>sh</code> has a
+stack overflow when being run through <a href="https://github.com/adoxa/ansicon‎"
+>ansicon</a>, a wrapper that processes ANSI escape sequences output from a
+Win32 console. I had Console2 configured to run <code>cmd.exe</code> through
+it, so that all programs were essentially wrapped, and any sequences output by
+them would work as expected.
+
+<p>Simple solution: when running <code>gem</code>, open <code>cmd.exe</code>
+directly. It's not like <code>gem</code> has coloured output or anything, so
+you're not missing out.
