@@ -77,9 +77,15 @@ you should only do if your party carefully checked photo identification). The
 keyserver.
 
 <pre>
+$ echo 'expert' >> ~/.gnupg/gpg.conf
 $ echo 'ask-cert-level' >> ~/.gnupg/gpg.conf
 $ echo 'keyserver hkp://pgp.mit.edu' >> ~/.gnupg/gpg.conf
 </pre>
+
+<p>I turn on expert mode permanently because it allows you to sign keys that
+you have already previously signed, which isn't allowed by default. This was
+required for a few keys which I had previously <code>sig</code>'d, but now
+wanted to <code>sig3</code> upon more stringent identity verification.
 
 <p>It's probably a bad idea, but if you want to temporarily remove your private
 key's passphrase to make signing easier, do this:
