@@ -1,0 +1,89 @@
+---
+layout: default
+title: linux.conf.au 2014, day 3&#58; fruit flies and firmware
+date: 2014-01-08 22:00:00 +0800
+---
+
+<p>I can honestly say without a doubt, that for all three days in a row of LCA
+2014 so far, each was better than the last. At least one session every day
+set the record for what I'd consider to be the best talk. At this rate, I have
+no idea where the remaining two days will head.
+
+<p>Following a very late night figuring out the aftermath of yesterday's key
+signing party, my insufficient sleep made for a lethargic start, but some
+thought provoking lightning talks of under two minutes each quickly changed
+the situation.
+
+<p>Now familiar from past miniconfs, Elizabeth Krumbach Joseph then returned
+to provide an architectural overview of the OpenStack virtual server
+architecture, providing advice on how to share infrastructure configuration
+with the community, while automatically keeping sensitive credentials safe.
+
+<p>Dave Chinner, also previously speaking at the Linux kernel miniconf, gave
+a very detailed analysis of the history of filesystems since the 1970s, as
+well as data about when crucial features such as directories, journaling,
+extents, automatic block integrity, COW, wandering logs and so on were
+introduced in various filesystems implemented in the Linux kernel.
+
+<p>Interestingly, while ext2 and ext3 almost completely ceased to gain new
+features after a few years from their creation, ext4 has continued to do so
+until today. btrfs has almost exclusively grown on a LOC basis, recently
+surpassing the long-living XFS, which has been in active feature development
+since the early 1990s, while consistently decreasing in LOC. I've stuck with
+ext4 exclusively out of habit, but perhaps I should give XFS a fair go.
+
+<p>Google's Marc Merlin outlined the process of upgrading thousands of servers
+from Red Hat 7.1 to a decade-newer version of Debian, completely in place,
+without rebooting. Essentially, a sudden jump would be impossible due to things
+like incompatible changes to the standard C library, but with incremental
+updates and tricky package conversions, it's now a reality.
+
+<p>Thomas Petazzoni's presentation on Buildroot has truly inspired me. Take any
+embedded hardware system as a target, plus 20-100 lines of menu-generated
+configuration, and Buildroot will compile an entire kernel, rootfs and packages
+tailored to your needs and the target's capabilities. Both internal and external
+toolchains are supported, and popular platforms like the Raspberry Pi and
+Cubieboard have minimal profiles readily available.
+
+<p>Equipped with two Raspberry Pi boards and potentially a passively cooled
+industrial PC, there are a huge range of possibilities I could experiment with.
+If things pan out, it'd be really rewarding for me to have a chance to
+contribute to the project as well. Hey, Google uses Buildroot — I wonder if
+the Buildroot leaders have considered participating in Google Summer of Code...
+but I digress.
+
+<p>However, the best talk of the conference by far was Matthew Garrett's <i
+>Reverse engineering vendor firmware drivers for little fun and no profit</i>.
+While carefully avoiding mentioning the offending vendor, who also happens to be
+a major sponsor of the entire conference, Garrett fixatingly walks us through
+the painful saga of finding out just how this firmware configuration program
+works.
+
+<p>Somehow managing to avoid every correct way of doing things, the program uses
+almost no system calls that one would expect to see. It turns out that it:
+
+<ul>
+	<li>reads from and writes to PCI configuration data in userspace
+	<li>reads from and writes to CMOS data in userspace
+	<li>loads machine code directly from the BIOS and executes it in
+	    userspace
+</ul>
+
+<p>To clarify, these are all <i>really</i> bad things to do, and the first two
+are especially dangerous; without using lockable kernel routines, catastrophic
+race conditions are possible because the "write address" and "I/O data" steps
+do not form a single atomic "transaction". Garrett was told not to run the
+program while <code>ntpd</code> is running, as it too interacts with the CMOS.
+
+<p>After four severely overworked days, many tears and even more alcohol, he
+successfully reimplements the software. As ridiculous as it is, this may have
+been a result of a direct port of a DOS utility to Linux, maintaining the same,
+necessary unsafe routines, but even so, that's still poor form and very lazy.
+
+<p>In a surprisingly positive end to the story, the vendor has since contacted
+Garrett and has agreed to improve future versions of the software to eliminate
+these serious flaws. To conclude, he was asked by a member of the audience to
+compare this experience to his past researching fruit flies. This led to a very
+astute and hilarious attempt to draw connections between them, and Garrett thus
+arrived at the understanding that this recent bout of software reverse
+engineering came out on top.
