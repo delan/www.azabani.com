@@ -1,0 +1,62 @@
+---
+layout: default
+title: linux.conf.au 2014, day 4&#58; Trent and the batteryists
+date: 2014-01-09 17:00:00 +0800
+---
+
+<p>LCA 2014 is really coming into its own now, and although it'd be great to
+finally get a chance to sleep, it's more regrettable that there's only one day
+left. Today's mandatory surprise was finding out that Rusty Russell was not
+simply a volunteer that held the newcomers' introduction.
+
+<p>It turns out that Rusty, or rather, Paul Russell, was not only the creator
+of CALU, the precursor to linux.conf.au before its name chnaged, but also the
+original author of iptables and netfilter in the Linux kernel. Pretty amazing
+stuff.
+
+<p>First up was my first time watching the engaging Trent Lloyd. It turns out,
+according to this Oracle support engineer and chairman of Australia's premier
+LAN party, that bigger numbers in <code>my.cnf</code> are not always better.
+Boosting the hundreds of available options to 'optimise' your database could
+lead to frequent OOM kills or worse, pathological cache invalidation
+performance.
+
+<p>Paul McKenney struggles to please energy efficiency worshippers, also known
+as battery users, while optimising scheduler interrupts in the Linux kernel
+towards reducing overhead from a 'bare metal' software configuration for the
+HPC crowd. Safely keeping track of which CPUs are actually idle without any
+race conditions turns out to be surprisingly difficult.
+
+<p><i>Petitboot: doing interesting things in your bootloader</i> by Jeremy Kerr
+showed that typical bootloaders are far more than just loading a kernel from
+disk, jumping to it, and maybe providing a bit of UI in between. Modern boot
+code in firmwares and bootloaders have a large amount of code for things like
+network booting, disk drivers, basic filesystem support, iSCSI, a TCP/IP stack
+and more.
+
+<p>This seems incredibly familiar, almost like an operating system. So instead
+of having all of this redundancy, why not use a Linux kernel itself as the
+bootloader, and simply have just enough external code to jump to it? By doing
+so, Petitboot has all of the features of a Linux kernel, and can even
+efficiently boot the user's OS, given that it can be a kexec target.
+
+<p>However, the possibilities this opens are immense. You can now boot, say, a
+Linux kernel downloaded over HTTP, or FTP, or even BitTorrent. That'll surely
+save some resources by being distributed, right? One could even create a
+website for a friendly, online custom kernel configuration method, and
+dynamically serve the compiled kernels to Petitboot clients. Uh oh, I think I'm
+onto something here.
+
+<p>Luke managed to get Linus to sign his Macbook. I'm insanely jealous.
+
+<p>UCC member of at least 17 years and now a Debian Developer working at AWS,
+James Bromberger detailed the process of using Amazon S3 and Glacier to
+reliably, securely and efficiently host Debian images and packages, as well as
+the Debian snapshot archive, which includes every version of every package in
+history. I've managed to get a chance to help out with the web request
+frontend, where users can fetch from Glacier through S3 and EC2.
+
+<p>With more lightning talks, a D-Bus presentation by Lennart Poettering, the
+Rust programming language and <i>TCP Tuning for the Web</i>, I can't wait to
+see what the impending final day has to offer. Meanwhile, sleep is great; you
+should probably try it.
