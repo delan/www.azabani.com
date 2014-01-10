@@ -1,0 +1,41 @@
+---
+layout: default
+title: linux.conf.au 2014, day 5&#58; sockets, satellites and scaling
+date: 2014-01-10 20:00:00 +0800
+---
+
+<p>I suppose that's it. As I've mentioned, linux.conf.au, my first technical
+conference, can only be described as a rollercoaster that was over too soon
+looking back. I've learned more from experts in open source communities in
+these last five days than I probably have in months of my own accord. Let's
+take a look at the last day.
+
+<p>Lennart Poettering's <i>D-Bus in the kernel</i> woke me up to a blind spot
+in my knowledge: inter-process communication. Linux is apparently unlike most
+other modern operating systems in that the kernel only provides IPC primitives
+such as sockets, FIFOs and shared memory, but no richer interfaces built on
+them.
+
+<p>That's where D-Bus aims to fill the gap, and among other things, moving it
+into the kernel will help improve performance (message copies, validations and
+context switches) from 10/4/4 to 2/2/2 for a full-duplex message.
+Radical. Impressive.
+
+<p><i>Simple DIY Engine Management for simple software hackers</i> by Josh
+Stewart showed that it's possible to make an inexpensive, hacker-friendly
+engine management system for passenger vehicles using an Arduino. I'm
+nevertheless slightly concerned about an increase in natural selection
+occurring given bad inputs to the programmable microcontroller.
+
+<p>Rusty Russell proposes an alternative transaction network for Bitcoin that
+makes some compromises to reliability of verification in favour of a system
+that will scale far more easily through to a future of 100,000 transactions
+per second and higher.
+
+<p>Concluding the conference, Jason Cook drilled down to the most effective
+means of tuning TCP in the kernel, sofware and hardware to achieve optimal
+performance for the Web and similar network traffic patterns.
+
+<p>The next two linux.conf.au events will be held in Auckland and Geelong
+respectively, so I suppose I'd better start saving up now. Good night, fellow
+hackers!
