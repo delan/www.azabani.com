@@ -1,0 +1,38 @@
+---
+layout: default
+title: Better MIDI playback on Windows
+date: 2014-01-13 20:00:00 +0800
+---
+
+<p>The default software synthesiser on Windows can show its limits when playing
+too many notes at once. Take <a href="/static/unknown.mid">this piece</a> for
+instance, which heavily glitches at 2:07 on the large descending sweep of
+notes. Let's fix that, shall we?
+
+<p>A brief detour is unavoidable here for public safety. The piece above is
+not, and has no relation to John Stump's <a href="http://youtu.be/QkjX7Q-b1IM"
+><i>Faerie's Aire and Death Waltz</i></a>, which is a piece of sheet music
+artistic in its own form, completely unintended to be played. In fact, it's a
+piano arrangement of <a href="http://youtu.be/cDz9X2X3MTc">COOL&amp;CREATE's
+remix</a> of <a href="http://youtu.be/8jJZA-O_B78">U.N. Owen was her?</a>, a
+stage theme in the Touhou Project. At least two YouTube users uploaded this
+piece with the completely incorrect name, causing <a
+href="http://youtu.be/JviRDAaoZ1M">much confusion</a>.
+
+<p>Without using a different synthesiser, <a href="http://synthesiagame.com/"
+>Synthesia</a> plays the piece slightly better, but still glitches unlike
+Mac OS X or TiMidity++ on Linux. Because Synthesia separates the tracks in a
+file and allows you to individually enable them, I suspect that it instantiates
+a separate synth for each track, then has their outputs mixed afterwards, thus
+being less likely to hit the note limit. I don't actually know if it works this
+way, so take this with a grain of salt.
+
+<p>Installing the <a href="https://kode54.net/bassmididrv/">BASSMIDI</a>
+software synth fixed the playback issues. However the recommended soundfont,
+<a href="http://www.simpilot.net/~richnagel/#soundfonts">WeedsGM3.sf2</a>
+appears to have a less clear piano sound than the Windows default <code
+>gm.dls</code>. Rather than try to convert the latter to SoundFont 2.0 format,
+I've found another that sounds better than both: <a
+href="http://www.geocities.jp/shansoundfont/">Shan's Soundfont</a>. Of course,
+the improved sample quality comes at an expense: a file size over four times as
+large, but it's completely worth it if you're like me and you have a large collection of MIDI music.
