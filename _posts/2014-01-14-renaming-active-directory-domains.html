@@ -1,0 +1,73 @@
+---
+layout: default
+title: Renaming Active Directory domains
+date: 2014-01-14 18:00:00 +0800
+---
+
+<p>Last night I tried to implement DNSSEC on <code>azabani.com</code> without
+any prior knowledge. That went badly, and I lost mail for at least a few hours.
+I've separated my experimental Active Directory domain off onto <code
+>azabani.org</code>, where I can safely try DNSSEC again without losing mail,
+but the migration process wasn't straightforward.
+
+<p>In the past, to rename the AD domain <code>home.azabani.com</code> to <code
+>azabani.com</code>, I simply set up the domain controller from scratch, then
+reimaged clients. However, this requires a lot of unnecessary time, as well as
+much manual correction of user profile and registry permissions.
+
+<p>To summarise, <a
+href="http://technet.microsoft.com/en-us/library/cc738208%28v=ws.10%29.aspx"
+>renaming an AD domain</a> is as follows:
+
+<ol>
+	<li>Create a new forward lookup DNS zone for the new root domain name.
+	<li><pre>rendom /list</pre>
+	<li>Edit <code>Domainlist.xml</code> to use the new root domain name.
+	<li>
+<pre>
+rendom /showforest
+rendom /upload
+rendom /prepare
+rendom /execute
+</pre>
+	<li>Reboot the domain controller.
+	<li>
+<pre>
+gpfixup /olddns:azabani.com /newdns:azabani.org
+rendom /clean
+rendom /end
+</pre>
+</ol>
+
+<p>However, that doesn't actually rename the domain contoller's FQDN itself.
+While Microsoft says that doing so is optional, it seems like a good idea to do
+anyway, as <code>azabani.com</code> is now being used elsewhere, and the domain
+controller will otherwise not resolve externally.
+
+<p>Again to summarise what <a
+href="http://technet.microsoft.com/en-us/library/cc816601%28v=ws.10%29.aspx"
+>Microsoft has to say</a> about this:
+
+<ol>
+	<li>
+<pre>
+netdom computername OLDFQDN /add:NEWFQDN
+netdom computername OLDFQDN /makeprimary:NEWFQDN
+</pre>
+	<li>Reboot the domain controller.
+	<li>
+<pre>
+netdom computername NEWFQDN /remove:OLDFQDN
+</pre>
+</ol>
+
+<p>I've omitted a few steps that are required for those with multiple domain
+controllers, those who are renaming the NetBIOS domain name, and/or those who
+are renaming the leaf computer name of the domain controller, so follow the
+links above if you have a more complex migration situation, as this'll probably
+be incomplete.
+
+<p>Strangely enough, without rebooting any clients, they all immediately
+became a member of the "new" domain (technically the same AD domain, with a
+new root FQDN), and their fully qualified computer names updated as well.
+I'll consider myself impressed.
