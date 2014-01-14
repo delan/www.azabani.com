@@ -61,6 +61,11 @@ netdom computername NEWFQDN /remove:OLDFQDN
 </pre>
 </ol>
 
+<p>That's not all, in fact. If you're like me and use the domain controller as
+a DHCP server, it will continue to distribute the old root FQDN as the default
+DNS search suffix. To correct this, go to the DHCP snap-in, and for each
+scope's options, change <code>015 DNS Domain Name</code> as necessary.
+
 <p>I've omitted a few steps that are required for those with multiple domain
 controllers, those who are renaming the NetBIOS domain name, and/or those who
 are renaming the leaf computer name of the domain controller, so follow the
