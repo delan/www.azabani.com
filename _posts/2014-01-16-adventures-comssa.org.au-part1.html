@@ -1,0 +1,79 @@
+---
+layout: default
+title: Adventures of comssa.org.au, part 1
+date: 2014-01-16 03:00:00 +0800
+---
+
+<p>ComSSA's public website has been left untouched for years, and lacked vital
+information for potential and current members. Nothing fancy, all we need is
+location, contact, membership and event information. I've been delegated the
+task of setting up a new website for the club, and I've discovered a fair bit
+on the first night.
+
+<p>Previously, we had used an ASP.NET shared hosting provider, which was
+definitely overkill. We've halved our ongoing costs by switching to <a
+href="https://digitalocean.com">DigitalOcean</a>, gaining the flexibility of
+a Linux VPS with root in the process. My first impressions are positive; I
+especially like the ability to create, reimage and destroy droplets (their
+term for a VPS) in 60 seconds each.
+
+<p>At the moment, I'm using a <a href="https://github.com/delan/comssa"
+>hacky shell script on GitHub</a> to consistently manage the server's
+initial configuration. This is a really bad idea, especially so given the
+existence of Puppet, Chef, etc. Have I learned nothing from #lca2014? This is
+all temporary, I promise. *
+
+<p>As DigitalOcean does not currently provide IPv6 connectivity, Hurricane
+Electric comes to the rescue with its <a href="https://tunnelbroker.net"
+>Tunnelbroker service</a>. To my surprise, you receive an allocation of not
+only a /64, but a /48 as well, all to yourself. Holy cavalier distribution of
+addresses, Batman! I'm not sure if I feel good or bad about this. I think it's
+both, like a guilty pleasure.
+
+<p>Configuration in <code>/etc/network/interfaces</code> was dead easy:
+
+<pre>
+auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+address 2001:470:7c85::1
+netmask 48
+endpoint 216.66.84.46
+ttl 255
+gateway 2001:470:1f14:116e::1
+</pre>
+
+<p>DigitalOcean's free DNS service is pretty but lacks the ability to even
+create AAAA records, which is annoying. Thankfully, Hurricane Electric also
+provides a <a href="https://dns.he.net">free DNS service</a>, which I've used
+in the past as a secondary nameserver network.
+
+<p>It appeared that <i>reverse</i> DNS to tunnel addresses only worked for the
+/48 but not the /64, but a few emails back and forth fixed the issue. Even
+though being forced to use the subnet that's 65536 times as large isn't really
+a big problem, I'm impressed at the support turnaround of under an hour.
+
+<p>One small problem I'm yet to work out is why <a
+href="https://github.com/delan/lookout">lookout</a> is returning the wrong
+FQDN, now that I've set up reverse DNS for both IPv4 and IPv6. Although that
+looks like the remedy here, I can't switch to using <code
+>socket.gethostname()</code> because on Windows, that yields the NetBIOS name,
+and <code>socket.getfqdn()</code> is the correct method to use.
+
+<pre>
+ling% dig -x 146.185.129.226 | grep -A1 'ANSWER SECTION' | tail -1
+226.129.185.146.in-addr.arpa. 12707 IN  PTR     ling.comssa.org.au.
+ling% dig -x 2001:470:7c85::1 | grep -A1 'ANSWER SECTION' | tail -1
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.5.8.c.7.0.7.4.0.1.0.0.2.ip6.arpa.
+    20015 IN PTR ling.comssa.org.au.
+ling% python
+>>> socket.getfqdn()
+'comssa-1-pt.tunnel.tserv11.ams1.ipv6.he.net'
+>>> socket.gethostname()
+'ling.comssa.org.au'
+</pre>
+
+<p>The last seven hours have been an interesting ride. It's only now occurred
+to me that I haven't started working on the actual website itself. Not to
+worry, stay tuned and it will debut in the next few weeks. Hopefully.
+
+<p>* <i>Promises to replace hacky shell scripts are almost always broken.</i>
