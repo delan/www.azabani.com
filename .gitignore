@@ -4,3 +4,4 @@ about/public/*.aux
 about/public/*.log
 about/public/*.out
 about/public/*.synctex.gz
+_posts/9999-*
