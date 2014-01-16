@@ -52,9 +52,9 @@ in the past as a secondary nameserver network.
 though being forced to use the subnet that's 65536 times as large isn't really
 a big problem, I'm impressed at the support turnaround of under an hour.
 
-<p>One small problem I had struggled to figure out is why <a
-href="https://github.com/delan/lookout">lookout</a> was returning the wrong
-FQDN, since I've set up reverse DNS for both IPv4 and IPv6. Although it
+<p>One small problem I'm yet to work out is why <a
+href="https://github.com/delan/lookout">lookout</a> is returning the wrong
+FQDN, now that I've set up reverse DNS for both IPv4 and IPv6. Although that
 looks like the remedy here, I can't switch to using <code
 >socket.gethostname()</code> because on Windows, that yields the NetBIOS name,
 and <code>socket.getfqdn()</code> is the correct method to use.
@@ -71,10 +71,6 @@ ling% python
 >>> socket.gethostname()
 'ling.comssa.org.au'
 </pre>
-
-<p>The next morning, that issue fixed itself though. Perhaps some insidious
-caching of the PTR record was in effect, because now both methods return the
-correct FQDN.
 
 <p>The last seven hours have been an interesting ride. It's only now occurred
 to me that I haven't started working on the actual website itself. Not to
