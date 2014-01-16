@@ -1,0 +1,50 @@
+---
+layout: default
+title: Adventures of comssa.org.au, part 2
+date: 2014-01-17 01:30:00 +0800
+---
+
+<p>In another daily episode of configuring ComSSA's new website and Internet
+services, here's what I've been up to. The DigitalOcean server has been set up,
+users are logged in smoothly, the wiki and chan are installed and the website
+is ready to run. I should get some sleep now before I become fully nocturnal.
+
+<p>Hosting the website on GitHub Pages is probably easier and more reliable
+than doing so on the new server, especially because committee members can
+update it by simply committing and pushing to a Git repository. To do this, I
+needed to create a GitHub organisation account, but someone had taken the
+username "comssa". Thankfully, GitHub's policy is to release usernames upon
+request if there are no commits, repositories or other activity. A brief email
+to their support team and the issue was sorted in a few hours.
+
+<p>I've rewritten the shell script used to configure the server. Alas, it's
+still a collection of shell scripts, but it's been refactored heavily. The
+majority of the configuration is achieved with an overlay directory, which
+contains a FHS-like hierarchy of files to be overwritten in the root file
+system. As some added bonuses, I've set a hard nproc ulimit to prevent
+forkbombs taking down the server, and created a pretty login banner.
+
+<p><img src="/images/motd.png">
+
+<p>The old internal wiki used MediaWiki, which is insanely overkill, so I've
+installed DokuWiki instead, which uses a lightweight flat-file storage backend.
+While there aren't quite so many pages that manual migration would be unwieldy,
+I tried looking for migration scripts in the hope that they'd preserve users
+and revision histories. Sadly, neither <a
+href="http://www.staerk.de/thorsten/Software/Mediasyntax">Mediasyntax</a> nor <a
+href="https://github.com/tetsuo13/MediaWiki-to-DokuWiki-Importer"
+>MediaWiki2DokuWiki</a> support any more than migrating page and media content.
+
+<p>ComSSA used to have a traditional web forum, which has also fallen into
+relative disuse over the years. We agreed that a more casual imageboard format
+resembling 2ch would be better going forward. The package of choice was <a
+href="http://kusabax.cultnet.net/">Kusaba X</a>, but to my great frustration,
+I spent several hours failing to install it with no error messages of any sort.
+I eventually discovered that the sqlite backend support appears to be broken,
+as when using MySQL, it works perfectly. That'll teach me for trying to
+prematurely optimise RAM usage!
+
+<p>Now I can safely say that the infrastructure is complete. The website, wiki
+and chan are all ready to accept content, which I'll start working on tomorrow,
+and we can start the slow march towards an uptime record moving ever forward.
+Who am I kidding? I'll probably break something pretty soon.
