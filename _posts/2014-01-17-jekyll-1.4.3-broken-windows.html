@@ -1,0 +1,27 @@
+---
+layout: default
+title: Jekyll 1.4.3 is broken on Windows
+date: 2014-01-18 01:00:00 +0800
+---
+
+<p>Just a heads up: Jekyll released version 1.4.3 a few days ago, and it is
+completely broken on Windows — not even standard site builds will work. Make
+sure you force gem to install version 1.4.2 until the bug is fixed.
+
+<p>If you see this when building a site:
+
+<pre>
+C:\Users\delan\Documents\GitHub\delan.github.io>jekyll serve -w
+Configuration file: C:/Users/delan/Documents/GitHub/delan.github.io/_config.yml
+            Source: C:/Users/delan/Documents/GitHub/delan.github.io
+       Destination: C:/Users/delan/Documents/GitHub/delan.github.io/_site
+      Generating... error: Invalid argument - C:/Users/delan/Documents/GitHub/de
+lan.github.io/_site/C:. Use --trace to view backtrace
+</pre>
+
+<p>Do this:
+
+<pre>
+gem uninstall jekyll
+gem install jekyll --version "=1.4.2"
+</pre>
