@@ -1,0 +1,91 @@
+---
+layout: default
+title: Adventures of comssa.org.au, part 3
+date: 2014-01-18 22:00:00 +0800
+---
+
+<p>At last, <a href="http://www.comssa.org.au">the new website</a> is alive,
+the internal wiki has been painstakingly migrated by hand and the channel is
+ready for posting. Hang on, there were some other services on the old host too?
+Not to worry, I've got it all covered.
+
+<p>I decided that finding a good script to port over a wiki with under fifty
+pages wasn't worth it, and dug straight into the job myself. It was a brilliant
+opportunity to spot and correct outdated information along the way, of which
+there was a fair bit. Understandable, given that it's been around for over
+seven years. That was the least of my troubles, though.
+
+<p>The website was quite enjoyable to create, and I learned a couple of things
+about responsive design along the way. Granted, the extent of my "responsive"
+layout was ensuring that small viewports get a vertical navigation and no
+floating images, but hey. One thing that tripped me up is that I needed to add
+a <code>&lt;meta&gt;</code> for the viewport, otherwise mobiles will try to
+emulate a desktop browser's large viewport, defeating my efforts.
+
+<pre>
+&lt;meta name="viewport" content=
+"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</pre>
+
+<p>It was then that I realised that we had an email service with our old host,
+providing nice addresses like <code>president@comssa</code> and so on. My past
+experiences setting up MTAs like qmail and sendmail instilled a great fear that
+was difficult to shake. Debian's version of Exim was extremely easy to set up
+though, almost too easy. A working mail server was a quick <code
+>dpkg-reconfigure exim4-config</code> and a small handful of questions away.
+
+<p>It turns out that from there, it's all smooth sailing. Local mailbox aliases
+go in <code>/etc/aliases</code> and external targets are supported, which means
+I don't need to create a whole shell account for mere mail forwarding. Shell
+account users can also manually forward by editing <code>~/.forward</code> and
+adding their target address. When UCC said that the <code>~/.forward</code>
+system was magic, they were right in a sense, but it requires no incantations
+on the wizard's part.
+
+<pre>
+$ cat /etc/aliases
+...
+root: delan
+president: callum
+club: comssa@lists.curtin.edu.au
+</pre>
+
+<p>Here's where things get ugly. A certain commitee member, who will remain
+anonymous, decided it would be a great idea to run our own mailing list,
+instead of a torturous, masochistic idea. So <code>mailman</code> was
+installed. The pain enters where I try to get the traditional CGI web interface
+working. Now, Nginx doesn't support CGI directly, so we'll need to get a bit
+more creative by proxying either over HTTP or FastCGI.
+
+<p>In the space of three hours, I tried and failed to configure mailman with
+thttpd (removed from Debian), mini-httpd (doesn't appear to execute CGI),
+lighttpd (HTTP 400 everywhere), and then far too late, I found fcgiwrap. This
+thinly wraps CGI scripts in a FastCGI server interface. Sounds great? It is,
+although it took me much longer than it should have to get everything connected.
+
+<p>The most frequent errors I encountered were fcgiwrap failing to chdir() into
+the script itself (which is obviously invalid) or the wrapper returning no
+output to Nginx. It turns out that misconfiguration of Nginx was the cause,
+specifically surrounding the script filename and path info, but I didn't get on
+track until I found <a href=
+"http://people.adams.edu/~cdmiller/posts/Ubuntu-Mailman-Nginx-Fcgipass/"
+>Cameron Miller's post</a> on the subject.
+
+<p>Still, Miller's solution has a few shortcomings. A minor one is that there
+are no aliases for the mailman icons or the archives, which is easily fixable.
+The broader issue is that he chose to eliminate <code>/cgi-bin/</code> from the
+resultant paths, which requires a change to <code>DEFAULT_URL_PATTERN</code> in
+<code>/etc/mailman/mm_cfg.py</code>.
+
+<p>The crux of the problem is that mailman doesn't consistently use that
+variable; in some places <code>/cgi-bin/</code> is hardcoded such as the links
+in the list of lists. Do yourself a favour and accept that <code
+>/cgi-bin/mailman/</code> will be part of every mailman URL. For a bit of
+fun and relaxation after I figured that out, I made shell accounts have static
+web hosting in <code>~/.www/</code> with a much more straightforward
+configuration.
+
+<p>Most of today's toil went into <code>nginx.conf</code>, which you can find
+among many other scripts and configuration files in the omniscient <a href=
+"http://github.com/ComSSA/servers/blob/master/ling/overlay/etc/nginx/nginx.conf">ComSSA server repository</a> on GitHub. It looks like we're at the end of this
+thrilling ride. Long live ComSSA!
