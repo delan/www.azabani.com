@@ -1,0 +1,43 @@
+---
+layout: default
+title: Forwarding Curtin email
+date: 2014-01-23 10:00:00 +0800
+---
+
+<p>In an effort to avoid using any email UI other than the familiar embrace of
+Gmail via Google Apps, one of the first things I did when I became a Curtin
+student was to forward my email. I couldn't quite filter all of the incoming
+emails properly though, until last night I had a sudden realisation.
+
+<p>Most emails to my Curtin account look something like this:
+
+<pre>
+Delivered-To: delan@azabani.com
+Return-Path: &lt;delan.azabani@student.curtin.edu.au>
+Resent-From: &lt;delan.azabani@student.curtin.edu.au>
+To: &lt;delan.azabani@student.curtin.edu.au>
+</pre>
+
+<p>The obvious approach was to configure the Outlook Web App to forward email
+to delan@azabani.com, and that seemed to work reasonably. On the Gmail side, I
+simply created a filter that took all emails matching <code
+>to:delan.azabani@student.curtin.edu.au</code> and added the <code>curtin</code
+> label to them.
+
+<p>Except that didn't work for the significant minority of messages where all
+of the recipients were blind carbon copied, myself included. Why not filter on
+the <code>Return-Path</code> or <code>Resent-From</code> headers? Gmail doesn't
+allow users to search arbitrary headers, only those that are whitelisted. This
+includes <code>From</code>, <code>To</code>, <code>Subject</code>, <code
+>Cc</code>, <code>Bcc</code> and <code>Message-ID</code>.
+
+<p>Gmail also allows you to search the <code>Delivered-To</code> headers of
+messages, and this seemed useless to me because the value would always be <code
+>delan@azabani.com</code>. There's where the realisation hit me: combined with
+Gmail's automatic "plus" aliasing, the <code>Delivered-To</code> header is in
+fact the perfect solution.
+
+<p>Now that I forward Curtin messages to <code>delan+curtin@azabani.com</code>
+and filter on <code>deliveredto:delan+curtin@azabani.com</code>, no more
+emails need to be manually labelled. In retrospect, that it took me over a year
+as a Curtin student to forward my mail properly is somewhat disappointing.
