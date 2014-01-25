@@ -42,7 +42,7 @@ Problem signature:
 to 2.0.0, but sadly nothing changed still.
 
 <p>After some further investigation, it turns out that <code>sh</code> has a
-stack overflow when being run through <a href="https://github.com/adoxa/ansicon‎"
+stack overflow when being run through <a href="https://github.com/adoxa/ansicon"
 >ansicon</a>, a wrapper that processes ANSI escape sequences output from a
 Win32 console. I had Console2 configured to run <code>cmd.exe</code> through
 it, so that all programs were essentially wrapped, and any sequences output by
