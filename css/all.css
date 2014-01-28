@@ -121,3 +121,7 @@ nav a {
 	margin: 1em;
 	vertical-align: middle;
 }
+.post_image_half {
+	width: 50%;
+	vertical-align: top;
+}
