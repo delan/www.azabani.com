@@ -1,0 +1,71 @@
+---
+layout: default
+title: Glacier and snapshot.debian.org
+date: 2014-01-29 17:00:00 +0800
+---
+
+<p><a href="http://snapshot.debian.org/">Debian's snapshot archive</a> is a
+priceless resource containing every version of every Debian package ever
+released. With over 11 million files clocking into well over 16 TB, it's also
+presumably quite expensive to maintain, especially given that most files are
+accessed infrequently. Perhaps that can be improved though.
+
+<p>I met <a href="http://www.james.rcpt.to/">James Bromberger</a> at
+linux.conf.au earlier this month, and his presentation on migrating the archive
+to use Amazon Glacier was quite impressive. The archive can be stored at an
+order of magnitude lower expense ($160 versus $1295 per month for 16 TB) in
+exchange for retrieval times of around 3–5 hours.
+
+<p>The challenge that now arises is providing users with a retrieval method.
+Some ideas for the basic workflow were suggested:
+
+<ul>
+	<li>Have a web interface to allow users to find and request packages.
+	<li>Limit restorations to, for example, 100 per day to control costs.
+	<li>Redirect users directly to S3 URLs where files are live.
+	<li>Where a requested file has been archived in Glacier:
+	<ul>
+		<li>Reject the restoration if the quota has been exceeded.
+		<li>Commence restoration of the file from Glacier otherwise.
+	</ul>
+</ul>
+
+<p>Today I started hacking on a <a href="https://github.com/delan/snapfetch"
+>prototype</a> which currently has some of the above logic, but no pretty user
+interface on top as yet. Essentially, the current behaviour boils down to what
+is by far the most HTTP status codes I've ever used in one application:
+
+<ul>
+	<li><code>/</code> — list restorations initiated in the last 24 hours
+	<li><code>/blob/$hash</code> — retrieve S3 object identified by hash
+	<ul>
+		<li>If the file doesn't exist, throw a 404
+		<li>If the file is live, HTTP 307 to a generated S3 URL
+		<li>If the quota has been exceeded, throw a 503
+		<li>Otherwise, initiate restoration and return a 202
+	</ul>
+</ul>
+
+<p>Initially, HTTP 503 was suggested for every result other than a redirect,
+but I feel it's better to use distinct status codes so that programs can detect
+situations without checking the human-readable output. Also, returning a status
+code from the 2xx category for an initiated restoration seems like a semantic
+improvement.
+
+<p>To keep the code reasonably maintainable, I've actually thought about
+coupling and cohesion from the start, which is a first. It looks like the
+Software Engineering 110 knowledge that Dave bestowed upon me is working.
+Hopefully I can hold out on major refactoring for longer than I usually do.
+Currently the bulk of the Python code is spread out across several files:
+
+<ul>
+	<li><code>backend.py</code> — file restoration and quota business logic
+	<li><code>errors.py</code> — a variety of descriptive custom exceptions
+	<li><code>storage.py</code> — methods interacting with Amazon Glacier
+	<li><code>web.py</code> — the web interface which sits atop the backend
+</ul>
+
+<p>A tricky issue is mapping Debian package filenames, which are thankfully
+unique, to the S3 object keys, which in this situation are 160-bit hashes.
+Without a database this is impossible, but access to one may be on the horizon,
+should this prototype be found useful.
