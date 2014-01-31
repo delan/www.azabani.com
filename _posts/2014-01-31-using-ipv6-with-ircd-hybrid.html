@@ -1,0 +1,85 @@
+---
+layout: default
+title: Using IPv6 with IRCd-Hybrid
+date: 2014-01-29 20:00:00 +0800
+---
+
+<p>It's great to see that Hybrid has IPv6 support, but it's not quite perfect.
+Out of the box, while an attempt is made to listen on all interfaces over both
+protocols, "address already in use" errors for the listening sockets may appear
+in <code>/var/log/ircd/ircd-hybrid.log</code> — with a bit of configuration,
+this can be fixed though.
+
+<p>The following is the relevant excerpt of the initial <code
+>/etc/ircd-hybrid/ircd.conf</code>:
+
+<pre>
+listen {
+	port = 6665 .. 6669;
+};
+</pre>
+
+<p>Messages like this appeared in the log when Hybrid was started:
+
+<pre>
+binding listener socket irc.comssa.org.au[0::/6665]:Address already in use
+binding listener socket irc.comssa.org.au[0::/6666]:Address already in use
+binding listener socket irc.comssa.org.au[0::/6667]:Address already in use
+binding listener socket irc.comssa.org.au[0::/6668]:Address already in use
+binding listener socket irc.comssa.org.au[0::/6669]:Address already in use
+</pre>
+
+<p>With a bit of research, I found <a href=
+"https://www.tunnelbroker.net/forums/index.php?topic=268.0">a forum thread</a>
+with example configuration snippets to prepare services for IPv6, but it didn't
+quite work for two reasons. The suggested configuration was as follows:
+
+<pre>
+listen {
+	host = "0.0.0.0"; # Bind to all IPv4
+	host = "::"; # Bind to all IPv6
+	port = 6665 .. 6669;
+};
+</pre>
+
+<p>The same messages were logged, and clients were still unable to connect over
+IPv6. As was the case earlier, <code>netstat -l</code> did not show any
+services listening on those ports. I'm not sure if it's a bug in Hybrid, but
+listening on a specific interface's IP address seems to be required for IPv6,
+although I've never had to do this for other programs like nginx.
+
+<pre>
+listen {
+	host = "0.0.0.0"; # Bind to all IPv4
+	host = "2001:470:7c85::1";
+	port = 6665 .. 6669;
+};
+</pre>
+
+<p>I was then able to connect over IPv6, and I was delighted. All seemed well
+until a few hours later when a client notified me that they were unable to
+connect. They didn't have IPv6. Also broken was qwebirc, which uses IPv4.
+Running <code>netstat -l</code> again now showed that Hybrid was listening <i
+>only</i> over IPv6, as if the second <code>host</code> line overrode the
+first.
+
+<p>Digging into the source of Hybrid 8.1.13, the <code
+>doc/reference.conf</code> showed that <code>host</code> lines are essentially
+optional modifiers for the next <code>port</code> line; you need one <code
+>port</code> line for each interface or address you wish to listen on. The
+final configuration that listened properly on both IPv4 and IPv6 for me was:
+
+<pre>
+listen {
+	host = "0.0.0.0"; # Bind to all IPv4
+	post = 6665 .. 6669;
+	host = "2001:470:7c85::1";
+	port = 6665 .. 6669;
+};
+</pre>
+
+<p>As a brief note: like most daemons, sending <code>SIGHUP</code> to the
+Hybrid process or running <code>/etc/init.d/ircd-hybrid reload</code> allows
+you to use a new configuration without disconnecting any users. To my pleasant
+surprise, even when enabling incorrect configurations that ceased to listen
+over IPv4, existing IPv4 users still remained connected.
