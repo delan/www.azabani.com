@@ -1,0 +1,283 @@
+---
+layout: default
+title: Network installing Windows XP
+date: 2014-02-02 12:00:00 +0800
+---
+
+<p>This was originally going to be a quick guide to Windows Deployment Services
+with Windows Server 2012. Using it to install Windows Vista and newer is
+trivial though, with the introduction of the WIM format. However, upon finding
+a laptop that needed Windows XP and could only externally boot via PXE, things
+changed a little.
+
+<p>It's obligatory for me to remind you that as this is published, Windows XP
+will die in just over two months' time, so you shouldn't use it unless
+absolutely necessary. Nevertheless it's not completely terrible; it even has
+decent IPv6 support up its sleeve, while striking the careful balance of good
+support for programs from the 16-bit to modern eras.
+
+<p>The trouble started when I acquired a Toshiba Tecra M2 with a faulty optical
+drive. To make things worse, it's too old to support USB boot. To really rub in
+the salt, it supports SD card boot, but only via floppy emulation of a file you
+place in the FAT filesystem root named <code>$TOSFD00.VFD</code>. I have no
+idea what they were thinking.
+
+<p>While from Vista onwards it's simply a case of having WDS and dropping in the
+WIM file, installing Windows XP is full of pitfalls that took me a great deal of
+poring over the Microsoft Knowledge Base and a variety of forums to decipher.
+Hopefully this will help someone avoid the same adventure, to put it nicely.
+
+<p>Essentially, the process involves creating a model installation of Windows
+XP, which is then captured into a WIM file by booting the <i>capture image</i>,
+then deployed in a similar way to how Windows Vista or later would be deployed.
+
+<h2>Configuration notes</h2>
+
+<p>The simplest configuration is to have Windows Server 2012 on a physical
+machine while the model installation is generated in a virtual machine running
+on the server. This is the layout that will be used for this guide, but others
+may be useful if for instance, you don't have access to a spare computer or
+network.
+
+<p>One such alternative configuration is having both the server and the model
+installation as virtual machines on one host; this may require the use of a
+virtual network facility in your virtualisation software, so that both virtual
+machines are connected to one another in one isolated network.
+
+<p>This guide also assumes the use of VMware Workstation 10; Microsoft Virtual
+PC and Oracle VM VirtualBox probably work as well, but to use the latter, make
+sure the <a href="https://www.virtualbox.org/wiki/Downloads">Extension Pack</a>
+is installed or PXE booting WDS images will fail. Also, Windows Deployment
+Services has been available since Windows Server 2003 with SP2, so you could
+probably use an older version of Windows Server, although I haven't tested it.
+
+<h2>Prerequisites</h2>
+
+<ul>
+	<li><i>Windows Server 2012</i> as the WDS and DHCP/TFTP/PXE server
+	<li><i>VMware Workstation</i> to generate an installation of Windows XP
+	<li><i>Windows 7 x86</i> media for its <code>boot.wim</code><br>
+	<li><i>Windows XP Professional</i> media
+</ul>
+
+<p>The <code>boot.wim</code> serves the dual role of being the installer for
+the completed XP image as well as being used to capture the model XP
+installation. Beware of the Windows XP media; unlike newer version of Windows,
+there are different media for OEM, Retail and Volume Licensing keys, and each
+are mutually incompatible by only accepting their specific class of keys.
+
+<h2>Preparing the server</h2>
+
+<p><i>Estimated time: 20 minutes</i>
+
+<p>Choose a wired network interface for use with the target computer, and
+assign it a static IP address, for example <code>192.168.123.1/24</code>. This
+is the address that will be used for the rest of this guide. Add the <i>DHCP
+Server</i> and <i>Windows Deployment Services</i> roles.
+
+<p>Ensure that the DHCP server is running and add two scopes, one listening for
+the target on <code>192.168.123.0/8</code>, and one listening for the VM on
+the subnet chosen by VMware in its default host-only network interface. Of
+course, leave out the first address from both ranges, as they're already taken.
+Leave all other settings alone, and activate the scopes.
+
+<p>Start the <i>Windows Deployment Services Configuration Wizard</i> and select
+<i>Standalone server</i>. The wizard should detect that the DHCP server has
+been configured and started, and should automatically check both the <i>Do not
+listen</i> and <i>Configure DHCP</i> checkboxes. <i>If these are not both
+checked, then the DHCP server is either not configured or is not running; if
+so, cancel the wizard and fix that first.</i>
+
+<p>Later in the same wizard, select <i>Respond to all clients</i>, and finish
+the wizard. There is a chance the wizard will say that the service didn't
+respond in a timely fashion. If this occurs, right click the server and start
+the service manually.
+
+<p>Finally, create an image group in the install images section, ready to later
+receive the captured installation image.
+
+<h2>Adding boot images for capture and setup</h2>
+
+<p><i>Estimated time: 10 minutes</i>
+
+<p>Windows XP is unlike later versions in that the installation media has no
+monolithic <code>.wim</code> file that can be extracted during setup. While
+RIS, essentially the predecessor to WDS, supports deploying Windows XP using
+the original media, WDS only supports <code>.wim</code> files. For Windows XP,
+that means creating a model installation and then capturing it back to the
+server as a deployable image.
+
+<p>Two boot images must be added: the capture image, which the VM will boot
+into after Windows XP is installed, and the setup image, which the target will
+use to install Windows XP.
+
+<p>Adding the setup image is simple: mount the Windows 7 media and add <code
+>\sources\boot.wim</code>. Once this is done, generate the capture image from
+the setup image by right clicking it and clicking <code>Create Capture
+Image</code>.
+
+<p>When prompted for a location, save the image anywhere you want, even <code
+>%TEMP%</code>, as you'll have an opportunity to use the same wizard to import
+the image once it is completed. <i>If you choose to cleverly save the image in
+the actual repository location, and then tell the wizard to import the image,
+you will end up with two copies of the same capture image in WDS.</i>
+
+<h2>Creating a model installation in VMware</h2>
+
+<p><i>Estimated time: 60 minutes</i>
+
+<p>Create a virtual machine with typical settings, but be sure to choose
+"install OS later", or VMware will try to do an "easy install" that automates
+the installation of tools and drivers. While this isn't fatal, it is simply
+unnecessary as the target computer isn't a VM.
+
+<p>Open the virtual machine's settings after creation and increase the RAM to
+1024 MB; without doing so, booting the WDS capture image may fail. Change the
+network adapter type to <i>Host-only</i> and attach the Windows XP media to the
+virtual optical drive. <i>Disconnect the virtual network adapter "at power on"
+to save a significant amount of time during the "Installing Network" stage of
+installation.</i>
+
+<p>When indicating that the guest is Windows XP, VMware will default to
+virtualising an AMD 10/100 NIC, which is not supported by the capture image.
+You must change it to an Intel PRO/1000 by editing the VM's <code>.vmx</code>
+file and adding this line:
+
+<pre>ethernet0.virtualDev = "e1000"</pre>
+
+<p>Launch the VM, enter the BIOS setup and change the boot order to:
+
+<pre>LAN > CD > Removable Devices > HDD</pre>
+
+<p>Now install Windows XP. Press F5 when the F6 prompt appears (that is not a
+mistake), and choose the computer type that is compatible with your target. The
+VMware virtual machine defaults to ACPI Uniprocessor PC, which works for many
+computers, but you may need to choose an older type, such as ACPI PC for the
+Tecra, or even Standard PC, if your target is that old.
+
+<p>Although the <a href=
+"http://technet.microsoft.com/en-us/library/cc781362%28v=ws.10%29.aspx"
+>Microsoft documentation</a> states that the Standard PC HAL is compatible with
+all six computer types, you cannot easily take advantage of this to create a
+"universal" image because WDS does very picky filtering of the available images
+on the target based on the HAL, only allowing an exact match, but not other
+compatible matches.
+
+<p>Leave all of the regional and time settings at their defaults as they will
+be discarded anyway later. If you are deploying an OEM installation to the
+target, you can safely skip entering the product key, as you'll have to enter
+it again further in the process regardless.
+
+<p>During the OOBE wizard, set your username to <code>SYSTEM</code>. This will
+ensure that no user account is created, and you can create one for yourself
+after deployment. Unfortunately, this trick doesn't make the OOBE wizard rerun
+after deployment. What will happen is that you will be logged in as <code
+>Administrator</code> because <code>SYSTEM</code> isn't for interactive use.
+You can't, however, enter <code>Administrator</code> itself in the wizard, as
+that is explicitly rejected.
+
+<p>It might appear that you can skip the OOBE and have it come back after
+deployment by cancelling the screen resolution change dialog, but whlie that
+will skip the OOBE (and leave you with a paltry 640x480 resolution) the wizard
+will never return. In essence, this is thus equivalent to the <code
+>SYSTEM</code> trick, but without the resolution boost.
+
+<h2>Preparing the completed installation for capture</h2>
+
+<p><i>Estimated time: 40 minutes</i>
+
+<p>Inside the virtual machine now that Windows XP is installed, extract the
+contents of <code>DEPLOY.CAB</code> from the Windows XP media to <code
+>C:\sysprep</code>. <i>You must extract the files to this precise location. If
+you extract elsewhere, Sysprep will ignore the changes you make to <code
+>sysprep.inf</code>, generate a default configuration in the correct location,
+and the target will throw a <code>STOP 0x0000007B</code> during deployment.</i>
+
+<p><i>Note that if you are capturing and deploying to the same physical target,
+and you are not using a virtual machine for the model installation, you should
+skip to the part where you run  <code>sysprep.exe</code>.</i>
+
+<p>Copy the entire <code>\i386\</code> folder (including the folder itself, not
+just the contents) from the Windows XP media to <code>C:\sysprep</code>. This
+ensures that all drivers and additional files are available to the target as
+necessary during deployment.
+
+<p>Run <code>setupmgr.exe</code> and create a <code>sysprep.inf</code> with all
+settings left at their defaults. Now add the following lines to the <code
+>[Unattended]</code> section of <code>sysprep.inf</code>:
+
+<pre>
+    DriverSigningPolicy=Ignore
+    UpdateInstalledDrivers=Yes
+</pre>
+
+Add the following to the end of <code>sysprep.inf</code>:
+
+<pre>
+[Sysprep]
+    BuildMassStorageSection=Yes
+
+[SysprepMassStorage]
+</pre>
+
+<p>Ensure that you leave at least one line break after <code
+>[SysprepMassStorage]</code>.
+
+<p>Now run <code>sysprep.exe</code>, selecting <i>Use Mini-Setup</i> and <i
+>Detect non-PnP hardware</i>. Click <i>Reseal</i> then <i>OK</i>. This process
+may take about half an hour, so grab a coffee while you wait.
+
+<h2>Capturing the model installation</h2>
+
+<p><i>Estimated time: 30 minutes</i>
+
+<p>Your virtual machine should be switched off now, as Sysprep shuts down after
+it has finished working. Configure the virtual network adapter to connect at
+power on, and boot the VM over the network.
+
+<p>Press F12 to launch the WDS boot menu when prompted, and select the capture
+image. Follow the wizard's instructions, which should be fairly
+straightforward. When the capture completes, the image should be available on
+the WDS repertoire, but you will have to close and reopen the WDS management
+console if you wish to see it there.
+
+<p>The capturing process can take quite a while, so another coffee break
+opportunity is available.
+
+<h2>Deploying the Windows XP image</h2>
+
+<p><i>Estimated time: 20 minutes</i>
+
+<p>Connect the target computer to the interface you chose earlier. Some old
+computers will not be able to negotiate a crossover connection using a normal
+cable; for them you will have to use an actual crossover cable.
+
+<p>Boot the target over the network, pressing F12 when necessary and this time
+choosing <i>Microsoft Windows Setup (x86)</i> from the boot image menu. The
+first part of the deployment is much like a typical Windows 7 installation.
+<i>When asked to authenticate to the WDS server, use the server's computer name
+as the domain.</i>
+
+<p>If you do not see the captured installation image in the list, then the
+computer type selected at the beginning of the VM installation does not match
+the one for the target. In this case you will need to start again from <i
+>Creating a model installation in VMware</i>, choosing a different computer
+type.
+
+<p>If the target enters a reboot loop with the <code>0x0000007B</code> BSOD,
+then the mass storage drivers were not properly included in the Sysprep
+process, either because you didn't modify <code>sysprep.inf</code> correctly,
+or because you extracted Sysprep to some location other than <code
+>C:\sysprep</code>.
+
+<h2>After installation</h2>
+
+<p>Once Windows XP is deployed and running on the target, you will be logged in
+as the <code>Administrator</code> by default, with no password unless you set
+one during the setup. You should probably set a password and then create
+yourself a regular administrator account, for a marginal increase in security.
+
+<p>After deployment, you are probably going to install some drivers for the
+target computer. If you want, you can even sysprep again and capture the
+installation from the target, just like you did from the virtual machine. This
+will result in an image including drivers for the target computer.
