@@ -1,13 +1,16 @@
 @font-face {
 	font-family: 'LM Roman 12';
-	src: url(../fonts/lmroman12-regular.otf);
+	/*src: url(../fonts/lmroman12-regular.otf);*/
+	src: url(../fonts/cmunrm.woff);
 }
 @font-face {
 	font-family: 'LM Roman 12';
 	font-style: italic;
-	src: url(../fonts/lmroman12-italic.otf);
+	/*src: url(../fonts/lmroman12-italic.otf);*/
+	src: url(../fonts/cmunti.woff);
 }
 @font-face {
 	font-family: 'LM Mono 10';
-	src: url(../fonts/lmmono10-regular.otf);
+	/*src: url(../fonts/lmmono10-regular.otf);*/
+	src: url(../fonts/cmuntt.woff);
 }
