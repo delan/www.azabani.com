@@ -1,0 +1,91 @@
+---
+layout: default
+title: Sidestepping NXDOMAIN hijacking
+date: 2014-02-04 14:00:00 +0800
+---
+
+<p>Until May last year, I was a customer of name.com for a domain name and DNS
+services. Having just grown out of a comfortable walled garden of all-in-one
+shared hosting and DNS perhaps about a year prior, I knew little other than
+that I should avoid GoDaddy. I since discovered that name.com was pulling a
+scummy trick that an increasing number of name service providers engaged in.
+
+<p>NXDOMAIN hijacking is not news now. Many ISPs and even OpenDNS have started
+doing it, and while it not only breaks the DNS specifications and poses a
+security risk, name.com's flippant responses and actions in holding customers
+liable for name.com's automatically generated content are clearly unacceptable.
+Specifically, the actions of name.com have been
+<a href="http://www.destructuring.net/2013/02/28/name-com-is-doing-some-really-sketchy-stuff/">covered</a>
+<a href="http://nathanhammond.com/namedotcom-another-unscrupulous-registrar">quite</a>
+<a href="http://www.taborcg.com/2010/05/06/name-com-host-typo-hijacking/">extensively</a>.
+
+<p>That's not what this post is about though. You can easily avoid all of this
+by switching to a vendor that isn't bad, such as Namecheap, Hover or Gandi. If
+you stay with a provider like name.com, consider using something like <a href=
+"https://dns.he.net/">Hurricane Electric's free DNS</a> service, which supports
+IPv6 and includes the ability to run primary or secondary nameservers.
+
+<p>Time to explore some commonly suggested technical workarounds provided to
+users of the broken name services, for some fun and no profit. To begin, take
+this output of <code>nslookup</code> which exhibits the issue:
+
+<pre>
+C:\Users\delan>nslookup notexistent.azabani.com.
+Server:  resolv.on.ii.net
+Address:  2001:44b8:1::1
+
+Non-authoritative answer:
+Name:    notexistent.azabani.com
+Address:  174.37.172.71
+</pre>
+
+<p>A simplistic solution is to create wildcard A and AAAA records to IP
+addresses guaranteed to never route nor reach a compliant networked device. RFC
+3513 § 2.5.2 stipulates that the address <code>::</code> "must never be
+assigned to any node". However, as you may expect, there are still addresses
+returned by this method; any failure is in connection, not resolution.
+
+<pre>
+*	A	0.0.0.0
+*	AAAA	::
+
+C:\Users\delan>nslookup notexistent.azabani.com.
+Server:  resolv.on.ii.net
+Address:  2001:44b8:1::1
+
+Non-authoritative answer:
+Name:    notexistent.azabani.com
+Addresses:  ::
+          0.0.0.0
+</pre>
+
+<p>Interestingly, the presence of any type of record will disable address
+hijacking, but the response will not actually be NXDOMAIN, but rather a NOERROR
+with no answer records. You can see that by creating a TXT wildcard record.
+
+<pre>
+*	TXT	unused
+
+C:\Users\delan>nslookup notexistent.azabani.com.
+Server:  resolv.on.ii.net
+Address:  2001:44b8:1::1
+
+*** No internal type for both IPv4 and IPv6 Addresses (A+AAAA) records
+available for notexistent
+</pre>
+
+<p>What does appear to do the trick is a wildcard CNAME to a target domain name
+that will never resolve. RFC 2606 § 2 and the more recent RFC 6761 § 6.4
+define <code>.invalid</code> as a reserved TLD which is guaranteed to neither
+have any public domain registrations, nor ever be resolved by a compliant
+server.
+
+<pre>
+*	CNAME	working.around.dns.hijacking.invalid
+
+C:\Users\delan>nslookup notexistent.azabani.com.
+Server:  resolv.on.ii.net
+Address:  2001:44b8:1::1
+
+*** resolv.on.ii.net can't find notexistent: Non-existent domain
+</pre>
