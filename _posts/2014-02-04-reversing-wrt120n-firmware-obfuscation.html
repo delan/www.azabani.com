@@ -1,0 +1,11 @@
+---
+layout: default
+title: Reversing the WRT120N's Firmware Obfuscation
+date: 2014-02-04 22:00:00 +0800
+_link: http://www.devttys0.com/2014/02/reversing-the-wrt120n-firmware-obfuscation/
+---
+
+<p>Craig at <code>/dev/ttyS0</code> cracks open a Linksys WRT120N to find out
+just what has been done to obfuscate the firmware. Using SPI to dump the raw
+flash data, and cleverly combining binwalk and IDA, he uncovers just what has
+been done to the images and even creates a tool to reverse the obfuscation.
