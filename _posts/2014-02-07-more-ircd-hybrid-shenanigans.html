@@ -1,0 +1,110 @@
+---
+layout: default
+title: More IRCd-Hybrid shenanigans
+date: 2014-02-07 10:30:00 +0800
+---
+
+<p>I thought I had <a href="/2014/01/31/using-ipv6-with-ircd-hybrid.html"
+>fixed</a> the IPv6 connectivity issues on ComSSA's IRC server, as I was
+happily connected from a local shell on the server. Yesterday, when trying to
+connect from a Linux box at home, I realised that connections from external
+addresses were timing out — even though <code>netstat</code> showed Hybrid was
+listening properly on both addresses! I suppose it was time to dig a little
+deeper. What could go wrong?
+
+<p>It turned out, to my surprise, that we were running Hybrid 7.2.2, the same
+version provided by Debian Wheezy at the moment. The latest upstream version as
+of today is 8.1.13, so I took the route of trying to compile that to see if the
+IPv6 problems were addressed in the many versions between.
+
+<p>After wrangling around a bit with a broken installation that had an
+inconsistent directory layout, reading INSTALL a second time, and realising
+that you must set a specific prefix for autoconf that isn't the default, I got
+it working. Hybrid 8 is, as you would expect, a major change from version 7,
+and sadly that meant I had to rewrite the <a href=
+"https://github.com/ComSSA/servers/blob/53ec44e3e0c3323c0fac21818cfbebb4deb1498c/ling/overlay/usr/local/ircd/etc/ircd.conf"
+>configuration file</a> from scratch, with a bit of hunting to find the new
+equivalents of changed directives.
+
+<pre>./configure --prefix=/usr/local/ircd
+make -j4
+make install
+chown -Rv irc:irc /usr/local/ircd/etc /usr/local/ircd/var</pre>
+
+<p>I was finally, for the first time, able to connect from home over both IPv4
+and IPv6. With that preliminary testing on an alternate port range done,
+ensuring that the server linking worked, and that the new IRCd did indeed fix
+the problem, I swapped it in.
+
+<p>This time, I was as careful as I could to minimise downtime with consecutive
+executions of the old and new init scripts. I had learned the hard way only a
+day earlier that stopping the server, frantically messing with configuration
+files, then starting a new daemon is a bad idea, and definitely annoys users.
+
+<pre>
+nano /usr/local/ircd/etc/ircd.conf # change listening ports from 1666x to 666x
+/etc/init.d/ircd-hybrid stop &amp;&amp; ./ircd reload
+</pre>
+
+<p>Immediately afterwards, I had to leave for several hours to help with
+renovations. Then I came back at the end of the day, feeling completely
+deflated upon seeing that the same symptoms had resurfaced. I tried adding
+another, higher range of ports to concurrently listen on, and they, like the
+testing port range, worked. The lower, normal IRC ports continued to time out
+external connections over IPv6.
+
+<pre>
+$ for i in 146.185.129.226 2001:470:7c85::1; do for j in 36669 6669; do
+> nc -vvz $i $j; done; done # note: using netcat-openbsd not netcat-traditional
+Connection to 146.185.129.226 36669 port [tcp/*] succeeded!
+Connection to 146.185.129.226 6669 port [tcp/*] succeeded!
+Connection to 2001:470:7c85::1 36669 port [tcp/*] succeeded!
+nc: connect to 2001:470:7c85::1 port 6669 (tcp) failed: Connection timed out
+</pre>
+
+<p>That had me stumped. Surely Hurricane Electric wouldn't resort to the
+practice of blocking common ports of "vulnerable" services like SMTP and IRC? I
+avoided that troubling idea and looked for other options. A few hours later,
+I couldn't let go of the thought that the tunnel was indeed the point of
+failure. If a service is shown as listening on <code>netstat</code>, then
+surely <code>netcat</code> would almost always work?
+
+<p>At the lowest point in my essentially fruitless troubleshooting efforts, I
+actually pulled up a terminal to watch <code>strace</code> output of the
+running daemon, and noticed that no connection was being seen on the side of
+the IRC server, when a normal IRC port over IPv6 was attempted. One thing I did
+notice is that the latest version of Hybrid still has the bug where listening
+on both wildcard addresses (<code>0.0.0.0</code> and <code>::</code>) will have
+the second one fail with <code>EADDRINUSE</code>. I suppose I could dig into
+the source, and report a bug if necessary.
+
+<p>Searching for answers, I found some <a href=
+"https://www.tunnelbroker.net/forums/index.php?topic=2395.0">confused</a> and
+perhaps <a href="https://www.tunnelbroker.net/forums/index.php?topic=2205.0"
+>irate</a> users, which led me to an <a href=
+"https://ipv6.he.net/certification/faq.php">official source</a> on the matter,
+confirming my suspicions. Due to past abuse and attacks, tunnels need to be on
+an IPv6 Sage certified Tunnelbroker account to have common IRC ports unblocked.
+Fancy terminology aside, this essentially means filling out a few dozen
+technical quiz questions about IPv6 provided by Hurricane Electric in what I'd
+imagine is an advocacy effort to increase awareness of the protocol among
+technical users.
+
+<p>Already having completed the IPv6 Sage process on my personal account, doing
+so again was a breeze. Sadly I rushed into destroying and creating a new
+tunnel, assuming it was necessary, before realising that there is an explicit
+opt-in required in the advanced tunnel configuration. As such, the address of
+<code>ling.comssa.org.au</code> has changed from <code>2001:470:7c85::1</code>
+to <code>2001:470:78b9::1</code>.
+
+<p>Full of regret at wasting so many hours compiling and configuring Hybrid 8,
+I yielded and swapped the server back to its <a href=
+"/2014/01/31/using-ipv6-with-ircd-hybrid.html">initial configuration</a> and
+into the warm, comforting realm of the official Debian package. My sole
+consolation is in the fact that ComSSA's IRC server is now truly dual stack.
+
+<p>While I've definitely learned a lot over the last two days, especially in
+the field of setting up and running Hybrid, the biggest lessons here are
+actually to stop rushing, think about all of the components that could possibly
+be involved, and avoid tying yourself so tightly to one "solution" that you
+spend days solving a problem that should take hours at most.
