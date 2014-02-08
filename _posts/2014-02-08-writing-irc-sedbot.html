@@ -1,0 +1,123 @@
+---
+layout: default
+title: Writing an IRC sedbot
+date: 2014-02-08 22:30:00 +0800
+---
+
+<p>The ComSSA IRC has an official utility bot, <a href=
+"https://github.com/ComSSA/KhlavKalash">KhlavKalash</a>, which currently does
+some trivia like URL title fetching and server uptime. It uses Twisted for IRC
+and has a good plugin system with Yapsy. Feeling a bit bored, I decided to try
+my hand at implementing what I call a "sedbot", which interprets messages that
+are <code>sed</code> replacement expressions, executing the replacement on the
+last normal message.
+
+<p>As I'm writing this, KhlavKalash allows you to create plugins by simply
+dropping Python files into a subdirectory with your own classes, each of which
+represents essentially a simple bot. The current interface is limited to
+callbacks on normal messages matching supplied regular expressions, and allows
+you to return zero or one response message to be sent back. This could change
+to become more flexible in the future.
+
+<p>Initially I planned to make replacements operate on the requesting user's
+last message, as opposed to the last message from anyone in the channel. This
+would currently not be possible with the KhlavKalash API because requesting
+nicks are not passed to the plugins. Thankfully, I discovered that most sedbots
+operate on the last message in general anyway, as it allows users to "correct"
+messages from other people, often for snarky effect.
+
+<p>The most difficult, or rather, verbose, part of the implementation was
+actually parsing the sed expressions. Not the regular expressions themselves,
+but simply splitting <code>s/a/b/f</code> into <code>a</code>, <code>b</code>
+and <code>f</code> — you can't simply split the strong on <code>/</code>
+because patterns and replacements can have slashes in them via backslash
+escapes. I wrote a simple finite state machine to parse the components of sed
+expressions, and about 100 lines later, I was in business.
+
+<p>There were a couple of things I couldn't implement in an obvious way. The
+<code>regex</code> module is much better than <code>re</code> but uses the same
+API. You can use the <code>count</code> argument to implement the global
+replacement flag, and the <code>regex.IGNORECASE</code> bit in <code
+>flags</code> to implement <code>/i</code>, but there isn't an easy way to
+choose which occurrence to start replacing from, which is provided by <code
+>sed</code> via a numeric flag, e.g. <code>s/a/b/42</code>.
+
+<p><code>sed</code> allows you to specify multiple expressions by separating
+them with semicolons. This is unambiguous, because the last component of a
+sed expression are the flags, and a semicolon is not a valid flag. Some simple
+additions to my parser's two flags states and support for this was implemented.
+Unfortunately, this comes at the expense of the ability to allow the omission
+of the final slash, something I hadn't yet done but was requested by a few
+users, because a semicolon in the replacement section would be ambiguous.
+
+<p>I tackled Unicode support by treating incoming byte strings as UTF-8, and
+returning <code>unicode</code> strings back to the core module. An interesting
+thing to note is that the IRC protocol has no concept of text encoding at all;
+it only sees bytes, leaving it up to clients to decide how to interpret them.
+Ideally all clients would use UTF-8, but this is not always the case.
+Regardless, the bot assumes UTF-8 everywhere, in the hope that anyone using
+non-ASCII characters is using UTF-8, but there really is little other choice.
+
+<p>Formal grammars are apparently covered in Theoretical Foundations of
+Computer Science 300, which I'm not due to study until some time next year.
+Having written a couple of simple finite state machine parsers in the past as
+well as today, I was keen to see how it fit into the grand scheme of things.
+
+<p>I started looking for more information after writing the bot, and I found
+out that the very fact that I used a state machine indicates that the language
+of sed expressions (if you are not parsing the regular expressions inside) is a
+<i>regular language</i>, which is a subset of the <i>context-free languages</i>
+that can be parsed by, you guessed it, regular expressions.
+
+<p>Accepting the implicit challenge that the realisation yielded, I managed to
+create a regular expression that can be used to split a sed replacement
+expression into its three parts. I decided against switching to it, as the
+old parser is probably more readable and extensible, but it's worth sharing.
+Imagine these two lines as one:
+
+<pre>
+^(?:s/((?:[^\\/]|\\.)*)/((?:[^\\/]|\\.)*)/((?:g|i|\d+)*))(?:;s/((?:[^\\/]|\\.)*
+)/((?:[^\\/]|\\.)*)/((?:g|i|\d+)*))*$
+</pre>
+
+<p>You can use the regular expression to parse sed replacement expressions,
+even a semicolon delimited sequence of expressions, like the FSM parser. The
+regex will yield three captured groups per sed expression, one each for the
+needle, replacement and flags components respectively. All you need to do is
+collapse backslash escapes, and split flags as necessary, both of which are
+easy tasks. With verbose mode I can document the behemoth:
+
+<pre>
+^			# start of the message
+(?:			# BEGIN first sed expression
+  s/			#   sed replacement expression delimiter
+  (			#   BEGIN needle component
+    (?:			#     BEGIN single needle character
+      [^\\/]		#       anything that isn't a slash or backslash...
+      |\\.		#       ...or any backslash escape
+    )*			#     END single needle character, zero or more
+  )			#   END needle component
+  /			#   slash between needle and replacement
+  (			#   BEGIN replacement component
+    (?:			#     BEGIN single replacement character
+      [^\\/]|\\.	#       escape or non-slash-backslash, as above
+    )*			#     END single replacement character, zero or more
+  )			#   END replacement component
+  /			#   slash between replacement and flags
+  (			#   BEGIN flags component
+    (?:			#     BEGIN single flag
+      g|i|\d+		#       "g", "i" or a sequence of digits
+    )*			#     END single flag, zero or more
+  )			#   END flags component
+)			# END first sed expression
+(?:			# BEGIN optional subsequent sed expressions
+  ;			#   semicolon between sed expressions
+  s/			#   sed replacement expression delimiter, as above
+  ((?:[^\\/]|\\.)*)	#   needle component, as above
+  /			#   slash between needle and replacement, as above
+  ((?:[^\\/]|\\.)*)	#   replacement component, as above
+  /			#   slash between replacement and flags, as above
+  ((?:g|i|\d+)*)	#   flags component, as above
+)*			# END optional subsequent sed expressions, zero or more
+$			# end of the message
+</pre>
