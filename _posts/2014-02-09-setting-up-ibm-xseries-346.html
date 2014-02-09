@@ -1,0 +1,78 @@
+---
+layout: default
+title: Setting up an IBM xSeries 346
+date: 2014-02-09 22:00:00 +0800
+---
+
+<p>I recently acquired an IBM eServer from a friend, type 8840. I've repurposed
+it to be a dedicated Debian box at the moment, but there were some issues. At
+infrequent intervals, maybe once a day, the server would reboot for no reason,
+and no OS or firmware logs showed a trace. Perhaps it's something raising a
+non-maskable interrupt. In an effort to fix that I've updated all of the
+firmware I could find.
+
+<p>Updating the main BIOS to version 1.17 was straightforward with the <a href=
+"http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=migr-57074"
+>KPE144A CD image</a>. Similarly easy was version 1.20 of the baseboard
+management controller firmware, with the <a href=
+"http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=MIGR-57034"
+>KPBT37A CD image</a>. Both are essentially floppy disk images with PC-DOS,
+standard fare for firmware updates.
+
+<p>I then discovered that in addition to the BMC, the server comes with what
+IBM calls a "Remote Supervisor Adapter", or RSA II. Essentially this small blue
+board with a PowerPC CPU and its own Ethernet port is out-of-band management on
+steroids.
+
+<p>In addition to using DHCP and providing its own HTTP and SSH servers even
+without a running OS on the host, it allows you to monitor sensors, check logs,
+reboot, and even interact with the local console. There's essentially no need
+to ever physically touch the server other than to replace faulty parts.
+
+<p>Updating the RSA II was a little trickier. The provided update, <a href=
+"http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=MIGR-56757"
+>KPEP30A</a> simply contains the firmware image files themselves, which you
+need to upload via the board's web interface. Without the username and password
+set by a distant old owner though, that was not possible. The Linux release of
+the update, which is a hacky shell script blob, doesn't even work when I tried
+it on Debian 7 amd64, probably because it's so old.
+
+<p>The main challenge to tackle then, was resetting the credentials to the
+RSA II. After a brief bit of searching, I found <a href=
+"http://brain4free.org/wiki/doku.php/blog:reset_password_on_a_ibm_rsa_ii"
+>a solution</a> suitable for someone like myself, who hasn't got the RSA II
+daemon for Linux configured and running. The process can be summarised as:
+
+<ol>
+	<li>Download <a href=
+"https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/14/Live/i686/Fedora-14-i686-Live-Desktop.iso"
+	    >Fedora-14-i686-Live-Desktop.iso</a> — old enough to run the tools.
+	<li>Download <a href=
+"http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=MIGR-5081608"
+	    >ibm_svc_rsa2_hlp253a_linux_32-64.tgz</a> — the RSA Linux daemon.
+	<li>Download <a href=
+"ftp://ftp.software.ibm.com/systems/support/system_x/ibm_utl_asu-3.60-asut69k.i386.rpm"
+	    >ibm_utl_asu-3.60-asut69k.i386.rpm</a> — the IBM settings utility.
+	<li>Boot the live Fedora image.
+	<li>Install <code>ibmusbasm-1.53-2.rhel5.i686.rpm</code> from the
+	    daemon archive.
+	<li>Install <code>ibm_utl_asu-3.60-asut69k.i386.rpm</code> and
+	    <code>libusb-devel</code>.
+	<li>As root, run <code>ibmspdown &amp;&amp; ibmspup</code>.
+	<li>Watch syslog until <code>ibmasm</code> notifies that it has loaded.
+	<li>As root, run <code>/opt/ibm/toolscenter/asu/asu resetrsa</code>.
+</ol>
+
+<p>The credentials were reset, and I was ready to go. After looking up the RSA
+II in my DHCP server's lease table, I logged in to the web interface, but the
+page consistently stalled while loading. An obstacle, but at least I was now
+able to access the controller. Considering that the Fedora live image was still
+running, I thought to try the <a href=
+"http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=MIGR-56759"
+>Linux release of KPEP30A</a>, and sure enough, it updated the board to version
+1.09.
+
+<p>With three firmware updates and all settings reset to their defaults,
+hopefully things run a bit more smoothly now. Until then, it's time to enjoy
+the local console without even leaving the comfort of my desk for the server
+room.
