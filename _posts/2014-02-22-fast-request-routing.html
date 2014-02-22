@@ -1,0 +1,13 @@
+---
+layout: default
+title: Fast request routing using regular expressions
+date: 2014-02-22 19:30:00 +0800
+_link: http://www.muppetlabs.com/~breadbox/txt/acre.html
+---
+
+<p>Rarely is reimplementing your performance-critical code in C the best
+initial approach to optimisation. Most of the time, the fruit lies in the
+time complexities of the algorithms used. Request routing is one of these
+situations, where PHP developer Nikita Popov cleverly leverages the regex
+engine by bundling together chunks of route patterns, greatly reducing the
+number of iterations to dispatch to a handler.
