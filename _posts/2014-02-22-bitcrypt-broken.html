@@ -1,0 +1,14 @@
+---
+layout: default
+title: Bitcrypt broken
+date: 2014-02-22 20:00:00 +0800
+_link: http://blog.cassidiancybersecurity.com/post/2014/02/Bitcrypt-broken
+---
+
+<p>Contemporary ransomware Bitcrypt held victims' personal files hostage by
+encrypting them and charging a fee to reverse this. Bitcrypt's cryptographic
+design also appeared sound at first glance, using PBKDF2 and HMAC-SHA1 to
+generate random keys for each file, encrypting them with AES-192, then using
+RSA to encrypt those keys. Except when the author mixes up decimal and binary,
+"1024 bits" turns out to actually be 426 bits, and failure ensues. It's always
+the simple things.
