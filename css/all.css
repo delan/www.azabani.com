@@ -107,6 +107,9 @@ nav {
 nav a {
 	color: black;
 }
+.post_summary {
+	clear: both;
+}
 .post_date {
 	float: right;
 	margin: 2em 0 1em 2em;
