@@ -1,0 +1,69 @@
+==================================================================
+https://keybase.io/delan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.azabani.com
+  * I am delan (https://keybase.io/delan) on keybase.
+  * I have a public key with fingerprint 7F21 2455 67B2 3E09 2664  20EF 0548 7476 1841 6AA7
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "7f21245567b23e09266420ef0548747618416aa7",
+            "host": "keybase.io",
+            "key_id": "0548747618416aa7",
+            "uid": "34c8e9bc38ac47178859bd811a5f3d00",
+            "username": "delan"
+        },
+        "service": {
+            "hostname": "www.azabani.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1401203079,
+    "expire_in": 157680000,
+    "prev": "de401dbe3ccfbcb505782ccaf02f9465975022e9e3d29ca742a89a43c1554bae",
+    "seqno": 6,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+owGbwMvMwMTI6lFSJuGYtZzx9IHPSQzBLSu7q5WS8lMqlayqlbJTwVRaZl56alFB
+UWZeiZKVknmakaGRiampmXmSkXGqgaWRmZmJkUFqmoGpiYW5ibmZoYWJoVliormS
+jlJGfjFIB9CYpMTiVL3MfKAYkBOfmQIUxaK+FCxhbJJskWqZlGxskZhsYm5obmFh
+apmUYmFomGiaZpxiYABSWJxalJeYmwpUnZKak5inVKujBBQqy0xOBTkYZC9Uury8
+XC+xKjEpMS9TLzk/F6i3oCi/JD85PwcomVFSUlBsBdJcUlkAVp2aFA81Jz4pMy8F
+6HGgjrLUouLM/DwlK0OgyuSSTJDBhiYGhkYGxgbmljpKqRUFmUWp8ZkgFabmZhYG
+QACyJ7UM7D6gypSkVOPk5LSk5CRTA1NzC6Pk5MQ0A6M0SxMzU0tzUwMjo1TLVOMU
+I8vkRHMTo0QLy0QT42RDU1OTpMRUJZDPCvPylazMgM5MTAcaWZyZnpdYUlqUqlTL
+1ckkw8LAyMTAxsoEijsGLk4BWIy+uCXAMFP58vEDYSyX/PWefT1//ufj6NaLhq0x
+32997fvAff7V5Fu7Tv6+XHZQqVfoTpVkzJmKCnXdM9Xzb6awWPg+5NmWlsQ5XZB5
+nUKry8/Fal07ufYKMah+2s5/y2/t+VTf7kPbTaIvMSzhfsd95opK2MKbby78vb53
+4u2Z6V3iDdynPdiD9ax+Xula1rKRj++GX8WNqYn+M46rpgrK3Lo3QezkH7kLhpum
+Td7vw2PaxbL+Q+DycitT0YnXMtI39zn+73nwbmEU3+vuB6/yp63xFWqaaDgxLWPZ
+e9mo+Oefb76es5U58u/JFROa5n4v4Fp6YeLE3AkOah5rPjYKaRx7u2X9U6f73Efu
+txz+dSJWt3zdCyunq/d/u4e4R+3KPL3q4SqfkBu3Uy/ZSKS/b3bZ3rVEY6atd0J0
+4W/DyYYzVDwiSozfTbyU3e3UeZzHUzT80ozJC9eGiry/Mi81s1Gl4t1q/arHW5ev
+aNnZePXKy+hH//TVr6Vd49PeGH5e+R93TdPR/hqdOMPbda9WZ+u9TOPJtzCuX7Q1
+b4JLsW/UhOes09r38Z38dXjrK+15E2I/2V+QYr1gqJvs4Z0y06A0OoB1ax/DkqwZ
+bnvOODa/T5a+cv7/5R8Pr9zXv2pseO5ovMmKqw+c7nKrcTxZmtX08RHLhq463bzq
+xBtRguXWUx8v2/5WdMKE1me/2b6+8Kue13+2QUM4NCPTo6gvJnYjAA==
+=Kvvr
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/delan
+
+==================================================================
