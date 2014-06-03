@@ -64,7 +64,8 @@
 					});
 					bars.map(function(bar, i) {
 						var p = float(bar) * 100;
-						outs[i].text(p.toFixed(1));
+						var s = p.toFixed(1);
+						outs[i].text(s + '%');
 					});
 				}).bind(null, i));
 				bars[i].val(1 / n);
