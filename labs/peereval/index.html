@@ -36,13 +36,16 @@
 		function float(thing) {
 			return parseFloat($(thing).val()) || 0;
 		}
-		var names = [];
-		var bars = [];
-		var outs = [];
+		var names;
+		var bars;
+		var outs;
 		$('#people').change(function() {
 			var n = int('#people');
 			n = (n < 2) ? 2 : n;
 			n = (n > 20) ? 20 : n;
+			names = [];
+			bars = [];
+			outs = [];
 			$('#list').empty();
 			for (var i = 0; i < n; i++) {
 				names[i] = $(NAME);
