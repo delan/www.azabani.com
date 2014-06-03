@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>peereview</title>
+	<style>
+		* {
+			margin: 0;
+			box-sizing: border-box;
+		}
+		html {
+			padding: 1em;
+		}
+		#people, .name {
+			width: 20%;
+		}
+		.out {
+			display: inline-block;
+			width: 20%;
+			text-align: center;
+		}
+		input[type=range] {
+			width: 60%;
+		}
+	</style>
+</head>
+<body>
+	<input id="people" placeholder="number of members">
+	<div id="list"></div>
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script>
+		var NAME = '<input class="name" placeholder="member name">';
+		var BAR = '<input type="range" min="0" max="1" step="any">';
+		function int(thing) {
+			return parseInt($(thing).val(), 10) || 0;
+		}
+		function float(thing) {
+			return parseFloat($(thing).val()) || 0;
+		}
+		var names = [];
+		var bars = [];
+		var outs = [];
+		$('#people').change(function() {
+			var n = int('#people');
+			n = (n < 2) ? 2 : n;
+			n = (n > 20) ? 20 : n;
+			$('#list').empty();
+			for (var i = 0; i < n; i++) {
+				names[i] = $(NAME);
+				bars[i] = $(BAR);
+				bars[i].change((function(j) {
+					var others = 0;
+					var me = float(bars[j]);
+					bars.filter(function(bar) {
+						return bar != bars[j];
+					}).map(function(bar) {
+						others += float(bar);
+						return bar;
+					}).map(function(bar) {
+						var v = float(bar);
+						bar.val(v / others * (1 - me));
+					});
+					bars.map(function(bar, i) {
+						var p = float(bar) * 100;
+						outs[i].text(p.toFixed(1));
+					});
+				}).bind(null, i));
+				bars[i].val(1 / n);
+				outs[i] = $('<div class="out">');
+				$('#list').append(names[i]);
+				$('#list').append(outs[i]);
+				$('#list').append(bars[i]);
+				$('#list').append("<br>");
+			}
+			bars.map(function(bar) {
+				bar.change();
+			});
+		}).change();
+	</script>
+</body>
