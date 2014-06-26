@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Halo: Combat Evolved key guide</title>
+	<style>
+		b {
+			font-weight: normal;
+			background: #bdf;
+		}
+		i {
+			font-style: normal;
+			background: #ddd;
+		}
+	</style>
+</head>
+<body>
+<pre>
+0000  A4 00 00 00 03 00 00 00  ¤.......
+0008  37 35 30 34 33 2D 30 33  75043-03
+0010  37 2D 30 38 37 33 39 33  7-087393
+0018  35 2D 34 30 34 32 35 00  5-40425.
+0020  50 00 00 00 4D 36 31 2D  P...M61-
+0028  30 30 30 33 32 00 00 00  00032...
+0030  00 00 00 00 <b id="x0">XX XX XX XX</b>  ....<i id="y0">....</i>
+0038  <b id="x1">XX XX XX XX XX XX XX XX</b>  <i id="y1">........</i>
+0040  <b id="x2">XX XX XX</b> 00 00 00 00 00  <i id="y2">...</i>.....
+0048  10 A8 A8 53 90 E4 E9 29  .¨¨S.äé)
+0050  00 00 00 00 00 00 00 00  ........
+0058  00 00 00 00 00 00 00 00  ........
+0060  00 00 00 00 00 00 00 00  ........
+0068  31 38 34 30 30 00 00 00  18400...
+0070  00 00 00 00 9D 18 00 00  ........
+0078  9C E0 A0 0E A9 0F 00 00  .à .©...
+0080  67 1A 00 00 00 00 00 00  g.......
+0088  00 00 00 00 00 00 00 00  ........
+0090  00 00 00 00 00 00 00 00  ........
+0098  00 00 00 00 00 00 00 00  ........
+00A0  59 F1 33 60              Yñ3`
+</pre>
+<script>
+	var lengths = [4, 8, 3];
+	var map = '0123456789ABCDEF';
+	lengths.forEach(function(len, i) {
+		var x = [];
+		var y = [];
+		for (var j = 0; j < len; j++) {
+			var h = Math.floor(Math.random() * map.length);
+			var l = Math.floor(Math.random() * map.length);
+			var c = h << 4 | l;
+			x.push(map.charAt(h) + map.charAt(l));
+			if ((c & 0x7F) > 0x1F && c != 0x7F)
+				y.push(String.fromCharCode(c));
+			else
+				y.push('.');
+		}
+		document.getElementById('x' + i).textContent = x.join(' ');
+		document.getElementById('y' + i).textContent = y.join('');
+	});
+</script>
+</body>
