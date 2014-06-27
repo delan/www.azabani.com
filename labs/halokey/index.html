@@ -48,7 +48,7 @@
 			var l = Math.floor(Math.random() * map.length);
 			var c = h << 4 | l;
 			x.push(map.charAt(h) + map.charAt(l));
-			if ((c & 0x7F) > 0x1F && c != 0x7F)
+			if ((c & 0x7F) > 0x1F && c != 0x7F && c != 0xAD)
 				y.push(String.fromCharCode(c));
 			else
 				y.push('.');
