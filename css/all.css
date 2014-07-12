@@ -14,10 +14,10 @@ html {
 	overflow-y: scroll;
 }
 body {
-	width: 170mm;
-	margin: 10mm auto 20mm auto;
-	font-family: 'LM Roman 12';
-	font-size: 12pt;
+	width: 40em;
+	margin: 1em auto 2em auto;
+	font-family: 'CMU Serif';
+	font-size: 16pt;
 	line-height: 1.5;
 }
 p, table {
@@ -27,7 +27,7 @@ header {
 	font-size: 4em;
 	text-align: center;
 	text-transform: uppercase;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.1em;
 }
 header span {
 	letter-spacing: 0;
@@ -52,8 +52,8 @@ dd {
 	margin-left: 2em;
 }
 pre, code {
-	font-family: 'LM Mono 10';
-	font-size: 10pt;
+	font-family: 'CMU Typewriter Text';
+	font-size: 0.75em;
 	font-style: normal !important;
 }
 pre {
@@ -100,8 +100,8 @@ blockquote:before {
 }
 nav {
 	text-align: center;
-	font-family: 'LM Mono 10';
-	font-size: 15pt;
+	font-family: 'CMU Typewriter Text';
+	font-size: 1.25em;
 	color: #808080;
 }
 nav a {
