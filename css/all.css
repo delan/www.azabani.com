@@ -112,10 +112,16 @@ nav a {
 }
 .post_date {
 	float: right;
-	margin: 2em 0 1em 2em;
+	margin: 0 0 1em 2em;
 	line-height: 1;
 	text-align: center;
 	text-transform: uppercase;
+	border: thin solid black;
+	border-width: thin 0;
+	padding: 0.25em 0;
+}
+.post_date a {
+	text-decoration: none;
 }
 .post_date .date {
 	font-size: 2em;
