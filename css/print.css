@@ -6,6 +6,7 @@
 }
 body {
 	margin: 0;
+	font-size: 12pt;
 }
 p, pre, ul, ol, .post_date {
 	page-break-inside: avoid;
