@@ -1,0 +1,294 @@
+---
+layout: default
+title: First experiences with OpenBSD
+date: 2014-08-09 16:00:00 +0800
+---
+
+<p>Tired of the sluggishness of Windows on my laptop and interested in
+experimenting with a Unix-like that I haven't tried before, I gave
+OpenBSD a second shot after a <a
+href="http://comments.gmane.org/gmane.os.openbsd.misc/193097">brief stint</a>
+on my netbook a couple of years back. Coming from exclusively using Gentoo,
+this seemed like a natural choice due to its minimalism and the shared roots
+between ports and portage. Reading <a
+href="https://www.over-yonder.net/~fullermd/rants/bsd4linux/01">Matthew D.
+Fuller's comparison</a> of BSD and Linux inspired me to venture beyond the
+familiar walls of the Linux world.
+
+<p>It would be prudent to start with a hint of background. I first discovered
+Linux via a cover disc on the APC magazine which included a live image for
+Mandriva Linux 2006.0. Until then, I had been using Windows XP, Windows 98
+and Windows 95 in reverse order. While I dabbled with it, the concept of
+actually installing something that wasn't Windows on my computer never crossed
+my mind.
+
+<p>In 2009, I installed Ubuntu 9.04 cold turkey and continued using it for
+nearly two years, at which point I distro-hopped to Debian. For the entirety
+of 2012, I used Gentoo and I even had a small distcc cluster, but I eventually
+became annoyed at the poor quality of Linux userland software. From then until
+now, I had returned to Windows 7 with a sometimes painful drop of Cygwin where
+I needed a Unixish environment.
+
+<h2>Creating an installation medium</h2>
+
+<p>I'm currently using an <a
+href="http://www.asus.com/Notebooks_Ultrabooks/U31SD/">Asus U31SD</a> which has
+no optical disc drive, calling for the use of a USB flash drive. I wanted to
+partition my large flash drive such that I could use it simultaneously as
+installation media and a backup destination. This was not trivial to configure
+in a way compatible with Windows.
+
+<p>Windows makes an arbitrary, silly distinction whereby it tries very hard to
+avoid partitioning 'removable disks', a category which includes USB flash
+drives, but not USB portable hard drives. Using diskmgmt.msc, diskpart or any
+stock GUI tool will create a partition table if the disk has no recognisable
+volume or partition table, but will only allow one partition to be created.
+Behold the idiocy:
+
+<pre>
+DISKPART> clean
+
+DiskPart succeeded in cleaning the disk.
+
+DISKPART> convert mbr
+
+DiskPart successfully converted the selected disk to MBR format.
+
+DISKPART> create partition primary size=4096
+
+DiskPart succeeded in creating the specified partition.
+
+DISKPART> create partition primary size=4096
+
+No usable free extent could be found. It may be that there is insufficient
+free space to create a partition at the specified size and offset. Specify
+different size and offset values or don't specify either to create the
+maximum sized partition. It may be that the disk is partitioned using the MBR disk
+partitioning format and the disk contains either 4 primary partitions, (no
+more partitions may be created), or 3 primary partitions and one extended
+partition, (only logical drives may be created).
+
+DISKPART> clean
+
+DiskPart succeeded in cleaning the disk.
+
+DISKPART> convert gpt
+
+DiskPart successfully converted the selected disk to GPT format.
+
+DISKPART> create partition primary size=4096
+
+DiskPart succeeded in creating the specified partition.
+
+DISKPART> create partition primary size=4096
+
+Virtual Disk Service error:
+The operation is not supported on a non-empty removable disk.
+</pre>
+
+<p>If the disk has a direct volume with no partition table, Windows will roll
+with that and pretend that there is one partition. If multiple partitions are
+created on a disk elsewhere, its behaviour on Windows appears to be
+unpredictable, but it looks like a drive letter can be assigned to the first
+partition entry in the MBR, depending on the phase of the moon.
+
+<p>There is allegedly a 'removable media bit' in some drive controllers which
+can be flipped by a tool for Lexar drives called BootIt. Sadly it appeared to
+have no effect on my 64 GB Corsair drive. I tried creating many partition
+configurations using OpenBSD's own fdisk in a virtual machine, as well as GNU
+fdisk and parted on Debian. None of them played nicely with Windows. All I
+wanted was an NTFS or FAT32 partition plus a BSD disklabel.
+
+<p>What did work was dumping the contents of <code>install55.fs</code> or
+<code>miniroot55.fs</code> onto the entire drive, then adding another partition
+on entry 0 from there. These files contain not only a BSD disklabel with one
+root FFS, but ostensibly also an MBR surrounding that.
+
+<pre>
+# ftp ftp://ftp.ii.net/pub/OpenBSD/5.5/amd64/install55.fs
+# dd if=install55.fs of=/dev/rsd0c bs=65536
+# echo 'e 0\n7\nn\n491520\n123043840\nw\np\nq' | fdisk -e sd0 | sed ':a;$q;N;6,$D;ba'
+ 0: 07     30 151  58 -   7689 183  46 [      491520:   123043840 ] NTFS
+ 1: 00      0   0   0 -      0   0   0 [           0:           0 ] unused
+ 2: 00      0   0   0 -      0   0   0 [           0:           0 ] unused
+ 3: A6      0   1   2 -     30 151  57 [          64:      491456 ] OpenBSD
+fdisk: 1> #
+# echo 'SCSI\nA\nw\np\nq' | disklabel -E sd0 | sed ':a;$q;N;5,$D;ba'
+  a:           491456               64  4.2BSD   2048 16384    1 # /
+  c:        123535360                0  unused
+  i:        123043840           491520    NTFS
+> No label changes.
+</pre>
+
+<p>It's perhaps here that I should mention that I found OpenBSD's distinction
+between block devices (for disks, partitions and slices) and their
+corresponding raw character device files quite bizarre. I suppose I just need
+to remember to prepend <code>r</code> to any administrative task pertaining to
+partitioning or filesystem creation.
+
+<h2>The installation process proper</h2>
+
+<p>This was actually relatively straightforward, save for the wireless NIC
+<code>iwn0</code> not working until firmware files are automatically downloaded
+after installation. Using the wired <code>alc0</code> gigabit Ethernet
+interface temporarily did the trick, but networking was not even necessary at
+this stage, given that I had used the full <code>install55.fs</code> image.
+
+<pre>
+iwn0: error, 2, could not read firmware iwn-6030
+iwn0: could not read firmware
+iwn0: no link ............. sleeping
+</pre>
+
+<p>First boot was problematic, as the kernel hung on something ACPI:
+
+<pre>
+...
+cpu3: smt 1, core 1, package 0
+ioapic0 at mainbus0: apid 2 pa 0xfec00000, version 20, 24 pins
+acpiec0 at acpi0
+acpihpet0 at acpi0: 14318179 Hz
+acpimcfg0 at acpi0 addr 0xe0000000, bus 0-63
+</pre>
+
+<p>A quick and dirty solution I'm using right now is to disable it:
+
+<pre>
+boot> -c
+UKC> disable acpi
+352 acpi0 disabled
+UKC> quit
+</pre>
+
+<p>At this point I had to start over because I foolishly elected to start
+<code>xdm(1)</code> on boot, leaving me unable to use the keyboard or mouse.
+Choosing the right option, I am now greeted with an odd monospaced serif
+console. I then disabled ACPI permanently:
+
+<pre>
+# cp /bsd{,.old}
+# echo quit | config -efu /bsd
+</pre>
+
+<p>I missed the automatic firmware installation on first boot, so I had to
+invoke the process manually:
+
+<pre>
+# echo dhcp > /etc/hostname.alc0
+# . /etc/netstart alc0
+# fw_update
+</pre>
+
+<p>Configuring a connection to my wireless network revealed the elegant nature
+of <code>hostname.if(5)</code>, which strongly reminded me of the file format
+used with <code>iptables-{save,restore}(8)</code>. It looks like connecting to
+Curtin University's network might need <code>wpa_supplicant(8)</code>, however.
+
+<pre>
+# echo 'nwid deLAN\nwpakey REDACTED\ndhcp\nrtsol' > /etc/hostname.iwn0
+# . /etc/netstart iwn0
+</pre>
+
+<p>Some <code>sysctl</code> values prevent global IPv6 address configuration
+from working automatically, but after my surprise upon seeing the default
+values, they were quickly fixed:
+
+<pre>
+# ifconfig iwn0 | grep inet6
+        inet6 fe80::b6b6:76ff:fe1e:7bfc%iwn0 prefixlen 64 scopeid 0x1
+# rtsol iwn0
+rtsol: kernel is configured not to accept RAs
+rtsol: kernel is configured not to accept redirects
+# sed -E 's/^#(net.inet6.(icmp6.rediraccept|ip6.accept_rtadv)=)/\1/' /etc/sysctl.conf > /etc/sysctl.conf.
+# mv /etc/sysctl.conf{.,}
+# sysctl net.inet6.icmp6.rediraccept=1
+# sysctl net.inet6.ip6.accept_rtadv=1
+# rtsol iwn0
+# ifconfig iwn0 | grep inet6
+        inet6 fe80::b6b6:76ff:fe1e:7bfc%iwn0 prefixlen 64 scopeid 0x1
+        inet6 2001:44b8:6116:1c00:b6b6:76ff:fe1e:7bfc prefixlen 64 autoconf pltime 3593 vltime 7194
+        inet6 2001:44b8:6116:1c00:4487:8545:2941:c33c prefixlen 64 autoconf autoconfprivacy pltime 3593
+vltime 7194
+</pre>
+
+<h2>Getting X11 working</h2>
+
+<p>Upon trying to run <code>Xorg -configure</code>, it turns out that the
+problems I had been having with X11 seem to stem from the <code>pms</code>
+driver which is used for the Synaptics touchpad. For now, I'll simply disable
+the driver and use an external USB mouse as a pointing device.
+
+<pre>
+boot> -c
+UKC> disable pms
+259 pms* disabled
+UKC> quit
+# echo quit | config -efu /bsd
+</pre>
+
+<h2>Finishing user configuration</h2>
+
+<p>All that's left is to download my dotfiles and install some packages.
+
+<pre>
+# sed -E 's/^# (%wheel.+\) SETENV.+)/\1/' /etc/sudoers > /etc/sudoers.
+# mv /etc/sudoers{.,}
+# chmod 440 /etc/sudoers
+$ export PKG_PATH=ftp://ftp.ii.net/pub/OpenBSD/5.5/packages/amd64/
+$ sudo pkg_add -v zsh vim curl git irssi gnupg ...
+$ git clone --bare https://github.com/delan/config .git
+$ sed -E 's/(bare = )true/\1false/' .git/config > .git/config.
+$ mv .git/config{.,}
+$ git checkout HEAD
+$ chsh -s zsh
+$ exec zsh
+neptune%
+</pre>
+
+<h2>Miscellaneous thoughts</h2>
+
+<p>I very much appreciated the clean separation between the base system, the
+packages and the ports tree, and grew to rely on having an eloquent manual page
+for every command, driver and configuration file in the base system.
+
+<p>I don't know how I have managed to achieve this, but I can use vim key
+bindings in GUI applications, including those that use GTK+. Perhaps it is
+influenced by running <code>bindkey -v</code> in my <code>.zshrc</code>.
+
+<p><a href="http://openports.se/">OpenPorts.se</a> was very useful for when I
+couldn't recall the exact name of a package I was looking for. In the long run
+however, it was much better to fetch and configure the ports tree locally as
+recommended. This also buys one the ability to cleanly configure and compile
+software from source, which is especially useful for <code>dwm</code>, for
+example.
+
+<p>Using <code>pkg_info -t</code> is a useful way of finding packages that one
+has explicitly installed so far:
+
+<pre>
+neptune% pkg_info -t         
+ImageMagick-6.7.7.7p6 image processing tools
+chromium-32.0.1700.102-proprietary Chromium browser
+dwm-6.0             dynamic window manager
+git-1.8.5.3         GIT - Tree History Storage Tool
+gnupg-2.0.22p0      gnu privacy guard - a free PGP replacement
+irssi-0.8.15p5      modular IRC client with many features (ipv6,socks,proxy)
+iwn-firmware-5.10p0 firmware binary images for iwn(4) driver
+p7zip-9.20.1p0      file archiver with high compression ratio
+povray-3.6.1p5      3D image rendering package
+scrot-0.8p3         commandline screen capture util
+texlive_texmf-full-2013 texlive texmf for extra macros
+uvideo-firmware-1.2p1 firmware binary images for uvideo(4) driver
+vim-7.4.135p0-no_x11 vi clone, many additional features
+zip-3.0             create/update ZIP files compatible with PKZip(tm)
+zsh-5.0.2           Z shell, Bourne shell-compatible
+</pre>
+
+<p>In broad strokes, the tasks I have yet to complete are:
+
+<ul>
+	<li>Find out why ACPI causes the kernel to hang, and fix that;
+	<li>Find out why <code>pms(4)</code> with my touchpad breaks X11;
+	<li>Create ports for software I miss such as the Proggy fonts; and
+	<li>Create ports for software that I've written, after cleaning up the code.
+</ul>
