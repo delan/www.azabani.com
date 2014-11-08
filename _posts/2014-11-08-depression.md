@@ -164,6 +164,25 @@ remarkable ability to relieve me of the cystic acne that I had suffered for
 over three years. [^2] Although I haven't taken it for about a month now,
 perhaps I'll never know whether or not it was a contributing factor.
 
+Some may suggest that I'm simply burned out. I'm not sure that this is the
+case, because I don't see my set of responsibilities as ever having been
+particularly large. Whenever I felt stressed, it was a natural consequence of
+procrastination, which in turn appears to have been caused by my total
+apathetic lethargy. Thus I continue to search for a cause.
+
+## Coda
+
+It's far too early to say that I have a planned route out of this deep well,
+and as it stands I'm still trapped here. Writing this entailed a significant
+amount of effort, as it involved asking myself some serious questions which I
+neglected to think about in the past.
+
+I don't want to become *that guy* to whom you feel obliged to extend a hand,
+because you fear that it would be the end of me if you don't; it will not. This
+is merely a medium through which I can begin to sort my thoughts as the first
+step towards tackling my own instance of depression. Hopefully what I've
+written may provide you with some value.
+
 ## References
 
 Australian Bureau of Statistics. (2008). *National Survey of Mental Health and
