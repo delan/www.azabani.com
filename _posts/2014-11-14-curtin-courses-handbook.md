@@ -121,7 +121,7 @@ Computing.
 [^1]:	The hierarchy of learning areas is faculty, then school, then
 	department, but faculty is not quite the correct term here, because
 	there is a [Faculty of Science and Engineering][scieng] and the
-	[Curtin Business School][cbschool] (which is a faculty) awards degrees
+	[Curtin Business School][cbschool] (a faculty) which awards degrees
 	other than commerce. 'Faculty' is too big, while 'school' is too small.
 
 [^2]:	Luke is hypothetical of course, but I know at least five people with
