@@ -5,11 +5,14 @@ date: 2015-02-28 16:00:00 +0800
 _hidden: true
 ---
 
-Sixteen weeks have elapsed since I last wrote about depression. Since
-then I have repeatedly slipped into deeper local minima, first five
-weeks ago, then a fortnight ago, making previously awful states seem
-like manageable annoyances in hindsight. The following further
-documents my decline, as I belatedly decide to ask for help.
+Sixteen weeks have elapsed since I [last wrote][last] about
+depression. Since then I have repeatedly slipped into deeper local
+minima, first five weeks ago, then a fortnight ago, making previously
+awful states seem like manageable annoyances in hindsight. The
+following further documents my decline, as I belatedly decide to ask
+for help.
+
+[last]: /2014/11/08/depression.html
 
 ## Analysis
 
