@@ -2,7 +2,6 @@
 layout: default
 title: Depression
 date: 2014-11-08 23:00:00 +0800
-_hidden: true
 ---
 
 Being in a permanent state of melancholy is a very damaging predicament because
