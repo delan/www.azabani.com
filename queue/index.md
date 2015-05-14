@@ -3,6 +3,8 @@ layout: default
 title: Task queue
 ---
 
+Each category is roughly sorted in descending order of importance.
+
 ## Acquire
 
   * *Crazy Machines* for Win32
@@ -10,23 +12,23 @@ title: Task queue
 
 ## Create
 
-  * Domain and host map
-  * Computer hardware database
+  * International group buy calculator
+  * Curtin University course and unit handbook scraper
+  * Automatic avatar updater for services that are too stubborn to use
+    Gravatar
+  * Personal domain and host map
+  * Personal computer hardware taxonomy
   * Buildroot on the Advantech ARK-3381
   * Package the Proggy fonts as an OpenBSD port
   * Web terminal emulator — c.f. tty.js, Anyterm, Terminal.js, term.js
   * Web UI framework that opaquely abstracts over CSS document model
     semantics
-  * International group buy calculator
-  * Automatic avatar updater for services that are too stubborn to use
-    Gravatar
-  * Curtin University course and unit handbook scraper
 
 ## Learn
 
-  * Programming languages — C#, Ruby, Perl, Scheme, Haskell, Groovy
   * Server frameworks — D<span style="color:#808080;">j</span>ango,
     Rails, ASP.NET MVC 5, Struts, Grails
+  * Programming languages — C#, Ruby, Perl, Scheme, Haskell, Groovy
   * Client frameworks — Ember.js, AngularJS, KnockoutJS, Backbone.js
 
 ## Produce
@@ -40,13 +42,17 @@ title: Task queue
 
   * *Silicon Valley* 2
   * *Breaking Bad* 1–5
-  * *Arrested Development* 1–4
-  * *Parks and Recreation* 1–7
   * *Community* 1–6
-  * *Suits* 1–4
+  * *Curb Your Enthusiasm* 1–8
+  * *Being Human* 1–5
+  * *The Office* 1–2
+  * *Downton Abbey* 4–5
+  * *Arrested Development* 1–4
   * *Archer* 1–6
   * *Rake* 1–3
   * *Leverage* 1–5
+  * *Suits* 1–4
+  * *Parks and Recreation* 1–7
 
 ## Write
 
@@ -85,6 +91,6 @@ title: Task queue
     mostly remains an unsolved problem, having seen the currently
     available conversions
   * Guide to vertical scaling on x86 with 8S systems
-  * That strange backlight behaviour on the LG IPS231
   * Words and phrases with simultaneously opposite semantics — arguably
     a fine line
+  * That strange backlight behaviour on the LG IPS231
