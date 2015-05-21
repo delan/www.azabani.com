@@ -67,3 +67,74 @@ appending to this document.
 View my publicly-auditable identity here: https://keybase.io/delan
 
 ==================================================================
+==================================================================
+https://keybase.io/delan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.azabani.com
+  * I am delan (https://keybase.io/delan) on keybase.
+  * I have a public key with fingerprint 3359 F6FA AED9 B627 E700  F58E FC18 AA5D 1313 1313
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "3359f6faaed9b627e700f58efc18aa5d13131313",
+            "host": "keybase.io",
+            "key_id": "fc18aa5d13131313",
+            "kid": "0101890b260cba4a9b8e867124542657069ee3f299075f7815480f4033e1061abdf90a",
+            "uid": "34c8e9bc38ac47178859bd811a5f3d00",
+            "username": "delan"
+        },
+        "service": {
+            "hostname": "www.azabani.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1432169967,
+    "expire_in": 157680000,
+    "prev": "c2f97ebb75bafc599ca2cb80a9193657a39d0e45f3459ae11dc10822887e3d93",
+    "seqno": 74,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owFtkm1QVFUYx3cXNMQJUCCsGNOLQxTI3Ne99zIxKqsokgISDg41dO6957J32L2L
+uyuwLLYKNIMFuTMWw0tEvAnGDAipIVhC2oxTqYgxtlOChJiIIkSMEIt1l+xb53w4
+c57n//+d8zzzOJ/3UvmqBx0p8Qsf/NKm/mGCU6W9s3nWjnAmwYbE2JFsuHyIkpwF
+zTlmSbYiMQhBUKyoFQGAAstpcRrSKCpSDBR5jAGAEjDi341EIXqTxeNQMBywwGjJ
+pMSUS6YkKNH/0WcvJ1AMxRgW5XAtynOABCzHQEZLYzhJkbiWolEtCyEh4iyL0pRI
+MxhFMqhIogQBMVSLAU4QWRQouEPLOILkGchyPMEAnqQxmmEolhMYDAOUSAgo6hFa
+oFkGRqioBWgAMnI4ClFCuRIPPfV7yniWzsvLiwYFgAOyFM2bjIo3x2yymniTQUnq
+rdYcS4zHbLXlLKshl/mMk8lJsqD0UXHkQrNFMslIDKYoeavkAWMkgWNaltXSUQjM
+z5HMMFPyKChay6DK8rwDcxUkj4ssDTmOpjgg8hTL8gDnOQYFLMYSSnMAwQooJJXS
+SIoFEMMEHkMZHGcYGhIC6+myBR6UTUgMTSr/BFkK0yJlycB6yAy9kMO+xzSh3iq1
+r2rlCo1nGFS+qwL+m5CpSv+lwHWxaX53ps99NZVWtunSKd3Y0Ar77u47K/HL6sTa
+J5WbTjf1LGXscV/SZF9PGJ5t3xcXPjsgDp1t7whPYZFbabqbgcbwFy5f7Z9Y0+ct
+rI291vvy5z2dvRljP47+cWVN/NE47TeNJ04K8d5/zn749oXhpcLmQvUb2wodNx60
+WWITS+t/Dp23b69OdbrM5UnynqjXRlzl7TsDNjRMO188MGLM03VvLRnjPotrLvA2
+3b8xXNAIx45U4/75U86yT1/X2ISkyMjJZsfB/E+C9hc5irmw26rcnRE7ZsIqW0MO
+kDtaw1zfOxIWewPmHowaJqPG09x7XXKCQf9uum3f7ha/gfUhi9LjCl22z9XjtREP
+icnSkMSwPt0RV3Hw36+mrJsL7UzeXPdKqQ2ZnwneePxREf+4z7DhOV3yS+fGO74M
+cI+8/yj49+4GrycNw/0Luy50d4x2bt8/cf2jeaPOuis4ou20v6HibHF6vaumfzTf
+6FfSI9hHir67/ybfElk7/nXg6rVdwpYsx973fI72ezurula3Fn088219Rs9vNfqb
++hZr38ky/fnB0ntbt+SfaFJfMxvvrU8/Vu4MuRVfnT4k+grDf4285b6bVOGOK6lr
++iK1DtMEdV10V/kE9SabsI0Dc+DM+AY74Nsf9tV0EmekxVWptzWnnqpUd4dsP1UN
+Nk5fvPLr04Xz2/4B
+=7SP8
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/delan
+
+==================================================================
