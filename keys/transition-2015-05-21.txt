@@ -1,0 +1,96 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+OpenPGP Key Transition Statement for Delan Azabani
+
+I have created a new OpenPGP key and will be transitioning away from
+my old key. The old key has not been compromised and will continue to
+be valid for some time, but I prefer all future correspondence to be
+encrypted to the new key, and will be making signatures with the new
+key going forward.
+
+I would like this new key to be re-integrated into the web of trust.
+This message is signed by both keys to certify the transition. My new
+and old keys are signed by each other. If you have signed my old key,
+I would appreciate signatures on my new key as well, provided that
+your signing policy permits that without re-authenticating me.
+
+The old key, which I am transitioning away from, is:
+
+pub   4096R/0x0548747618416AA7 2010-09-10 [expires: 2015-07-13]
+      Key fingerprint = 7F21 2455 67B2 3E09 2664  20EF 0548 7476 1841 6AA7
+uid                 [ unknown] Delan Azabani <delan@azabani.com>
+sub   4096R/0xBB8289D4A24D3DB8 2010-09-10 [expires: 2015-07-13]
+
+The old key may be downloaded from https://www.azabani.com/keys/pgp.1.pub
+
+The new key, to which I am transitioning, is:
+
+pub   4096R/0xFC18AA5D13131313 2010-10-23 [expires: 2016-01-13]
+      Key fingerprint = 3359 F6FA AED9 B627 E700  F58E FC18 AA5D 1313 1313
+uid                 [ unknown] Delan Azabani <delan@azabani.com>
+uid                 [ unknown] [jpeg image of size 24086]
+sub   4096R/0xD27F5146F98ADBAB 2015-05-21 [expires: 2016-01-13]
+sub   4096R/0xE92F369149348135 2015-05-21 [expires: 2016-01-13]
+sub   4096R/0xA0F29D3C2667A3CB 2015-05-21 [expires: 2016-01-13]
+
+The new key may be downloaded from https://www.azabani.com/keys/pgp.2.pub
+
+To fetch the full new key from a public key server using GnuPG, run:
+
+gpg --recv-key 0xFC18AA5D13131313
+
+If you already know my old key, you can now verify that the new key is
+signed by the old one:
+
+gpg --check-sigs 0xFC18AA5D13131313
+
+If you are satisfied that you've got the right key, and the User IDs
+match what you expect, I would appreciate it if you would sign my key:
+
+gpg --sign-key 0xFC18AA5D13131313
+
+You can upload your signatures to a public keyserver directly:
+
+gpg --send-key 0xFC18AA5D13131313
+
+Or email delan@azabani.com (possibly encrypted) the output from:
+
+gpg --armor --export 0xFC18AA5D13131313
+
+If you'd like any further verification or have any questions about the
+transition please contact me directly.
+
+To verify the integrity of this statement:
+
+curl https://www.azabani.com/keys/transition-2015-05-21.txt | gpg --verify
+
+Thanks and best regards,
+Delan Azabani
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCgAGBQJVXSnwAAoJEAVIdHYYQWqnpdcP/3zB8aDwyptVD96vOHgtMseB
+LgrRRtGLkKY7F/Mw1mbbZ5LnklvQDWGFyRP7hD5uGhYBPQ8fmX0rXVcyqG060O8w
+I416b7vA0RYITQ7xHAxqI2cPIya0r4KAwAg2FXuKDBzqpi9BlipzmPO4xRNcGzZV
+hAFBKTi1bMHHe2ubZhSrTHvx0XXpiqGzXpqt5f4kDqqTM1sR+pIkcYVh15N+3L7B
+6jX8KH7goApgluYe+W3ylAbb0KUSrbhSvc4IcF2mQ0KsiQ38jpazCqdWER9aFueQ
+evONwmwM/wUZEOEAPC2tHyKSP8x1sKtbttG6c9c+jtcCDnF89+lq1QhUBgm8JN2L
+l57XofJ3Sa1Sm4SbiHwiJDbWQaFaq6u82p/sPlM+C/4n/NZxn7f7aXpFhJ2e0znm
+wrvyTErKlA0binpdAXJ5UCqLbhu8gsy7xkiLaW257Quy2G8Me3cGei7vsRqNznZ1
+3Vzi75+2x1PuhCPnIrg0AoJPR8s3PO96n6v/hfoDv1MHw4ipY7z89Edmh/M7kByC
+QzMSAPSKSoIGsujEJv9o+SEyTn1hrXFjfJR1REjb+LvVgZXTONHRp6ZC4lqObYzo
+9kEPcccmFlggv+72J/yDvHNq1GU0JFX9S5UqbysvMDl/33R4THXzDEHhbTaWysdm
+8DtuSdemwK6W4LNFI3UgiQIcBAEBCgAGBQJVXSnwAAoJENJ/UUb5iturpdcP/icC
+g2d1Mjj2HDRB/FlS2Ny8TaG/3kBV+7ebS/ayj41gKUFcnYeyTPia6YfpL6Mt+Pq8
+S5fmHnlo/PChpo8an2Xe9oiuOKlkSG5+TAaobKexRdDkmIEn1bBnUUlXoBRB1R09
+s9HEskdw88xJOJ7kjsaUDNLIHkY/jJtOtoVkC4OwTqiVyaVCJ017AXykKzXsIgk6
+zLWUXyhWftpu1NTr3ioxOj2Mpnb1C/rBH3WghgT5cmho58uEWPQAe3APvp34qfxq
+w97jVTO3/tEfVDE9OQjTswFjyt2gb31k/80NAzckGB26a/f5yXfJbrTyELY6VqLV
+tUKFkTJ+7ayePdWwYXyujAAhrFUPIpSVKWSdDLFrdQIn9/tSkc3Z9NzEAgzCjNiW
+7Hv4xcXixj5YYNoqQ7l7hPF3+QlqBLo+5gmzUrZETNkLhiNF6lW+mbzGcfj3Mjld
+eIn94FLAOGNh+DJbhHsfvPwOzq8imFEbV8rdacMpADw5hHR/ons/3/ZHzQia5ZLu
+ddU+ZGw2+hE1ZwJ28pQf9MNKCuXjysjatnzwS0pw9+8zjQR2WktxTnkT8Ua2JTcX
+ENS1GYz6u10uLG/sOSWyTKHQlHwKuwRsZ5aBKJ1Vkl5dtWjHzKTG07Hvj/b6mCkn
+0qXOkh2uvAlZBfBH6YhXjWgt03v7zXrBgQYpCLAG
+=efIp
+-----END PGP SIGNATURE-----
