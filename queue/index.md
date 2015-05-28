@@ -12,6 +12,7 @@ Each category is roughly sorted in descending order of importance.
 
 ## Create
 
+  * WebGL port of [0x40 Hues][hues]
   * International group buy calculator
   * Curtin University course and unit handbook scraper
   * Automatic avatar updater for services that are too stubborn to use
@@ -23,6 +24,8 @@ Each category is roughly sorted in descending order of importance.
   * Web terminal emulator — c.f. tty.js, Anyterm, Terminal.js, term.js
   * Web UI framework that opaquely abstracts over CSS document model
     semantics
+
+[hues]: http://0x40hues.blogspot.com/
 
 ## Learn
 
