@@ -1,0 +1,51 @@
+From c732a839955a8a23e6f5dd4e8cb02cc966f231cb Mon Sep 17 00:00:00 2001
+From: Delan Azabani <delan@azabani.com>
+Date: Mon, 1 Jun 2015 04:08:05 +0800
+Subject: [PATCH] Fix erroneously small write for OUT_REL4ADR
+
+Ensure that the int64_t offset value, which ultimately comes from an
+int64_t value in gencode() (assemble.c:1906), is completely written to
+the temporary buffer, instead of merely its least significant 32 bits.
+
+Prior to this change, WRITELONG was used instead of WRITEDLONG, which
+resulted in add_reloc being passed an int64_t "reloff" whose least
+significant 32 bits were those from the aforementioned offset value,
+and whose most significant 32 bits were stack garbage from "mydata".
+
+This led to get_closest_section_symbol_by_offset() attempting to search
+for extremely large values of "offset" among the symbols in "syms",
+which meant that the last symbol with a matching section number would
+always win the symbol search.
+
+In effect, this clobbered the resultant relocation information, such
+that all entries would be resolved with the same symbol.
+
+Test output can be found here
+
+https://www.azabani.com/patch/2/output.txt
+
+This patch fixes
+
+http://bugzilla.nasm.us/show_bug.cgi?id=3392306
+
+Signed-off-by: Delan Azabani <delan@azabani.com>
+---
+ output/outmac64.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/output/outmac64.c b/output/outmac64.c
+index 1d30e64..461fa32 100644
+--- a/output/outmac64.c
++++ b/output/outmac64.c
+@@ -588,7 +588,7 @@ static void macho_output(int32_t secto, const void *data,
+ 
+     case OUT_REL4ADR:
+         p = mydata;
+-        WRITELONG(p, *(int64_t *)data + 4 - size);
++        WRITEDLONG(p, *(int64_t *)data + 4 - size);
+ 
+         if (section == secto)
+             nasm_error(ERR_PANIC, "intra-section OUT_REL4ADR");
+-- 
+2.3.2 (Apple Git-55)
+

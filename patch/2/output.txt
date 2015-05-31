@@ -1,0 +1,104 @@
+% cat wat.s
+bits 64
+default rel
+
+section .data
+
+yin:   dw 0x1337
+yang:  dw 0x2600
+foo:   dw 0x0420
+.bar:  dw 0x1313
+.baz:  dw 0xCAFE
+.quux: dw 0xBEEF
+blah:  dw 0xAA55
+
+section .text
+
+global start
+start:
+  mov ax,[yin]
+  mov ax,[yang]
+  mov ax,[foo]
+  mov ax,[foo.bar]
+  mov ax,[foo.baz]
+  mov ax,[foo.quux]
+  mov ax,[blah]
+  lea rax,[start]
+  mov rax,0x2000001
+  mov rdi,0
+  syscall
+
+% yasm -f macho64 wat.s && otool -rv wat.o
+wat.o:
+Relocation information (__TEXT,__text) 7 entries
+address  pcrel length extern type    scattered symbolnum/value
+00000003 True  long   True   SIGNED  False     yin
+0000000a True  long   True   SIGNED  False     yang
+00000011 True  long   True   SIGNED  False     foo
+00000018 True  long   True   SIGNED  False     foo.bar
+0000001f True  long   True   SIGNED  False     foo.baz
+00000026 True  long   True   SIGNED  False     foo.quux
+0000002d True  long   True   SIGNED  False     blah
+
+% nasm -f macho64 wat.s && otool -rv wat.o # before
+wat.o:
+Relocation information (__TEXT,__text) 7 entries
+address  pcrel length extern type    scattered symbolnum/value
+0000002d True  long   True   BRANCH  False     blah
+00000026 True  long   True   BRANCH  False     blah
+0000001f True  long   True   BRANCH  False     blah
+00000018 True  long   True   BRANCH  False     blah
+00000011 True  long   True   BRANCH  False     blah
+0000000a True  long   True   BRANCH  False     blah
+00000003 True  long   True   BRANCH  False     blah
+
+% nasm -f macho64 wat.s && otool -rv wat.o # after
+wat.o:
+Relocation information (__TEXT,__text) 7 entries
+address  pcrel length extern type    scattered symbolnum/value
+0000002d True  long   True   BRANCH  False     blah
+00000026 True  long   True   BRANCH  False     foo.quux
+0000001f True  long   True   BRANCH  False     foo.baz
+00000018 True  long   True   BRANCH  False     foo.bar
+00000011 True  long   True   BRANCH  False     foo
+0000000a True  long   True   BRANCH  False     yang
+00000003 True  long   True   BRANCH  False     yin
+
+% ./autogen.sh
+% make CFLAGS='[default CFLAGS except -O0 replaces -O2]' -j nasm
+
+% lldb nasm # before
+(lldb) b get_closest_section_symbol_by_offset
+(lldb) run -f macho64 wat.s
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934592) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934594) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934596) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934598) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934600) + 18 at outmac64.c:302
+(lldb) bt
+  * frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8589934600) + 18 at outmac64.c:302
+    frame #1: 0x000000010004ae4c nasm`add_reloc(sect=0x0000000100300650, section=4, pcrel=1, bytes=4, reloff=8589934600) + 684 at outmac64.c:450
+    frame #2: 0x0000000100048791 nasm`macho_output(secto=2, data=0x00007fff5fbff300, type=OUT_REL4ADR, size=4, section=4, wrt=-1) + 1217 at outmac64.c:601
+    frame #3: 0x000000010000d647 nasm`out(offset=31, segto=2, data=0x00007fff5fbff300, type=OUT_REL4ADR, size=4, segment=4, wrt=-1) + 375 at assemble.c:353
+    frame #4: 0x0000000100010ffe nasm`gencode(segment=2, offset=31, bits=64, ins=0x00007fff5fbff6f0, temp=0x00000001000f5430, insn_end=35) + 6286 at assemble.c:1906
+    frame #5: 0x000000010000d239 nasm`assemble(segment=2, offset=29, bits=64, cp=iflag_t at 0x00007fff5fbff4e8, instruction=0x00007fff5fbff6f0, output=0x0000000100120340, error=0x0000000100006ad0, listgen=0x0000000100120500) + 3129 at assemble.c:673
+    frame #6: 0x0000000100004434 nasm`assemble_file(fname=0x0000000100120a30, depend_ptr=0x0000000000000000) + 9028 at nasm.c:1752
+    frame #7: 0x00000001000011a1 nasm`main(argc=4, argv=0x00007fff5fbffa30) + 1537 at nasm.c:465
+
+% lldb nasm # after
+(lldb) b get_closest_section_symbol_by_offset
+(lldb) run -f macho64 wat.s
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=0) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=2) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=4) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=6) + 18 at outmac64.c:302
+    frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8) + 18 at outmac64.c:302
+(lldb) bt
+  * frame #0: 0x000000010004afb2 nasm`get_closest_section_symbol_by_offset(fileindex='\x02', offset=8) + 18 at outmac64.c:302
+    frame #1: 0x000000010004ae4c nasm`add_reloc(sect=0x0000000100300650, section=4, pcrel=1, bytes=4, reloff=8) + 684 at outmac64.c:450
+    frame #2: 0x0000000100048790 nasm`macho_output(secto=2, data=0x00007fff5fbff300, type=OUT_REL4ADR, size=4, section=4, wrt=-1) + 1216 at outmac64.c:601
+    frame #3: 0x000000010000d647 nasm`out(offset=31, segto=2, data=0x00007fff5fbff300, type=OUT_REL4ADR, size=4, segment=4, wrt=-1) + 375 at assemble.c:353
+    frame #4: 0x0000000100010ffe nasm`gencode(segment=2, offset=31, bits=64, ins=0x00007fff5fbff6f0, temp=0x00000001000f5430, insn_end=35) + 6286 at assemble.c:1906
+    frame #5: 0x000000010000d239 nasm`assemble(segment=2, offset=29, bits=64, cp=iflag_t at 0x00007fff5fbff4e8, instruction=0x00007fff5fbff6f0, output=0x0000000100120340, error=0x0000000100006ad0, listgen=0x0000000100120500) + 3129 at assemble.c:673
+    frame #6: 0x0000000100004434 nasm`assemble_file(fname=0x0000000100120a30, depend_ptr=0x0000000000000000) + 9028 at nasm.c:1752
+    frame #7: 0x00000001000011a1 nasm`main(argc=4, argv=0x00007fff5fbffa30) + 1537 at nasm.c:465
