@@ -1,3 +1,33 @@
+                                                                                                                                                                                                                                                               
+Return-Path: <delan@azabani.com>
+Received: from NeXTSTEP.local ([134.7.45.24])
+        by mx.google.com with ESMTPSA id xt9sm9220388pbc.14.2015.05.02.23.51.12
+        for <tech@openbsd.org>
+        (version=TLSv1 cipher=RC4-SHA bits=128/128);
+        Sat, 02 May 2015 23:51:12 -0700 (PDT)
+From: Delan Azabani <delan@azabani.com>
+X-Google-Original-From: delan@NeXTSTEP.local (Delan Azabani)
+Received: by NeXTSTEP.local (Postfix, from userid 501)
+	id 6EF0F21C0AE; Sun,  3 May 2015 14:51:07 +0800 (AWST)
+To: tech@openbsd.org
+Subject: [PATCH] /etc/netstart: run inet6 autoconf on CLI interfaces
+Message-Id: <20150503065107.6EF0F21C0AE@NeXTSTEP.local>
+Date: Sun,  3 May 2015 14:51:07 +0800 (AWST)
+
+Hi there,
+
+I've written a patch to ensure that /etc/netstart executes ifconfig
+inet6 autoconf, even when interfaces are specified as arguments.
+
+My apologies in advance if I've violated any etiquette, as this is my
+first patch.
+
+Before: http://puu.sh/hzAcR/23cb3347c6.png
+After: http://puu.sh/hzAdF/d13b9f4a1a.png
+
+Cheers,
+Delan Azabani
+
 Index: etc/netstart
 ===================================================================
 RCS file: /cvs/src/etc/netstart,v
