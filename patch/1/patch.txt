@@ -1,0 +1,70 @@
+From delan@azabani.com Sun May 03 06:51:07 2015
+From: Delan Azabani <delan@azabani.com>
+To: tech@openbsd.org
+Date: Sun,  3 May 2015 14:51:07 +0800 (AWST)
+Subject: [PATCH] /etc/netstart: run inet6 autoconf on CLI interfaces
+
+Hi there,
+
+I've written a patch to ensure that /etc/netstart executes ifconfig
+inet6 autoconf, even when interfaces are specified as arguments.
+
+My apologies in advance if I've violated any etiquette, as this is my
+first patch.
+
+Before: http://puu.sh/hzAcR/23cb3347c6.png
+After: http://puu.sh/hzAdF/d13b9f4a1a.png
+
+Cheers,
+Delan Azabani
+
+Index: etc/netstart
+===================================================================
+RCS file: /cvs/src/etc/netstart,v
+retrieving revision 1.144
+diff -u -p -r1.144 netstart
+--- etc/netstart	3 Dec 2014 19:55:49 -0000	1.144
++++ etc/netstart	3 May 2015 06:29:52 -0000
+@@ -120,6 +120,17 @@ ifstart() {
+ 			;;
+ 		esac
+ 		eval "$cmd"
++		if ifconfig lo0 inet6 >/dev/null 2>&1; then
++			fw=`sysctl -n net.inet6.ip6.forwarding`
++			if [ "x$fw" = "x0" ]; then
++				for curif in $rtsolif; do
++					echo "IPv6 autoconf:$curif"
++					ifconfig $curif inet6 autoconf
++				done
++			else
++				echo "IPv6 autoconf not supported while IPv6 forwarding is enabled"
++			fi
++		fi
+ 	done < /etc/hostname.$if
+ }
+ 
+@@ -159,6 +170,7 @@ if [[ $1 == autoboot ]]; then
+ fi
+ if [ $# -gt 0 ]; then
+ 	while [ $# -gt 0 ]; do
++		rtsolif=""
+ 		ifstart $1
+ 		shift
+ 	done
+@@ -240,16 +252,6 @@ ifmstart "" "trunk svlan vlan carp gif g
+ # The (s)vlan interfaces need to come up after trunk.
+ # Configure all the carp interfaces which we know about before default route.
+ ifmstart "trunk svlan vlan carp"
+-
+-if [ "$ip6kernel" = "YES" -a "x$rtsolif" != "x" ]; then
+-	fw=`sysctl -n net.inet6.ip6.forwarding`
+-	if [ "x$fw" = "x0" ]; then
+-		echo "IPv6 autoconf:$rtsolif"
+-		ifconfig $rtsolif inet6 autoconf
+-	else
+-		echo "IPv6 autoconf not supported while IPv6 forwarding is enabled"
+-	fi
+-fi
+ 
+ # Look for default routes in /etc/mygate.
+ [[ -z $dhcpif ]] && stripcom /etc/mygate | while read gw; do
