@@ -1,15 +1,15 @@
                                                                                                                                                                                                                                                                
 Return-Path: <delan@azabani.com>
 Received: from NeXTSTEP.local.com (edge.azabani.com. [59.167.111.68])
-        by mx.google.com with ESMTPSA id sc1sm12114718pac.36.2015.05.31.13.36.46
+        by mx.google.com with ESMTPSA id c1sm12156515pdc.45.2015.05.31.14.56.35
         (version=TLSv1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Sun, 31 May 2015 13:36:48 -0700 (PDT)
+        Sun, 31 May 2015 14:56:37 -0700 (PDT)
 From: Delan Azabani <delan@azabani.com>
-To: hpa@zytor.com
+To: nasm-devel@lists.sourceforge.net
 Cc: Delan Azabani <delan@azabani.com>
 Subject: [PATCH] Fix erroneously small write for OUT_REL4ADR
-Date: Mon,  1 Jun 2015 04:36:31 +0800
-Message-Id: <1433104591-3472-1-git-send-email-delan@azabani.com>
+Date: Mon,  1 Jun 2015 05:56:11 +0800
+Message-Id: <1433109371-7488-1-git-send-email-delan@azabani.com>
 X-Mailer: git-send-email 2.3.2 (Apple Git-55)
 
 Ensure that the int64_t offset value, which ultimately comes from an
