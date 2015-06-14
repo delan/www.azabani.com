@@ -138,7 +138,7 @@ I found (Nierenberg et al., 2007; Pigott et al., 2007) were sponsored
 by Eli Lilly. Khan et al. (2007) found that "escitalopram has better
 tolerability and comparable efficacy relative to duloxetine", but I
 take most studies about antidepressants with a flagfall grain of salt
-anyway, especially given their durations generally being very short.
+anyway, especially when they tend to span very short durations.
 
 The first time I switched to duloxetine, I did so abruptly on the
 advice of my doctor, even though I raised concerns that switching from
