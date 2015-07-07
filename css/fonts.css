@@ -11,3 +11,7 @@
 	font-family: 'CMU Typewriter Text';
 	src: url(../fonts/cmuntt.woff);
 }
+@font-face {
+	font-family: 'Symbola';
+	src: url(../fonts/Symbola.ttf);
+}
