@@ -133,7 +133,7 @@ Floatvis.prototype.getNumber = function(/* optional */ buffer) {
 	var numbers = buffer ? new this.format.type(buffer) : this.numbers;
 	buffer = buffer || this.buffer;
 	if (Floatvis.isLittleEndian) {
-		var tempBuffer = buffer.slice();
+		var tempBuffer = buffer.slice(0);
 		var tempNumbers = new this.format.type(tempBuffer);
 		var tempOctets = new Uint8Array(tempBuffer);
 		var octets = this.format.octets;
@@ -275,7 +275,7 @@ Floatvis.prototype.getSignificandValue = function() {
 			return '(payload: ' + payload + ')';
 		}
 	}
-	var tempBuffer = this.buffer.slice();
+	var tempBuffer = this.buffer.slice(0);
 	var tempNumbers = new this.format.type(tempBuffer);
 	var tempOctets = new Uint8Array(tempBuffer);
 	var start = this.format.bits - 1;
