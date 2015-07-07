@@ -9,5 +9,15 @@
 		<div class="floatvis binary64"></div>
 		<div class="floatvis binary32"></div>
 		<script src="script.js"></script>
+		<script>
+			var Ea = document.querySelector('.binary64');
+			var Eb = document.querySelector('.binary32');
+			var Fa = new Floatvis(Floatvis.binary64, Ea);
+			var Fb = new Floatvis(Floatvis.binary32, Eb);
+			Fa.setNumber(Fa.view.entry.value = -Infinity);
+			Fb.setNumber(Fb.view.entry.value = Math.E);
+			Fa.draw();
+			Fb.draw();
+		</script>
 	</body>
 </html>
