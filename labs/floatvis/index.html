@@ -14,10 +14,10 @@
 			var Eb = document.querySelector('.binary32');
 			var Fa = new Floatvis(Floatvis.binary64, Ea);
 			var Fb = new Floatvis(Floatvis.binary32, Eb);
-			Fa.setNumber(Fa.view.entry.value = Math.E);
-			Fb.setNumber(Fb.view.entry.value = -Infinity);
-			Fa.draw();
-			Fb.draw();
+			Fa.setNumber(Math.E);
+			Fb.setNumber(-Infinity);
+			Fa.draw(true);
+			Fb.draw(true);
 		</script>
 	</body>
 </html>
