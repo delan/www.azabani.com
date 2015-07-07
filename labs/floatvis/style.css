@@ -99,7 +99,15 @@ body {
 	vertical-align: top;
 }
 #toolkit button {
+	width: 3em;
 	padding: 0.25em;
 	border: thin solid black;
 	border-radius: 0.25em;
+}
+#toolkit button:hover, #toolkit button:focus {
+	background: #ddd;
+}
+#toolkit button:active {
+	background: #000;
+	color: white;
 }
