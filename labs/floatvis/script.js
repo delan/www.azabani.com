@@ -113,7 +113,9 @@ Floatvis.prototype.build = function() {
 	}).bind(this));
 };
 
-Floatvis.prototype.draw = function() {
+Floatvis.prototype.draw = function(/* optional */ shouldDrawEntry) {
+	if (shouldDrawEntry)
+		this.view.entry.value = this.getNumber();
 	for (var i = 0; i < this.format.bits; i++)
 		this.view.bits[i].value = this.getBit(i);
 	this.view.info.value = this.getInfo();
@@ -209,7 +211,7 @@ Floatvis.prototype.inputBit = function(index, event) {
 		this.setBit(index, 1);
 		goodInput = true;
 	}
-	this.draw();
+	this.draw(true);
 	if (goodInput && index > 0)
 		this.view.bits[index - 1].focus();
 	else
