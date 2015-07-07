@@ -285,7 +285,7 @@ Floatvis.prototype.getSignificandValue = function() {
 	var significandValue = this.getNumber(tempBuffer);
 	if (exponent == 0) // subnormal number
 		significandValue -= 1;
-	return toSignificant(significandValue, this.format.maximumDigits);
+	return significandValue.toPrecision(this.format.maximumDigits);
 };
 
 Array.prototype.slice.call(
@@ -311,13 +311,6 @@ function toSuperscript(number) {
 		var index = digit.charCodeAt(0) - '-'.charCodeAt(0);
 		return '⁻./⁰¹²³⁴⁵⁶⁷⁸⁹'.split('')[index] || digit;
 	}).join('');
-}
-
-function toSignificant(number, figures) {
-	var logarithm = Math.log(Math.abs(number)) / Math.log(10);
-	var digitsUnitsOrLarger = Math.floor(logarithm) + 1;
-	var decimalPlaces = figures - digitsUnitsOrLarger;
-	return number.toFixed(Math.max(decimalPlaces, 0));
 }
 
 })(this);
