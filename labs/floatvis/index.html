@@ -10,17 +10,36 @@
 		<br>
 		<div class="floatvis binary32">
 		</div><div id="toolkit">
-			<button type="button" onclick="Fset(+1.0);">
-				+1.0
+			<button type="button" onclick="Fup();">
+				↑
 			</button>
-			<button type="button" onclick="Fset(-1.0);">
-				−1.0
+			<button type="button" onclick="Fdown();">
+				↓
 			</button>
 			<button type="button" onclick="Fset(+1/0);">
 				+∞
 			</button>
 			<button type="button" onclick="Fset(-1/0);">
 				−∞
+			</button>
+			<button type="button" onclick="Fsub();">
+				sub
+			</button>
+			<button type="button" onclick="FSUB();">
+				SUB
+			</button>
+			<button type="button" onclick="Fnor();">
+				nor
+			</button>
+			<button type="button" onclick="FNOR();">
+				NOR
+			</button>
+			<br>
+			<button type="button" onclick="Fset(+1.0);">
+				+1.0
+			</button>
+			<button type="button" onclick="Fset(-1.0);">
+				−1.0
 			</button>
 			<button type="button" onclick="Fset(Math.PI);">
 				π
@@ -44,6 +63,38 @@
 				Fa.setNumber(number);
 				Fb.setNumber(number);
 				Fa.draw(true);
+				Fb.draw(true);
+			}
+			function Fsub() {
+				Fa.setNumber(4.9406564584124654e-324);
+				Fb.setNumber(1.40129846e-45);
+				Fa.draw(true);
+				Fb.draw(true);
+			}
+			function FSUB() {
+				Fa.setNumber(2.2250738585072009e-308);
+				Fb.setNumber(1.17549421e-38);
+				Fa.draw(true);
+				Fb.draw(true);
+			}
+			function Fnor() {
+				Fa.setNumber(2.2250738585072014e-308);
+				Fb.setNumber(1.17549435e-38);
+				Fa.draw(true);
+				Fb.draw(true);
+			}
+			function FNOR() {
+				Fa.setNumber(1.7976931348623157e+308);
+				Fb.setNumber(3.40282347e+38);
+				Fa.draw(true);
+				Fb.draw(true);
+			}
+			function Fup() {
+				Fa.setNumber(Fb.getNumber());
+				Fa.draw(true);
+			}
+			function Fdown() {
+				Fb.setNumber(Fa.getNumber());
 				Fb.draw(true);
 			}
 			var Ea = document.querySelector('.binary64');
