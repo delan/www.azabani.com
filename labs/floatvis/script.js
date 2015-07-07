@@ -303,7 +303,10 @@ global.Floatvis = Floatvis;
 
 function highlightOnFocus(element) {
 	var select = element.select.bind(element);
-	var handler = this.requestAnimationFrame.bind(this, select);
+	if (this.requestAnimationFrame)
+		var handler = this.requestAnimationFrame.bind(this, select);
+	else
+		var handler = this.setTimeout.bind(this, select, 0);
 	element.addEventListener('focus', handler, false);
 	element.addEventListener('click', handler, false);
 }
