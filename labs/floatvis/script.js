@@ -201,12 +201,19 @@ Floatvis.prototype.setBit = function(index, value, /* optional */ array) {
 };
 
 Floatvis.prototype.inputBit = function(index, event) {
-	if (event.target.value == '0')
+	var goodInput = false;
+	if (event.target.value == '0') {
 		this.setBit(index, 0);
-	else if (event.target.value == '1')
+		goodInput = true;
+	} else if (event.target.value == '1') {
 		this.setBit(index, 1);
+		goodInput = true;
+	}
 	this.draw();
-	event.target.select();
+	if (goodInput && index > 0)
+		this.view.bits[index - 1].focus();
+	else
+		event.target.select();
 };
 
 Floatvis.prototype.getSign = function() {
