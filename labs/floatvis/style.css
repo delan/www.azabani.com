@@ -1,0 +1,78 @@
+body {
+	margin: 1em;
+}
+.floatvis, .floatvis * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: medium none transparent;
+	outline: medium none transparent;
+	font: 100% sans-serif;
+	line-height: 1.5;
+	vertical-align: baseline;
+	text-align: center;
+	display: inline-block;
+}
+.floatvis {
+	margin: 0.5em;
+	outline: thin solid black;
+}
+.floatvis input {
+	outline: thin solid #888;
+}
+.floatvis .row {
+	display: block;
+}
+.floatvis .entry {
+	background: #ffc;
+	text-align: right;
+	padding-right: 1em;
+}
+.floatvis .dead {
+	background: #ddd;
+}
+.floatvis .info {
+	background: #ddd;
+	text-align: left;
+	padding-left: 1em;
+}
+.floatvis .sign {
+	background: #ccf;
+	width: 1em;
+}
+.floatvis .exponent {
+	background: #cfc;
+}
+.floatvis .significand {
+	background: #fcc;
+}
+.floatvis .bit {
+	width: 1em;
+}
+.floatvis .dead {
+	width: 1em;
+}
+.floatvis.binary32 .entry {
+	width: 15.5em;
+}
+.floatvis.binary32 .info {
+	width: 15.5em;
+}
+.floatvis.binary32 .exponent:not(.bit) {
+	width: 8em;
+}
+.floatvis.binary32 .significand:not(.bit) {
+	width: 23em;
+}
+.floatvis.binary64 .entry {
+	width: 31.5em;
+}
+.floatvis.binary64 .info {
+	width: 31.5em;
+}
+.floatvis.binary64 .exponent:not(.bit) {
+	width: 11em;
+}
+.floatvis.binary64 .significand:not(.bit) {
+	width: 52em;
+}
