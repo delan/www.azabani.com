@@ -114,8 +114,10 @@ Floatvis.prototype.build = function() {
 };
 
 Floatvis.prototype.draw = function(/* optional */ shouldDrawEntry) {
-	if (shouldDrawEntry)
-		this.view.entry.value = this.getNumber();
+	if (shouldDrawEntry) {
+		var digits = this.format.maximumDigits;
+		this.view.entry.value = this.getNumber().toPrecision(digits);
+	}
 	for (var i = 0; i < this.format.bits; i++)
 		this.view.bits[i].value = this.getBit(i);
 	this.view.info.value = this.getInfo();
