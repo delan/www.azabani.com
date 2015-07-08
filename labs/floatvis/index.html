@@ -10,43 +10,53 @@
 		<br>
 		<div class="floatvis binary32">
 		</div><div id="toolkit">
-			<button type="button" onclick="Fup();">
+			<button type="button" onclick="Fup();" title="Convert and copy the binary32 value up to the binary64 value.">
 				↑
-			</button><button type="button" onclick="Fdown();">
+			</button><button type="button" onclick="Fdown();" title="Convert and copy the binary64 value down to the binary32 value.">
 				↓
-			</button><button type="button" onclick="Fset(+1/0);">
+			</button><button type="button" onclick="Fset(+1/0);" title="Set both values to positive infinity.">
 				+∞
-			</button><button type="button" onclick="Fset(-1/0);">
+			</button><button type="button" onclick="Fset(-1/0);" title="Set both values to negative infinity.">
 				−∞
-			</button><button type="button" onclick="Fsub();">
+			</button><button type="button" onclick="Fsub();" title="Set both values to their smallest positive subnormal numbers.">
 				sub
-			</button><button type="button" onclick="FSUB();">
+			</button><button type="button" onclick="FSUB();" title="Set both values to their largest positive subnormal numbers.">
 				SUB
-			</button><button type="button" onclick="Fnor();">
+			</button><button type="button" onclick="Fnor();" title="Set both values to their smallest positive normal numbers.">
 				nor
-			</button><button type="button" onclick="FNOR();">
+			</button><button type="button" onclick="FNOR();" title="Set both values to their largest positive normal numbers.">
 				NOR
 			</button><br>
-			<button type="button" onclick="Fset(+1.0);">
+			<button type="button" onclick="Fset(+1.0);" title="Set both values to positive one.">
 				+1.0
-			</button><button type="button" onclick="Fset(-1.0);">
+			</button><button type="button" onclick="Fset(-1.0);" title="Set both values to negative one.">
 				−1.0
-			</button><button type="button" onclick="Fset(-0.0);">
+			</button><button type="button" onclick="Fset(-0.0);" title="Set both values to negative zero.">
 				−0.0
-			</button><button type="button" onclick="Fset(Math.PI);">
+			</button><button type="button" onclick="Fset(Math.PI);" title="Set both values to their most precise approximations of π.">
 				π
-			</button><button type="button" onclick="Fset(Math.E);">
+			</button><button type="button" onclick="Fset(Math.E);" title="Set both values to their most precise approximations of Euler’s number.">
 				e
-			</button><button type="button" onclick="Fset(1/8);">
+			</button><button type="button" onclick="Fset(1/8);" title="Set both values to exactly one eighth.">
 				1/8
-			</button><button type="button" onclick="Fset(1/5);">
+			</button><button type="button" onclick="Fset(1/5);" title="Set both values to their most precise approximations of one fifth.">
 				1/5
-			</button><button type="button" onclick="Fset(1/3);">
+			</button><button type="button" onclick="Fset(1/3);" title="Set both values to their most precise approximations of one third.">
 				1/3
 			</button>
 		</div>
+		<br>
+		<div id="help">
+			Above are representations of IEEE 754 binary64 and
+			binary32 numbers. Enter a value in JavaScript’s format
+			to see its category, bit pattern, and the meanings of
+			their sign, exponent, and significand parts. Try
+			playing with the bit patterns too!
+		</div>
 		<script src="script.js"></script>
 		<script>
+			var help = document.querySelector('#help');
+			var helpText = help.textContent;
 			function Fset(number) {
 				Fa.setNumber(number);
 				Fb.setNumber(number);
@@ -93,6 +103,25 @@
 			Fb.setNumber(-Infinity);
 			Fa.draw(true);
 			Fb.draw(true);
+			Array.prototype.slice.call(
+				document.querySelectorAll('#toolkit button')
+			).forEach(function(button) {
+				button.addEventListener(
+					'mouseover',
+					function(event) {
+						var title = event.target.title;
+						help.textContent = title;
+					},
+					false
+				);
+				button.addEventListener(
+					'mouseout',
+					function(event) {
+						help.textContent = helpText;
+					},
+					false
+				);
+			});
 		</script>
 	</body>
 </html>

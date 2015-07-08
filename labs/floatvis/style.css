@@ -74,7 +74,7 @@
 .floatvis.binary64 .significand:not(.bit) {
 	width: 52em;
 }
-#toolkit, #toolkit * {
+#toolkit, #toolkit *, #help, #help * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -87,13 +87,17 @@
 	text-align: center;
 	display: inline-block;
 }
-#toolkit {
+#toolkit, #help {
 	margin: 0.5em;
 	padding: 0.5em;
 	width: 31em;
 	height: 6em;
 	outline: thin solid black;
 	vertical-align: top;
+}
+#help {
+	width: 64em;
+	height: 5em;
 }
 #toolkit button {
 	width: 3em;
