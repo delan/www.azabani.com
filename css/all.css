@@ -60,6 +60,9 @@ pre {
 	background: #e0e0e0;
 	padding: 0.5em;
 }
+pre code {
+	font-size: 1em;
+}
 a {
 	color: black;
 }
@@ -83,9 +86,11 @@ ol {
 }
 sub {
 	vertical-align: sub;
+	font-size: 0.75em;
 }
 sup {
 	vertical-align: super;
+	font-size: 0.75em;
 }
 blockquote {
 	margin: 1em 1em 1em 4em;
