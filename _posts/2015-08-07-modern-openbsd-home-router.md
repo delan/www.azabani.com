@@ -85,7 +85,7 @@ Behind every fancy router is a bridge, and a bridge is what I made:
 
 `em0` goes to the DG834Gv2, `em1` goes to a D-Link DGS-1008D, a dumb
 switch, `ral0` hosts the wireless network, and `vether0` serves two
-purposes. Not only does it decouple whether or not IPv4 and IPv6 will
+purposes: not only does it decouple whether or not IPv4 and IPv6 will
 work from whether or not a particular physical interface is up, but it
 also yields a stable interface identifier that’s independent of any
 physical interface.
