@@ -202,7 +202,10 @@ just after `inet6 eui64`, or simply moving `inet6 eui64` after the
 PPPoE parameters. Because of a peculiarity with route(8),
 `add default fe80::` doesn’t work either unless the `-inet6` option is
 specified, because `0.0.0.0/0` is assumed, and incompatible address
-families ensue. I’ve since sent a patch to `tech@openbsd.org`.
+families ensue. I’ve since [sent] a [patch] to `tech@openbsd.org`.
+
+[sent]: https://www.azabani.com/patch/3/message.txt
+[patch]: https://www.azabani.com/patch/3/patch.txt
 
 From here, either or both of two paths can be taken to obtain a globally
 routable IPv6 prefix: NDP Router Solicitation [[RFC 4861][4861]] for the
