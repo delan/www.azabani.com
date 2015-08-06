@@ -9,8 +9,7 @@ flaky at best, and prohibitively insecure at worst. While I’ve had good
 experiences with OpenWrt and pfSense, I wanted to build a router from
 the ground up, both to understand the stack and to have something to
 tinker with. I found many solid tutorials out there, but few of them
-covered the intricacies of both PPP and IPv6. Here’s what I’ve learned
-over the last 16 days, intermittently working towards my new router.
+covered the intricacies of both PPP and IPv6. Here’s what I’ve learned.
 
 ## Choosing the hardware
 
