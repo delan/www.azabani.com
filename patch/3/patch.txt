@@ -1,0 +1,23 @@
+Index: share/man/man4/pppoe.4
+===================================================================
+RCS file: /cvs/src/share/man/man4/pppoe.4,v
+retrieving revision 1.28
+diff -u -p -u -r1.28 pppoe.4
+--- share/man/man4/pppoe.4	16 Feb 2015 16:38:54 -0000	1.28
++++ share/man/man4/pppoe.4	6 Aug 2015 17:30:00 -0000
+@@ -96,13 +96,13 @@ This all is typically accomplished using
+ file.
+ A typical file looks like this:
+ .Bd -literal -offset indent
+-inet6 eui64
+ inet 0.0.0.0 255.255.255.255 NONE \e
+ 	pppoedev em0 authproto pap \e
+ 	authname 'testcaller' authkey 'donttell' up
+ dest 0.0.0.1
++inet6 eui64
+ !/sbin/route add default -ifp pppoe0 0.0.0.1
+-!/sbin/route add default -ifp pppoe0 fe80::
++!/sbin/route add -inet6 default -ifp pppoe0 fe80::
+ .Ed
+ .Pp
+ The physical interface must also be marked

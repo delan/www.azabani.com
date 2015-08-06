@@ -1,0 +1,55 @@
+                                                                                                                                                                                                                                                               
+Return-Path: <delan@azabani.com>
+Received: from NeXTSTEP.local (edge.azabani.com. [59.167.111.68])
+        by smtp.gmail.com with ESMTPSA id x2sm7217735pdx.63.2015.08.06.10.33.05
+        for <tech@openbsd.org>
+        (version=TLSv1 cipher=RC4-SHA bits=128/128);
+        Thu, 06 Aug 2015 10:33:06 -0700 (PDT)
+From: Delan Azabani <delan@azabani.com>
+X-Google-Original-From: delan@NeXTSTEP.local (Delan Azabani)
+Received: by NeXTSTEP.local (Postfix, from userid 501)
+	id 3301BF655EF; Fri,  7 Aug 2015 01:32:59 +0800 (AWST)
+To: tech@openbsd.org
+Subject: [PATCH] share/man/man4/pppoe.4: fix hostname.pppoe0 example
+Message-Id: <20150806173301.3301BF655EF@NeXTSTEP.local>
+Date: Fri,  7 Aug 2015 01:32:59 +0800 (AWST)
+
+Hi there,
+
+I've written a patch to fix two subtle errors in the example file for
+/etc/hostname.pppoe0 that prevent it from working.
+
+Placing inet6 eui64 before the PPPoE parameters inadvertently brings
+the interface up, after which the parameters can't be changed.
+
+route add default fe80:: doesn't work either unless the -inet6 option
+is specified, because incompatible address families arise.
+
+Cheers,
+Delan Azabani
+
+Index: share/man/man4/pppoe.4
+===================================================================
+RCS file: /cvs/src/share/man/man4/pppoe.4,v
+retrieving revision 1.28
+diff -u -p -u -r1.28 pppoe.4
+--- share/man/man4/pppoe.4	16 Feb 2015 16:38:54 -0000	1.28
++++ share/man/man4/pppoe.4	6 Aug 2015 17:30:00 -0000
+@@ -96,13 +96,13 @@ This all is typically accomplished using
+ file.
+ A typical file looks like this:
+ .Bd -literal -offset indent
+-inet6 eui64
+ inet 0.0.0.0 255.255.255.255 NONE \e
+ 	pppoedev em0 authproto pap \e
+ 	authname 'testcaller' authkey 'donttell' up
+ dest 0.0.0.1
++inet6 eui64
+ !/sbin/route add default -ifp pppoe0 0.0.0.1
+-!/sbin/route add default -ifp pppoe0 fe80::
++!/sbin/route add -inet6 default -ifp pppoe0 fe80::
+ .Ed
+ .Pp
+ The physical interface must also be marked
+
+
