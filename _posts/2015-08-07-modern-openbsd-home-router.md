@@ -386,6 +386,9 @@ codes to allow through the router [[RFC 4890][4890]].
 	# Normalise packets, especially IPv4 DF and Identification
 	match in all scrub (no-df random-id)
 
+	# Limit the MSS on PPPoE to 1440 octets
+	match on pppoe0 scrub (max-mss 1440)
+
 	# Block all packets by default, logging them to pflog0
 	block log
 
