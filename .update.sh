@@ -2,4 +2,5 @@
 
 git pull &&
 jekyll build &&
-ln -s _site/patch _site/bug
+cd _site &&
+ln -s patch bug
