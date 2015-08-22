@@ -78,6 +78,8 @@ Each category is roughly sorted in descending order of importance.
   * *Super Solvers: Gizmos & Gadgets!* strategy guide
   * IPv6 addressing quirks — `randomizeidentifiers` on Windows versus
     RFC 4941, OpenWRT Barrier Breaker assignment policy versus RFC 7084
+  * Improved IPv6 privacy with outgoing connections over a dynamic /64
+    and incoming connections over a static /56
   * The semantics of Adaptec's JBOD mode — how it seems to happen to
     work on existing drives only if they're MBR, but corrupt GPT drives
   * Junctioning `%PROGRAMFILES%` on Windows 7, Windows 8,
