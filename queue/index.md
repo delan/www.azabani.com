@@ -15,6 +15,7 @@ Each category is roughly sorted in descending order of importance.
   * WebGL port of [0x40 Hues][hues]
   * International group buy calculator
   * Curtin University course and unit handbook scraper
+  * Cipher suite list generator with sorting and prioritisation
   * Automatic avatar updater for services that are too stubborn to use
     Gravatar
   * Personal domain and host map
@@ -24,6 +25,9 @@ Each category is roughly sorted in descending order of importance.
   * Web terminal emulator — c.f. tty.js, Anyterm, Terminal.js, term.js
   * Web UI framework that opaquely abstracts over CSS document model
     semantics
+  * Interactive taxonomy of psychiatric and recreational drugs
+  * Log merger and migrator for ZNC
+  * Online audio recorder with parts, takes, and crossfade
 
 [hues]: http://0x40hues.blogspot.com/
 
