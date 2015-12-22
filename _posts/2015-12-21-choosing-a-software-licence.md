@@ -166,7 +166,7 @@ really relevant for modern usage:
 The earliest two versions of the licence are roughly equivalent, and
 they have clauses that are known as the “advertising clauses”, which
 require that any advertising for products or services that contain
-licenced code must include an acknowledgement of its authors.
+licensed code must include an acknowledgement of its authors.
 
 You might correctly imagine that this requirement can prove very
 unwieldy, very quickly, and as such, they aren’t approved by the OSI,
@@ -283,7 +283,7 @@ actual evildoers from using a licensed work to do their evils, it
 makes the JSON licence a nightmare to use for any meaningful project.
 
 The subjective nature of evil could potentially put users of a
-licenced work at risk of being a target of litigation without their
+licensed work at risk of being a target of litigation without their
 knowledge, and this restriction is also a clear violation of freedom
 0, making it incompatible with essentially all free and open
 licences.
