@@ -107,8 +107,15 @@ or not any modifications have been made, the source *must* be
 included or otherwise made readily available along with any binaries
 or other forms of the software.
 
-Some examples of copyleft licences include the Mozilla Public License
-and the GNU GPL family of licences.
+Some examples of copyleft licences include the GNU GPL family, the
+Mozilla Public License family, as well as Sun Microsystems’
+derivatives of the MPL, the Sun Public License and the Common
+Development and Distribution License.
+
+While version 2.0 of the MPL has been updated to explicitly introduce
+compatibility with some of the GPL licences, the SPL and the CDDL are
+based on version 1.0 and 1.1 of the MPL, and this is — at least in
+part — why they’re incompatible with the GPL.
 
 ## The permissive licences
 
@@ -249,6 +256,37 @@ except for CC0, for [software projects][ccsoft], because they lack
 specific terms that are desirable for software licensing, and they’re
 incompatible with most free and open software licences, among other
 reasons.
+
+## When readable source isn’t open source
+
+That one is allowed to read the source code of a work alone doesn’t
+imply that the FSF will consider its licence “free”, nor will the OSI
+necessarily call its licence “open”. In the case of the OSI, the
+availability and legibility of source code merely forms a part of one
+of the ten criteria that the Open Source Definition comprises.
+
+One example of such a licence is the TrueCrypt licence, which not
+only has excessive restrictions on how licensed works may be derived
+from or distributed, but also forbids anyone who doesn’t understand
+the licence from using a licensed work, which is a clear violation of
+freedom 0 of the Free Software Definition.
+
+Another licence that fits the bill here is the JSON licence, which
+Douglas Crockford uses for many of his popular programs such as
+JSLint and JSMin. It’s identical to the Expat licence, with the
+exception of an additional sentence: “The Software shall be used for
+Good, not Evil.”
+
+While many people may agree that this additional “restriction” is
+clearly tongue-in-cheek, as it’d be ineffective at preventing any
+actual evildoers from using a licensed work to do their evils, it
+makes the JSON licence a nightmare to use for any meaningful project.
+
+The subjective nature of evil could potentially put users of a
+licenced work at risk of being a target of litigation without their
+knowledge, and this restriction is also a clear violation of freedom
+0, making it incompatible with essentially all free and open
+licences.
 
 ## Colloquial ambiguities
 
