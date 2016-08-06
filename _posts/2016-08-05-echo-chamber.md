@@ -40,9 +40,9 @@ any components that are superfluous to the goal of condemnation, let
 alone those that serve as obstacles to their punch lines.
 
 In other words, the echo chamber becomes a tool, and as the most
-developed of the primates by far, we’re the pioneering experts on
-the design and optimisation of tools. Sickly is the community that
-is defined, even in part, by whether or not you loathe the “correct”
+sophisticated of the primates by far, we’re the pioneering experts on
+the design and optimisation of tools. Sickly is the community that is
+defined, even in part, by whether or not you loathe the “correct”
 people. Until we decide to stop approving of it, or condoning it
 through inaction, we will inevitably make this tool as efficient
 as possible, no matter the cost.
