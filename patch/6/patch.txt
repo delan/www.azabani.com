@@ -1,0 +1,42 @@
+Index: usr.sbin/nsd/server.c
+===================================================================
+RCS file: /cvs/src/usr.sbin/nsd/server.c,v
+retrieving revision 1.25
+diff -u -p -u -r1.25 server.c
+--- usr.sbin/nsd/server.c	31 Aug 2016 07:31:20 -0000	1.25
++++ usr.sbin/nsd/server.c	26 Oct 2016 07:40:56 -0000
+@@ -565,7 +565,7 @@ server_init_ifs(struct nsd *nsd, size_t 
+ {
+ 	struct addrinfo* addr;
+ 	size_t i;
+-#if defined(SO_REUSEPORT) || defined(SO_REUSEADDR) || (defined(INET6) && (defined(IPV6_V6ONLY) || defined(IPV6_USE_MIN_MTU) || defined(IPV6_MTU) || defined(IP_TRANSPARENT)) || defined(IP_FREEBIND))
++#if defined(SO_REUSEPORT) || defined(SO_REUSEADDR) || (defined(INET6) && (defined(IPV6_V6ONLY) || defined(IPV6_USE_MIN_MTU) || defined(IPV6_MTU) || defined(IP_TRANSPARENT) || defined(SO_BINDANY)) || defined(IP_FREEBIND))
+ 	int on = 1;
+ #endif
+ 
+@@ -755,6 +755,12 @@ server_init_ifs(struct nsd *nsd, size_t 
+ 					strerror(errno));
+ 			}
+ #endif /* IP_TRANSPARENT */
++#ifdef SO_BINDANY
++			if (setsockopt(nsd->udp[i].s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on)) < 0) {
++				log_msg(LOG_ERR, "setsockopt(...,SO_BINDANY, ...) failed for udp: %s",
++					strerror(errno));
++			}
++#endif /* SO_BINDANY */
+ 		}
+ 
+ 		if (bind(nsd->udp[i].s, (struct sockaddr *) addr->ai_addr, addr->ai_addrlen) != 0) {
+@@ -885,6 +891,12 @@ server_init_ifs(struct nsd *nsd, size_t 
+ 					strerror(errno));
+ 			}
+ #endif /* IP_TRANSPARENT */
++#ifdef SO_BINDANY
++			if (setsockopt(nsd->tcp[i].s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on)) < 0) {
++				log_msg(LOG_ERR, "setsockopt(...,SO_BINDANY, ...) failed for tcp: %s",
++					strerror(errno));
++			}
++#endif /* SO_BINDANY */
+ 		}
+ 
+ 		if (bind(nsd->tcp[i].s, (struct sockaddr *) addr->ai_addr, addr->ai_addrlen) != 0) {

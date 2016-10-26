@@ -1,0 +1,123 @@
+                                                                                                                                                                                                                                                               
+Return-Path: <delan@azabani.com>
+Received: from uranus (pa49-196-11-27.pa.vic.optusnet.com.au. [49.196.11.27])
+        by smtp.gmail.com with ESMTPSA id d79sm2185765pfj.68.2016.10.26.01.22.59
+        for <tech@openbsd.org>
+        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+        Wed, 26 Oct 2016 01:22:59 -0700 (PDT)
+Received: from delan by uranus with local (Exim 4.87)
+	(envelope-from <delan@azabani.com>)
+	id 1bzJU7-0006Cm-N1
+	for tech@openbsd.org; Wed, 26 Oct 2016 16:22:55 +0800
+To: tech@openbsd.org
+Subject: [PATCH] nsd(8): use SO_BINDANY for the ip-transparent option
+Message-Id: <E1bzJU7-0006Cm-N1@uranus>
+From: Delan Azabani <delan@azabani.com>
+Date: Wed, 26 Oct 2016 16:22:55 +0800
+
+I've written a patch to make the ip-transparent option in nsd.conf(5)
+work on OpenBSD, by trying SO_BINDANY in addition to IP_TRANSPARENT.
+
+This fixes an issue I've had with running nsd(8) and unbound(8) at the
+same time, with nsd(8) on the host's public addresses, and unbound(8)
+on the host's local addresses. The host in question obtains its public
+addresses with DHCP and DHCPv6, which is too late for nsd(8):
+
+> nsd[...]: nsd starting (NSD 4.1.13)
+> nsd[...]: can't bind udp socket: Address already in use
+> nsd[...]: server initialization failed, nsd could not be started
+
+There are a couple of things that I'm not sure of. One is whether or
+not this patch should be sent upstream, and the other is whether or
+not SO_BINDANY should be exposed as a new option like "so-bindany".
+
+Unlike ip-freebind, ip-transparent has a fairly generic description
+that doesn't explicitly mention Linux-specific functionality:
+
+> ip-transparent: <yes or no>
+>     Allows NSD to bind to non local addresses. This is useful to
+>     have NSD listen to IP addresses that are not (yet) added to the
+>     network interface, so that it can answer immediately when the
+>     address is added. Default is no.
+>
+> ip-freebind: <yes or no>
+>     Set the IP_FREEBIND option to bind to nonlocal addresses and
+>     interfaces that are down.  Similar to ip-transparent.  Default
+>     is no.
+
+Linux's man page for ip(7)...
+
+> IP_TRANSPARENT (since Linux 2.6.24)
+>     Setting this boolean option enables transparent proxying on this
+>     socket.  This socket option allows the  calling  application  to
+>     bind to a nonlocal IP address and operate both as a client and a
+>     server with the foreign address as the  local  endpoint.   NOTE:
+>     this requires that routing be set up in a way that packets going
+>     to the foreign address are routed through the TProxy box  (i.e.,
+>     the system hosting the application that employs the IP_TRANSPAR‐
+>     ENT socket option).  Enabling this socket option requires  supe‐
+>     ruser privileges (the CAP_NET_ADMIN capability).
+>
+>     TProxy redirection with the iptables TPROXY target also requires
+>     that this option be set on the redirected socket.
+
+...and OpenBSD's man page for getsockopt(2) seem to suggest that
+IP_TRANSPARENT and SO_BINDANY have similar semantics and purposes:
+
+> SO_BINDANY allows the socket to be bound to addresses which are not
+> local to the machine, so it can be used to make a transparent proxy.
+> Note that this option is limited to the super-user.  In order to
+> receive packets for these addresses, SO_BINDANY needs to be combined
+> with matching outgoing pf(4) rules with the divert-reply parameter.
+> For example, with the following rule the socket receives packets for
+> 192.168.0.10 even if it is not a local address:
+>
+>     pass out inet from 192.168.0.10 divert-reply
+
+I don't think I know enough about sockets on OpenBSD and Linux to say
+whether or not they ought to be exposed as one option in nsd.conf(5).
+
+Here's a patch under the assumption that one option will suffice:
+
+Index: usr.sbin/nsd/server.c
+===================================================================
+RCS file: /cvs/src/usr.sbin/nsd/server.c,v
+retrieving revision 1.25
+diff -u -p -u -r1.25 server.c
+--- usr.sbin/nsd/server.c	31 Aug 2016 07:31:20 -0000	1.25
++++ usr.sbin/nsd/server.c	26 Oct 2016 07:40:56 -0000
+@@ -565,7 +565,7 @@ server_init_ifs(struct nsd *nsd, size_t 
+ {
+ 	struct addrinfo* addr;
+ 	size_t i;
+-#if defined(SO_REUSEPORT) || defined(SO_REUSEADDR) || (defined(INET6) && (defined(IPV6_V6ONLY) || defined(IPV6_USE_MIN_MTU) || defined(IPV6_MTU) || defined(IP_TRANSPARENT)) || defined(IP_FREEBIND))
++#if defined(SO_REUSEPORT) || defined(SO_REUSEADDR) || (defined(INET6) && (defined(IPV6_V6ONLY) || defined(IPV6_USE_MIN_MTU) || defined(IPV6_MTU) || defined(IP_TRANSPARENT) || defined(SO_BINDANY)) || defined(IP_FREEBIND))
+ 	int on = 1;
+ #endif
+ 
+@@ -755,6 +755,12 @@ server_init_ifs(struct nsd *nsd, size_t 
+ 					strerror(errno));
+ 			}
+ #endif /* IP_TRANSPARENT */
++#ifdef SO_BINDANY
++			if (setsockopt(nsd->udp[i].s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on)) < 0) {
++				log_msg(LOG_ERR, "setsockopt(...,SO_BINDANY, ...) failed for udp: %s",
++					strerror(errno));
++			}
++#endif /* SO_BINDANY */
+ 		}
+ 
+ 		if (bind(nsd->udp[i].s, (struct sockaddr *) addr->ai_addr, addr->ai_addrlen) != 0) {
+@@ -885,6 +891,12 @@ server_init_ifs(struct nsd *nsd, size_t 
+ 					strerror(errno));
+ 			}
+ #endif /* IP_TRANSPARENT */
++#ifdef SO_BINDANY
++			if (setsockopt(nsd->tcp[i].s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on)) < 0) {
++				log_msg(LOG_ERR, "setsockopt(...,SO_BINDANY, ...) failed for tcp: %s",
++					strerror(errno));
++			}
++#endif /* SO_BINDANY */
+ 		}
+ 
+ 		if (bind(nsd->tcp[i].s, (struct sockaddr *) addr->ai_addr, addr->ai_addrlen) != 0) {
