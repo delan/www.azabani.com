@@ -1,0 +1,375 @@
+From 625ed7ee4f6704be2ca9786926308171a5b30cd2 Mon Sep 17 00:00:00 2001
+From: Delan Azabani <delan@azabani.com>
+Date: Sat, 10 Mar 2018 19:19:00 +1100
+Subject: [PATCH] bug 195825: add support for xlatb on amd64
+
+This patch is based on vex r1672 (5205361d8d916) and valgrind r6351
+(1091a2baa046a), which fixed the x86 counterpart (bug 125959), with
+some minor changes for consistency with the rest of the amd64 code,
+as well as a rewritten and simplified regression test.
+---
+ VEX/priv/guest_amd64_toIR.c                 |  17 ++
+ none/tests/amd64/Makefile.am                |   3 +
+ none/tests/amd64/bug195825-amd64.c          |  18 ++
+ none/tests/amd64/bug195825-amd64.stderr.exp |   2 +
+ none/tests/amd64/bug195825-amd64.stdout.exp | 256 ++++++++++++++++++++++++++++
+ none/tests/amd64/bug195825-amd64.vgtest     |   1 +
+ 6 files changed, 297 insertions(+)
+ create mode 100644 none/tests/amd64/bug195825-amd64.c
+ create mode 100644 none/tests/amd64/bug195825-amd64.stderr.exp
+ create mode 100644 none/tests/amd64/bug195825-amd64.stdout.exp
+ create mode 100644 none/tests/amd64/bug195825-amd64.vgtest
+
+diff --git a/VEX/priv/guest_amd64_toIR.c b/VEX/priv/guest_amd64_toIR.c
+index f462030..02dc27d 100644
+--- a/VEX/priv/guest_amd64_toIR.c
++++ b/VEX/priv/guest_amd64_toIR.c
+@@ -20617,6 +20617,23 @@ Long dis_ESC_NONE (
+       codegen_xchg_rAX_Reg ( pfx, sz, opc - 0x90 );
+       return delta;
+ 
++   case 0xD7: /* XLAT */
++      if (haveF2orF3(pfx)) goto decode_failure;
++      if (sz != 4 && sz != 8) /* Intel manual allows redundant REX.W */
++         goto decode_failure; /* sz == 2 is also allowed (0x66) */
++      putIRegRAX(
++         1/*AL*/,
++         loadLE(Ity_I8,
++                handleAddrOverrides(
++                   vbi,
++                   pfx,
++                   binop(Iop_Add64,
++                         getIReg64(R_RBX),
++                         widenUto64(getIRegRAX(1/* AL */))))));
++
++      DIP("xlat%c (%s)\n", nameISize(sz), nameIReg64(R_RBX));
++      return delta;
++
+    case 0x98: /* CBW */
+       if (haveF2orF3(pfx)) goto decode_failure;
+       if (sz == 8) {
+diff --git a/none/tests/amd64/Makefile.am b/none/tests/amd64/Makefile.am
+index a5e4d99..af58dd4 100644
+--- a/none/tests/amd64/Makefile.am
++++ b/none/tests/amd64/Makefile.am
+@@ -38,6 +38,8 @@ EXTRA_DIST = \
+ 	bug132918.stdout.exp-older-glibc \
+ 	bug156404-amd64.vgtest bug156404-amd64.stdout.exp \
+ 	bug156404-amd64.stderr.exp \
++	bug195825-amd64.vgtest bug195825-amd64.stdout.exp \
++	bug195825-amd64.stderr.exp \
+ 	cet_nops.vgtest cet_nops.stdout.exp cet_nops.stderr.exp \
+ 	clc.vgtest clc.stdout.exp clc.stderr.exp \
+ 	crc32.vgtest crc32.stdout.exp crc32.stderr.exp \
+@@ -97,6 +99,7 @@ check_PROGRAMS = \
+ 	amd64locked \
+ 	bt_flags \
+ 	bug127521-64 bug132813-amd64 bug132918 bug137714-amd64 \
++	bug195825-amd64 \
+ 	cet_nops \
+ 	clc \
+ 	cmpxchg \
+diff --git a/none/tests/amd64/bug195825-amd64.c b/none/tests/amd64/bug195825-amd64.c
+new file mode 100644
+index 0000000..1b08e66
+--- /dev/null
++++ b/none/tests/amd64/bug195825-amd64.c
+@@ -0,0 +1,18 @@
++#include <stdint.h>
++#include <stdio.h>
++
++static uint8_t TABLE[256];
++
++static uint8_t xlatb(const uint8_t index) {
++   uint8_t result;
++   __asm__("xlatb" : "=a"(result) : "a"(index), "b"(TABLE));
++   return result;
++}
++
++int main(void) {
++   for (int i = 0; i < 256; i++)
++      TABLE[i] = ~(uint8_t) i;
++
++   for (int i = 0; i < 256; i++)
++      printf("%u\n", xlatb((uint8_t) i));
++}
+diff --git a/none/tests/amd64/bug195825-amd64.stderr.exp b/none/tests/amd64/bug195825-amd64.stderr.exp
+new file mode 100644
+index 0000000..139597f
+--- /dev/null
++++ b/none/tests/amd64/bug195825-amd64.stderr.exp
+@@ -0,0 +1,2 @@
++
++
+diff --git a/none/tests/amd64/bug195825-amd64.stdout.exp b/none/tests/amd64/bug195825-amd64.stdout.exp
+new file mode 100644
+index 0000000..b701875
+--- /dev/null
++++ b/none/tests/amd64/bug195825-amd64.stdout.exp
+@@ -0,0 +1,256 @@
++255
++254
++253
++252
++251
++250
++249
++248
++247
++246
++245
++244
++243
++242
++241
++240
++239
++238
++237
++236
++235
++234
++233
++232
++231
++230
++229
++228
++227
++226
++225
++224
++223
++222
++221
++220
++219
++218
++217
++216
++215
++214
++213
++212
++211
++210
++209
++208
++207
++206
++205
++204
++203
++202
++201
++200
++199
++198
++197
++196
++195
++194
++193
++192
++191
++190
++189
++188
++187
++186
++185
++184
++183
++182
++181
++180
++179
++178
++177
++176
++175
++174
++173
++172
++171
++170
++169
++168
++167
++166
++165
++164
++163
++162
++161
++160
++159
++158
++157
++156
++155
++154
++153
++152
++151
++150
++149
++148
++147
++146
++145
++144
++143
++142
++141
++140
++139
++138
++137
++136
++135
++134
++133
++132
++131
++130
++129
++128
++127
++126
++125
++124
++123
++122
++121
++120
++119
++118
++117
++116
++115
++114
++113
++112
++111
++110
++109
++108
++107
++106
++105
++104
++103
++102
++101
++100
++99
++98
++97
++96
++95
++94
++93
++92
++91
++90
++89
++88
++87
++86
++85
++84
++83
++82
++81
++80
++79
++78
++77
++76
++75
++74
++73
++72
++71
++70
++69
++68
++67
++66
++65
++64
++63
++62
++61
++60
++59
++58
++57
++56
++55
++54
++53
++52
++51
++50
++49
++48
++47
++46
++45
++44
++43
++42
++41
++40
++39
++38
++37
++36
++35
++34
++33
++32
++31
++30
++29
++28
++27
++26
++25
++24
++23
++22
++21
++20
++19
++18
++17
++16
++15
++14
++13
++12
++11
++10
++9
++8
++7
++6
++5
++4
++3
++2
++1
++0
+diff --git a/none/tests/amd64/bug195825-amd64.vgtest b/none/tests/amd64/bug195825-amd64.vgtest
+new file mode 100644
+index 0000000..59a961f
+--- /dev/null
++++ b/none/tests/amd64/bug195825-amd64.vgtest
+@@ -0,0 +1 @@
++prog: bug195825-amd64
+-- 
+2.9.3
+
