@@ -13,20 +13,20 @@ student who took the time to give me feedback. Your praise is
 invigorating, and your criticism will directly improve the experience
 of my students in coming years.
 
-## 2015 semester 2
+## <a id="semester-2">2015 semester 2</a>
 
   * [Object Oriented Software Engineering][OOSE_2015s2]
   * [Unix and C Programming][UCP_2015s2]
 
-## 2015 semester 1
+## <a id="semester-1">2015 semester 1</a>
 
   * [Introduction to Software Engineering][ISE_2015s1]
 
-## 2014 semester 2
+## <a id="semester-2-1">2014 semester 2</a>
 
   * [Unix and C Programming 120][UCP_2014s2]
 
-## 2014 semester 1
+## <a id="semester-1-1">2014 semester 1</a>
 
   * [Software Engineering 110][ISE_2014s1]
 

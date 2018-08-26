@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>
-			{% if page.title != %}
+			{% if page.title %}
 				{{ page.title }} |
 			{% endif %}
 			Delan Azabani
@@ -20,7 +20,7 @@
 			<a href="/roll/">~/roll/</a> :
 			<a href="/contact/">~/contact/</a>
 		</nav>
-		{% if page.title != %}
+		{% if page.title %}
 			{% if page.date %}
 				{% if page._link %}
 					<h1><a href="{{ page._link }}">

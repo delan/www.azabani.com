@@ -3,7 +3,7 @@ layout: default
 ---
 
 {% for post in site.posts %}
-{% if post._link == %}
+{% unless post._link %}
 {% if post._hidden != true %}
 	<div class="post_summary">
 	<div class="post_date">
@@ -22,5 +22,5 @@ layout: default
 	{{ post.excerpt }}
 	</div>
 {% endif %}
-{% endif %}
+{% endunless %}
 {% endfor %}

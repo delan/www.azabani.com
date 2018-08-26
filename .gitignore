@@ -1,7 +1,10 @@
-_site
-about/private
-about/public/*.aux
-about/public/*.log
-about/public/*.out
-about/public/*.synctex.gz
-_posts/9999-*
+/.bundle/
+/_site/
+/_staging/
+/_production/
+/about/private/
+/about/public/*.aux
+/about/public/*.log
+/about/public/*.out
+/about/public/*.synctex.gz
+/_posts/9999-*

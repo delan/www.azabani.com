@@ -1,3 +1,5 @@
 safe: true
 include: [".well-known"]
 timezone: Etc/UTC
+highlighter: none
+url: https://www.azabani.com
