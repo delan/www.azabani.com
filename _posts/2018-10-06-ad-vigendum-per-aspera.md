@@ -5,16 +5,15 @@ date: 2018-10-06 23:13:13 +1000
 _hidden: true
 ---
 
-I’ve put my life on hold for over 33 months, but I’m finally ready to
-write this. The last four years have fucked with me in ways that I’ve
-only really started to recover from over the last year or so.
-
-I went from feeling like I could do anything and improve the lives of
-the people around me, to feeling like an unreliable piece of shit
-whose only skills were botching my responsibilities and disappointing
-the people around me. I gave up on learning to play the hand I was
-dealt, grew to cope with all of my problems the only way I knew (read:
-not), and neglected the people I love.
+The last four years have fucked with me in ways out of which I’ve only
+really started clawing myself over the last year or so. I went from
+feeling like I could do anything and improve the lives of the people
+around me, to feeling like an unreliable piece of shit whose only
+skills were botching my responsibilities and disappointing the people
+I knew. I gave up on learning to play the hand I was dealt, neglected
+the people I love, and grew to cope with all of my problems the only
+way I knew: by ignoring them. But the scales are finally staring to
+tip in my favour, and it’s time for me to end my exile.
 
 ## 2016
 
@@ -27,16 +26,20 @@ the work I should’ve been doing. Three internships — 2014, 2015, 2016
 was the only one of the four jobs I had ever been hired for that I
 could hold down for more than a few months, but I immediately
 dismissed it as an outlier and started believing this was the just
-deserts for my incompetence.
-
-<!-- ### March 2016 -->
+deserts for my intrinsic incompetence.
 
 I learned that I have ADHD, a condition whose symptoms would later be
 described as comparable to early dementia (Callahan et al. [via
-@FioraAeterna][4]), and started treating it with stimulants, which
+@FioraAeterna][0]), and started treating it with stimulants, which
 went a long way towards helping me through my final year.
 
-[4]: https://twitter.com/FioraAeterna/status/987823600735404033
+<aside class="references"><cite>Callahan, B. L., Bierstone, D., Stuss,
+D. T., & Black, S. E. (2017). Adult ADHD: Risk Factor for Dementia or
+Phenotypic Mimic? <i>Frontiers in Aging Neuroscience</i>,
+<i>9</i>, 260. <a href="https://doi.org/10.3389/fnagi.2017.00260"
+>doi:10.3389/fnagi.2017.00260</a></cite></aside>
+
+[0]: https://twitter.com/FioraAeterna/status/987823600735404033
 
 <!-- ### December 2016 -->
 
@@ -50,9 +53,10 @@ sense of confidence in the completeness of stimulant therapy alone.
 <!-- ### January 2017 -->
 
 I fucked off to Sydney to start my new job, leaving way too many loose
-ends untied. I underdelivered on the handover that I promised the new
-ComSSA committee, and to add insult to injury, went unreachable for
-three months at a time.
+ends untied. I had underdelivered on the handover that I promised the
+new ComSSA committee, and to add insult to injury, went unreachable
+for months at a time, and would end up waiting a year before making a
+serious attempt to deliver the rest.
 
 <!-- ### March 2017 -->
 
@@ -66,10 +70,10 @@ colleague improvised my part, and I don’t think she ever forgave me
 for forcing her to do that. I don’t blame her.
 
 Without the skills I needed to exercise agency over my cursed brain,
-my life quickly devolved and I floundered at work. I spent what felt
-like every waking hour either at work or struggling to get ready for
-work or ensuring that I could make it to work on time, but for all my
-effort I received a mediocre performance review and no promotion.
+my life quickly deteriorated and I floundered at work. I spent what
+felt like every waking hour either at work or struggling to get ready
+for work or ensuring that I could make it to work on time, but for all
+my effort I received a mediocre performance review and no promotion.
 
 <!-- ### December 2017 -->
 
@@ -84,41 +88,28 @@ the start of my belated learning of the truth behind the “drugs
 <!-- ### June? 2018 -->
 
 One of my closest friends invited me to his wedding. I prepared my
-outfit and gifts and I was happy with the fruits of my preparation,
+outfit and gift and I was happy with the fruits of my preparation,
 but I left some of it to the morning of the day. I rushed to show up
 on time but misread my invitation, mistaking the reception place for
 the wedding place, and I missed the wedding.
 
-&lt;your text here&gt;
-
-## @
-
-Callahan, B. L., Bierstone, D., Stuss, D. T., & Black, S. E. (2017).
-Adult ADHD: Risk Factor for Dementia or Phenotypic Mimic? <i>Frontiers
-in Aging Neuroscience</i>, <i>9</i>, 260. doi:10.3389/fnagi.2017.00260
-
-* * *
-
-> I’ve turned away when I knew I made a mistake
-> <br>Instead of dealing with it
->
-> I’ve wasted good chances I’ve had in this life
-> <br>That other people won’t even get
-> <br>I put off setting things right with Andy
-> <br>And now he’s dead
->
-> <footer>— <cite><a
-    href="https://genius.com/Pat-the-bunny-run-from-whats-comfortable-lyrics"
-    >Run From What’s Comfortable</a> by Pat The Bunny</cite></footer>
+I’ve started getting the hang of my limitations and adapting to them
+with appropriate tools. I remind myself to do things with timers,
+alarms, or calendar events, depending on how long I’m deferring them
+by. I’m learning how to use org-mode and Trello as structured
+extensions of my memory, rather than write-only black holes like
+Sublime Text buffers. These are just a couple of examples, and ADHD
+management is definitely a subject worth exploring further, but that’s
+a job for another day.
 
 * * *
 
-Reading [this essay about ADHD][5] by [@gravislizard][6] was a crucial
+Reading [this essay about ADHD][1] by [@gravislizard][2] was a crucial
 moment that brought me to tears, and I think it’s just as useful an
 introduction to what I grapple with every day. Pretty much all of the
 experiences he wrote about resonate with me, but there’s one that I’ll
 highlight shortly, because it helps explain [something I wrote a
-couple of years ago][7]:
+couple of years ago][3]:
 
 > To all who have sent me a thing and are still waiting for a response
 > (be it for a day or for ten months), I’m sorry. I don’t mean to be
@@ -137,9 +128,10 @@ couple of years ago][7]:
 
 What might not make sense is why I would see replying to a message as
 a difficult task (though I’ve conflated difficult with big there), but
-as [@gravislizard][6] explains, it can be really hard for me to follow
-through between getting lost in the woods and straight up forgetting,
-but I didn’t realise how neglectful it was for me to concede defeat:
+as he explains, it can be really hard for me to follow through and
+finish my replies between getting [lost in the woods][4] and straight
+up forgetting, but I needed to realise how neglectful it was for me to
+concede defeat:
 
 > Suppose I’m at work and I think, “I need to send an email to
 > &lt;people&gt; about &lt;issue&gt;.” Before I can do anything, I’m
@@ -155,7 +147,7 @@ but I didn’t realise how neglectful it was for me to concede defeat:
 > my mind is so far out of the game I can’t even do basic grammar.
 
 > ADHD’s also a motherfucker. get texted at 8AM “wanna hang out
-> tonight”, <strong>read it, forget to reply until 3PM</strong>.
+> tonight”, <strong>read it, forget to reply until 3PM.</strong>
 >
 ><footer>— <cite><a href="https://twitter.com/gravislizard"
     >@gravislizard</a> on <a
@@ -173,11 +165,50 @@ but I didn’t realise how neglectful it was for me to concede defeat:
     href="https://twitter.com/gravislizard/status/947221557000028160"
     >31 December 2017</a></cite></footer>
 
-[5]: https://gekk.info/articles/adhd.html
-[6]: https://twitter.com/gravislizard
-[7]: https://www.facebook.com/dazabani/posts/632393646929135
+[1]: https://gekk.info/articles/adhd.html
+[2]: https://twitter.com/gravislizard
+[3]: https://www.facebook.com/dazabani/posts/632393646929135
+[4]: https://twitter.com/gravislizard/status/1009918919883145217
 
-&lt;your text here&gt;
+If you reach out to me, <strong>you should hear back from me by the
+end of the day</strong> (or the next at worst). I’ve made commitments
+like this with a few of the people in my life, and those have been
+much easier said than done, so how will this be any different?
+
+I’ll try to reply in chunks that mirror my thought processes, rather
+than set out to write one perfect message that’s completely devoid of
+uncertainty and unknowns. The latter encourages the very kind of
+“depth-first search” that will leave me lost in the woods, and it’s
+not really how conversations are supposed to work.
+
+I’ll get comfortable with admitting that from time to time I’m too
+cooked to respond properly. Even if it means you might need to suspend
+your disbelief, because you’ve only sent me a funny video and how hard
+can a response to that be? Accepting that some of my 503 errors might
+make me look silly is better than working myself up to an extended
+panic attack that I’ll cope with by ignoring you for three months.
+
+I’ll remind myself that — like any goal I want to convert to a habit —
+some number of failures will be inevitable, and they’re a signal that
+I should look for ways to tweak my approach and make it more reliable,
+not that my whole effort was pointless and I should put it in the bin.
+As obvious as this sounds, it wasn’t obvious to me until a year ago,
+before which I believed I couldn’t make or break a habit for longer
+than three days.
+
+* * *
+
+> I’ve turned away when I knew I made a mistake
+> <br>Instead of dealing with it
+>
+> I’ve wasted good chances I’ve had in this life
+> <br>That other people won’t even get
+> <br>I put off setting things right with Andy
+> <br>And now he’s dead
+>
+> <footer>— <cite><a
+    href="https://genius.com/Pat-the-bunny-run-from-whats-comfortable-lyrics"
+    >Run From What’s Comfortable</a> by Pat The Bunny</cite></footer>
 
 * * *
 
@@ -185,12 +216,12 @@ By the way, there’s just one more thing. I’m transgender, going by
 they/them for now (but don’t panic if you drop a he/him here and
 there), and I’m pleased to say that I’ve just started HRT.
 Conveniently enough <span lang="ckb">دىلان</span> (<span
-lang="kmr">dîlan</span>) [isn’t exclusively masculine][8], and [one
-source][9] even describes it as a woman’s name, so I’m pretty
+lang="kmr">dîlan</span>) [isn’t exclusively masculine][5], and [one
+source][6] even describes it as a woman’s name, so I’m pretty
 comfortable with my name.
 
-[8]: https://en.wiktionary.org/wiki/Appendix:Kurdish_given_names
-[9]: https://glosbe.com/ku/en/d%C3%AElan
+[5]: https://en.wiktionary.org/wiki/Appendix:Kurdish_given_names
+[6]: https://glosbe.com/ku/en/d%C3%AElan
 
 Shout out to Adam, Alex, Alex, Aria, Brock, Carmel, Cyra, Emily, Jaci,
 James, Jason, Josh, Kieran, Krystal, Luke, Mike, Mike, Millie, Sandro,
