@@ -63,10 +63,25 @@ pre {
 pre code {
 	font-size: 1em;
 }
-a {
+a, hr {
 	color: black;
 }
+hr {
+	margin: 2em 0;
+	border: none;
+}
+hr:before {
+	display: block;
+	text-align: center;
+	content: "\2042";
+}
 i, i *, em, em * {
+	font-style: italic;
+}
+b, b *, strong, strong * {
+	font-weight: bold;
+}
+strong, strong * {
 	font-style: italic;
 }
 ul, ol, dl {
