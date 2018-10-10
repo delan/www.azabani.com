@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Ad vigendum per aspera
-date: 2018-10-06 23:13:13 +1000
-_hidden: true
+date: 2018-10-10 16:13:13 +1100
 ---
 
 The last four years have fucked with me in ways out of which I’ve only
@@ -104,6 +103,20 @@ a job for another day.
 
 * * *
 
+> I’ve turned away when I knew I made a mistake
+> <br>Instead of dealing with it
+>
+> I’ve wasted good chances I’ve had in this life
+> <br>That other people won’t even get
+> <br>I put off setting things right with Andy
+> <br>And now he’s dead
+>
+> <footer>— <cite><a
+    href="https://genius.com/Pat-the-bunny-run-from-whats-comfortable-lyrics"
+    >Run From What’s Comfortable</a> by Pat The Bunny</cite></footer>
+
+* * *
+
 Reading [this essay about ADHD][1] by [@gravislizard][2] was a crucial
 moment that brought me to tears, and I think it’s just as useful an
 introduction to what I grapple with every day. Pretty much all of the
@@ -198,23 +211,10 @@ than three days.
 
 * * *
 
-> I’ve turned away when I knew I made a mistake
-> <br>Instead of dealing with it
->
-> I’ve wasted good chances I’ve had in this life
-> <br>That other people won’t even get
-> <br>I put off setting things right with Andy
-> <br>And now he’s dead
->
-> <footer>— <cite><a
-    href="https://genius.com/Pat-the-bunny-run-from-whats-comfortable-lyrics"
-    >Run From What’s Comfortable</a> by Pat The Bunny</cite></footer>
-
-* * *
-
-By the way, there’s just one more thing. I’m transgender, going by
-they/them for now (but don’t panic if you drop a he/him here and
-there), and I’m pleased to say that I’ve just started HRT.
+One thing that hasn’t helped my state of mind over the years was the
+knowledge that I’m trans while feeling unable to do anything about it,
+but I’m elated to say I’ve finally started my transition (they/them
+for now, but don’t panic if you drop a he/him here and there).
 Conveniently enough <span lang="ckb">دىلان</span> (<span
 lang="kmr">dîlan</span>) [isn’t exclusively masculine][5], and [one
 source][6] even describes it as a woman’s name, so I’m pretty
@@ -225,8 +225,7 @@ comfortable with my name.
 
 Shout out to Adam, Alex, Alex, Aria, Brock, Carmel, Cyra, Emily, Jaci,
 James, Jason, Josh, Kieran, Krystal, Luke, Mike, Mike, Millie, Sandro,
-my parents, and anyone who hasn’t given up on me by now.
+Scott, my parents, and anyone who hasn’t given up on me by now. I
+wouldn’t be here without your support.
 
-For the first time, I can see the light at the end of the tunnel.
-
-Will you meet me there?
+I can see the light at the end of the tunnel. Will you meet me there?
