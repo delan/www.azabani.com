@@ -11,7 +11,7 @@ around me, to feeling like an unreliable piece of shit whose only
 skills were botching my responsibilities and disappointing the people
 I knew. I gave up on learning to play the hand I was dealt, neglected
 the people I love, and grew to cope with all of my problems the only
-way I knew: by ignoring them. But the scales are finally staring to
+way I knew: by ignoring them. But the scales are finally starting to
 tip in my favour, and it’s time for me to end my exile.
 
 ## 2016
