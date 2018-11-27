@@ -64,9 +64,8 @@ graduate program, together with the two colleagues that I graduated
 with. I procrastinated writing my slide deck until my taxi ride there,
 but unsatisfied with the mere punishment of presenting bad slides, my
 utterly broken time management delivered me to the venue so late that
-my part should’ve started and ended by the time I arrived. My
-colleague improvised my part, and I don’t think she ever forgave me
-for forcing her to do that. I don’t blame her.
+my part should’ve started and ended by the time I arrived, forcing my
+colleague to improvise it.
 
 Without the skills I needed to exercise agency over my cursed brain,
 my life quickly deteriorated and I floundered at work. I spent what
