@@ -1,7 +1,9 @@
 /.bundle/
+/vendor/
 /_site/
 /_staging/
 /_production/
+/helpers/sfnt2woff/
 /about/private/
 /about/public/*.aux
 /about/public/*.log

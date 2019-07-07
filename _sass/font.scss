@@ -1,0 +1,24 @@
+@mixin font($path, $family, $weight: normal, $style: normal, $range...) {
+    @font-face {
+        font: {
+            display: fallback;
+            family: $family;
+            weight: $weight;
+            style: $style;
+        }
+        @if length($range) > 0 {
+            unicode-range: $range;
+        }
+        src: local($family), url($path);
+    }
+}
+
+@font-face {
+	font-display: fallback;
+	font-family: 'Noto';
+	src: local('Noto Naskh Arabic'), local('Noto Sans Arabic'), url(NotoNaskhArabic-Regular.ttf);
+}
+
+:lang(ckb) {
+	font-family: 'Noto Naskh Arabic';
+}

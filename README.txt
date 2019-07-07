@@ -19,3 +19,6 @@ make deploy
 
 # reject staged changes
 make reject
+
+# recompile assets
+make assets
