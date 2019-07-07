@@ -1,0 +1,44 @@
+@font-face {
+	font-display: fallback;
+	font-family: CMU Serif;
+	font-weight: normal;
+	src: url(cmunrm.woff);
+}
+@font-face {
+	font-display: fallback;
+	font-family: CMU Serif;
+	font-weight: normal;
+	font-style: italic;
+	src: url(cmunti.woff);
+}
+@font-face {
+	font-display: fallback;
+	font-family: CMU Serif;
+	font-weight: bold;
+	src: url(cmunbx.woff);
+}
+@font-face {
+	font-display: fallback;
+	font-family: CMU Serif;
+	font-weight: bold;
+	font-style: italic;
+	src: url(cmunbi.woff);
+}
+@font-face {
+	font-display: fallback;
+	font-family: CMU Typewriter Text;
+	src: url(cmuntt.woff);
+}
+@font-face {
+	font-display: fallback;
+	font-family: Symbola;
+	src: url(Symbola.ttf);
+}
+@font-face {
+	font-display: fallback;
+	font-family: Noto Naskh Arabic;
+	src: url(NotoNaskhArabic-Regular.ttf);
+}
+:lang(ckb) {
+	font-family: Noto Naskh Arabic;
+}

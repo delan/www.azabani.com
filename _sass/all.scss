@@ -17,7 +17,7 @@ html {
 body {
 	width: 40em;
 	margin: 1em auto 2em auto;
-	font-family: 'CMU Serif';
+	font-family: CMU Serif, serif;
 	line-height: 1.5;
 }
 p, table {
@@ -42,16 +42,16 @@ aside.references:before, blockquote:before {
 	color: #808080;
 }
 aside.references:before {
-    font-size: 3em;
-    margin-top: -0.5rem;
-    font-family: 'Symbola';
+	font-size: 3em;
+	margin-top: -0.5rem;
+	font-family: Symbola, serif;
 
 	/* OPEN BOOK in text presentation */
 	content: '\1F4D6\FE0E';
 }
 blockquote:before {
 	font-size: 4em;
-    margin-top: -1rem;
+	margin-top: -1rem;
 
 	content: '“';
 }
@@ -75,7 +75,7 @@ dd {
 	margin-left: 2em;
 }
 pre, code {
-	font-family: 'CMU Typewriter Text';
+	font-family: CMU Typewriter Text, monospace, monospace;
 	font-size: 0.75em;
 	font-style: normal !important;
 }
@@ -132,7 +132,7 @@ sup {
 }
 nav {
 	text-align: center;
-	font-family: 'CMU Typewriter Text';
+	font-family: CMU Typewriter Text, monospace, monospace;
 	font-size: 1.25em;
 	color: #808080;
 }
