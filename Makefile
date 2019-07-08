@@ -1,8 +1,6 @@
 .POSIX:
 
 BUNDLE = bundle
-SFNTLY = https://github.com/rillig/sfntly
-SFNT2WOFF = https://github.com/bramstein/sfnt2woff
 
 dry: _staging
 	rm -Rf _site
@@ -32,61 +30,6 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh cmuntt.woff 'CMU Typewriter Text' normal normal
 	>> _sass/fonts.scss helper/font.sh Symbola.ttf 'Symbola' normal normal
 	>> _sass/fonts.scss helper/font.sh NotoNaskhArabic-Regular.ttf 'Noto Naskh Arabic' normal normal
-
-helper/font.sh: helper/sfntly/fontinfo.jar
-helper/font.sh: helper/sfntly/sfnttool.jar
-helper/font.sh: helper/sfnt2woff/woff2sfnt
-
-helper/sfntly/fontinfo.jar:
-	set -eu; \
-	old=$$(pwd); \
-	scratch=$$(mktemp -d); \
-	cd $$scratch; \
-	git clone $(SFNTLY); \
-	cd sfntly; \
-	git checkout 13d0824d1dbfb5f0188afe4b8abf2ff278b15cc7; \
-	cd java; \
-	mvn package -DskipTests; \
-	cp target/sfntly-fontinfo-*.jar $$old/$@; \
-	cd $$old; \
-	rm -Rf $$scratch
-
-helper/sfntly/sfnttool.jar:
-	set -eu; \
-	old=$$(pwd); \
-	scratch=$$(mktemp -d); \
-	cd $$scratch; \
-	git clone $(SFNTLY); \
-	cd sfntly; \
-	git checkout 13d0824d1dbfb5f0188afe4b8abf2ff278b15cc7; \
-	cd java; \
-	mvn package -DskipTests; \
-	cp target/sfntly-sfnttool-*.jar $$old/$@; \
-	cd $$old; \
-	rm -Rf $$scratch
-
-helper/sfnt2woff/woff2sfnt:
-	set -eu; \
-	old=$$(pwd); \
-	scratch=$$(mktemp -d); \
-	cd $$scratch; \
-	git clone $(SFNT2WOFF); \
-	cd sfnt2woff; \
-	git checkout b4098d5dda521f369008f5c62a6e2388611c0725; \
-	> Makefile. < Makefile tr '<' '?'; \
-	mv Makefile. Makefile; \
-	> Makefile. < Makefile sed 's/ woff[.]h / /'; \
-	mv Makefile. Makefile; \
-	> Makefile. < Makefile sed 's/ woff-private[.]h / /'; \
-	mv Makefile. Makefile; \
-	> Makefile. < Makefile sed 's/ Makefile$$//'; \
-	mv Makefile. Makefile; \
-	> Makefile. < Makefile sed 's/ woff[.]o -lz$$/ -lz/'; \
-	mv Makefile. Makefile; \
-	make; \
-	cp woff2sfnt $$old/$@; \
-	cd $$old; \
-	rm -Rf $$scratch
 
 _staging:
 	mkdir -p -- '$@'
