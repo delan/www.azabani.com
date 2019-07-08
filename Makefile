@@ -1,7 +1,7 @@
 .POSIX:
 
 BUNDLE = bundle
-SFNTLY = https://github.com/googlei18n/sfntly
+SFNTLY = https://github.com/rillig/sfntly
 SFNT2WOFF = https://github.com/bramstein/sfnt2woff
 
 dry: _staging
@@ -43,10 +43,10 @@ helper/sfntly/fontinfo.jar:
 	cd $$scratch; \
 	git clone $(SFNTLY); \
 	cd sfntly; \
-	git checkout 9620b607af5b796badefebcf16d7ce6e6786f205; \
+	git checkout 13d0824d1dbfb5f0188afe4b8abf2ff278b15cc7; \
 	cd java; \
-	ant; \
-	cp dist/tools/fontinfo/fontinfo.jar $$old/$@; \
+	mvn package -DskipTests; \
+	cp target/sfntly-fontinfo-*.jar $$old/$@; \
 	cd $$old; \
 	rm -Rf $$scratch
 
@@ -57,10 +57,10 @@ helper/sfntly/sfnttool.jar:
 	cd $$scratch; \
 	git clone $(SFNTLY); \
 	cd sfntly; \
-	git checkout 9620b607af5b796badefebcf16d7ce6e6786f205; \
+	git checkout 13d0824d1dbfb5f0188afe4b8abf2ff278b15cc7; \
 	cd java; \
-	ant; \
-	cp dist/tools/sfnttool/sfnttool.jar $$old/$@; \
+	mvn package -DskipTests; \
+	cp target/sfntly-sfnttool-*.jar $$old/$@; \
 	cd $$old; \
 	rm -Rf $$scratch
 
