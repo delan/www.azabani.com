@@ -43,7 +43,7 @@ helper/sfntly/fontinfo.jar:
 	cd $$scratch; \
 	git clone $(SFNTLY); \
 	cd sfntly; \
-	git checkout 54aa4d557fa4ed4fd1d4845f0fcd153d95ebcc9d; \
+	git checkout 9620b607af5b796badefebcf16d7ce6e6786f205; \
 	cd java; \
 	ant; \
 	cp dist/tools/fontinfo/fontinfo.jar $$old/$@; \
@@ -57,7 +57,7 @@ helper/sfntly/sfnttool.jar:
 	cd $$scratch; \
 	git clone $(SFNTLY); \
 	cd sfntly; \
-	git checkout 54aa4d557fa4ed4fd1d4845f0fcd153d95ebcc9d; \
+	git checkout 9620b607af5b796badefebcf16d7ce6e6786f205; \
 	cd java; \
 	ant; \
 	cp dist/tools/sfnttool/sfnttool.jar $$old/$@; \
