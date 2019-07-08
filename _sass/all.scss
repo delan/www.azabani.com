@@ -44,8 +44,7 @@ aside.references:before, blockquote:before {
 aside.references:before {
 	font-size: 3em;
 	margin-top: -0.5rem;
-	// googlei18n/sfntly’s sfnttool.jar doesn’t like astral planes
-	// font-family: Symbola, serif;
+	font-family: Symbola, serif;
 
 	/* OPEN BOOK in text presentation */
 	content: '\1F4D6\FE0E';

@@ -31,6 +31,7 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh cmunbi.woff 'CMU Serif' bold italic
 	>> _sass/fonts.scss helper/font.sh cmuntt.woff 'CMU Typewriter Text' normal normal
 	>> _sass/fonts.scss helper/font.sh Symbola.ttf 'Symbola' normal normal
+	>> _sass/fonts.scss helper/font.sh NotoNaskhArabic-Regular.ttf 'Noto Naskh Arabic' normal normal
 
 helper/font.sh: helper/sfntly/fontinfo.jar
 helper/font.sh: helper/sfntly/sfnttool.jar
