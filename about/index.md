@@ -51,7 +51,7 @@ You can reach me at [delan@azabani.com], [@dazabani], or [+61 466 442 256].
 [@dazabani]: https://twitter.com/dazabani
 [+61 466 442 256]: tel:+61466442256
 
-* Curriculum vitæ as of 2019-10-23: [<span
+* Curriculum vitæ as of 2019-10-25: [<span
   class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
 * Academic transcipt as of 2017-01-13: [PDF][transcript]
 
