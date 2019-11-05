@@ -9,19 +9,21 @@ title: /diːˈlæn(.)ˌæzəˈbɑːniː/
 I’m a computer programmer based in Perth, Australia. My passions include all
 kinds of systems programming from [Rust] to [x86 assembly] and beyond,
 internationalisation and [Unicode], digital preservation and archaeology,
-cryptography, and above all, [teaching].
+typography, cryptography, and above all, [teaching]. I’m also a trans woman
+(she/her pronouns)!
 
 [Rust]: https://crates.io/crates/nonymous
 [x86 assembly]: https://bitbucket.org/delan/matrix86
 [Unicode]: https://charming.daz.cat
 [teaching]: https://docs.google.com/presentation/d/1V0daPBXxOrxb4Ckrfhodf2QO-6Ag067y8am479oIjB0
 
-When I’m away from my computer, I enjoy [cooking], solving [cubes], folk punk,
+When I’m away from my computer, I enjoy [cooking], solving [cubes], [folk punk],
 and [road trips]. I’m currently in Sydney for work, but I would love my next
 trip to be back across the Nullarbor and in Perth where I belong.
 
 [cooking]: https://twitter.com/dazabani/status/1158339417934745600
 [cubes]: https://en.wikipedia.org/wiki/Rubik%27s_Cube
+[folk punk]: https://open.spotify.com/track/3DWAKDbWqivzjZ5wGQJP8Z
 [road trips]: https://twitter.com/dazabani/status/813102911068639232
 
 I’ve worked with a wide range of stacks at a wide range of levels, including
