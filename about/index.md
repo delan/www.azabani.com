@@ -55,7 +55,7 @@ You can reach me at [delan@azabani.com], [@dazabani], or [+61 466 442 256].
 
 * Curriculum vitæ as of 2019-10-26: [<span
   class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
-* Academic transcipt as of 2017-01-13: [PDF][transcript]
+* Academic transcript as of 2017-01-13: [PDF][transcript]
 
 [LaTeX]: public/cv.tex
 [PDF]: public/cv.pdf
