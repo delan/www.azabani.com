@@ -15,8 +15,9 @@ html {
 	font-size: 16pt;
 }
 body {
-	width: 40em;
+	max-width: 42em;
 	margin: 1em auto 2em auto;
+	padding: 0 1em;
 	font-family: CMU Serif, serif;
 	line-height: 1.5;
 }
@@ -28,6 +29,11 @@ header {
 	text-align: center;
 	text-transform: lowercase;
 	letter-spacing: 0.1em;
+}
+@media (max-width: 640px) {
+	header {
+		font-size: 3em;
+	}
 }
 header span {
 	letter-spacing: 0;
