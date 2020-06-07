@@ -4,6 +4,7 @@ title: Selected further reading
 ---
 
 {% for post in site.posts %}
+{% if post._hidden != true %}
 {% if post._link %}
 	<div class="post_summary">
 	<div class="post_date">
@@ -21,5 +22,6 @@ title: Selected further reading
 	<h2><a href="{{ post._link }}">{{ post.title }}</a></h2>
 	{{ post.excerpt }}
 	</div>
+{% endif %}
 {% endif %}
 {% endfor %}

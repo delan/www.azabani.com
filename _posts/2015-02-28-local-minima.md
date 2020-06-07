@@ -2,6 +2,7 @@
 layout: default
 title: Local minima
 date: 2015-02-28 16:00:00 +0800
+tags: attic self
 ---
 
 Sixteen weeks have elapsed since I [last wrote][last] about

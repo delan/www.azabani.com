@@ -5,7 +5,7 @@ layout: default
 {% for post in site.posts %}
 {% if post._hidden != true %}
 {% unless post._link %}
-{% unless post.tags contains "attic" %}
+{% if post.tags contains "attic" %}
 	<div class="post_summary">
 	<div class="post_date">
 		<a href="{{ post.url }}">
@@ -22,7 +22,7 @@ layout: default
 	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 	{{ post.excerpt }}
 	</div>
-{% endunless %}
+{% endif %}
 {% endunless %}
 {% endif %}
 {% endfor %}

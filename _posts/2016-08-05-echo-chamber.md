@@ -2,6 +2,7 @@
 layout: default
 title: Echo chamber
 date: 2016-08-05 23:00:00 +0800
+tags: attic
 ---
 
 The culture of building 314 can, at times, be an echo chamber that
