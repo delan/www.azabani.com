@@ -31,6 +31,14 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh Symbola.ttf 'Symbola' normal normal
 	>> _sass/fonts.scss helper/font.sh NotoNaskhArabic-Regular.ttf 'Noto Naskh Arabic' normal normal
 
+init: helper/.venv helper/requirements.txt
+	. helper/.venv/bin/activate && pip install -r helper/requirements.txt
+	cd helper && npm install
+
+init-clean:
+	rm -Rf helper/.venv
+	rm -Rf helper/node_modules
+
 _staging:
 	mkdir -p -- '$@'
 	cd -- '$@' && git init
@@ -38,4 +46,7 @@ _staging:
 _production:
 	git clone _staging _production
 
-.PHONY: dry examine deploy reject assets
+helper/.venv:
+	python3 -m venv -- '$@'
+
+.PHONY: dry examine deploy reject assets init init-clean
