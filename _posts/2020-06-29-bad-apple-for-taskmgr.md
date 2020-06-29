@@ -368,8 +368,10 @@ I’m sure there are better tools for the job though — it relies on me writing
 
 ## The present tense
 
-I wrote a video player for taskmgr, and it now works well enough to play Bad Apple!! on an 11x6 canvas with only a laptop and the power of virtualisation.
+[I wrote a video player] for taskmgr, and it now works well enough to play Bad Apple!! on an 11x6 canvas with only a laptop and the power of virtualisation.
 Picture fidelity and frame rates are far better during the black-on-white shots, but at least *some* of the white-on-black shots managed to yield more than a complete blur.
+
+[I wrote a video player]: https://bitbucket.org/delan/badapple.rs
 
 Playback at 4 fps or even 10 fps is now possible, which is an improvement that even the Real Hardware folks can enjoy, but if I could drive 66 pixels with only 12 hardware threads, imagine what we could do with 64 or even 128!
 
