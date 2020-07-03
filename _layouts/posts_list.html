@@ -19,7 +19,15 @@ layout: default
 		</time>
 		</a>
 	</div>
-	<h2><a href="{{ post._link | default: post.url }}">{{ post.title }}</a></h2>
+	<div class="post_combo">
+		<h2><a href="{{ post._link | default: post.url }}">{{ post.title }}</a></h2><i>
+			{%- for tag in post.tags -%}
+				{%- unless page.tag == tag -%}
+					{{- " " -}}{{- tag -}}
+				{%- endunless -%}
+			{%- endfor -%}
+		</i>
+	</div>
 	{{ post.excerpt }}
 	</div>
 {% endif %}
