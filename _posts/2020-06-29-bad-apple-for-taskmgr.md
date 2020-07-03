@@ -289,7 +289,7 @@ THREAD_MODE_BACKGROUND_BEGIN looked attractive, but upon closer inspection, that
 
 <div class="local-commit"><a href="https://bitbucket.org/delan/badapple.rs/commits/9883355e6e8643a34a713df33d01e3a5efc995cd"><code>9883355e6e864</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
-<h2 style="text-align: center;">❦ ❦ ❦</h2>
+<hr>
 
 One of the biggest problems turned out to be **keeping the pixel threads in sync**.
 Each pixel thread started its playback as soon as it could execute.
@@ -337,7 +337,7 @@ This would explain the distortion that occurs when a guest processor *can’t* r
 
 [^3]: I don’t think this is actually true, but I’m sticking with the analogy.
 
-<h2 style="text-align: center;">❦ ❦ ❦</h2>
+<hr>
 
 One thing that I was surprised to see made *zero* difference was switching from a debug build to a release build.
 It ended up being so irrelevant to this workload that while I put <code>--release</code> in the README, I forgot to use it when recording the video!
@@ -376,4 +376,4 @@ Picture fidelity and frame rates are far better during the black-on-white shots,
 
 Playback at 4 fps or even 10 fps is now possible, which is an improvement that even the Real Hardware folks can enjoy, but if I could drive 66 pixels with only 12 hardware threads, imagine what we could do with 64 or even 128!
 
-<h2 style="text-align: center;">❦ ❦ ❦</h2>
+<hr>

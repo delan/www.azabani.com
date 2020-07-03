@@ -8,7 +8,7 @@ tags: home
 In August 2019, the Bitbucket team announced that [they would “sunset” Mercurial](https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket) on 1 June 2020 (now 1 July 2020) by removing all Mercurial repositories and associated content.
 I urge them to reconsider that approach with this open letter.
 
-<h2 style="text-align: center;">❦ ❦ ❦</h2>
+<hr>
 
 Hi.
 I’ve enjoyed using Bitbucket for a [long time](https://bitbucket.org/delan), though I’m pretty sure I joined after you [added Git support](https://bitbucket.org/blog/bitbucket-now-rocks-git), and I’m not afraid to [make other sites enjoy you too](https://github.com/rust-lang/crates.io/pull/1934).

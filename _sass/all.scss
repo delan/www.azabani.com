@@ -96,13 +96,14 @@ a, hr {
 	color: black;
 }
 hr {
-	margin: 2em 0;
+	font-size: 1.5em;
+	margin: 1rem 0;
 	border: none;
 }
 hr:before {
 	display: block;
 	text-align: center;
-	content: "\2042";
+	content: "❦ ❦ ❦";
 }
 i, i *, em, em * {
 	font-style: italic;

@@ -10,5 +10,3 @@ feed:
   posts_limit: 999
   tags:
     path: feed/tag/
-    only:
-      - home
