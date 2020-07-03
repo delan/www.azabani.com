@@ -3,9 +3,8 @@ layout: default
 ---
 
 {% for post in site.posts %}
-{% if post._hidden != true %}
-{% unless post._link %}
-{% unless post.tags contains "attic" %}
+{% unless post.categories contains "chain" %}
+{% unless post.categories contains "attic" %}
 	<div class="post_summary">
 	<div class="post_date">
 		<a href="{{ post.url }}">
@@ -24,5 +23,4 @@ layout: default
 	</div>
 {% endunless %}
 {% endunless %}
-{% endif %}
 {% endfor %}

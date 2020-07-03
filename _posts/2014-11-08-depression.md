@@ -1,8 +1,9 @@
 ---
 layout: default
+category: attic
 title: Depression
 date: 2014-11-08 23:00:00 +0800
-tags: attic self
+tags: self
 ---
 
 Being in a permanent state of melancholy is a very damaging predicament because

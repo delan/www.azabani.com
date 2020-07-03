@@ -1,5 +1,6 @@
 ---
 layout: default
+category: home
 title: Bad Apple!! for taskmgr
 date: 2020-06-30 05:00:00 +1000
 ---

@@ -4,8 +4,8 @@ title: Selected further reading
 ---
 
 {% for post in site.posts %}
-{% if post._hidden != true %}
-{% if post._link %}
+{% if post.categories contains "chain" %}
+{% unless post.categories contains "attic" %}
 	<div class="post_summary">
 	<div class="post_date">
 		<a href="{{ post.url }}">
@@ -22,6 +22,6 @@ title: Selected further reading
 	<h2><a href="{{ post._link }}">{{ post.title }}</a></h2>
 	{{ post.excerpt }}
 	</div>
-{% endif %}
+{% endunless %}
 {% endif %}
 {% endfor %}

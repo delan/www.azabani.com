@@ -1,5 +1,6 @@
 ---
 layout: default
+category: home
 title: The modern OpenBSD home router
 date: 2015-08-07 01:00:00 +0800
 ---

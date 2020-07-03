@@ -1,5 +1,6 @@
 ---
 layout: default
+category: home
 title: Choosing a software licence
 date: 2015-12-21 22:00:00 +0800
 ---
