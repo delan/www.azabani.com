@@ -2,6 +2,7 @@ include: [".well-known"]
 timezone: Etc/UTC
 highlighter: none
 url: https://www.azabani.com
+title: delan azabani
 plugins:
   - jekyll-feed
 feed:
