@@ -3,8 +3,7 @@ layout: default
 ---
 
 {% for post in site.posts %}
-{% unless post.categories contains "chain" %}
-{% unless post.categories contains "attic" %}
+{% if post.tags contains "home" %}
 	<div class="post_summary">
 	<div class="post_date">
 		<a href="{{ post.url }}">
@@ -21,6 +20,5 @@ layout: default
 	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 	{{ post.excerpt }}
 	</div>
-{% endunless %}
-{% endunless %}
+{% endif %}
 {% endfor %}

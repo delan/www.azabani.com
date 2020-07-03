@@ -1,8 +1,8 @@
 ---
 layout: default
-category: home
 title: The Curtin Courses Handbook
 date: 2014-11-14 19:00:00 +0800
+tags: home
 ---
 
 Almost every university has a handbook which should serve as an authoritative

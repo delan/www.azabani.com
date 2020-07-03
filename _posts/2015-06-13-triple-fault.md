@@ -1,9 +1,8 @@
 ---
 layout: default
-category: attic
 title: Triple fault
 date: 2015-06-13 23:00:00 +0800
-tags: self
+tags: attic self
 ---
 
 I [sought treatment][help] for [depression and anxiety][depression]

@@ -1,8 +1,8 @@
 ---
 layout: default
-category: home
 title: On gender identity
 date: 2015-04-06 19:00:00 +0800
+tags: home
 ---
 
 Human gender and sexuality are immensely complex concepts due to our

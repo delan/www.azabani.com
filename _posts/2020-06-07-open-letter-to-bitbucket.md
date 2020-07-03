@@ -1,8 +1,8 @@
 ---
 layout: default
-category: home
 title: An open letter to Bitbucket about Mercurial
 date: 2020-06-07 19:00:00 +1000
+tags: home
 ---
 
 In August 2019, the Bitbucket team announced that [they would “sunset” Mercurial](https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket) on 1 June 2020 (now 1 July 2020) by removing all Mercurial repositories and associated content.

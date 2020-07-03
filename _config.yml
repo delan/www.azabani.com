@@ -4,9 +4,10 @@ highlighter: none
 url: https://www.azabani.com
 plugins:
   - jekyll-feed
-permalink: /:year/:month/:day/:title:output_ext
 feed:
   path: . # XXX hack to disable main feed
   posts_limit: 999
-  categories:
-    - home
+  tags:
+    path: feed/tag/
+    only:
+      - home
