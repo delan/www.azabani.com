@@ -17,11 +17,13 @@ typography, cryptography, and above all, [teaching]. I’m also a trans woman
 [Unicode]: https://charming.daz.cat
 [teaching]: https://docs.google.com/presentation/d/1V0daPBXxOrxb4Ckrfhodf2QO-6Ag067y8am479oIjB0
 
-When I’m away from my computer, I enjoy [cooking], solving [cubes], [folk punk],
-and [road trips]. I’m currently in Sydney for work, but I would love my next
-trip to be back across the Nullarbor and in Perth where I belong.
+When I’m away from my computer, I enjoy [cooking], [speedrunning], solving
+[cubes], [folk punk], and [road trips]. I’m currently in Sydney for work, but
+I would love my next trip to be back across the Nullarbor and in Perth where
+I belong.
 
 [cooking]: https://twitter.com/dazabani/status/1158339417934745600
+[speedrunning]: https://www.twitch.tv/azabani
 [cubes]: https://en.wikipedia.org/wiki/Rubik%27s_Cube
 [folk punk]: https://open.spotify.com/track/3DWAKDbWqivzjZ5wGQJP8Z
 [road trips]: https://twitter.com/dazabani/status/813102911068639232
