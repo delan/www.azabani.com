@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="preload" as="style" href="/asset/all.css">
+		<link rel="stylesheet" href="/asset/all.css">
+		<link rel="stylesheet" href="/asset/print.css" media="print">
+		<title>
+			{% if page.title %}
+				{{ page.title }} |
+			{% endif %}
+			{{ site.title }}
+		</title>
+		<link rel="preload" as="font" crossorigin href="/asset/-cmunrm.woff2">
+		<link rel="preload" as="font" crossorigin href="/asset/-cmuntt.woff2">
+		<link rel="preload" as="font" crossorigin href="/asset/-cmunti.woff2">
+		<link rel="alternate" type="application/atom+xml" href="/feed/tag/home.xml">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="Farewell, car">
+		<meta name="twitter:image" content="https://www.azabani.com/images/farewell-car.jpg">
+		<meta property="og:url" content="https://www.azabani.com/2020/08/15/farewell-car.html">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Farewell, car">
+		<meta property="og:image" content="https://www.azabani.com/images/farewell-car.jpg">
+		<meta property="og:description" content="Let our story be a lesson to you: don’t drive out of town at night without a roo bar.">
+	</head>
+	<body>
+		<header>Delan Azaban<span>i</span></header>
+		<nav>
+			<a href="/">~/</a> :
+			<a href="/about/">~/about/</a> :
+			<a href="/labs/">~/labs/</a>
+		</nav>
+		{% if page.title %}
+			{% if page.date %}
+				{% if page._link %}
+					<h1><a href="{{ page._link }}">
+						{{ page.title }}
+					</a></h1>
+				{% else %}
+					<h1>{{ page.title }}</h1>
+				{% endif %}
+			{% else %}
+				<h1>{{ page.title }}</h1>
+			{% endif %}
+		{% endif %}
+		{% if page.date %}
+		<p><i>
+			<a href="{{ page.url }}"><time datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%SZ' }}">
+				{{- page.date | date: '%Y-%m-%d %H:%M %Z' -}}
+			</time></a>
+			{%- for tag in page.tags -%}
+				{{- " " -}}{{- tag -}}
+			{%- endfor -%}
+		</i>
+		{% endif %}
+		<article>
+
+{{ content }}
+
+		</article>
+	</body>
+</html>
