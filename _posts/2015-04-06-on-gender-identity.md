@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: On gender identity
 date: 2015-04-06 19:00:00 +0800
 tags: home

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Ad vigendum per aspera
 date: 2018-10-10 16:13:13 +1100
 tags: home self

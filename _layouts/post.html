@@ -16,14 +16,21 @@
 		<link rel="preload" as="font" crossorigin href="/asset/-cmuntt.woff2">
 		<link rel="preload" as="font" crossorigin href="/asset/-cmunti.woff2">
 		<link rel="alternate" type="application/atom+xml" href="/feed/tag/home.xml">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="Farewell, car">
-		<meta name="twitter:image" content="https://www.azabani.com/images/farewell-car.jpg">
-		<meta property="og:url" content="https://www.azabani.com/2020/08/15/farewell-car.html">
 		<meta property="og:type" content="website">
-		<meta property="og:title" content="Farewell, car">
-		<meta property="og:image" content="https://www.azabani.com/images/farewell-car.jpg">
-		<meta property="og:description" content="Let our story be a lesson to you: don’t drive out of town at night without a roo bar.">
+		<meta property="og:url" content="{{ page.url | absolute_url }}">
+		<meta property="og:title" content="{{ page.title }}">
+		<meta name="twitter:title" content="{{ page.title }}">
+		{% if page._preview_description %}
+			<meta property="og:description" content="{{ page._preview_description }}">
+			<meta property="twitter:description" content="{{ page._preview_description }}">
+		{% endif %}
+		{% if page._preview_image %}
+			<meta property="og:image" content="{{ page._preview_image | absolute_url }}">
+			<meta name="twitter:image" content="{{ page._preview_image | absolute_url }}">
+			<meta name="twitter:card" content="summary_large_image">
+		{% else %}
+			<meta name="twitter:card" content="summary">
+		{% endif %}
 	</head>
 	<body>
 		<header>Delan Azaban<span>i</span></header>

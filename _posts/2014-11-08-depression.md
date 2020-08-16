@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Depression
 date: 2014-11-08 23:00:00 +0800
 tags: attic self

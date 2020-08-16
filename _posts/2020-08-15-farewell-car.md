@@ -1,8 +1,10 @@
 ---
-layout: farewell
+layout: post
 title: Farewell, car
 date: 2020-08-16 06:00:00 +1000
 tags: home self
+_preview_description: "Let our story be a lesson to you: don’t drive out of town at night without a roo bar."
+_preview_image: /images/farewell-car.jpg
 ---
 
 It’s been two years since I lost my car to a kangaroo.
