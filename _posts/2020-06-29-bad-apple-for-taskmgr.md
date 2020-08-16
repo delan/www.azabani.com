@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Bad Apple!! for taskmgr
 date: 2020-06-30 05:00:00 +1000
 tags: home
