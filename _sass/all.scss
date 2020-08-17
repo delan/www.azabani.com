@@ -10,6 +10,9 @@
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 }
+img {
+	image-orientation: from-image;
+}
 html {
 	overflow-y: scroll;
 	font-size: 16pt;
