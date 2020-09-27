@@ -7,12 +7,13 @@ tags: home
 
 I was looking for a job late last year when I saw [a tweet] about a place called [Igalia].
 The more I learned about them, the more interested I became, and before long I [applied to join] their Web Platform team.
-I didn’t have enough experience for a permanent position, but they *did* offer me an internship, which I thoroughly enjoyed.
+I didn’t have enough experience for a permanent position, but they *did* offer me a place in their [Coding Experience] program, which as far as I can tell is basically an internship, and I thoroughly enjoyed it.
 Here’s an overview of what I did and what I learned.
 
 [a tweet]: https://twitter.com/andywingo/status/1190917731312439296
 [Igalia]: https://www.igalia.com/about/
 [applied to join]: https://www.igalia.com/jobs/web_platform_engineer
+[Coding Experience]: https://www.igalia.com/coding-experience/
 
 <style>
 figure { text-align: center; }
@@ -202,13 +203,13 @@ Ever heard of the [Acid Tests]?
 [a screenshot]: https://www.w3.org/Style/CSS/Test/CSS1/current/sec5526c.gif
 
 I had a lot of fun writing my [two][two] [form-related] tests, because I actually had to submit forms to observe those features’ behaviour.
-WPT has server-side testing infrastructure that can help with this, and for such tests, I would need to spin up the provided web server or run the finished product with [wpt.live][wpt.live][^5].
+WPT has server-side testing infrastructure that can help with this, and for such tests, I would need to spin up the provided web server or run the finished product with [wpt.live][wpt.live][^4].
 In both cases, I avoided the need for that with a `<form method="GET">` that targets an iframe, plus a helper page that sends its query string back to the test page.
 
 [two]: http://wpt.live/html/semantics/forms/the-input-element/hidden-charset-case-sensitive.html
 [form-related]: http://wpt.live/html/semantics/forms/the-textarea-element/wrap-enumerated-ascii-case-insensitive.html
 [wpt.live]: http://wpt.live
-[^5]: See also [wpt.fyi], which tracks results of each test case across major browsers.
+[^4]: See also [wpt.fyi], which tracks results of each test case across major browsers.
 [wpt.fyi]: https://wpt.fyi
 
 <hr>
