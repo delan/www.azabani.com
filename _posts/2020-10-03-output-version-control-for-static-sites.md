@@ -134,7 +134,7 @@ _production:
 Never skip the commands under `dry` + `examine` + `deploy` + `reject` based on modified times, even if there happens to be a file with one of those names in the site’s sources.
 `.PHONY:` isn’t yet in the [POSIX spec], but it has widespread support, including the GNU and OpenBSD implementations.
 
-[POSIX spec]: https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html
+[POSIX spec]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html
 
 ```makefile
 .PHONY: dry examine deploy reject
