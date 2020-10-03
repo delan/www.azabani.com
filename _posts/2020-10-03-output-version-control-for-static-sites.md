@@ -186,8 +186,8 @@ Maven doesn’t support incremental builds out of the box, but `mvn -pl x,y,...`
 
 In this case, the secondary Git repo, which I call a “shadow repo”, tracks the inputs rather than the outputs.
 But Delan, you ask, doesn’t the primary repo already do that?
-Yes, but the user (i.e. one of my colleagues) is constantly messing around with it, and it’s difficult to implement robust incremental builds atop a repo that we don’t control.
-The system I replaced tried to do exactly that, and it got confused by everything from dirty indexes and working trees to the user switching branches.
+Kind of, but the user (i.e. one of my colleagues) is constantly messing around with it, and it’s difficult to implement robust incremental builds atop a repo that we don’t control, because we have no way of knowing what the inputs were *during the last successful build*.
+The system I replaced tried anyway, and it got confused by everything from dirty indexes and working trees to the user switching branches.
 
 My new system roughly worked as follows.
 We create the shadow repo, which is `--bare` to avoid the redundant working tree.
