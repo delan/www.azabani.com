@@ -3,6 +3,7 @@ layout: default
 title: Output version control for static sites
 date: 2020-10-03 23:00:00 +1000
 tags: home jekyll
+_preview_description: Do you use a static site generator? Here’s a way to ensure you only deploy the changes you expect!
 ---
 
 I use [Jekyll], a static site generator that’s most notable for powering [GitHub Pages].
