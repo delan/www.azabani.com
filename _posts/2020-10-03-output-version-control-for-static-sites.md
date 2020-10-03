@@ -54,7 +54,7 @@ I migrated my site from Jekyll 3.0.1 to 3.8.3, which wasn’t too hard thanks to
 ---
 layout: legacy
 ---
-{% post_url 2014-01-02-forcing-single-timezone-jekyll %}
+{{ "{%" }} post_url 2014-01-02-forcing-single-timezone-jekyll %}
 ```
 </figure>
 
