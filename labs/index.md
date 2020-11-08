@@ -12,15 +12,18 @@ ul {
 
 <h2>2020</h2>
 
-* [badapple.rs](https://bitbucket.org/delan/badapple.rs) — Video player for Task Manager’s CPU graphs ([more details]({% post_url 2020-06-29-bad-apple-for-taskmgr %})).
+* [dis2ello](https://bitbucket.org/delan/dis2ello) 🦀 — Discord bot that posts tasks or shopping list items to Trello.
+* [togpac](https://bitbucket.org/delan/togpac) — [Firefox extension](https://addons.mozilla.org/firefox/addon/togpac/) for a button that disables your proxy settings.
+* [memories](https://bitbucket.org/delan/memories) — Self-hosted photo viewer for sharing with family and friends.
+* [badapple.rs](https://bitbucket.org/delan/badapple.rs) 🦀 — Video player for Task Manager’s CPU graphs ([more details]({% post_url 2020-06-29-bad-apple-for-taskmgr %})).
 
 <h2>2019</h2>
 
-* [pledge-rs](https://github.com/i80and/pledge-rs) — Rust bindings for OpenBSD’s [pledge(2)](https://man.openbsd.org/OpenBSD-5.9/pledge.2) interface.
+* [pledge-rs](https://github.com/i80and/pledge-rs) 🦀 — Rust bindings for OpenBSD’s [pledge(2)](https://man.openbsd.org/OpenBSD-5.9/pledge.2) interface.
 
-* [nonymous](https://bitbucket.org/delan/nonymous) — Rust DNS library (no-std and no-alloc friendly) and DNS tools.
+* [nonymous](https://bitbucket.org/delan/nonymous) 🦀 — DNS library (no-std and no-alloc friendly) and DNS tools.
 
-* [ing2ynab](https://bitbucket.org/delan/ing2ynab) — Cleans up ing.com.au transactions for YNAB.
+* [ing2ynab](https://bitbucket.org/delan/ing2ynab) 🦀 — Cleans up ing.com.au transactions for YNAB.
 
 <h2>2017</h2>
 
