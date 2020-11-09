@@ -13,8 +13,11 @@ ul {
 <h2>2020</h2>
 
 * [dis2ello](https://bitbucket.org/delan/dis2ello) 🦀 — Discord bot that posts tasks or shopping list items to Trello.
+
 * [togpac](https://bitbucket.org/delan/togpac) — [Firefox extension](https://addons.mozilla.org/firefox/addon/togpac/) for a button that disables your proxy settings.
+
 * [memories](https://bitbucket.org/delan/memories) — Self-hosted photo viewer for sharing with family and friends.
+
 * [badapple.rs](https://bitbucket.org/delan/badapple.rs) 🦀 — Video player for Task Manager’s CPU graphs ([more details]({% post_url 2020-06-29-bad-apple-for-taskmgr %})).
 
 <h2>2019</h2>
