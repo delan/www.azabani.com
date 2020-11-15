@@ -12,6 +12,8 @@ ul {
 
 <h2>2020</h2>
 
+* [xd](https://bitbucket.org/delan/xd) 🦀 — tool that dumps binary input in a more human-readable format.
+
 * [dis2ello](https://bitbucket.org/delan/dis2ello) 🦀 — Discord bot that posts tasks or shopping list items to Trello.
 
 * [togpac](https://bitbucket.org/delan/togpac) — [Firefox extension](https://addons.mozilla.org/firefox/addon/togpac/) for a button that disables your proxy settings.
