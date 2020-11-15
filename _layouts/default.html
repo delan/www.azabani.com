@@ -68,5 +68,14 @@
 {{ content }}
 
 		</article>
+		<footer>
+		{% if page._footer_twitter %}
+			<hr>
+			<p>
+				Did you love this? Hate this? Have questions or
+				comments? <a href="{{ page._footer_twitter }}">Let me
+				know</a> on Twitter!
+		{% endif %}
+		</footer>
 	</body>
 </html>
