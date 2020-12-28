@@ -2,7 +2,7 @@
 layout: default
 title: My internship with Igalia
 date: 2020-09-27 19:00:00 +1000
-tags: home
+tags: home igalia
 ---
 
 I was looking for a job late last year when I saw [a tweet] about a place called [Igalia].
