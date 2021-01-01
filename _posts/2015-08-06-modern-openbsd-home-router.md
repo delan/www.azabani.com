@@ -2,7 +2,7 @@
 layout: default
 title: The modern OpenBSD home router
 date: 2015-08-07 01:00:00 +0800
-tags: home
+tags: home openbsd
 ---
 
 It’s no secret that most consumer routers ship with software that’s
