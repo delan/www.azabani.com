@@ -17,9 +17,7 @@ This post is about that video, writing an improved “video player” for Task M
 
 <style>
 /* :root { font-size: 20px; } */
-article { word-wrap: break-word; }
-figure { text-align: center; }
-figcaption { font-size: 0.75em; }
+article { hyphens: auto; }
 .local-video { max-width: 100%; }
 .local-commit-container { margin-right: -1.6em; padding-right: 1.4em; border-right: 0.2em solid rgba(102,51,153,0.5); }
 .local-commit { line-height: 2; margin-right: -2.5em; text-align: right; }
@@ -204,6 +202,7 @@ I also ran into a bunch of limits while figuring out how far I could push my har
 
 To go beyond 255 logical processors and reach the 288 limit, we needed iommu@eim, which also needed iommu@intremap and the qemu ioapic.
 
+<figure><div markdown="1">
 ```
 <domain>
   <features>
@@ -216,6 +215,7 @@ To go beyond 255 logical processors and reach the 288 limit, we needed iommu@eim
   </devices>
 </domain>
 ```
+</div></figure>
 
 For what it’s worth, by the time I recorded the video, I ended up with [this configuration].
 
