@@ -1,0 +1,21 @@
+article
+    word-wrap: break-word
+
+    pre
+        word-wrap: normal
+
+figure
+    > div
+        /* horizontal scroll */
+        overflow-x: auto
+
+        > *
+            margin: 0 auto
+        
+        > pre
+            /* extend background */
+            width: min-content
+
+    > figcaption
+        font-size: 0.75em
+        text-align: center
