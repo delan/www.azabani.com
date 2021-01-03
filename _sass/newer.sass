@@ -1,3 +1,16 @@
+pre, code
+    font-family: Inconsolata, monospace, monospace
+    font-size: 0.75em
+    font-style: normal !important
+
+pre
+    background: #e0e0e0
+    padding: 0.5em
+    line-height: 1.25
+
+pre code
+    font-size: 1em
+
 article
     word-wrap: break-word
 
@@ -5,14 +18,48 @@ article
         word-wrap: normal
 
 figure
+    margin: 0.5em 0
+
     > div
         /* horizontal scroll */
         overflow-x: auto
 
         > *
             margin: 0 auto
+
+        >
+            img, picture, picture *
+                display: block
+                width: min-content
+
+        // &.flex
+        //     display: flex
+        //     flex-flow: row wrap
+
+        //     // iOS doesn’t support this
+        //     // column-gap: 1em
+
+        //     // iOS still lies and claims to support?
+        //     justify-content: space-between
+        //     @supports (justify-content: safe center)
+        //         justify-content: safe center
+
+        //     > *
+        //         margin: 0
+
+        > div.flex
+            width: max-content
+            display: flex
+            flex-flow: row wrap
+            justify-content: start
+
+            > div.gap
+                width: 1em
         
-        > pre
+        > pre,
+        > div.highlighter-rouge,
+        > div.highlighter-rouge > div.highlight,
+        > div.highlighter-rouge > div.highlight > pre,
             /* extend background */
             width: min-content
 
