@@ -4,6 +4,7 @@ title: "nonymous + bore(1): DNS toys for Rust"
 date: 2021-01-04 08:00:00 +1100
 tags: home rust
 _preview_description: Lessons learned from writing nonymous, an embedded-friendly DNS library, and bore(1), a DNS query tool.
+_footer_twitter: https://twitter.com/dazabani/status/1345848463666286592
 ---
 
 I’ve been writing a DNS implementation in Rust.
