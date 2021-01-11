@@ -215,7 +215,7 @@ One thing that hasn’t helped my state of mind over the years was the
 knowledge that I’m trans while feeling unable to do anything about it,
 but I’m elated to say I’ve finally started my transition (they/them
 for now, but don’t panic if you drop a he/him here and there).
-Conveniently enough <span lang="ckb">دىلان</span> (<span
+Conveniently enough <span lang="ckb">دیلان</span> (<span
 lang="kmr">dîlan</span>) [isn’t exclusively masculine][5], and [one
 source][6] even describes it as a woman’s name, so I’m pretty
 comfortable with my name.
