@@ -48,7 +48,7 @@ But [bore(1)] is useful enough that I actually reach for it in 90% of the situat
 [nonymous]: https://crates.io/crates/nonymous
 [bore(1)]: https://crates.io/crates/bore
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">$ bore daz.cat any</span>
 ;; 172.19.128.1:53 (172.19.128.39:55722)
 ;; NoError #49916 Query 1 11 0 3 flags qr rd ra
@@ -78,7 +78,7 @@ daria.daz.cat. 3600 IN A 180.150.30.255
 
 …and some situations that the incumbent struggles with, like dumping, replaying, and debugging messages.
 
-<figure><div>
+<figure><div class="scroll">
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">$ bore bore.test ns --encode | tee query.dns | xd</span>
 40 C1 01 00  00 01 00 00  00 00 00 01  04 62 6F 72  @┴☺��☺�����☺♦bor  0
 65 04 74 65  73 74 00 00  02 00 01 00  00 29 10 00  e♦test��☻�☺��)��  10
@@ -155,7 +155,7 @@ After all, the network is just like a stream that you pipe into your program… 
 
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub trait Decode<T: Read, E>: 'static + Sized {
     fn decode(source: &mut T) -> Result<Self, E>;
@@ -165,7 +165,7 @@ pub trait Decode<T: Read, E>: 'static + Sized {
 
 So if we defined a `Message` type that represents a message, we could then define how to parse one out of an octet stream.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 /// ```rust
 /// let mut source = &b"\x13\x13\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"[..];
@@ -206,7 +206,7 @@ For example, this message represents `a.root-servers.net.` in full, then reuses 
 [in some places]: https://tools.ietf.org/html/rfc3597#section-4
 
 <figure>
-<div><picture>
+<div class="scroll"><picture>
     <source srcset="/images/nonymous-bore-compression@1x.png 1x, /images/nonymous-bore-compression@2x.png 2x">
     <img src="/images/nonymous-bore-compression@2x.png">
 </picture></div>
@@ -214,7 +214,7 @@ For example, this message represents `a.root-servers.net.` in full, then reuses 
 
 The solution I reached for here was, in retrospect, very inelegant: a pair of `Read` adapters that allow the caller to read behind or ahead (respectively) of the current position in the underlying stream.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub struct Rewind<I: Read> {
     inner: I,
@@ -264,7 +264,7 @@ While I was at the drawing board, I also started developing some ideas that woul
 Looking back at the old `Header` design below, notice how we painstakingly unpack everything from each field into neat little Rust fields?
 Each thing we unpack involves some copying that adds precious instructions to the critical path.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub struct Header {
     id: u16,
@@ -285,21 +285,21 @@ Let’s consider this overview of DNS protocol elements.
 Walking through the header is easy — skip 12 octets — but the rest of the message is of unknown length.
 
 <figure>
-<div><img src="/images/nonymous-bore-message0.svg"></div>
+<div class="scroll"><img src="/images/nonymous-bore-message0.svg"></div>
 </figure>
 
 This is because each section is of unknown length.
 Even if questions and records were of known but variable length, there’s a variable number of them in each section.
 
 <figure>
-<div><img src="/images/nonymous-bore-message1.svg"></div>
+<div class="scroll"><img src="/images/nonymous-bore-message1.svg"></div>
 </figure>
 
 To make matters worse, questions and records themselves are of unknown length anyway.
 Notice that rdata is a good example of an element of known but variable length.
 
 <figure>
-<div><img src="/images/nonymous-bore-message2.svg"></div>
+<div class="scroll"><img src="/images/nonymous-bore-message2.svg"></div>
 </figure>
 
 At the end of the day, the root cause is that names themselves are of unknown length.
@@ -307,7 +307,7 @@ While labels are of known but variable length, there’s a variable number of th
 The length of a label depends on a couple of different things, and this has surprisingly interesting implications for extensibility[^1].
 
 <figure>
-<div><img src="/images/nonymous-bore-message3.svg"></div>
+<div class="scroll"><img src="/images/nonymous-bore-message3.svg"></div>
 </figure>
 
 The crux of my approach to zero-copy decoding is that walking to the end of a message in this way is, on some level, proof that the message is structurally sound.
@@ -320,10 +320,10 @@ To keep our design embedded-friendly, let’s avoid the need for a separate allo
 For records, that’s easy enough: one slice over the whole message (for compressed names), plus where the record starts in the message, and where the fixed part starts, or equivalent.
 
 <figure>
-<div><img src="/images/nonymous-bore-record.svg"></div>
+<div class="scroll"><img src="/images/nonymous-bore-record.svg"></div>
 </figure>
 
-<figure markdown="1"><div markdown="1"><div markdown="1" class="flex">
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
 ```rust
 pub struct Record<'s> {
     start: &'s [u8],
@@ -342,7 +342,7 @@ pub struct Name<'s> {
 
 As for messages, I think the most useful information we can return in constant space is a slice over the whole message, plus slices indicating where each section starts, to give question and record iterators what they need to know to start immediately.
 
-<figure markdown="1"><div markdown="1"><div markdown="1" class="flex">
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
 ```rust
 pub struct Message<'s> {
     start: &'s [u8],
@@ -364,7 +364,7 @@ pub struct Header<'s> {
 
 If we require the caller to provide the whole message upfront, we can dispense with all of that `Read` goop and ask for two slices (`&[u8]`): one with the part of the message that this decoder should focus on, and one over the whole message for compressed names.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 // Ok((the view, slice over the remaining input))
 pub type ViewResult<'s, T> = Result<(T, &'s [u8]), ()>;
@@ -385,7 +385,7 @@ The most obvious way to mitigate this is to remember which pointer destinations 
 [twenty]: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2000-0333
 [years]: https://nvd.nist.gov/vuln/detail/CVE-2000-0333 -->
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub struct Context<'s> {
     start: &'s [u8],
@@ -408,7 +408,7 @@ Note that this version actually used a type called `Slice`, but unlike the one i
 
 Now let’s add some error handling, and while we’re at it, replace `start` and `source` with a single type that represents a subslice that maintains a reference to the whole slice.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub struct Slice<'s> {
     // rust-lang/rust#27186
@@ -437,7 +437,7 @@ pub trait View<'s>: Sized {
 ```
 </div></figure>
 
-<figure markdown="1"><div markdown="1"><div markdown="1" class="flex">
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
 ```rust
 pub struct Message<'s> {
     slice: Slice<'s>,
@@ -511,7 +511,7 @@ I took this to its logical extreme, cutting `Message` down to 8 pointers long (6
 Two pointer widths in each case were saved by eliminating the slice reference over the whole message.
 The caller already has a copy of this reference, because that’s where it came from in the first place!
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub type ViewResult<'s, T> = Result<(T, Range<usize>), <T as View>::Error>;
 
@@ -526,7 +526,7 @@ pub trait View: Sized {
 ```
 </div></figure>
 
-<figure markdown="1"><div markdown="1"><div markdown="1" class="flex">
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
 ```rust
 pub struct Message {
     offset: usize,
@@ -570,7 +570,7 @@ Pass in the wrong buffer and we’ll panic, or worse, blindly return nonsense.
 Let’s put that reference back into each view.
 We can limit the cost to just one `&[u8]` (two pointer widths) in each view by avoiding composition, creating views for inner protocol elements on the fly.
 
-<figure markdown="1"><div><div markdown="1" class="flex">
+<figure markdown="1"><div class="scroll"><div markdown="1" class="flex">
 ```rust
 pub struct Record<'s> {
     source: &'s [u8],
@@ -626,7 +626,7 @@ Because records have an rdlength field, we can treat rdata as an opaque blob whi
 The main limitation of this method is that it returns a `Box`, which requires alloc.
 I’m sure there’s a way to rework this for no-alloc support, but so far I’ve only really thought about this piece of the puzzle for long enough to get bore(1) working.
 
-<figure markdown="1"><div markdown="1">
+<figure markdown="1"><div class="scroll" markdown="1">
 ```rust
 pub fn rdata(&self) -> Result<Box<dyn Rdata + '_>, RdataError> {
     let start = self.rdata_offset();
@@ -660,7 +660,7 @@ From there I built my encoders incrementally, using the query tool as a guide fo
 
 [née scoop(1)]: https://twitter.com/dazabani/status/1302656089402404865
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 // unbound(8) requires RD (no cache snooping) by default
 let header = b"\x01\x00\x00\x01\x00\x00\x00\x00\x00\x01";
@@ -681,7 +681,7 @@ let query: Vec<_> = id
 
 One by one, I replaced hardcoded parts with actual encoders, until there were none left.
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 let (qname, qtype) = match (qname, qtype) {
     (None, None) => (".", "NS"),
@@ -710,7 +710,7 @@ let query = emit::Message::new(header)
 Each of these encoders was backed by the same kind of “naïve” type as in my [early decoders](#naïve-decoders).
 They exposed a thin builder API that didn’t enforce any kind of structural soundness, like the header’s qdcount reflecting the number of questions in the message.
 
-<figure><div><div class="flex" markdown="1">
+<figure><div class="scroll"><div class="flex" markdown="1">
 ```rust
 pub struct Message {
     header: Header,
@@ -733,7 +733,7 @@ pub struct Header {
 ```
 </div></div></figure>
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 impl Message {
     pub fn qd(mut self, value: Question) -> Self {
@@ -769,7 +769,7 @@ The encoder types also heavily relied on multiple layers of allocations, which m
 
 Thus began an incredible journey[^3] that took me ten months (albeit in my spare time):
 
-<figure><div>
+<figure><div class="scroll">
 <img src="/images/nonymous-bore-journey.png">
 </div></figure>
 
@@ -793,7 +793,7 @@ I defined a generic container that wraps our state types, providing our shared �
 [Generically Sophistication]: https://hoverbear.org/blog/rust-state-machine-pattern/#generically-sophistication
 [maximum payload size]: https://tools.ietf.org/html/rfc6891#section-6.2.3
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 pub struct Emit<'s, S: Sink, I> {
     sink: &'s mut S,
@@ -805,7 +805,7 @@ pub struct Emit<'s, S: Sink, I> {
 
 I then defined a state for each protocol element, as well as types for any substates it might have, using generics in the same way.
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 pub struct Message<P, Q> {
     parent: P,
@@ -821,7 +821,7 @@ pub struct ArSection;
 
 State-dependent methods, including state transitions, are implemented on the `Emit<...>` types of the appropriate states.
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 macro_rules! transitions {
     {$($machine:ident.$field:ident {$($from:ident -> $to:ident;)*})*} => {$($(
@@ -849,7 +849,7 @@ transitions! {
 When we transition from encoding a protocol element to encoding one of its parts, we wrap the old state in the new state using generics, forming a stack that remembers the state to return to.
 If you think these type signatures are barely comprehensible (and I certainly do), you probably wouldn’t want to see the helper functions behind which I tucked the heavy lifting of these “downward” state transitions.
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 pub struct Record<P, Q> {
     parent: P,
@@ -875,7 +875,7 @@ impl<'s, S: Sink, P> Emit<'s, S, Message<P, AnSection>> {
 
 At this point, we had a working prototype that could make some useful guarantees, and as complicated as the internals were, the bore(1) code consuming it almost looked like an ordinary builder chain!
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 // FIXME EDNS OPT RR
 // unbound(8) requires RD (no cache snooping) by default
@@ -918,7 +918,7 @@ I think I came to the conclusion that there wouldn’t be a good solution until 
 
 [`arbitrary_self_types`]: https://github.com/rust-lang/rust/issues/44874
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```rust
 impl<S: Sink, P, Q> Message<P, Q> {
     /// Write the given value to the qr field in the message header.

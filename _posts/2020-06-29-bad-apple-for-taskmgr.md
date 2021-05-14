@@ -203,7 +203,7 @@ I also ran into a bunch of limits while figuring out how far I could push my har
 
 To go beyond 255 logical processors and reach the 288 limit, we needed iommu@eim, which also needed iommu@intremap and the qemu ioapic.
 
-<figure><div markdown="1">
+<figure><div class="scroll" markdown="1">
 ```
 <domain>
   <features>

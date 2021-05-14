@@ -34,21 +34,25 @@ I migrated my site from Jekyll 3.0.1 to 3.8.3, which wasn’t too hard thanks to
 
 <figure markdown="1">
 <figcaption><code>_layouts/legacy.html</code></figcaption>
+<div class="scroll" markdown="1">
 ```html
 <!doctype html><meta charset="utf-8">
 <meta http-equiv="Refresh" content="0;
     URL={{ "{{" }} site.url }}{{ "{{" }} site.baseurl }}{{ "{{" }} content | strip_newlines }}">
 ```
+</div>
 </figure>
 
 <figure markdown="1">
 <figcaption><code>2014/01/03/forcing-single-timezone-jekyll.html</code></figcaption>
+<div class="scroll" markdown="1">
 ```
 ---
 layout: legacy
 ---
 {{ "{%" }} post_url 2014-01-02-forcing-single-timezone-jekyll %}
 ```
+</div>
 </figure>
 
 ## The system
