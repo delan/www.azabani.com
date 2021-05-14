@@ -14,7 +14,6 @@ Let our story be a lesson to you: don’t drive out of town at night without a r
 
 <style>
 figure { text-align: center; }
-figcaption { font-size: 0.75em; }
 </style>
 
 <figure>

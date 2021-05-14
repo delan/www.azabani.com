@@ -13,10 +13,6 @@ I’ve since written a Git-based system to stop this kind of breakage from ever 
 [Jekyll]: https://jekyllrb.com
 [GitHub Pages]: https://pages.github.com
 
-<style>
-figcaption { font-size: 0.75em; }
-</style>
-
 ## The bug
 
 You can read more about what happened in [the commit] where I first wrote the system, but in short, Jekyll used to suffer from [a bug] where the day a post gets filed under can vary depending on Ruby version… because time zones.

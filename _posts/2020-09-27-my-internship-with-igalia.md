@@ -17,7 +17,6 @@ Here’s an overview of what I did and what I learned.
 
 <style>
 figure { text-align: center; }
-figcaption { font-size: 0.75em; }
 figure img { max-width: 100%; }
 </style>
 
