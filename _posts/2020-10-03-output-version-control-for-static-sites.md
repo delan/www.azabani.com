@@ -15,13 +15,6 @@ I’ve since written a Git-based system to stop this kind of breakage from ever 
 
 <style>
 figcaption { font-size: 0.75em; }
-article > p {
-    margin: 0;
-}
-article > * + *,
-article > * + p {
-    margin-top: 0.5em;
-}
 </style>
 
 ## The bug

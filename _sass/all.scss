@@ -10,6 +10,13 @@
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 }
+* + * {
+	margin-top: 0.5em;
+}
+br {
+	/* Firefox */
+	margin: 0;
+}
 img {
 	image-orientation: from-image;
 }
@@ -23,9 +30,6 @@ body {
 	padding: 0 1em;
 	font-family: CMU Serif, serif;
 	line-height: 1.5;
-}
-p, table {
-	margin: 0.5em 0;
 }
 header {
 	font-size: 4em;
@@ -42,7 +46,8 @@ header span {
 	letter-spacing: 0;
 }
 aside, blockquote {
-	margin: 1em 1em 1em 4em;
+	margin-left: 4em;
+	margin-right: 1em;
 }
 aside.references:before, blockquote:before {
 	display: block;
@@ -64,9 +69,6 @@ blockquote:before {
 
 	content: '“';
 }
-h1, h2, h3, h4 {
-	margin-top: 0.5em;
-}
 h1 {
 	font-size: 2em;
 }
@@ -87,7 +89,6 @@ a, hr {
 }
 hr {
 	font-size: 1.5em;
-	margin: 1rem 0;
 	border: none;
 }
 hr:before {
@@ -105,13 +106,17 @@ strong, strong * {
 	font-style: italic;
 }
 ul, ol, dl {
-	margin: 0.5em 0 0.5em 2em;
+	margin-left: 2em;
 }
-ul ul, ul ol, ul dl,
-ol ul, ol ol, ol dl,
-dl ul, dl ol, dl dl {
-	margin: 0 0 0 2em;
-	list-style: circle outside none;
+ul, ol, dl {
+	* + {
+		li, ul, ol, dl {
+			margin-top: 0;
+		}
+	}
+	ul, ol, dl {
+		list-style: circle outside none;
+	}
 }
 ul {
 	list-style: disc outside none;

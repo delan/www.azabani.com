@@ -20,6 +20,7 @@ This post is about that video, writing an improved “video player” for Task M
 article { hyphens: auto; }
 .local-video { max-width: 100%; }
 .local-commit-container { margin-right: -1.6em; padding-right: 1.4em; border-right: 0.2em solid rgba(102,51,153,0.5); }
+* + .local-commit, .local-commit * + * { margin-top: 0; }
 .local-commit { line-height: 2; margin-right: -2.5em; text-align: right; }
 .local-commit > img { width: 2em; vertical-align: middle; }
 .local-commit > a { padding-right: 0.5em; text-decoration: none; color: rebeccapurple; }

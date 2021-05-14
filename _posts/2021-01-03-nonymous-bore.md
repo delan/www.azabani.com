@@ -17,6 +17,7 @@ Here’s a post about what I’ve learned so far while writing [nonymous], an em
 
 <style>
 .local-commit-container { margin-right: -1.6em; padding-right: 1.4em; border-right: 0.2em solid rgba(102,51,153,0.5); }
+* + .local-commit, .local-commit * + * { margin-top: 0; }
 .local-commit { display: flex; flex-flow: row nowrap; justify-content: right; line-height: 2; margin-right: -2.5em; width: max-content; margin-left: auto; text-align: right; }
 .local-commit > img { width: 2em; vertical-align: middle; }
 .local-commit > a { flex: 1 0 15ch; padding: 0 1ch; text-decoration: none; color: rebeccapurple; }

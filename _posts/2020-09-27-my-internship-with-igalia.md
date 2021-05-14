@@ -19,32 +19,6 @@ Here’s an overview of what I did and what I learned.
 figure { text-align: center; }
 figcaption { font-size: 0.75em; }
 figure img { max-width: 100%; }
-article > p {
-    margin: 0;
-    clear: both;
-}
-article > * + *,
-article > * + p {
-    margin-top: 0.5em;
-}
-/* .local-float {
-    display: block;
-    width: 13em;
-    margin: 1em 0 1em 1em;
-    float: right;
-    line-height: 1;
-}
-.local-float > * + * {
-    margin-top: 1em;
-}
-.local-float > a {
-    display: block;
-    width: 100%;
-}
-.local-float > a > img {
-    display: block;
-    width: 100%;
-} */
 </style>
 
 ## Contents
