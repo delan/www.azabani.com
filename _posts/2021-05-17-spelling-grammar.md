@@ -224,9 +224,6 @@ We then fix shadows similarly, reordering the text paints from “before with sh
 These initial fixes are now live in Chromium 90, but we still need to deal with the ::selection shadow clipping.
 What’s up with that?
 
-* fix ::selection background (/c/2647046, /c/2675603)
-* independent originating element shadows (/c/2649833)
-
 ### Shadow clipping
 
 The weird shadow clipping was a side effect of how we ensured that the ::selection text color changes *exactly* where the ::selection background starts:
