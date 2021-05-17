@@ -3,6 +3,9 @@ layout: default
 title: "Chromium spelling and grammar features"
 date: 2021-05-17 18:30:00 +0800
 tags: igalia
+_preview_description: “I mean, it’s just some red and green squiggly lines. How long could it take? Ten days?”
+_preview_image: /images/spammar-preview.png
+_footer_twitter: https://twitter.com/dazabani
 ---
 
 Back in September, I wrote about [my wonderful internship] with Igalia’s web platform team.
@@ -53,6 +56,7 @@ To address this, the CSS pseudo and text decoration specs have defined new pseud
     * [Vertical vertigo](#vertical-vertigo)
     * [Cursed](#cursed) <!-- and [screaming](#-aaaaaaaaaaaaa) -->
 * [Processing model](#processing-model)
+* [Stay tuned!](#stay-tuned)
 
 ## Current status
 
@@ -68,6 +72,13 @@ As the first impl of both the features themselves *and* much of the underlying h
 
 [Two](https://github.com/w3c/csswg-drafts/issues/2474) [issues](https://github.com/w3c/csswg-drafts/issues/3932) were raised before we even started, I’ve since sent in [another](https://github.com/w3c/csswg-drafts/issues/6022) [two](https://github.com/w3c/csswg-drafts/issues/6264), and I’ll need to raise at least two more by the time we’re done.
 I’ve also landed [three](https://crrev.com/c/2624328) [WPT](https://crrev.com/c/2670609) [patches](https://crrev.com/c/2706442), including [three](https://wpt.live/css/css-pseudo/highlight-painting-001.html) [new](https://wpt.live/css/css-pseudo/highlight-painting-002.html) [tests](https://wpt.live/css/css-pseudo/highlight-painting-003.html) and fixes for countless more.
+
+<figure>
+<div class="local-compare" style="width: 300px; margin: 0 auto;"><img src="/images/spammar-6.png"><img src="/images/spammar-7.png"></div>
+<figcaption markdown="1">
+[highlight-painting-003.html](https://wpt.live/css/css-pseudo/highlight-painting-003.html)
+</figcaption>
+</figure>
 
 In the course of my work on these features, I’ve already fixed at least [two](https://crbug.com/474335) [other](https://crbug.com/1078474) bugs that weren’t of my own creation, and reported four more:
 
@@ -178,19 +189,6 @@ By the time I started to understand the problem space, two weeks had passed.
     <figcaption>Pretty intense for my very first foray into www-style!</figcaption>
 </figure>
 
-<!-- ## WPT updates
-
-FIXME spread this into other sections?
-
-I *love* writing reftests.
-
-<figure>
-<div class="local-compare" style="width: 300px; margin: 0 auto;"><img src="/images/spammar-6.png"><img src="/images/spammar-7.png"></div>
-<figcaption markdown="1">
-[highlight-painting-003.html](https://wpt.live/css/css-pseudo/highlight-painting-003.html)
-</figcaption>
-</figure> -->
-
 ## Highlight painting
 
 The current spec isolates each highlight pseudo into an “overlay”, and allows each of them to have independent backgrounds, shadows, and other decorations.
@@ -203,7 +201,7 @@ But the closer I looked, the deeper the problems ran.
 
 > everyone's shadow code is complete made-up horseshit but mostly i blame the fact that someone decided to add 'shadow' to the (very small!) special list of styles ::selection could modify
 >
-> @Gankra_ <https://twitter.com/Gankra_/status/1351020287790358530>
+> — Gankra, [2021](https://twitter.com/Gankra_/status/1351020287790358530)
 
 I whipped up a quick <a class="local-demo" href="https://bucket.daz.cat/work/igalia/0/3.html">demo<sub>3</sub></a> with some backgrounds and shadows, and the result was… not good.
 “So the originating text shadow (yellow) paints over the ::selection background (grey), except when it paints under, and sometimes it even paints over the text (black)?
@@ -555,6 +553,13 @@ Let’s return to how computed styles for highlight selectors should work.
 The consensus was that parent ::selection styles should *somehow* propagate to the ::selection styles of their children, so authors can use their existing CSS skills to define both general ::selection styles *and* more specific styles under certain elements.
 This was unlike all existing implementations, where the only selector that worked the way you would expect was `::selection`, that is to say, `*::selection`.
 
+At first, that “somehow” was by tweaking the [cascade] to take parent ::selection rules into account.
+Emilio raised [performance concerns] with this, so the spec was changed, instead tweaking [inheritance] to make ::selection styles inherit from parent ::selection styles (and never from originating or “real” elements).
+
+[performance concerns]: https://github.com/w3c/csswg-drafts/issues/2474
+[cascade]: https://www.w3.org/TR/css-cascade-4/#cascade-sort
+[inheritance]: https://www.w3.org/TR/css-cascade-4/#inheriting
+
 This is what I’m working on now.
 I’ve got a patch that gets most of the way, first by fixing `inherit`, then by fixing `unset`, then with a couple more fixes for styles where the cascade doesn’t yield any value, but there are still a few kinks ahead:
 
@@ -563,18 +568,8 @@ I’ve got a patch that gets most of the way, first by fixing `inherit`, then by
 * we still need to check if style invalidation works correctly; and
 * we probably want new devtools features to visualise highlight inheritance.
 
-<!--
-At first, that “somehow” was by tweaking the [cascade] to take parent ::selection rules into account.
-Emilio raised [performance concerns], so the spec was changed, instead tweaking [inheritance] to make ::selection styles inherit from parent ::selection styles (and never from originating or “real” elements).
+## Stay tuned!
 
-[performance concerns]: https://github.com/w3c/csswg-drafts/issues/2474
-[cascade]: https://www.w3.org/TR/css-cascade-4/#cascade-sort
-[inheritance]: https://www.w3.org/TR/css-cascade-4/#inheriting
--->
-
-<hr>
-
-Stay tuned!
 Beyond my colleagues at Igalia, special thanks go to Stephen, Rune, Koji (Google), and [Emilio](https://twitter.com/ecbos_) (Mozilla) for putting up with all of my questions, not to mention Florian and fantasai from the CSSWG, plus [Gankra](https://twitter.com/Gankra_) (Mozilla) for her writing about text rendering, which has proved both inspiring and reassuring.
 
 <script>
