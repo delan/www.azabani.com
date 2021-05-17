@@ -62,6 +62,8 @@
 				{{- " " -}}{{- tag -}}
 			{%- endfor -%}
 		</i>
+		{{- " " -}}{{ content | number_of_words }} words
+		{{- " " -}}{{ content | number_of_words | divided_by: 180 }} min
 		{% endif %}
 		<article>
 
