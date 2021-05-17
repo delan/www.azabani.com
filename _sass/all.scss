@@ -88,9 +88,6 @@ a, hr {
 	color: black;
 }
 hr {
-	font-size: 1.5em;
-	// content: "❦ ❦ ❦";
-	content: "• • •";
 	font: 2em/1 monofur;
 	margin-top: 0;
 	border: none;
@@ -98,7 +95,7 @@ hr {
 hr:before {
 	display: block;
 	text-align: center;
-	content: inherit;
+	content: "• • •";
 }
 i, i *, em, em * {
 	font-style: italic;
