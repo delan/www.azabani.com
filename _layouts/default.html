@@ -54,16 +54,17 @@
 			{% endif %}
 		{% endif %}
 		{% if page.date %}
-		<p><i>
+		<p style="font-size: 75%;">
 			<a href="{{ page.url }}"><time datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%SZ' }}">
 				{{- page.date | date: '%Y-%m-%d %H:%M %Z' -}}
 			</time></a>
-			{%- for tag in page.tags -%}
-				{{- " " -}}{{- tag -}}
-			{%- endfor -%}
-		</i>
-		{{- " " -}}{{ content | number_of_words }} words
-		{{- " " -}}{{ content | number_of_words | divided_by: 180 }} min
+			{{- " " -}}{{ content | number_of_words }} words
+			{{- " " -}}{{ content | number_of_words | divided_by: 180 }} min
+			<i>
+				{%- for tag in page.tags -%}
+					{{- " " -}}{{- tag -}}
+				{%- endfor -%}
+			</i>
 		{% endif %}
 		<article>
 
