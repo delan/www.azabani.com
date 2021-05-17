@@ -569,7 +569,7 @@ I’ve got a patch that gets most of the way, first by fixing `inherit`, then by
 
 ## Stay tuned!
 
-Beyond my colleagues at Igalia, special thanks go to Stephen, Rune, Koji (Google), and [Emilio](https://twitter.com/ecbos_) (Mozilla) for putting up with all of my questions, not to mention Florian and fantasai from the CSSWG, plus [Gankra](https://twitter.com/Gankra_) (Mozilla) for her writing about text rendering, which has proved both inspiring and reassuring.
+Beyond my colleagues at Igalia, special thanks go to Stephen, [Rune](https://twitter.com/runeLi), Koji (Google), and [Emilio](https://twitter.com/ecbos_) (Mozilla) for putting up with all of my questions, not to mention Florian and fantasai from the CSSWG, plus [Gankra](https://twitter.com/Gankra_) (Mozilla) for her writing about text rendering, which has proved both inspiring and reassuring.
 
 <script>
     [...document.querySelectorAll(".local-compare")].forEach(x => {
