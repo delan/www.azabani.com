@@ -2,7 +2,7 @@
 layout: default
 title: "Chromium spelling and grammar features"
 date: 2021-05-17 18:30:00 +0800
-tags: igalia
+tags: home igalia
 _preview_description: “I mean, it’s just some red and green squiggly lines. How long could it take? Ten days?”
 _preview_image: /images/spammar-preview.png
 _footer_twitter: https://twitter.com/dazabani
@@ -17,7 +17,6 @@ For now, let’s step back and review our progress.
 [my wonderful internship]: {% post_url 2020-09-27-my-internship-with-igalia %}
 
 <style>
-:root { background: url(/images/draft.png) fixed; }
 article > figure > img { max-width: 100%; }
 article > figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article > pre, article > code { font-family: Inconsolata, monospace, monospace; }
