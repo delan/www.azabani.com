@@ -89,12 +89,16 @@ a, hr {
 }
 hr {
 	font-size: 1.5em;
+	// content: "❦ ❦ ❦";
+	content: "• • •";
+	font: 2em/1 monofur;
+	margin-top: 0;
 	border: none;
 }
 hr:before {
 	display: block;
 	text-align: center;
-	content: "❦ ❦ ❦";
+	content: inherit;
 }
 i, i *, em, em * {
 	font-style: italic;
@@ -134,7 +138,7 @@ sup {
 }
 nav {
 	text-align: center;
-	font-family: CMU Typewriter Text, monospace, monospace;
+	font-family: Inconsolata, monospace, monospace;
 	font-size: 1.25em;
 	color: #808080;
 }

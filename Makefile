@@ -29,6 +29,7 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh cmunbi.woff 'CMU Serif' bold italic
 	>> _sass/fonts.scss helper/font.sh cmuntt.woff 'CMU Typewriter Text' normal normal
 	>> _sass/fonts.scss helper/font.sh Inconsolata@3.001,wdth,wght.ttf 'Inconsolata' normal normal
+	>> _sass/fonts.scss helper/font.sh monof55.ttf 'monofur' normal normal
 	>> _sass/fonts.scss helper/font.sh Symbola.ttf 'Symbola' normal normal
 	>> _sass/fonts.scss helper/font.sh NotoNaskhArabic-Regular.ttf 'Noto Naskh Arabic' normal normal
 
