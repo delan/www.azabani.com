@@ -5,7 +5,7 @@ date: 2021-05-17 18:30:00 +0800
 tags: home igalia
 _preview_description: “I mean, it’s just some red and green squiggly lines. How long could it take? Ten days?”
 _preview_image: /images/spammar-preview.png
-_footer_twitter: https://twitter.com/dazabani
+_footer_twitter: https://twitter.com/dazabani/status/1394284456354013190
 ---
 
 Back in September, I wrote about [my wonderful internship] with Igalia’s web platform team.
