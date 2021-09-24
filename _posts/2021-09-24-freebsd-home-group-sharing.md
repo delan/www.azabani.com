@@ -4,7 +4,7 @@ title: Group sharing on a FreeBSD home server
 date: 2021-09-24 23:30:00 +0800
 tags: home
 _preview_description: Or, a 2500-word journey where I figure out how to change one bit.
-_footer_twitter: https://twitter.com/dazabani
+_footer_twitter: https://twitter.com/dazabani/status/1441474861470085122
 ---
 
 My partner and I share a home server for our storage needs, running on FreeBSD 12 with ZFS.
