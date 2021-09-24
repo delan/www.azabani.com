@@ -163,7 +163,7 @@ daemon:\
 ```
 </div></figure>
 
-<aside>Put a pin in the line with “passwd_format”, we’ll need that later.</aside>
+Put a pin in the line with “passwd_format”, we’ll need that later.
 
 If we change the umask setting and rebuild, logging in yields the expected umask, fixing the scenarios above… except when switching users with sudo(8).
 Switching users with su(1) *via* sudo(8) works as expected, so what gives?
