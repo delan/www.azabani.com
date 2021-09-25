@@ -132,7 +132,7 @@ This prevents the other partner from changing notes or adding software, unless w
 <figure><div class="scroll" markdown="1">
 ```
 delan@storage$ echo out >> /ocean/notes/sell
-zsh: permission denied: out
+zsh: permission denied: /ocean/notes/sell
 
 aria@storage$ cd /ocean/software/games
 aria@storage$ curl -sSO https://riot.example.com/valorant.exe
@@ -184,7 +184,7 @@ delan@storage$ sudo su -l aria -c 'umask'
 ```
 </div></figure>
 
-<h2 id="fixing-samba">Fixing sudo(8)</h2>
+<h2 id="fixing-sudo">Fixing sudo(8)</h2>
 
 At first, the only way we can get the expected umask when switching users with sudo(8) is to explicitly ask for a login class, such as the user’s default class:
 
@@ -356,7 +356,7 @@ directory mode = 0775  # like umask 002
 ```
 </div></figure>
 
-While we’re at it, if you want to set execute bits on all new files, you can use “force create mask”.
+While we’re at it, if you want to set execute bits on all new files, you can use “force create mode”.
 Aria likes this, but I’m not so sure.
 
 <figure><div class="scroll" markdown="1">
