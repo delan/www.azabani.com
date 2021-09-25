@@ -134,8 +134,8 @@ This prevents the other partner from changing notes or adding software, unless w
 delan@storage$ echo out >> /ocean/notes/sell
 zsh: permission denied: /ocean/notes/sell
 
-aria@storage$ cd /ocean/software/games
-aria@storage$ curl -sSO https://riot.example.com/valorant.exe
+aria@storage$ cd /ocean/software/fonts
+aria@storage$ curl -sSO https://fonts.example.com/iosevka.otf
 curl: (23) Failure writing output to destination
 
 $ chmod -R g+w /ocean/{notes,software}
