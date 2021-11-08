@@ -10,6 +10,14 @@ ul {
 }
 </style>
 
+<h2>2021</h2>
+
+* [ssgesus](https://bitbucket.org/delan/ssgesus) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
+
+* [osmpip](https://bitbucket.org/delan/osmpip) — OpenStreetMap renderer for dashcam GPS data.
+
+* [mmm](https://bitbucket.org/delan/mmm) — <em>Mini Metro</em> maps, including <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
+
 <h2>2020</h2>
 
 * [xd](https://bitbucket.org/delan/xd) 🦀 — tool that dumps binary input in a more human-readable format.
@@ -48,6 +56,10 @@ ul {
 
 <h2>2014</h2>
 
+* [halokey](halokey) — DigitalProductId generator for the Gearbox port of Halo: Combat Evolved.
+
+* [peereval](peereval) — calculator for peer evaluations in group projects adding up to 100%.
+
 * [cygmake](https://github.com/delan/cygmake) — Clean room Cygwin package builder, used to compile [Irssi’s](http://irssi.org/) Windows builds.
 
 * [scrapexam](https://github.com/delan/scrapexam) — Scraper for the Curtin University past exam paper archive.
@@ -66,7 +78,7 @@ ul {
 
 * [cabinvis](cabinvis) — Visualise binary files using Hilbert curves, inspired by [Aldo Cortesi’s blog post](http://corte.si/posts/visualisation/binvis/index.html).
 
-* [charming](charming) — Unicode character map supporting all planes and significant UCD metadata.
+* [charming](https://charming.daz.cat) 🦀 — fast mobile-friendly Unicode character map.
 
 * [utf8check](https://github.com/delan/utf8check) — Extremely fast and strict UTF-8 stream validator, inspector and sanitiser.
 
