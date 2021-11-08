@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blog.v1
 title: Farewell, car
 date: 2020-08-16 06:00:00 +1000
 tags: home self

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blog.v1
 title: Output version control for static sites
 date: 2020-10-03 23:00:00 +1000
 tags: home jekyll
@@ -125,7 +125,7 @@ _production:
 ```
 
 Never skip the commands under `dry` + `examine` + `deploy` + `reject` based on modified times, even if there happens to be a file with one of those names in the site’s sources.
-`.PHONY:` isn’t yet in the [POSIX spec], but it has widespread support, including the GNU and OpenBSD implementations.
+`.PHONY:` isn’t yet in the [POSIX spec], but it has widespread support, including the GNU and OpenBSD versions.
 
 [POSIX spec]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html
 
@@ -225,5 +225,5 @@ I hope you found that interesting!
 Perhaps you’ll even see Git in a new light, finding ways to use the stupid content tracker™ other than version control for source code.
 
 I’ve been afraid to check if anyone has done this before, because I felt like if I was *aware* of any prior art, I would lose my enthusiasm for solving this problem and writing about it.
-But now that I’m done, that doesn’t matter anymore.
+But now that I’m done, that no longer matters.
 Let me know if great minds think alike!

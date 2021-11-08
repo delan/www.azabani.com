@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blog.v1
 title: Group sharing on a FreeBSD home server
 date: 2021-09-24 23:30:00 +0800
 tags: home

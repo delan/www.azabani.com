@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blog.v0
 title: An open letter to Bitbucket about Mercurial
 date: 2020-06-07 19:00:00 +1000
 tags: home

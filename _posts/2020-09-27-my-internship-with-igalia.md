@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blog.v1
 title: My internship with Igalia
 date: 2020-09-27 19:00:00 +1000
 tags: home igalia
@@ -109,6 +109,7 @@ There are [a few ways] to minimise the impact of these breaking changes, like ad
 It’s hard to get a usable [LSP] setup going for a project as big as a browser.
 I switched between [ccls] and [clangd] a bunch of times, but I never quite got either working too well.
 My main machine is also getting pretty long in the tooth, which made indexing take forever and updating my branches expensive.
+
 I considered writing an LSP client that would allow me to kick off an index on one of Igalia’s 128-thread build boxes without an editor, but I eventually settled on using [Chromium Code Search] to jump around and investigate things.
 Firefox similarly has [Searchfox][Searchfox][^2], but WebKit doesn’t yet have a public counterpart[^3].
 
@@ -177,6 +178,7 @@ Ever heard of the [Acid Tests]?
 
 I had a lot of fun writing my [two][two] [form-related] tests, because I actually had to submit forms to observe those features’ behaviour.
 WPT has server-side testing infrastructure that can help with this, and for such tests, I would need to spin up the provided web server or run the finished product with [wpt.live][wpt.live][^4].
+
 In both cases, I avoided the need for that with a `<form method="GET">` that targets an iframe, plus a helper page that sends its query string back to the test page.
 
 [two]: http://wpt.live/html/semantics/forms/the-input-element/hidden-charset-case-sensitive.html

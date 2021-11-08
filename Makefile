@@ -32,6 +32,10 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh monof55.ttf 'monofur' normal normal
 	>> _sass/fonts.scss helper/font.sh Symbola.ttf 'Symbola' normal normal
 	>> _sass/fonts.scss helper/font.sh NotoNaskhArabic-Regular.ttf 'Noto Naskh Arabic' normal normal
+	>> _sass/fonts.scss helper/font.sh SourceSerifPro-Regular.ttf 'Source Serif Pro' normal normal
+	>> _sass/fonts.scss helper/font.sh SourceSerifPro-Italic.ttf 'Source Serif Pro' normal italic
+	>> _sass/fonts.scss helper/font.sh SourceSerifPro-Bold.ttf 'Source Serif Pro' bold normal
+	>> _sass/fonts.scss helper/font.sh SourceSerifPro-BoldItalic.ttf 'Source Serif Pro' bold italic
 
 init: helper/.venv helper/requirements.txt
 	. helper/.venv/bin/activate && pip install -r helper/requirements.txt
