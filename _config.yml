@@ -4,6 +4,8 @@ timezone: Etc/UTC
 # highlighter: none # FIXME check pre/code style rules in older posts
 url: https://www.azabani.com
 title: delan azabani
+collections:
+  - talks
 plugins:
   - jekyll-feed
 feed:

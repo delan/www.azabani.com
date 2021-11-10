@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{{ content }}
+
+{% for talk in site.talks %}
+	<div class="post_summary">
+	<div class="post_date">
+		<time datetime="{{ talk.date | date: '%Y-%m-%d' }}">
+			<span class="month">
+				{{ talk.date | date: '%b' }}</span><br>
+			<span class="date">
+				{{ talk.date | date: '%d' }}</span><br>
+			<span class="year">
+				{{ talk.date | date: '%Y' }}</span>
+		</time>
+	</div>
+	<div class="post_combo">
+		<h2>{{ talk.title }} ({{ talk._event }})</h2><i>
+			{{- " " -}}[<a href="{{ talk._id }}/">slides</a>]
+		</i>
+	</div>
+	{{ talk.excerpt }}
+	</div>
+{% endfor %}
