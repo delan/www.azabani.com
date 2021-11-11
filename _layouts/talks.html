@@ -18,7 +18,7 @@ layout: default
 	</div>
 	<div class="post_combo">
 		<h2>{{ talk.title }} ({{ talk._event }})</h2><i>
-			{{- " " -}}[<a href="{{ talk._id }}/">slides</a>]
+			{% if page._id %}{{- " " -}}[<a href="{{ talk._id }}/">slides</a>]{% endif %}
 		</i>
 	</div>
 	{{ talk.excerpt }}
