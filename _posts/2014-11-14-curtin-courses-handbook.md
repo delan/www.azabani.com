@@ -1,5 +1,6 @@
 ---
-layout: blog.v0
+layout: default
+_class: blogv0
 title: The Curtin Courses Handbook
 date: 2014-11-14 19:00:00 +0800
 tags: home

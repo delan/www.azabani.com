@@ -1,5 +1,5 @@
 ---
-layout: blog.v1
+layout: default
 title: My internship with Igalia
 date: 2020-09-27 19:00:00 +1000
 tags: home igalia

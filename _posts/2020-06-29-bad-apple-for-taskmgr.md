@@ -1,5 +1,6 @@
 ---
-layout: blog.v0
+layout: default
+_class: blogv0
 title: Bad Apple!! for taskmgr
 date: 2020-06-30 05:00:00 +1000
 tags: home rust

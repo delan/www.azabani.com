@@ -13,6 +13,29 @@
     }
 }
 
-:lang(ckb) {
-	font-family: 'Noto Naskh Arabic';
+:root {
+    body {
+        font-family: Source Serif Pro, serif;
+    }
+    aside.references:before {
+        font-family: Symbola, serif;
+    }
+    hr {
+        font: 2em/1 monofur;
+    }
+    nav {
+        font-family: Inconsolata, monospace, monospace;
+    }
+    :lang(ckb) {
+        font-family: 'Noto Naskh Arabic';
+    }
+}
+
+:root.blogv0 {
+    article, footer {
+        font-family: CMU Serif, serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Source Serif Pro, serif;
+    }
 }

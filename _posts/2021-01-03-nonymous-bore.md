@@ -1,5 +1,5 @@
 ---
-layout: blog.v1
+layout: default
 title: "nonymous + bore(1): DNS toys for Rust"
 date: 2021-01-04 08:00:00 +1100
 tags: home rust

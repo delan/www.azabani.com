@@ -1,5 +1,6 @@
 ---
-layout: blog.v0
+layout: default
+_class: blogv0
 title: Depression
 date: 2014-11-08 23:00:00 +0800
 tags: attic self

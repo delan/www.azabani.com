@@ -1,5 +1,5 @@
 ---
-layout: blog.v1
+layout: default
 title: "Chromium spelling and grammar features"
 date: 2021-05-17 18:30:00 +0800
 tags: home igalia

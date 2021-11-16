@@ -1,5 +1,6 @@
 ---
-layout: blog.v0
+layout: default
+_class: blogv0
 title: Echo chamber
 date: 2016-08-05 23:00:00 +0800
 tags: attic

@@ -1,5 +1,5 @@
 ---
-layout: blog.v1
+layout: default
 title: Output version control for static sites
 date: 2020-10-03 23:00:00 +1000
 tags: home jekyll
