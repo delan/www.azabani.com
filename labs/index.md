@@ -12,6 +12,8 @@ ul {
 
 <h2>2021</h2>
 
+* [fuckgitmemory](https://bitbucket.org/delan/fuckgitmemory) — user script that blocks GitHub scrapers, taking you to real issue pages.
+
 * [ssgesus](https://bitbucket.org/delan/ssgesus) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
 
 * [osmpip](https://bitbucket.org/delan/osmpip) — OpenStreetMap renderer for dashcam GPS data.
