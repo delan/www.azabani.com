@@ -117,6 +117,8 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 * Does color:currentColor point to the next *active* highlight overlay below, or are inactive highlights included too? What happens when the author tries to getComputedStyle with ::selection? ([#6818](https://github.com/w3c/csswg-drafts/issues/6818))
 * Do decorations “propagate” to descendants in highlights like they would normally? How do we reconcile that with highlight inheritance? How do we ensure that “decorating box” semantics aren’t broken? ([#6829](https://github.com/w3c/csswg-drafts/issues/6829))
 
+<div class="_commits"><div></div><div markdown="1">
+
 ## Spelling and grammar decorations
 
 Over the last few months, my colleague Rego has taken the lead on implementing the core spelling and grammar features.
@@ -126,7 +128,8 @@ What happens currently is that ‘text-decoration-color’ changes the squiggly 
 This nonsensical situation might sound like it required gross hacks, but actually, the *style* system just gives us a blob of properties, where the ‘color’ is independent of the ‘line’.
 All of the business logic is in *paint* (and *layout*).
 
-The idea is that eventually the pseudos and decorations will meet in the default stylesheet, but highlight painting still needs a lot more work before that’s feasible.
+So we start by adding the new values to *style* and its parser.
+While highlight painting still needs a lot more work before we can do so, the idea is that eventually the pseudos and decorations will meet in the default stylesheet.
 
 <figure><div class="scroll" markdown="1">
 ```css
@@ -134,6 +137,8 @@ The idea is that eventually the pseudos and decorations will meet in the default
 ::grammar-error { text-decoration-line: grammar-error; }
 ```
 </div></figure>
+
+<div class="_commit"><a href="https://crrev.com/c/3194336"><code>CL:3194336</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 [TODO write about this]
 
@@ -150,6 +155,8 @@ The idea is that eventually the pseudos and decorations will meet in the default
 </div></div><figcaption>
     (<a href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>)
 </figcaption></figure>
+
+</div></div>
 
 ## [TODO other topics]
 
