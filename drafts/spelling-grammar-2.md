@@ -153,7 +153,7 @@ In this case, only ::selection had dynamic tests, and only ::selection worked co
 
 Blink’s native squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they are painted on unrelated codepaths ([more details]).
 Some older code and docs call these squiggly lines “markers”, but document markers are now a broader concept.
-We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this created a few complications.
+We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this creates a few complications.
 
 [more details]: {% post_url 2021-05-17-spelling-grammar %}#cjk-css-unification
 
@@ -161,7 +161,9 @@ The CSS codepath naïvely paints as many Bézier curves as needed to cover the n
 This texture was originally a hardcoded bitmap, but even when we made the decorations scale with the user’s dpi, we still kept the same technique, so performance might be a problem.
 
 Another question is the actual appearance of spelling and grammar decorations ([bug 1257553](https://crbug.com/1257553)).
-We want to conform to platform conventions where possible, and you would think there’s a consistent convention for Windows or at least macOS… but not exactly.
+We don’t necessarily want to make them *identical* to any — or at least not the default — `wavy` or `dotted` decorations, because it might be nice to tell when, say, a wavy-decorated word is misspelled.
+
+We also want to conform to platform conventions where possible, and you would think there’s a consistent convention for Windows or at least macOS… but not exactly.
 
 <figure>
 <div class="scroll">
