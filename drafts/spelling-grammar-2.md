@@ -23,7 +23,7 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 .local-table td, .local-table th { vertical-align: top; border: 1px solid black; }
 .local-table td:not(.local-tight), .local-table th:not(.local-tight) { padding: 0.5em; }
 .local-tight picture, .local-tight img { vertical-align: top; }
-.local-compare * + *, .local-tight * + * { margin-top: 0; }
+.local-compare * + *, .local-tight * + *, ._gifs * + * { margin-top: 0; }
 .local-compare { max-width: 100%; border: 1px solid rebeccapurple; }
 .local-compare > div { max-width: 100%; position: relative; touch-action: pinch-zoom; --cut: 50%; }
 .local-compare > div > * { vertical-align: top; max-width: 100%; }
@@ -32,6 +32,11 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 .local-compare > div > :nth-child(2):before { content: "actual"; color: rebeccapurple; font-size: 0.75em; position: absolute; right: 0.5em; }
 .local-compare > div > :nth-child(2):after { content: "ref"; color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
 .local-sum td:first-of-type { padding-right: 1em; }
+._gifs { position: relative; display: flex; flex-flow: column nowrap; }
+._gifs:focus-visible { outline: 0.1em solid #663399C0; outline-offset: -0.1em; }
+._gifs._paused > * { opacity: 0.5; }
+._gifs::after { display: flex; position: absolute; top: 0; bottom: 0; left: 0; right: 0; align-items: center; justify-content: center; font-size: 7em; color: rebeccapurple; content: "▶"; opacity: 0; /* creating ::after only when paused makes firefox flicker */ }
+._gifs._paused::after { opacity: 1; }
 
 .local-commit-container-container { position: relative; }
 .local-commit-line { position: absolute; right: -0.1em; height: 100%; border-right: 0.2em solid rgba(102,51,153,0.5); }
@@ -54,6 +59,7 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 
 * [Current status](#current-status)
 * [Charlie’s lawyerings](#charlie)
+* [Wavy decorations](#wavy-decorations)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -113,16 +119,18 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 
 [TODO write about this]
 
-<figure><figcaption>
-    <label><input type="checkbox" onchange="this.parentNode.parentNode.nextElementSibling.firstElementChild.querySelectorAll('video').forEach(x=>x[this.checked?'play':'pause']())"> play?</label> (or try the <a href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>live demo<sub>0</sub></strong></a>)
-</figcaption><div class="scroll"><div class="flex" style="flex-direction: column; align-items: center;">
+<figure><div class="scroll"><div class="flex" style="flex-direction: column; align-items: center;">
     <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libx264 -crf 17 $i.mp4 ) -->
     <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libvpx -crf 10 -b:v 1M $i.webm ) -->
     <!-- <img width="384" height="216" src="/images/spammar2-w0.gif"> -->
     <!-- <img width="384" height="216" src="/images/spammar2-w1.gif"> -->
-    <video loop playsinline width="384" height="216" poster="/images/spammar2-w0.png"><source src="/images/spammar2-w0.mp4"><source src="/images/spammar2-w0.webm"></video>
-    <video loop playsinline width="384" height="216" poster="/images/spammar2-w1.png"><source src="/images/spammar2-w1.mp4"><source src="/images/spammar2-w1.webm"></video>
-</div></div></figure>
+    <div class="_gifs _paused" tabindex="0">
+        <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w0.png"><source src="/images/spammar2-w0.mp4"><source src="/images/spammar2-w0.webm"></video>
+        <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w1.png"><source src="/images/spammar2-w1.mp4"><source src="/images/spammar2-w1.webm"></video>
+    </div>
+</div></div><figcaption>
+    (<a href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>)
+</figcaption></figure>
 
 ## [TODO other topics]
 
@@ -615,3 +623,23 @@ It’s definitely possible to make the active-selection tests account for this �
 * rego, andruud, futhark, florian, fantasai, emilio
 
 <hr>
+
+<script>
+    (() => {
+        function click({ currentTarget: x }) {
+            x.classList.toggle('_paused');
+            x.querySelectorAll("video").forEach(v => {
+                v.paused ? v.play() : v.pause();
+            });
+        }
+        function keypress(event) {
+            const { currentTarget: x, key } = event;
+            if (key == "Enter")
+                click(event);
+        }
+        document.querySelectorAll("._gifs").forEach(x => {
+            x.addEventListener("click", click);
+            x.addEventListener("keypress", keypress);
+        });
+    })();
+</script>
