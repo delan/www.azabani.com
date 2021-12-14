@@ -98,9 +98,7 @@ This feature, and the features above, are also behind a flag:
     --enable-blink-features=CSSSpellingGrammarErrors
 </div></figure>
 
-[TODO write about [the big june meeting](https://hackmd.io/@dazabani/cr-highlight-pseudos-2021-06)]
-
-[TODO update this with work from the last month or two]
+[TODO shill blinkon talk here]
 
 <h2 markdown="1" id="charlie">[C](https://www.youtube.com/watch?v=qcderLXiwa8)harlie’s ~~bird~~ spec lawyerings</h2>
 
@@ -360,14 +358,6 @@ This is achieved by an elaborate system of positioned “covers” and “hiders
 Wanna know the best part though?
 [All](https://wpt.live/css/css-pseudo/highlight-painting-004-ref1.html) [three](https://wpt.live/css/css-pseudo/highlight-painting-004-ref2.html) [refs](https://wpt.live/css/css-pseudo/highlight-painting-004-ref3.html) are identical in Firefox.
 Someday, hopefully, this will also be true for Blink.
-
-## [TODO other topics]
-
-* https://bucket.daz.cat/work/igalia/0/29.html
-* ~~used-value-time tweaking of highlight colors~~
-    * ~~untestable issue~~
-* spec issues: 62#note_46655, 62#note_47793
-* ~~reconsider whether text-shadow should be allowed~~
 
 <hr>
 
