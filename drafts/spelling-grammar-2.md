@@ -65,8 +65,8 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
     * [Platform “conventions”](#platform-conventions)
     * [Precise decoration lengths](#precise-decoration-lengths)
 * [Phase-locked decorations](#phase-locked-decorations)
-    * [Bézier bounding box][#bézier-bounding-box]
-    * [Cover me!][#cover-me]
+    * [Bézier bounding box](#bézier-bounding-box)
+    * [Cover me!](#cover-me)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
