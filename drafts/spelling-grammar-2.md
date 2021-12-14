@@ -14,7 +14,7 @@ CSS will give authors more control over when and how they appear, with the new :
 article figure > img { max-width: 100%; }
 article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
-article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidden; content: ""; }
+article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before { width: 13em; display: block; overflow: hidden; content: ""; }
 ._demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
 ._spelling, ._grammar { text-decoration-thickness: 0; text-decoration-skip-ink: none; }
 ._spelling { text-decoration: red wavy underline; }
@@ -65,6 +65,8 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
     * [Platform “conventions”](#platform-conventions)
     * [Precise decoration lengths](#precise-decoration-lengths)
 * [Phase-locked decorations](#phase-locked-decorations)
+    * [Bézier bounding box][#bézier-bounding-box]
+    * [Cover me!][#cover-me]
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -159,7 +161,7 @@ We want to unify these codepaths, to make them easier to maintain and help us in
 
 [more details]: {% post_url 2021-05-17-spelling-grammar %}#cjk-css-unification
 
-The CSS codepath naïvely paints as many Bézier curves as needed to cover the necessary width, but the squiggly codepath has always painted a single rectangle with a cached texture, which is probably more efficient.
+The CSS codepath naïvely paints as many bézier curves as needed to cover the necessary width, but the squiggly codepath has always painted a single rectangle with a cached texture, which is probably more efficient.
 This texture was originally a hardcoded bitmap, but even when we made the decorations scale with the user’s dpi, we still kept the same technique, so performance might be a problem.
 
 Another question is the actual appearance of spelling and grammar decorations ([bug 1257553](https://crbug.com/1257553)).
@@ -294,7 +296,51 @@ I’ve [partially implemented](https://crrev.com/c/2903387) this for ::selection
 </figcaption>
 </figure>
 
-Writing the reference page for that test was a really fun challenge.
+To paint the highlighted part of the decoration, we clip the canvas to a rectangle as wide as the background, and paint the decoration in full.
+To paint the rest, we clip “out” the canvas to the same rectangle, which is like an inverted clip.
+
+But how *tall* should the rectangle be? Short answer: infinity.
+
+### Bézier bounding box
+
+Long answer: Skia doesn’t let us clip to an infinitely tall rectangle, so it depends on several things, including ‘text-decoration-thickness’, ‘text-underline-offset’, and in the case of `wavy` decorations, the amplitude of the bézier curves.
+
+In the code, there was a pretty diagram that illustrated the four relevant points to each “cycle” of the decoration.
+Clearly, it suggested that the curve *in that example* was bounded by the control points, but I had no idea whether this was true for *all* cubic béziers, my terrible search engine skills failed me again, and I don’t like making assumptions.
+
+<figure><div class="scroll" markdown="1">
+```
+/*                   controlPoint1
+ *                         +
+ *                  . .
+ *                .     .
+ *              .         .
+ * (x1, y1) p1 +           .            + p2 (x2, y2)
+ *                          .         .
+ *                            .     .
+ *                              . .
+ *                         +
+ *                   controlPoint2
+ */
+```
+</div></figure>
+
+To avoid getting stuck on those questions for too long, and because I genuinely didn’t know how to determine the amplitude of a bézier curve, I went with three times the background height.
+This should be Good Enough™ for most content, but you can easily break it with, say, a very large ‘text-underline-offset’.
+
+<figure><div class="scroll"><div class="flex">
+    <img width="275" height="200" src="/images/spammar2-clip.png" srcset="/images/spammar2-clip.png 2x">
+</div></div></figure>
+
+Weeks later, I stumble upon a video by Freya Holmér [answering that very question](https://www.youtube.com/watch?v=aVwxzDHniEw&t=665):
+
+> So, how do we get [the bounding] box?
+>
+> **The naïve solution is to simply use the control points of the bézier curve.** This can be good enough, but what we *really* want is the “tight bounding box”; in some cases, the difference between the two is *huge*.
+
+### Cover me!
+
+Writing the reference pages for that test was also a fun challenge.
 When written naïvely, Blink would actually fail here, because in general we make no attempt to keep *any* decoration paints in phase.
 
 <figure>
@@ -321,13 +367,7 @@ Someday, hopefully, this will also be true for Blink.
 * ~~used-value-time tweaking of highlight colors~~
     * ~~untestable issue~~
 * spec issues: 62#note_46655, 62#note_47793
-* reconsider whether text-shadow should be allowed
-
-## [TODO highlight painting]
-
-* split originating and ::selection decorations
-    * reftest weirdness with wavy
-    * bézier clipping region (freya holmer)
+* ~~reconsider whether text-shadow should be allowed~~
 
 <hr>
 
