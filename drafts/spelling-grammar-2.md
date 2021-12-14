@@ -62,6 +62,7 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 * [Current status](#current-status)
 * [Charlie’s lawyerings](#charlie)
 * [Squiggly lines](#squiggly-lines)
+    * [Platform “conventions”](#platform-conventions)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -147,6 +148,8 @@ After all, the easiest and most common way to write a CSS test involves no scrip
 In this case, only ::selection had dynamic tests, and only ::selection worked correctly, so we then fixed the other pseudos.
 
 <div class="_commit"><a href="https://crrev.com/c/3177663"><code>CL:3177663</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+### Platform “conventions”
 
 Blink’s native squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they are painted on unrelated codepaths ([more details]).
 Some older code and docs call these squiggly lines “markers”, but document markers are now a broader concept.
