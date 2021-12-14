@@ -63,6 +63,8 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 * [Charlie’s lawyerings](#charlie)
 * [Squiggly lines](#squiggly-lines)
     * [Platform “conventions”](#platform-conventions)
+    * [Precise decoration lengths](#precise-decoration-lengths)
+    * [The decorating box](#the-decorating-box)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -209,31 +211,56 @@ Either way, one thing that’s clear is that gradients are no longer the macOS c
 
 <div class="_commit"><a href="https://crrev.com/c/3139819"><code>CL:3139819</code></a><img width="40" height="40" src="/images/badapple-commit-up.svg"></div>
 
-So if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
+But anyway, if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
+We decided to go with the CSS codepath — leaving native squiggly lines untouched for now — and take this time to refactor and extend that paint code for the needs of spelling and grammar errors.
 
-<div class="_commit"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
 
-<div class="_commit"><a href="https://crrev.com/c/3284869"><code>CL:3284869</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3284869"><code>CL:3284869</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
 
-<div class="_commit"><a href="https://crrev.com/c/3290417"><code>CL:3290417</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3290417"><code>CL:3290417</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
 
-<div class="_commit"><a href="https://crrev.com/c/3291658"><code>CL:3291658</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3291658"><code>CL:3291658</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
 
-[TODO write about this]
+### Precise decoration lengths
 
-<figure><div class="scroll"><div class="flex" style="flex-direction: column; align-items: center;">
+To that end, one of the biggest changes we’ve landed is making `wavy` decorations start and stop exactly where needed, rather than falling short.
+This includes the new spelling and grammar lines, other than on macOS.
+
+<figure><div class="scroll"><div class="flex" style="flex-direction: column;"><div class="_gifs _paused">
+    <!-- ffmpeg -y -video_size 384x216 -framerate 60 -f x11grab -i :0+15,307 \%03d.png -->
+    <!-- convert -delay 2 *.png -layers Optimize +map foo.gif -->
+    <!-- # can skip gif and 50/60 fps conversion with ffmpeg -pattern_type glob -->
     <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libx264 -crf 17 $i.mp4 ) -->
     <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libvpx -crf 10 -b:v 1M $i.webm ) -->
     <!-- <img width="384" height="216" src="/images/spammar2-w0.gif"> -->
     <!-- <img width="384" height="216" src="/images/spammar2-w1.gif"> -->
-    <div class="_gifs _paused">
-        <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w0.png"><source src="/images/spammar2-w0.mp4"><source src="/images/spammar2-w0.webm"></video>
-        <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w1.png"><source src="/images/spammar2-w1.mp4"><source src="/images/spammar2-w1.webm"></video>
-        <button type="button" aria-label="play">▶</button>
-    </div>
-</div></div><figcaption>
-    (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>)
+    <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w0.png"><source src="/images/spammar2-w0.mp4"><source src="/images/spammar2-w0.webm"></video>
+    <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w1.png"><source src="/images/spammar2-w1.mp4"><source src="/images/spammar2-w1.webm"></video>
+    <button type="button" aria-label="play">▶</button>
+</div></div></div><figcaption>
+    Wavy decorations under ‘letter-spacing’, top version 96, bottom version 97 (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>).
 </figcaption></figure>
+
+<div class="_commit"><a href="https://crrev.com/c/3237072"><code>CL:3237072</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+<div class="_commit _commit-none"><a href="https://crrev.com/c/3264203"><code>CL:3264203</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
+
+### The decorating box
+
+Note that the decorations sometimes extend to the right of “h”, because ‘letter-spacing’ adds a space <em>after</em> letters, not <em>between</em> them, <a href="https://www.w3.org/TR/css-text-3/#letter-spacing-property">even though it <span style="font-variant: small-caps;">Really Should Not</span></a>.
+I tried wrapping the last letter of each word in a span[^1], but that creates a new problem where the letter appears to have its own decoration, out of phase with the rest of the word.
+
+[^1]: just like my name at the top of this page
+
+<figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
+    <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w4.png"><source src="/images/spammar2-w4.mp4"><source src="/images/spammar2-w4.webm"></video>
+    <button type="button" aria-label="play">▶</button>
+</div></div></div></figure>
+<figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
+    <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w5.png"><source src="/images/spammar2-w5.mp4"><source src="/images/spammar2-w5.webm"></video>
+    <button type="button" aria-label="play">▶</button>
+</div></div></div></figure>
 
 </div></div>
 
@@ -679,9 +706,9 @@ But under highlight inheritance it fails, rendering as initial (black) on green,
 So if the test is wrong, then how do we fix it?
 Well… it depends on the *intent* of the test, at least if we want to Do The Right Thing and preserve that.
 Clearly the *primary* intent of the test is ‘background-color’, given the `<title>`, but tests can also have secondary, less explicit intents.
-In this case, the flavour text[^1] even mentions fuchsia!
+In this case, the flavour text[^2] even mentions fuchsia!
 
-[^1]: This is an automated reftest, so the instructions in `<p>` have no effect on the outcome. [We require them anyway](https://web-platform-tests.org/writing-tests/reftests.html#writing-a-good-reftest), because they add a bit of redundancy that helps humans understand and verify the test’s assertions.
+[^2]: This is an automated reftest, so the instructions in `<p>` have no effect on the outcome. [We require them anyway](https://web-platform-tests.org/writing-tests/reftests.html#writing-a-good-reftest), because they add a bit of redundancy that helps humans understand and verify the test’s assertions.
 
 It might have helped if the test had a [`<meta name=assert>`](https://web-platform-tests.org/writing-tests/reftest-tutorial.html#writing-the-test-file), an optional field dedicated to conveying intent, but probably not.
 Most of the assert tags I’ve seen are poorly written anyway, being a more or less verbose adaptation of the title or flavour text, and there’s a good chance that the intent for fuchsia (if any) was simply to inherit it from the originating element, so we would still need to invent a new intent.
