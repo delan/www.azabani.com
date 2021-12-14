@@ -33,10 +33,11 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 .local-compare > div > :nth-child(2):after { content: "ref"; color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
 .local-sum td:first-of-type { padding-right: 1em; }
 ._gifs { position: relative; display: flex; flex-flow: column nowrap; }
-._gifs > * { transition: opacity 0.125s linear; }
+._gifs > video { transition: opacity 0.125s linear; }
+._gifs > button { transition: 0.125s linear; transition-property: color, background-color; }
 ._gifs._paused > video { opacity: 0.5; }
-._gifs._paused > button { opacity: 1; }
-._gifs > button { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: rebeccapurple; background: #66339940; content: "▶"; opacity: 0; }
+._gifs._paused > button { color: rebeccapurple; background: #66339940; }
+._gifs > button { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
 ._gifs > button:focus-visible { outline: 0.25rem solid #663399C0; outline-offset: -0.25rem; }
 
 .local-commit-container-container { position: relative; }
