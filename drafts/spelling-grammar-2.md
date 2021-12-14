@@ -64,7 +64,7 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 * [Squiggly lines](#squiggly-lines)
     * [Platform “conventions”](#platform-conventions)
     * [Precise decoration lengths](#precise-decoration-lengths)
-    * [The decorating box](#the-decorating-box)
+    * [Phase-locked decorations](#phase-locked-decorations)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -214,13 +214,15 @@ Either way, one thing that’s clear is that gradients are no longer the macOS c
 But anyway, if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
 We decided to go with the CSS codepath — leaving native squiggly lines untouched for now — and take this time to refactor and extend that paint code for the needs of spelling and grammar errors.
 
-<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
+<div class="_commit _commit-none"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3284869"><code>CL:3284869</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
+<div class="_commit _commit-none"><a href="https://crrev.com/c/3284869"><code>CL:3284869</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3290417"><code>CL:3290417</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
+<div class="_commit _commit-none"><a href="https://crrev.com/c/3290417"><code>CL:3290417</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/3291658"><code>CL:3291658</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
+<div class="_commit _commit-none"><a href="https://crrev.com/c/3291658"><code>CL:3291658</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
+
+<div class="_commit"><a href="https://crrev.com/c/3297885"><code>CL:3297885</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 ### Precise decoration lengths
 
@@ -246,9 +248,10 @@ This includes the new spelling and grammar lines, other than on macOS.
 
 <div class="_commit _commit-none"><a href="https://crrev.com/c/3264203"><code>CL:3264203</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-### The decorating box
+### Phase-locked decorations
 
-Note that the decorations sometimes extend to the right of “h”, because ‘letter-spacing’ adds a space <em>after</em> letters, not <em>between</em> them, <a href="https://www.w3.org/TR/css-text-3/#letter-spacing-property">even though it <span style="font-variant: small-caps;">Really Should Not</span></a>.
+You might have noticed that the decorations sometimes extend to the right of “h”.
+This is working as expected: ‘letter-spacing’ adds a space <em>after</em> letters, not <em>between</em> them, <a href="https://www.w3.org/TR/css-text-3/#letter-spacing-property">even though it <span style="font-variant: small-caps;">Really Should Not</span></a>.
 I tried wrapping the last letter of each word in a span[^1], but that creates a new problem where the letter appears to have its own decoration, out of phase with the rest of the word.
 
 [^1]: just like my name at the top of this page
@@ -257,10 +260,19 @@ I tried wrapping the last letter of each word in a span[^1], but that creates a 
     <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w4.png"><source src="/images/spammar2-w4.mp4"><source src="/images/spammar2-w4.webm"></video>
     <button type="button" aria-label="play">▶</button>
 </div></div></div></figure>
+
+Blink (and WebKit) use an inheritance hack to propagate decorations from parents to their children, rather than properly implementing the concept of [*decorating box*](https://www.w3.org/TR/2019/CR-css-text-decor-3-20190813/#line-decoration).
+In other words, we’re painting two independent decorations, whereas we *should* be painting one decoration that spans the entire word.
+This has been the cause of [a lot of bugs](https://github.com/web-platform-tests/interop-2022/issues/23), and been widely regarded as a bad move.
+
+Note that this doesn’t mean we actually have to paint the decoration in a single pass, only that our rendering is *equivalent* to doing so.
+
 <figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
     <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w5.png"><source src="/images/spammar2-w5.mp4"><source src="/images/spammar2-w5.webm"></video>
     <button type="button" aria-label="play">▶</button>
-</div></div></div></figure>
+</div></div></div><figcaption>
+    For example, when testing the same change in Firefox, there’s some subtle jittering between the last letter and the rest of the word. This suggests that Firefox probably paints propagated decorations in a separate pass.
+</figcaption></figure>
 
 </div></div>
 
