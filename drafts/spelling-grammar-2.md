@@ -61,7 +61,7 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 
 * [Current status](#current-status)
 * [Charlie’s lawyerings](#charlie)
-* [Wavy decorations](#wavy-decorations)
+* [Squiggly lines](#squiggly-lines)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -117,7 +117,7 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 * Does color:currentColor point to the next *active* highlight overlay below, or are inactive highlights included too? What happens when the author tries to getComputedStyle with ::selection? ([#6818](https://github.com/w3c/csswg-drafts/issues/6818))
 * Do decorations “propagate” to descendants in highlights like they would normally? How do we reconcile that with highlight inheritance? How do we ensure that “decorating box” semantics aren’t broken? ([#6829](https://github.com/w3c/csswg-drafts/issues/6829))
 
-## Spelling and grammar decorations
+## Squiggly lines
 
 <div class="_commits"><div></div><div markdown="1">
 
