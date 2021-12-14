@@ -117,18 +117,19 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 * Does color:currentColor point to the next *active* highlight overlay below, or are inactive highlights included too? What happens when the author tries to getComputedStyle with ::selection? ([#6818](https://github.com/w3c/csswg-drafts/issues/6818))
 * Do decorations “propagate” to descendants in highlights like they would normally? How do we reconcile that with highlight inheritance? How do we ensure that “decorating box” semantics aren’t broken? ([#6829](https://github.com/w3c/csswg-drafts/issues/6829))
 
-<div class="_commits"><div></div><div markdown="1">
-
 ## Spelling and grammar decorations
 
-Over the last few months, my colleague Rego has taken the lead on implementing the core spelling and grammar features.
-Since landing ‘text-decoration-color’ support for the new pseudos, we’ve started working on the new decoration lines.
+<div class="_commits"><div></div><div markdown="1">
 
-What happens currently is that ‘text-decoration-color’ changes the squiggly line color, but ‘text-decoration-line’ is still ‘none’.
+Since landing ‘text-decoration-color’ support for the new pseudos, my colleague Rego has taken the lead on the rest of the core spelling and grammar features, starting with the new ‘text-decoration-line’ values.
+
+Currently, when recoloring a native spelling error, ‘text-decoration-color’ changes the squiggly line color, but ‘text-decoration-line’ is still ‘none’.
 This nonsensical situation might sound like it required gross hacks, but actually, the *style* system just gives us a blob of properties, where the ‘color’ is independent of the ‘line’.
 All of the business logic is in *paint* (and *layout*).
 
-So we start by adding the new values to *style* and its parser.
+<div class="_commit"><a href="https://crrev.com/c/3162169"><code>CL:3162169</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+So we started by adding the new values to *style* and its parser.
 While highlight painting still needs a lot more work before we can do so, the idea is that eventually the pseudos and decorations will meet in the default stylesheet.
 
 <figure><div class="scroll" markdown="1">
@@ -139,6 +140,31 @@ While highlight painting still needs a lot more work before we can do so, the id
 </div></figure>
 
 <div class="_commit"><a href="https://crrev.com/c/3194336"><code>CL:3194336</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+Something that’s often neglected in tests for CSS features are *dynamic* tests, which check that the rendering updates correctly when JavaScript changes styles.
+After all, the easiest and most common way to write a CSS test involves no scripting in the first place.
+
+In this case, only ::selection had dynamic tests, and only ::selection worked correctly, so we then fixed the other pseudos.
+
+<div class="_commit"><a href="https://crrev.com/c/3177663"><code>CL:3177663</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+Blink’s native squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they are painted on unrelated codepaths ([more details]).
+Some older code and docs call these squiggly lines “markers”, but document markers are now a broader concept.
+We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this has a few complications.
+
+[more details]: {% post_url 2021-05-17-spelling-grammar %}#cjk-css-unification
+
+*
+
+So if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
+
+<div class="_commit"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+<div class="_commit"><a href="https://crrev.com/c/3284869"><code>CL:3284869</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+<div class="_commit"><a href="https://crrev.com/c/3290417"><code>CL:3290417</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
+
+<div class="_commit"><a href="https://crrev.com/c/3291658"><code>CL:3291658</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 [TODO write about this]
 
