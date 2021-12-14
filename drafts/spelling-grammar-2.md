@@ -34,6 +34,7 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 .local-sum td:first-of-type { padding-right: 1em; }
 ._gifs { position: relative; display: flex; flex-flow: column nowrap; }
 ._gifs:focus-visible { outline: 0.1em solid #663399C0; outline-offset: -0.1em; }
+._gifs::after, ._gifs > * { transition: opacity 0.125s linear; }
 ._gifs._paused > * { opacity: 0.5; }
 ._gifs::after { display: flex; position: absolute; top: 0; bottom: 0; left: 0; right: 0; align-items: center; justify-content: center; font-size: 7em; color: rebeccapurple; content: "▶"; opacity: 0; /* creating ::after only when paused makes firefox flicker */ }
 ._gifs._paused::after { opacity: 1; }
