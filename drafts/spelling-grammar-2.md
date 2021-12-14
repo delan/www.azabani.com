@@ -1,14 +1,14 @@
 ---
 layout: default
-title: "Chromium spelling and grammar, part 2"
+title: "Chromium spelling and grammar, part 2"
 date: 2022-01-01 00:00:00 +0800
 ---
 
 Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="_spelling">spelling</span> or <span class="_grammar">grammar</span> errors in their input.
 CSS will give authors more control over when and how they appear, with the new ::spelling- and ::grammar-error pseudo-elements, and spelling- and grammar-error text decorations.
-[Since part 1] in May, we’ve done a fair bit of work in both Chromium and the CSSWG towards making this possible.
+[Since part 1] in May, we’ve done a fair bit of work in both Chromium and the CSSWG towards making this possible.
 
-[Since part 1]: {% post_url 2021-05-17-spelling-grammar %}
+[Since part 1]: {% post_url 2021-05-17-spelling-grammar %}
 
 <style>
 article figure > img { max-width: 100%; }
