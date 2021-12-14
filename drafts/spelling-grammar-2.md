@@ -64,7 +64,7 @@ Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a compl
 * [Squiggly lines](#squiggly-lines)
     * [Platform “conventions”](#platform-conventions)
     * [Precise decoration lengths](#precise-decoration-lengths)
-    * [Phase-locked decorations](#phase-locked-decorations)
+* [Phase-locked decorations](#phase-locked-decorations)
 * [Highlight inheritance](#highlight-inheritance)
     * [Blink style 101](#blink-style-101)
     * [How pseudo-elements work](#blink-style-102)
@@ -248,9 +248,7 @@ This includes the new spelling and grammar lines, other than on macOS.
 
 <div class="_commit _commit-none"><a href="https://crrev.com/c/3264203"><code>CL:3264203</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-### Phase-locked decorations
-
-You might have noticed that the decorations sometimes extend to the right of “h”.
+You might have noticed that the decorations in that last example sometimes extend to the right of “h”.
 This is working as expected: ‘letter-spacing’ adds a space <em>after</em> letters, not <em>between</em> them, <a href="https://www.w3.org/TR/css-text-3/#letter-spacing-property">even though it <span style="font-variant: small-caps;">Really Should Not</span></a>.
 I tried wrapping the last letter of each word in a span[^1], but that creates a new problem where the letter appears to have its own decoration, out of phase with the rest of the word.
 
@@ -261,28 +259,27 @@ I tried wrapping the last letter of each word in a span[^1], but that creates a 
     <button type="button" aria-label="play">▶</button>
 </div></div></div></figure>
 
+</div></div>
+
+## Phase-locked decorations
+
 Blink (and WebKit) use an inheritance hack to propagate decorations from parents to their children, rather than properly implementing the concept of [*decorating box*](https://www.w3.org/TR/2019/CR-css-text-decor-3-20190813/#line-decoration).
 In other words, we’re painting two independent decorations, whereas we *should* be painting one decoration that spans the entire word.
 This has been the cause of [a lot of bugs](https://github.com/web-platform-tests/interop-2022/issues/23), and been widely regarded as a bad move.
 
-Note that this doesn’t mean we actually have to paint the decoration in a single pass, only that our rendering is *equivalent* to doing so.
+Note that this doesn’t mean we actually have to paint the decoration in a single pass, only that our rendering is *as if* that was the case.
+For example, when testing the same change in Firefox, there’s some subtle jittering between the last letter and the rest of the word, which suggests that propagated decorations are probably being painted separately.
 
 <figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
     <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w5.png"><source src="/images/spammar2-w5.mp4"><source src="/images/spammar2-w5.webm"></video>
     <button type="button" aria-label="play">▶</button>
-</div></div></div><figcaption>
-    For example, when testing the same change in Firefox, there’s some subtle jittering between the last letter and the rest of the word. This suggests that Firefox probably paints propagated decorations in a separate pass.
-</figcaption></figure>
-
-</div></div>
+</div></div></div></figure>
 
 ## [TODO other topics]
 
-* prioritise mvp: 90XchqYYTmKvtwG_TALVdw
 * https://bucket.daz.cat/work/igalia/0/29.html
-* invalidation bugs (target-text, selection in firefox)
-* used-value-time tweaking of highlight colors
-    * untestable issue
+* ~~used-value-time tweaking of highlight colors~~
+    * ~~untestable issue~~
 * spec issues: 62#note_46655, 62#note_47793
 * reconsider whether text-shadow should be allowed
 
@@ -291,7 +288,6 @@ Note that this doesn’t mean we actually have to paint the decoration in a sing
 * split originating and ::selection decorations
     * reftest weirdness with wavy
     * bézier clipping region (freya holmer)
-* rego’s work
 
 <hr>
 
