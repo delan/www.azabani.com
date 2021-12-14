@@ -94,7 +94,7 @@ This feature, and the features above, are also behind a flag:
 I’ve learned a lot of things while working on this project.
 One interesting lesson was that no matter how clearly a feature is specified, and how much discussion goes into spec details, half the questions won’t become apparent until implementors start building it.
 
-<img src="/images/spammar2-charlie.jpg" class="flight">
+<img width="300" height="300" src="/images/spammar2-charlie.jpg" class="flight">
 
 * What happens when both highlight and originating content define text shadows? What if multiple highlights do the same? What order do we paint these shadows in? ([#3932](https://github.com/w3c/csswg-drafts/issues/3932))
 * What happens to the originating content’s decorations when highlighted? What happens when highlights define their own decorations? Which decorations get recolored to the foreground color for clarity? What’s the painting order? Does it even mean anything for a highlight to set text-decoration-color only? ([#6022](https://github.com/w3c/csswg-drafts/issues/6022))
@@ -160,7 +160,7 @@ The engine maintains all of the style-related state for a document, including al
 The resolver’s job is to calculate styles for some element, writing the results to a new ComputedStyle object.
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-x0.png 2x"><img src="/images/spammar2-x0.png"></picture>
+    <img width="407" height="167" src="/images/spammar2-x0.png" srcset="/images/spammar2-x0.png 2x">
 </div></figure>
 
 ComputedStyle itself is also interesting.
@@ -170,7 +170,7 @@ These fields are “sharded” into *field groups*, so we can [efficiently reuse
 [efficiently reuse]: https://en.wikipedia.org/wiki/Copy-on-write
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-x1.png 2x"><img src="/images/spammar2-x1.png"></picture>
+    <img width="587" height="293" src="/images/spammar2-x1.png" srcset="/images/spammar2-x1.png 2x">
 </div></figure>
 
 When resolving styles, we usually start by cloning an [“empty”] ComputedStyle, then we copy over the inherited properties from the parent to this fresh new object.
@@ -182,7 +182,7 @@ At this point, we have the parent’s inherited properties, and everything else 
 <!-- [^2]: Some properties, such as ‘color’, are inherited by default, but most properties aren’t. For example, if you add a ‘border’ to some element, it doesn’t really make sense for all of its descendants to automatically have borders too. -->
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-x2.png 2x"><img src="/images/spammar2-x2.png"></picture>
+    <img width="527" height="334" src="/images/spammar2-x2.png" srcset="/images/spammar2-x2.png 2x">
 </div></figure>
 
 Otherwise, we search for matching rules, [sort all of their declarations] by things like specificity, then *apply* the winning declarations by overwriting various ComputedStyle fields.
@@ -191,7 +191,7 @@ If we’re overwriting fields in field groups, we need to clone the field groups
 [sort all of their declarations]: https://www.w3.org/TR/css-cascade-4/#cascading
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-x3.png 2x"><img src="/images/spammar2-x3.png"></picture>
+    <img width="527" height="190" src="/images/spammar2-x3.png" srcset="/images/spammar2-x3.png 2x">
 </div></figure>
 
 <h3 id="blink-style-102">Blink style 102: pseudo-elements</h3>
@@ -204,14 +204,14 @@ Let’s say we’re determining styles for some ordinary element.
 When we’re searching for matching rules, if we find one that *actually* matches our ::selection, we make a note in our *pseudo bits* that we’ve seen rules for that pseudo, but otherwise ignore the rule.
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-y0.png 2x"><img src="/images/spammar2-y0.png"></picture>
+    <img width="467" height="107" src="/images/spammar2-y0.png" srcset="/images/spammar2-y0.png 2x">
 </div></figure>
 
 Once we’re in *paint*, if the user has selected some text, then we need to know our ::selection styles.
 So we check our *pseudo bits*, and if the ::selection bit was set, we call our *resolver* with a special request for pseudo styles, then cache the result into a vector inside the originating element’s ComputedStyle.
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-y1.png 2x"><img src="/images/spammar2-y1.png"></picture>
+    <img width="547" height="97" src="/images/spammar2-y1.png" srcset="/images/spammar2-y1.png 2x">
 </div></figure>
 
 This is how ::selection used to work, and at first I tried to keep it that way.
@@ -500,7 +500,7 @@ As a result, we end up cloning highlight styles for each descendant, only to app
 This will need to be fixed before we can enable the feature for everyone.
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-z0.png 2x"><img src="/images/spammar2-z0.png"></picture>
+    <img width="448" height="378" src="/images/spammar2-z0.png" srcset="/images/spammar2-z0.png 2x">
 </div><figcaption>
 The reality is a bit more complicated than this, because ‘color’ and ‘background-color’ are actually in field groups that would also need to be cloned.
 </figcaption></figure>
@@ -598,7 +598,7 @@ The test would have failed under LayoutNG too, if not for an optimisation that s
 Let me illustrate with an exaggerated example:
 
 <figure><div class="scroll">
-    <picture><source srcset="/images/spammar2-ink-overflow.png 2x"><img src="/images/spammar2-ink-overflow.png"></picture>
+    <img width="167" height="102" src="/images/spammar2-ink-overflow.png" srcset="/images/spammar2-ink-overflow.png 2x">
 </div></figure>
 
 To be clear, this behaviour is generally considered desirable, and Firefox even supports it for all markup, not just ::selection.
