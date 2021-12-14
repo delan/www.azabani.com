@@ -275,6 +275,18 @@ For example, when testing the same change in Firefox, there’s some subtle jitt
     <button type="button" aria-label="play">▶</button>
 </div></div></div></figure>
 
+Gecko actually goes above and beyond, even synchronising *separate* decorations introduced under the same block, which allows authors to make it look like their decorations change color partway through.
+
+<figure><div class="scroll">
+    <img width="300" height="90" src="/images/spammar2-phase0.png" srcset="/images/spammar2-phase0.png 2x">
+    <img width="256" height="90" src="/images/spammar2-phase1.png" srcset="/images/spammar2-phase1.png 2x">
+</div></figure>
+
+A related problem in the highlight painting space is that the spec calls for “recoloring” originating decorations to the highlight foreground color.
+By making these decorations “lose their color”, we avoid situations where a decoration becomes illegible when highlighted, despite being legible in its original context.
+
+[TODO _compare 97?/ref3 + separate figure for ref1]
+
 ## [TODO other topics]
 
 * https://bucket.daz.cat/work/igalia/0/29.html
