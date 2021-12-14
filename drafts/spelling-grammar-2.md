@@ -263,7 +263,7 @@ Worse still, we had to bypass the pseudo cache entirely.
 We already had to do so under :window-inactive, but the performance penalty was fairly contained.
 Not anymore!
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/7"><code>PS7</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/7"><code>PS7</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 9..=10 3/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-e7233cca6fd3946e65013d523c9ebdb7c2e47b63
 * just clone parent (rather than copying properties)
@@ -272,7 +272,7 @@ Not anymore!
 
 If we copy over the parent’s inherited properties as usual, and for highlights, copy the non-inherited properties too, that more or less means we’re copying *all* the fields, so why not do away with that and just clone the parent’s ComputedStyle?
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/7..10"><code>PS10</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/7..10"><code>PS10</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 13 7/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-701cd86b8e72f54623e777d4a1e9a3ece9d4e24d
 * attempt to cache, but no invalidation makes this d.o.a. -->
@@ -285,7 +285,7 @@ For most pseudos, this is true anyway, as long as we bypass the cache under pseu
 These caches are essentially never cleared as such, but when the next update happens, the whole ComputedStyle (including the cache) gets discarded.
 Caching results with custom inheritance parents is frowned upon, because changing the parent you inherit your styles from can yield different styles, but for highlights, we will always pass in the same parent throughout an update cycle, so surely we can use the cache here?
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/10..13"><code>PS13</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/10..13"><code>PS13</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 14..=16 28/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-3b9153ca6ae474b6284fe59fb4b84d94bef48c48
 * generated StyleHighlightData (per pseudo) with applicable properties only -->
@@ -345,7 +345,7 @@ class {{ "{{" }}name}} : public RefCounted<{{ "{{" }}name}}> {
 ```
 </div></figure>
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/13..16"><code>PS16</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/13..16"><code>PS16</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 Trouble is, all of the methods that apply and serialise property values — and there are hundreds of them — accept ComputedStyle, not some other type.
 
@@ -364,9 +364,9 @@ const CSSValue* Color::CSSValueFromComputedStyleInternal(
 
 Combined with the fact that our copy-on-write field group system mitigates a lot of the wasted memory, well hopefully anyway, we quickly abandoned this dedicated type.
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/16..25"><code>PS25</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/16..25"><code>PS25</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/24..25"><code>PS25</code></a><img src="/images/badapple-commit-none.svg"></div> -->
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/24..25"><code>PS25</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div> -->
 
 We then optimised the top-level struct a bit, saving a few pointer widths by moving the four highlight style pointers into a separate type, but this was still less than ideal.
 We were widening ComputedStyle by one pointer, but the vast majority of web content doesn’t use highlight pseudos at all, and ComputedStyle and ComputedStyleBase are very sensitive to size changes.
@@ -414,7 +414,7 @@ Because this field is not for a popular CSS property, or a property at all reall
 ```
 </div></figure>
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/25..35"><code>PS35</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/25..35"><code>PS35</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 ### Single-pass resolution
 
@@ -423,7 +423,7 @@ We want to resolve highlight styles as part of the regular style update cycle, s
 
 Looking at the resolver, I thought wow, there does seem to be a lot of redundant work being done when resolving highlight styles in a separate request, so why not weave highlight resolution into the resolver while we’re at it?
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/35..36"><code>PS36</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/35..36"><code>PS36</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 <figure><div class="scroll" markdown="1">
 ```diff
@@ -471,7 +471,7 @@ Looking at the resolver, I thought wow, there does seem to be a lot of redundant
 
 You know what? Fair enough.
 
-<div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/36..37"><code>⭯ PS35</code></a><img src="/images/badapple-commit-none.svg"></div>
+<div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/36..37"><code>⭯ PS35</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
 <h3 markdown="1" id="multi-pass-resolution">Tight but not *too* tight</h3>
 
@@ -505,7 +505,7 @@ StyleRecalcChange Element::RecalcOwnStyle(
 ```
 </div></figure>
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/37..43"><code>PS43</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/37..43"><code>PS43</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 ### Pathology in legacy
 
@@ -532,7 +532,7 @@ This will need to be fixed before we can enable the feature for everyone.
 The reality is a bit more complicated than this, because ‘color’ and ‘background-color’ are actually in field groups that would also need to be cloned.
 </figcaption></figure>
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/43..51"><code>PS51</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/43..51"><code>PS51</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 ### Paired cascade
 
@@ -558,7 +558,7 @@ Brevity is a good thing, and this seemed clear enough to me in the past.
 But once I actually had to implement it, I had questions about almost every word ([#6386](https://github.com/w3c/csswg-drafts/issues/6386)).
 While they aren’t *entirely* resolved, we’ve been getting pretty close over the last few weeks.
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/51..52"><code>PS52</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/51..52"><code>PS52</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 <h3 id="fixing-tests">Who’s got green?</h3>
 
@@ -631,7 +631,7 @@ Let me illustrate with an exaggerated example:
 To be clear, this behaviour is generally considered desirable, and Firefox even supports it for all markup, not just ::selection.
 It’s definitely possible to make the active-selection tests account for this — and the tools to do so already exist in the Web Platform Tests — but I don’t have the time to pursue this right now.
 
-<div class="_commit"><a href="https://crrev.com/c/2850068/52..76"><code>PS76</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/52..76"><code>PS76</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
 </div></div>
 
