@@ -86,7 +86,7 @@ This implementation is currently behind a Blink feature flag:
 Adding to our initial support for ::{spelling,grammar}-error, we’ve since landed the same for the new {spelling,grammar}-error decoration types.
 So far, both are mostly only supported in style, not in paint; while the cascade and other style calculations will understand them, they aren’t very useful yet.
 
-We’ve also made it possible to change the color of native squiggly lines by setting text-decoration-color on either of the new pseudo-elements.
+We’ve also made it possible to change the color of native squiggly lines by setting ‘text-decoration-color’ on either of the new pseudo-elements.
 This feature, and the features above, are also behind a flag:
 
 <figure><div class="scroll" markdown="1">
@@ -105,7 +105,7 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 <img width="300" height="300" src="/images/spammar2-charlie.jpg" class="flight">
 
 * What happens when both highlight and originating content define text shadows? What if multiple highlights do the same? What order do we paint these shadows in? ([#3932](https://github.com/w3c/csswg-drafts/issues/3932))
-* What happens to the originating content’s decorations when highlighted? What happens when highlights define their own decorations? Which decorations get recolored to the foreground color for clarity? What’s the painting order? Does it even mean anything for a highlight to set text-decoration-color only? ([#6022](https://github.com/w3c/csswg-drafts/issues/6022))
+* What happens to the originating content’s decorations when highlighted? What happens when highlights define their own decorations? Which decorations get recolored to the foreground color for clarity? What’s the painting order? Does it even mean anything for a highlight to set ‘text-decoration-color’ only? ([#6022](https://github.com/w3c/csswg-drafts/issues/6022))
 * Some browsers invert the author’s ::selection background based on contrast with the foreground color. Should this be allowed, or does it do more harm than good? ([#6150](https://github.com/w3c/csswg-drafts/issues/6150))
     * What about other “tweaks”? What if a browser needs to force translucency to make its selection highlighting *work*? ([#6853](https://github.com/w3c/csswg-drafts/issues/6853))
     * How do we even write reftests if they *are* allowed? (no issue)
@@ -117,7 +117,23 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 * Does color:currentColor point to the next *active* highlight overlay below, or are inactive highlights included too? What happens when the author tries to getComputedStyle with ::selection? ([#6818](https://github.com/w3c/csswg-drafts/issues/6818))
 * Do decorations “propagate” to descendants in highlights like they would normally? How do we reconcile that with highlight inheritance? How do we ensure that “decorating box” semantics aren’t broken? ([#6829](https://github.com/w3c/csswg-drafts/issues/6829))
 
-## Wavy decorations
+## Spelling and grammar decorations
+
+Over the last few months, my colleague Rego has taken the lead on implementing the core spelling and grammar features.
+Since landing ‘text-decoration-color’ support for the new pseudos, we’ve started working on the new decoration lines.
+
+What happens currently is that ‘text-decoration-color’ changes the squiggly line color, but ‘text-decoration-line’ is still ‘none’.
+This nonsensical situation might sound like it required gross hacks, but actually, the *style* system just gives us a blob of properties, where the ‘color’ is independent of the ‘line’.
+All of the business logic is in *paint* (and *layout*).
+
+The idea is that eventually the pseudos and decorations will meet in the default stylesheet, but highlight painting still needs a lot more work before that’s feasible.
+
+<figure><div class="scroll" markdown="1">
+```css
+::spelling-error { text-decoration-line: spelling-error; }
+::grammar-error { text-decoration-line: grammar-error; }
+```
+</div></figure>
 
 [TODO write about this]
 
