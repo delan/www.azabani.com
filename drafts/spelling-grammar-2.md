@@ -4,7 +4,7 @@ title: "Chromium spelling and grammar, part 2"
 date: 2022-01-01 00:00:00 +0800
 ---
 
-Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="local-spelling">spelling</span> or <span class="local-grammar">grammar</span> errors in their input.
+Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="_spelling">spelling</span> or <span class="_grammar">grammar</span> errors in their input.
 CSS will give authors more control over when and how they appear, with the new ::spelling- and ::grammar-error pseudo-elements, and spelling- and grammar-error text decorations.
 [Since part 1] in May, we’ve done a fair bit of work in both Chromium and the CSSWG towards making this possible.
 
@@ -15,23 +15,23 @@ article figure > img { max-width: 100%; }
 article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
 article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidden; content: ""; }
-.local-demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
-.local-spelling, .local-grammar { text-decoration-thickness: 0; text-decoration-skip-ink: none; }
-.local-spelling { text-decoration: red wavy underline; }
-.local-grammar { text-decoration: green wavy underline; }
-.local-table { font-size: 0.75em; }
-.local-table td, .local-table th { vertical-align: top; border: 1px solid black; }
-.local-table td:not(.local-tight), .local-table th:not(.local-tight) { padding: 0.5em; }
-.local-tight picture, .local-tight img { vertical-align: top; }
-.local-compare * + *, .local-tight * + *, ._gifs * + * { margin-top: 0; }
-.local-compare { max-width: 100%; border: 1px solid rebeccapurple; }
-.local-compare > div { max-width: 100%; position: relative; touch-action: pinch-zoom; --cut: 50%; }
-.local-compare > div > * { vertical-align: top; max-width: 100%; }
-.local-compare > div > :nth-child(1) { position: absolute; clip: rect(auto, auto, auto, var(--cut)); }
-.local-compare > div > :nth-child(2) { position: absolute; width: var(--cut); height: 100%; border-right: 1px solid rebeccapurple; }
-.local-compare > div > :nth-child(2):before { content: "actual"; color: rebeccapurple; font-size: 0.75em; position: absolute; right: 0.5em; }
-.local-compare > div > :nth-child(2):after { content: "ref"; color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
-.local-sum td:first-of-type { padding-right: 1em; }
+._demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
+._spelling, ._grammar { text-decoration-thickness: 0; text-decoration-skip-ink: none; }
+._spelling { text-decoration: red wavy underline; }
+._grammar { text-decoration: green wavy underline; }
+._table { font-size: 0.75em; }
+._table td, ._table th { vertical-align: top; border: 1px solid black; }
+._table td:not(._tight), ._table th:not(._tight) { padding: 0.5em; }
+._tight picture, ._tight img { vertical-align: top; }
+._compare * + *, ._tight * + *, ._gifs * + * { margin-top: 0; }
+._compare { max-width: 100%; border: 1px solid rebeccapurple; }
+._compare > div { max-width: 100%; position: relative; touch-action: pinch-zoom; --cut: 50%; }
+._compare > div > * { vertical-align: top; max-width: 100%; }
+._compare > div > :nth-child(1) { position: absolute; clip: rect(auto, auto, auto, var(--cut)); }
+._compare > div > :nth-child(2) { position: absolute; width: var(--cut); height: 100%; border-right: 1px solid rebeccapurple; }
+._compare > div > :nth-child(2):before { content: "actual"; color: rebeccapurple; font-size: 0.75em; position: absolute; right: 0.5em; }
+._compare > div > :nth-child(2):after { content: "ref"; color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
+._sum td:first-of-type { padding-right: 1em; }
 ._gifs { position: relative; display: flex; flex-flow: column nowrap; }
 ._gifs > video { transition: opacity 0.125s linear; }
 ._gifs > button { transition: 0.125s linear; transition-property: color, background-color; }
@@ -40,15 +40,15 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 ._gifs > button { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
 ._gifs > button:focus-visible { outline: 0.25rem solid #663399C0; outline-offset: -0.25rem; }
 
-.local-commit-container-container { position: relative; }
-.local-commit-line { position: absolute; right: -0.1em; height: 100%; border-right: 0.2em solid rgba(102,51,153,0.5); }
-.local-commit-container { position: relative; padding-right: 0.5em; }
-* + .local-commit, .local-commit * + * { margin-top: 0; }
-.local-commit { line-height: 2; margin-right: -1.5em; text-align: right; }
-.local-commit > img { width: 2em; vertical-align: middle; }
-.local-commit > a { padding-right: 0.5em; text-decoration: none; color: rebeccapurple; }
-.local-commit > a > code { font-size: 1em; }
-.local-commit-none > a { color: rgba(102,51,153,0.5); }
+._commits { position: relative; }
+._commits > :first-child { position: absolute; right: -0.1em; height: 100%; border-right: 0.2em solid rgba(102,51,153,0.5); }
+._commits > :last-child { position: relative; padding-right: 0.5em; }
+* + ._commit, ._commit * + * { margin-top: 0; }
+._commit { line-height: 2; margin-right: -1.5em; text-align: right; }
+._commit > img { width: 2em; vertical-align: middle; }
+._commit > a { padding-right: 0.5em; text-decoration: none; color: rebeccapurple; }
+._commit > a > code { font-size: 1em; }
+._commit-none > a { color: rgba(102,51,153,0.5); }
 </style>
 
 At its core, the client funding this work had an internal patch that did just enough to allow you to customise squiggly line colors, and our job was to upstream it.
@@ -243,7 +243,7 @@ So we check our *pseudo bits*, and if the ::selection bit was set, we call our *
 
 This is how ::selection used to work, and at first I tried to keep it that way.
 
-<div class="local-commit-container-container"><div class="local-commit-line"></div><div markdown="1" class="local-commit-container">
+<div class="_commits"><div></div><div markdown="1">
 
 ### Status quo
 
@@ -263,7 +263,7 @@ Worse still, we had to bypass the pseudo cache entirely.
 We already had to do so under :window-inactive, but the performance penalty was fairly contained.
 Not anymore!
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/7"><code>PS7</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/7"><code>PS7</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 9..=10 3/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-e7233cca6fd3946e65013d523c9ebdb7c2e47b63
 * just clone parent (rather than copying properties)
@@ -272,7 +272,7 @@ Not anymore!
 
 If we copy over the parent’s inherited properties as usual, and for highlights, copy the non-inherited properties too, that more or less means we’re copying *all* the fields, so why not do away with that and just clone the parent’s ComputedStyle?
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/7..10"><code>PS10</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/7..10"><code>PS10</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 13 7/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-701cd86b8e72f54623e777d4a1e9a3ece9d4e24d
 * attempt to cache, but no invalidation makes this d.o.a. -->
@@ -285,7 +285,7 @@ For most pseudos, this is true anyway, as long as we bypass the cache under pseu
 These caches are essentially never cleared as such, but when the next update happens, the whole ComputedStyle (including the cache) gets discarded.
 Caching results with custom inheritance parents is frowned upon, because changing the parent you inherit your styles from can yield different styles, but for highlights, we will always pass in the same parent throughout an update cycle, so surely we can use the cache here?
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/10..13"><code>PS13</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/10..13"><code>PS13</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 <!-- 14..=16 28/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-3b9153ca6ae474b6284fe59fb4b84d94bef48c48
 * generated StyleHighlightData (per pseudo) with applicable properties only -->
@@ -345,7 +345,7 @@ class {{ "{{" }}name}} : public RefCounted<{{ "{{" }}name}}> {
 ```
 </div></figure>
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/13..16"><code>PS16</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/13..16"><code>PS16</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 Trouble is, all of the methods that apply and serialise property values — and there are hundreds of them — accept ComputedStyle, not some other type.
 
@@ -364,9 +364,9 @@ const CSSValue* Color::CSSValueFromComputedStyleInternal(
 
 Combined with the fact that our copy-on-write field group system mitigates a lot of the wasted memory, well hopefully anyway, we quickly abandoned this dedicated type.
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/16..25"><code>PS25</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/16..25"><code>PS25</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
-<!-- <div class="local-commit local-commit-none"><a href="https://crrev.com/c/2850068/24..25"><code>PS25</code></a><img src="/images/badapple-commit-none.svg"></div> -->
+<!-- <div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/24..25"><code>PS25</code></a><img src="/images/badapple-commit-none.svg"></div> -->
 
 We then optimised the top-level struct a bit, saving a few pointer widths by moving the four highlight style pointers into a separate type, but this was still less than ideal.
 We were widening ComputedStyle by one pointer, but the vast majority of web content doesn’t use highlight pseudos at all, and ComputedStyle and ComputedStyleBase are very sensitive to size changes.
@@ -414,7 +414,7 @@ Because this field is not for a popular CSS property, or a property at all reall
 ```
 </div></figure>
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/25..35"><code>PS35</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/25..35"><code>PS35</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 ### Single-pass resolution
 
@@ -423,7 +423,7 @@ We want to resolve highlight styles as part of the regular style update cycle, s
 
 Looking at the resolver, I thought wow, there does seem to be a lot of redundant work being done when resolving highlight styles in a separate request, so why not weave highlight resolution into the resolver while we’re at it?
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/35..36"><code>PS36</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/35..36"><code>PS36</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 <figure><div class="scroll" markdown="1">
 ```diff
@@ -471,7 +471,7 @@ Looking at the resolver, I thought wow, there does seem to be a lot of redundant
 
 You know what? Fair enough.
 
-<div class="local-commit local-commit-none"><a href="https://crrev.com/c/2850068/36..37"><code>⭯ PS35</code></a><img src="/images/badapple-commit-none.svg"></div>
+<div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/36..37"><code>⭯ PS35</code></a><img src="/images/badapple-commit-none.svg"></div>
 
 <h3 markdown="1" id="multi-pass-resolution">Tight but not *too* tight</h3>
 
@@ -505,7 +505,7 @@ StyleRecalcChange Element::RecalcOwnStyle(
 ```
 </div></figure>
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/37..43"><code>PS43</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/37..43"><code>PS43</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 ### Pathology in legacy
 
@@ -532,7 +532,7 @@ This will need to be fixed before we can enable the feature for everyone.
 The reality is a bit more complicated than this, because ‘color’ and ‘background-color’ are actually in field groups that would also need to be cloned.
 </figcaption></figure>
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/43..51"><code>PS51</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/43..51"><code>PS51</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 ### Paired cascade
 
@@ -540,7 +540,7 @@ Next we tried to reimplement *paired cascade*.
 For compatibility reasons, ::selection has special logic for the browser’s default ‘color’ and ‘background-color’ (e.g. white on blue), where we only use those colors if *neither* of them were set by the author.
 Otherwise, they default to initial values, usually black on transparent.
 
-<figure><div class="scroll"><div class="flex"><table class="local-sum">
+<figure><div class="scroll"><div class="flex"><table class="_sum">
 <tr><td></td><td><span style="color: white; background: #3584e4;">default on default</span></td></tr>
 <tr><td>+</td><td markdown="1">
 ```css
@@ -558,7 +558,7 @@ Brevity is a good thing, and this seemed clear enough to me in the past.
 But once I actually had to implement it, I had questions about almost every word ([#6386](https://github.com/w3c/csswg-drafts/issues/6386)).
 While they aren’t *entirely* resolved, we’ve been getting pretty close over the last few weeks.
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/51..52"><code>PS52</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/51..52"><code>PS52</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 <h3 id="fixing-tests">Who’s got green?</h3>
 
@@ -631,7 +631,7 @@ Let me illustrate with an exaggerated example:
 To be clear, this behaviour is generally considered desirable, and Firefox even supports it for all markup, not just ::selection.
 It’s definitely possible to make the active-selection tests account for this — and the tools to do so already exist in the Web Platform Tests — but I don’t have the time to pursue this right now.
 
-<div class="local-commit"><a href="https://crrev.com/c/2850068/52..76"><code>PS76</code></a><img src="/images/badapple-commit-dot.svg"></div>
+<div class="_commit"><a href="https://crrev.com/c/2850068/52..76"><code>PS76</code></a><img src="/images/badapple-commit-dot.svg"></div>
 
 </div></div>
 
