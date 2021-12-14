@@ -113,9 +113,16 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 
 [TODO write about this]
 
-<figure><div class="scroll">
-    <img src="/images/spammar2-w0.gif">
-</div></figure>
+<figure><figcaption>
+    <label><input type="checkbox" onchange="this.parentNode.parentNode.nextElementSibling.firstElementChild.querySelectorAll('video').forEach(x=>x[this.checked?'play':'pause']())"> play?</label> (or try the <a href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>live demo<sub>0</sub></strong></a>)
+</figcaption><div class="scroll"><div class="flex" style="flex-direction: column; align-items: center;">
+    <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libx264 -crf 17 $i.mp4 ) -->
+    <!-- ( i=images/foo; ffmpeg -y -i $i.gif -vf 'setpts=50/60*PTS' -r 60 -pix_fmt yuv420p -vcodec libvpx -crf 10 -b:v 1M $i.webm ) -->
+    <!-- <img width="384" height="216" src="/images/spammar2-w0.gif"> -->
+    <!-- <img width="384" height="216" src="/images/spammar2-w1.gif"> -->
+    <video loop playsinline width="384" height="216" poster="/images/spammar2-w0.png"><source src="/images/spammar2-w0.mp4"><source src="/images/spammar2-w0.webm"></video>
+    <video loop playsinline width="384" height="216" poster="/images/spammar2-w1.png"><source src="/images/spammar2-w1.mp4"><source src="/images/spammar2-w1.webm"></video>
+</div></div></figure>
 
 ## [TODO other topics]
 
