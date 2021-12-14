@@ -129,7 +129,7 @@ All of the business logic is in *paint* (and *layout*).
 
 <div class="_commit"><a href="https://crrev.com/c/3162169"><code>CL:3162169</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-So we started by adding the new values to *style* and its parser.
+We started by adding the new values to *style* and its parser.
 While highlight painting still needs a lot more work before we can do so, the idea is that eventually the pseudos and decorations will meet in the default stylesheet.
 
 <figure><div class="scroll" markdown="1">
@@ -150,11 +150,59 @@ In this case, only ::selection had dynamic tests, and only ::selection worked co
 
 Blink’s native squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they are painted on unrelated codepaths ([more details]).
 Some older code and docs call these squiggly lines “markers”, but document markers are now a broader concept.
-We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this has a few complications.
+We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this created a few complications.
 
 [more details]: {% post_url 2021-05-17-spelling-grammar %}#cjk-css-unification
 
-*
+The CSS codepath naïvely paints as many Bézier curves as needed to cover the necessary width, but the squiggly codepath has always painted a single rectangle with a cached texture, which is probably more efficient.
+This texture was originally a hardcoded bitmap, but even when we made the decorations scale with the user’s dpi, we still kept the same technique, so performance might be a problem.
+
+Another question is the actual appearance of spelling and grammar decorations ([bug 1257553](https://crbug.com/1257553)).
+We want to conform to platform conventions where possible, and you would think there’s a consistent convention for Windows or at least macOS… but not exactly.
+
+<figure>
+<div class="scroll">
+<table class="_table">
+    <thead>
+        <tr>
+            <th colspan="4">macOS (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=red&style=dotted&line=underline&thickness=3px&ink=none">demo<sub>0</sub></a>)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-safari.png"><img width="170" height="90" src="/images/spammar2-safari.png"></a></td>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-notes.png"><img width="90" height="39" src="/images/spammar2-notes.png"></a></td>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-textedit.png"><img width="53" height="28" src="/images/spammar2-textedit.png"></a></td>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-keynote.png"><img width="96" height="39" src="/images/spammar2-keynote.png"><br><img width="96" height="39" src="/images/spammar2-keynote@t.png"></a></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr><th>Safari</th><th>Notes</th><th>TextEdit</th><th>Keynote</th></tr>
+    </tfoot>
+</table>
+<table class="_table">
+    <thead>
+        <tr>
+            <th colspan="4">Windows (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=red&style=wavy&line=underline&thickness=0&ink=none">demo<sub>0</sub></a>)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-cpf.png"><img width="68" height="39" src="/images/spammar2-cpf.png"></a></td>
+            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-office.png"><img width="70" height="35" src="/images/spammar2-office.png"></a></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr><th>Calendar<br>Photos<br>Feedback</th><th>Word<br>Outlook</th></tr>
+    </tfoot>
+</table>
+</div>
+</figure>
+
+In both cases, there’s a split between stock apps and the first-party office suite.
+Either way, one thing that’s clear is that gradients are no longer the macOS convention.
+
+<div class="_commit"><a href="https://crrev.com/c/3139819"><code>CL:3139819</code></a><img width="40" height="40" src="/images/badapple-commit-up.svg"></div>
 
 So if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
 
@@ -179,7 +227,7 @@ So if we’re adding new decoration values that mimic the native ones, which cod
         <button type="button" aria-label="play">▶</button>
     </div>
 </div></div><figcaption>
-    (<a href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>)
+    (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=%2300C000&style=wavy&line=underline&thickness=auto&ink=none&trySpellcheck=1&wm=horizontal-tb&marquee&overlay"><strong>demo<sub>0</sub></strong></a>)
 </figcaption></figure>
 
 </div></div>
