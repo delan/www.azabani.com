@@ -29,8 +29,8 @@ article > :not(img):not(hr):before { width: 13em; display: block; overflow: hidd
 ._compare > div > * { vertical-align: top; max-width: 100%; }
 ._compare > div > :nth-child(1) { position: absolute; clip: rect(auto, auto, auto, var(--cut)); }
 ._compare > div > :nth-child(2) { position: absolute; width: var(--cut); height: 100%; border-right: 1px solid rebeccapurple; }
-._compare > div > :nth-child(2):before { content: "actual"; color: rebeccapurple; font-size: 0.75em; position: absolute; right: 0.5em; }
-._compare > div > :nth-child(2):after { content: "ref"; color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
+._compare > div > :nth-child(2):before { content: var(--left-label); color: rebeccapurple; font-size: 0.75em; position: absolute; right: 0.5em; }
+._compare > div > :nth-child(2):after { content: var(--right-label); color: rebeccapurple; font-size: 0.75em; position: absolute; left: calc(100% + 0.5em); }
 ._sum td:first-of-type { padding-right: 1em; }
 ._gifs { position: relative; display: flex; flex-flow: column nowrap; }
 ._gifs > video { transition: opacity 0.125s linear; }
@@ -285,7 +285,35 @@ Gecko actually goes above and beyond, even synchronising *separate* decorations 
 A related problem in the highlight painting space is that the spec calls for “recoloring” originating decorations to the highlight foreground color.
 By making these decorations “lose their color”, we avoid situations where a decoration becomes illegible when highlighted, despite being legible in its original context.
 
-[TODO _compare 97?/ref3 + separate figure for ref1]
+I’ve [partially implemented](https://crrev.com/c/2903387) this for ::selection in Chromium 95, by adding a special case that splits originating decorations into two clipped paints with different colors (but not yet the *correct* colors), while being careful to keep them in phase.
+
+<figure>
+<div class="_compare" style="--left-label: 'actual'; --right-label: 'ref3'; width: 275px; margin: 0 auto;"><img width="275" height="150" src="/images/spammar2-split0.png"><img width="275" height="150" src="/images/spammar2-split1.png"></div>
+<figcaption markdown="1">
+[highlight-painting-004](https://wpt.live/css/css-pseudo/highlight-painting-004.html) and [-ref3](https://wpt.live/css/css-pseudo/highlight-painting-004-ref3.html), version 97. In this test, the originating element has a red underline, while ::selection introduces a purple line-through. The underline needs to become blue in the highlighted part, to match the ::selection ‘color’, but for now, we match its ‘text-decoration-color’.
+</figcaption>
+</figure>
+
+Writing the reference page for that test was a really fun challenge.
+When written naïvely, Blink would actually fail here, because in general we don’t yet keep *any* decoration paints in phase.
+
+<figure>
+<div class="_compare" style="--left-label: 'ref1'; --right-label: 'ref3'; width: 275px; margin: 0 auto;"><img width="275" height="150" src="/images/spammar2-split2.png"><img width="275" height="150" src="/images/spammar2-split3.png"></div>
+<figcaption markdown="1">
+[highlight-painting-004-ref1](https://wpt.live/css/css-pseudo/highlight-painting-004-ref1.html) and [-ref3](https://wpt.live/css/css-pseudo/highlight-painting-004-ref3.html), version 96.
+</figcaption>
+</figure>
+
+The ref that Blink ended up matching has five layers, with an elaborate system of positioned “covers” and “hiders”.
+The former clips a layer from the right with a white rectangle, while the latter clips a layer from the left with `overflow:hidden` and `right:0`.
+
+<figure><div class="scroll"><div class="flex">
+    <a href="/images/spammar2-ref.jpg"><img width="432" height="256" src="/images/spammar2-ref.jpg" srcset="/images/spammar2-ref.jpg 2x"></a>
+</div></div></figure>
+
+Wanna know the best part though?
+[All](https://wpt.live/css/css-pseudo/highlight-painting-004-ref1.html) [three](https://wpt.live/css/css-pseudo/highlight-painting-004-ref2.html) [refs](https://wpt.live/css/css-pseudo/highlight-painting-004-ref3.html) are identical in Firefox.
+Someday, hopefully, this will also be true for Blink.
 
 ## [TODO other topics]
 
@@ -788,4 +816,24 @@ It’s definitely possible to make the active-selection tests account for this �
             x.addEventListener("click", click);
         });
     })();
+
+    [...document.querySelectorAll("._compare")].forEach(x => {
+        const p = x.firstChild;
+        const q = x.lastChild;
+
+        const inner = document.createElement("div");
+        x.prepend(inner);
+        inner.append(p, q);
+        p.after(document.createElement("div"));
+
+        inner.style.setProperty("--cut", `${inner.getBoundingClientRect().width / 2}px`);
+
+        inner.addEventListener("mousemove", event => {
+            inner.style.setProperty("--cut", `${event.offsetX}px`);
+        });
+
+        inner.addEventListener("touchmove", event => {
+            inner.style.setProperty("--cut", `${event.targetTouches.item(0).clientX - inner.getBoundingClientRect().left}px`);
+        });
+    });
 </script>
