@@ -580,7 +580,7 @@ Because this field is not for a popular CSS property, or a property at all reall
 
 ### Single-pass resolution
 
-With our new storage figured out, we now needed to actually write to it.
+With our new storage ready, we now needed to actually write to it.
 We want to resolve highlight styles as part of the regular style update cycle, so that they can eventually benefit from style invalidation.
 
 Looking at the resolver, I thought wow, there does seem to be a lot of redundant work being done when resolving highlight styles in a separate request, so why not weave highlight resolution into the resolver while we’re at it?
