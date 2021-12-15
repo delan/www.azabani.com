@@ -356,11 +356,11 @@ Someday, hopefully, this will also be true for Blink.
 
 Presto (Opera), uniquely, supported inheritance for ::selection before it was cool, by mapping those styles to synthesised (internal) ‘selection-color’ and ‘selection-background’ properties that were marked as inherited.
 
-Blink also has internal properties, most notably for [:visited links](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) and [forced colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors), where we need to keep track of both “original” and “new” colors.
+Blink also has internal properties for things like [:visited links](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) and [forced colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors), where we need to keep track of both “original” and “new” colors.
 This works well enough, but internal properties add a great deal of complexity to the code that applies and consumes styles.
 Now that there are multiple highlight pseudos, supporting a lot more than just ‘color’ and ‘background-color’, this complexity is hard to justify.
 
-To understand the work that went into highlight inheritance, let’s take a look at how CSS works in Chromium.
+To understand the approach we went with, let’s look at how CSS works in Chromium.
 
 ### Blink style 101
 
