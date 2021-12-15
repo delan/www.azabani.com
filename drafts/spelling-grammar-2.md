@@ -135,13 +135,13 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 
 Since landing ‘text-decoration-color’ support for the new pseudos, my colleague Rego has taken the lead on the rest of the core spelling and grammar features, starting with the new ‘text-decoration-line’ values.
 
-Currently, when recoloring a native spelling error, ‘text-decoration-color’ changes the squiggly line color, but ‘text-decoration-line’ is still ‘none’.
-This nonsensical situation might sound like it required gross hacks, but actually, the *style* system just gives us a blob of properties, where the ‘color’ is independent of the ‘line’.
-All of the business logic is in *paint* (and *layout*).
+Currently, when setting ‘text-decoration-color’ on the pseudos, we change the color, but ‘text-decoration-line’ is still ‘none’, which doesn’t really make sense.
+This might sound like it required gross hacks, but the style system just gives us a blob of properties, where ‘color’ and ‘line’ are independent.
+All of the logic that *uses* them is in paint and layout.
 
 <div class="_commit"><a href="https://crrev.com/c/3162169"><code>CL:3162169</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-We started by adding the new values to *style* and its parser.
+We started by adding the new values to the stylesheet parser.
 While highlight painting still needs a lot more work before we can do so, the idea is that eventually the pseudos and decorations will meet in the default stylesheet.
 
 <figure><div class="scroll" markdown="1">
@@ -153,10 +153,9 @@ While highlight painting still needs a lot more work before we can do so, the id
 
 <div class="_commit"><a href="https://crrev.com/c/3194336"><code>CL:3194336</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-Something that’s often neglected in tests for CSS features are *dynamic* tests, which check that the rendering updates correctly when JavaScript changes styles.
-After all, the easiest and most common way to write a CSS test involves no scripting in the first place.
+Something that’s often neglected in CSS tests is *dynamic* testing, which checks that the rendering updates correctly when styles are changed by JavaScript, since the easiest and most common way to write a rendering test involves no scripting at all.
 
-In this case, only ::selection had dynamic tests, and only ::selection worked correctly, so we then fixed the other pseudos.
+In this case, only ::selection had dynamic tests, and only ::selection actually worked correctly, so we then fixed the other pseudos.
 
 <div class="_commit"><a href="https://crrev.com/c/3177663"><code>CL:3177663</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
