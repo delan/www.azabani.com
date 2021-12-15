@@ -329,7 +329,7 @@ Weeks later, I stumbled upon a video by Freya Holmér [answering that very quest
 ### Cover me!
 
 Writing the reference pages for that test was also a fun challenge.
-When written naïvely, Blink would actually fail here, because in general we make no attempt to keep *any* decoration paints in phase.
+When written the obvious way, Blink would actually fail, because in general we make no attempt to keep *any* decoration paints in phase.
 
 <figure>
 <div class="_compare" style="--left-label: 'ref1'; --right-label: 'ref3'; width: 275px; margin: 0 auto;"><img width="275" height="150" src="/images/spammar2-split2.png"><img width="275" height="150" src="/images/spammar2-split3.png"></div>
@@ -338,7 +338,8 @@ When written naïvely, Blink would actually fail here, because in general we mak
 </figcaption>
 </figure>
 
-The ref that Blink ended up matching has five layers, where each of the three visible layers contains “quick” in full, and decorations span the whole word, but only part of the layer is shown.
+The ref that Blink ended up matching has five layers.
+Each layer contains the word “quick” in full with any decorations spanning the whole word, but only part of the layer is shown.
 This is achieved by an elaborate system of positioned “covers” and “hiders”: the former clips a layer from the right with a white rectangle, while the latter clips a layer from the left by way of `right:0` wrapped in `overflow:hidden`.
 
 <figure><div class="scroll"><div class="flex">
