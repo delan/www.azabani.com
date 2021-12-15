@@ -324,11 +324,17 @@ This should be Good Enough™ for most content, but you can easily break it with
     <img width="275" height="200" src="/images/spammar2-clip.png" srcset="/images/spammar2-clip.png 2x">
 </div></div></figure>
 
-Weeks later, I stumbled upon a video by Freya Holmér [answering that very question](https://www.youtube.com/watch?v=aVwxzDHniEw&t=665):
+Weeks later, I stumbled upon a video by Freya Holmér [answering that very question](https://www.youtube.com/watch?v=aVwxzDHniEw&t=665).
 
 > So, how do we get [the bounding] box?
 >
 > **The naïve solution is to simply use the control points of the bézier curve.** This can be good enough, but what we *really* want is the “tight bounding box”; in some cases, the difference between the two is *huge*.
+
+For now, the code still clips to a fixed three times the background height, but at least we now have some ideas for how to properly measure these decorations:
+
+* use the minimum and maximum *y* values of the control points (naïve)
+* find *better* min and max *y* values by evaluating the derivative at its zeros
+* use a dedicated function for this purpose like SkDCubic::convexHull?
 
 ### Cover me!
 
