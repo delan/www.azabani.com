@@ -762,7 +762,7 @@ While they aren’t *entirely* resolved, we’ve been getting pretty close over 
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/51..52"><code>PS52</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-<h3 id="fixing-tests">Who’s got green?</h3>
+<h3 id="fixing-tests">Who’s got green<a href="https://www.youtube.com/watch?v=ul6VV8XW9xw">?</a></h3>
 
 Aside from cleanup and polish, the remaining work was to fix test failures and other bugs.
 These included crashes under legacy layout, since we only implemented this for LayoutNG, and functional changes leaking out of the feature gate.
