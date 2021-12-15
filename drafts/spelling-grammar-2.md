@@ -127,6 +127,8 @@ One interesting lesson was that no matter how clearly a feature is specified, an
 * Does color:currentColor point to the next *active* highlight overlay below, or are inactive highlights included too? What happens when the author tries to getComputedStyle with ::selection? ([#6818](https://github.com/w3c/csswg-drafts/issues/6818))
 * Do decorations “propagate” to descendants in highlights like they would normally? How do we reconcile that with highlight inheritance? How do we ensure that “decorating box” semantics aren’t broken? ([#6829](https://github.com/w3c/csswg-drafts/issues/6829))
 
+<hr>
+
 ## Squiggly lines
 
 <div class="_commits"><div></div><div markdown="1">
@@ -267,6 +269,8 @@ I tried wrapping the last letter of each word in a span[^1], but that creates a 
 </div></div></div></figure>
 
 </div></div>
+
+<hr>
 
 ## Phase-locked decorations
 
