@@ -291,7 +291,7 @@ But how *tall* should that rectangle be? Short answer: infinity.
 
 ### Bézier bounding box
 
-Long answer: Skia doesn’t let us clip to an infinitely tall rectangle, so it depends on several things, including ‘text-decoration-thickness’, ‘text-underline-offset’, and in the case of `wavy` decorations, the amplitude of the bézier curves.
+Long answer: Skia doesn’t let us clip to an infinitely tall rectangle, so it depends on several things, including ‘text-decoration-thickness’, ‘text-underline-offset’, and in the case of wavy decorations, the amplitude of the bézier curves.
 
 In the code, there was a pretty diagram that illustrated the four relevant points to each “cycle” of the decoration.
 Clearly, it suggested that the curve *in that example* was bounded by the control points, but I had no idea whether this was true for *all* cubic béziers, my terrible search engine skills failed me again, and I don’t like making assumptions.
@@ -320,7 +320,7 @@ This should be Good Enough™ for most content, but you can easily break it with
     <img width="275" height="200" src="/images/spammar2-clip.png" srcset="/images/spammar2-clip.png 2x">
 </div></div></figure>
 
-Weeks later, I stumble upon a video by Freya Holmér [answering that very question](https://www.youtube.com/watch?v=aVwxzDHniEw&t=665):
+Weeks later, I stumbled upon a video by Freya Holmér [answering that very question](https://www.youtube.com/watch?v=aVwxzDHniEw&t=665):
 
 > So, how do we get [the bounding] box?
 >
