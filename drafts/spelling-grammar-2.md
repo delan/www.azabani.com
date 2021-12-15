@@ -88,7 +88,7 @@ For more details about the CSS highlight pseudos in particular, check out [my Bl
     * [Who’s got green?](#fixing-tests)
 * [What now?](#what-now)
 
-<h3 id="impl-status">Implementation status</h3>
+<h2 id="impl-status">Implementation status</h2>
 
 Chromium 96 includes a rudimentary version of highlight inheritance, with support for ::highlight in Chromium 98 ([Fernando Fiori](https://crrev.com/c/3237158)).
 This is currently behind a Blink feature:
