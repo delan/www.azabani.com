@@ -635,10 +635,10 @@ You know what? Fair enough.
 
 <div class="_commit _commit-none"><a href="https://crrev.com/c/2850068/36..37"><code>⭯ PS35</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-<h3 markdown="1" id="multi-pass-resolution">Tight but not *too* tight</h3>
+<h3 markdown="1" id="multi-pass-resolution">Multi-pass resolution</h3>
 
-Element::Recalc{,Own}Style are pretty big friends of *style*.
-They drive the style update cycle by determining how the tree has changed, making a *resolver* request for the element, and determining which descendants also need to be updated.
+Element::Recalc{,Own}Style are pretty big friends of the style system.
+They drive the style update cycle by determining how the tree has changed, making a resolver request for the element, and determining which descendants also need to be updated.
 
 This makes them the perfect place to update highlight styles.
 All we need to do is make an additional resolver request for each highlight pseudo, store it in the highlight data, and bob’s your uncle.
