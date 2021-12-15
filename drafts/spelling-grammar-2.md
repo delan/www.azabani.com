@@ -253,19 +253,19 @@ This is because Blink lacks *phase-locked decorations*.
 
 ## Phase-locked decorations
 
-Blink (and WebKit) use an inheritance hack to propagate decorations from parents to their children, rather than properly implementing the concept of [*decorating box*](https://www.w3.org/TR/2019/CR-css-text-decor-3-20190813/#line-decoration).
-In other words, we’re painting two independent decorations, whereas we *should* be painting one decoration that spans the entire word.
-This has been the cause of [a lot of bugs](https://github.com/web-platform-tests/interop-2022/issues/23), and been widely regarded as a bad move.
+Blink uses an inheritance hack to propagate decorations from parents to children, rather than properly implementing the concept of [*decorating box*](https://www.w3.org/TR/2019/CR-css-text-decor-3-20190813/#line-decoration).
+In other words, we paint two independent decorations, whereas we *should* paint one decoration that spans the entire word.
+This has been the cause of [a lot of bugs](https://github.com/web-platform-tests/interop-2022/issues/23), and is widely regarded as a bad move.
 
-Note that this doesn’t mean we actually have to paint the decoration in a single pass, only that our rendering is *as if* that was the case.
-For example, when testing the same change in Firefox, there’s some subtle jittering between the last letter and the rest of the word, which suggests that propagated decorations are probably being painted separately.
+Note that we don’t actually have to paint the decoration in a single pass, we only have to render *as if* that was the case.
+For example, when testing the same change in Firefox, the decoration appears to jitter near the last letter, which suggests that the decoration is probably being painted separately for that element.
 
 <figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
     <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w5.png"><source src="/images/spammar2-w5.mp4"><source src="/images/spammar2-w5.webm"></video>
     <button type="button" aria-label="play">▶</button>
 </div></div></div></figure>
 
-Gecko actually goes above and beyond, even synchronising *separate* decorations introduced under the same block, which allows authors to make it look like their decorations change color partway through.
+Gecko goes above and beyond with this, even synchronising *separate* decorations introduced under the same block, which allows authors to make it look like their decorations change color partway through.
 
 <figure><div class="scroll">
     <img width="300" height="90" src="/images/spammar2-phase0.png" srcset="/images/spammar2-phase0.png 2x">
@@ -275,7 +275,7 @@ Gecko actually goes above and beyond, even synchronising *separate* decorations 
 A related problem in the highlight painting space is that the spec calls for “recoloring” originating decorations to the highlight foreground color.
 By making these decorations “lose their color”, we avoid situations where a decoration becomes illegible when highlighted, despite being legible in its original context.
 
-I’ve [partially implemented](https://crrev.com/c/2903387) this for ::selection in Chromium 95, by adding a special case that splits originating decorations into two clipped paints with different colors (but not yet the *correct* colors), while being careful to keep them in phase.
+I’ve [partially implemented](https://crrev.com/c/2903387) this for ::selection in Chromium 95, by adding a special case that splits originating decorations into two clipped paints with different colors — though not yet the *correct* colors — while carefully keeping them in phase.
 
 <figure>
 <div class="_compare" style="--left-label: 'actual'; --right-label: 'ref3'; width: 275px; margin: 0 auto;"><img width="275" height="150" src="/images/spammar2-split0.png"><img width="275" height="150" src="/images/spammar2-split1.png"></div>
@@ -285,9 +285,9 @@ I’ve [partially implemented](https://crrev.com/c/2903387) this for ::selection
 </figure>
 
 To paint the highlighted part of the decoration, we clip the canvas to a rectangle as wide as the background, and paint the decoration in full.
-To paint the rest, we clip “out” the canvas to the same rectangle, which is like an inverted clip.
+To paint the rest, we clip “out” the canvas to the same rectangle, which means we don’t touch anything *inside* the rectangle.
 
-But how *tall* should the rectangle be? Short answer: infinity.
+But how *tall* should that rectangle be? Short answer: infinity.
 
 ### Bézier bounding box
 
