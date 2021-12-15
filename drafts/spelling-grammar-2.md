@@ -51,9 +51,9 @@ article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before 
 ._commit-none > a { color: rgba(102,51,153,0.5); }
 </style>
 
-At its core, the client funding this work had an internal patch that did just enough to allow you to customise squiggly line colors, and our job was to upstream it.
-But turning that into something that’s suitable for adoption by the general public, that interacts well with other features, and can be specified *and tested* in a cohesive way that makes sense to other implementors?
-That’s a lot more involved than merging a branch.
+The client funding this work had an internal patch that allowed you to change the colors of those squiggly lines, and our job was to upstream it.
+The patch itself was pretty simple, but turning that into an upstream feature is a much bigger can of worms.
+So far, we’ve landed over 30 patches, including dozens of new web platform tests, opened 8 spec issues, and run into some gnarly bugs going back to at least 2009.
 
 Check out [our project index](https://bucket.daz.cat/work/igalia/0/) for a complete list of demos, tests, patches, and issues.
 For more details about the CSS highlight pseudos in particular, check out [my BlinkOn 15 talk], including the [highlight painting visualiser](https://bucket.daz.cat/work/igalia/0/29.html).
@@ -68,7 +68,7 @@ For more details about the CSS highlight pseudos in particular, check out [my Bl
 
 ## Contents
 
-* [Current status](#current-status)
+* [Implementation status](#impl-status)
 * [Charlie’s lawyerings](#charlie)
 * [Squiggly lines](#squiggly-lines)
     * [Platform “conventions”](#platform-conventions)
@@ -88,21 +88,20 @@ For more details about the CSS highlight pseudos in particular, check out [my Bl
     * [Who’s got green?](#fixing-tests)
 * [What now?](#what-now)
 
-## Current status
+<h3 id="impl-status">Implementation status</h3>
 
-A rudimentary version of highlight inheritance has landed, including support for ::highlight ([Fernando Fiori](https://crrev.com/c/3237158)).
-More work needs to be done to improve performance and iron out edge cases.
-This implementation is currently behind a Blink feature flag:
+Chromium 96 includes a rudimentary version of highlight inheritance, with support for ::highlight in Chromium 98 ([Fernando Fiori](https://crrev.com/c/3237158)).
+This is currently behind a Blink feature:
 
 <figure><div class="scroll" markdown="1">
     --enable-blink-features=HighlightInheritance
 </div></figure>
 
-Adding to our initial support for ::{spelling,grammar}-error, we’ve since landed the same for the new {spelling,grammar}-error decoration types.
-So far, both are mostly only supported in style, not in paint; while the cascade and other style calculations will understand them, they aren’t very useful yet.
+Adding to our initial support for ::{spelling,grammar}-error, we’ve since made progress on the new {spelling,grammar}-error decorations.
+While they are accepted but ignored in Chromium 96, you’ll be able to *see* them in Chromium 98, with our early paint support.
 
-We’ve also made it possible to change the color of native squiggly lines by setting ‘text-decoration-color’ on either of the new pseudo-elements.
-This feature, and the features above, are also behind a flag:
+Chromium 96 also makes it possible to change the color of native squiggly lines by setting ‘text-decoration-color’ on either of the new pseudo-elements.
+This feature, and the features above, are behind a Blink feature:
 
 <figure><div class="scroll" markdown="1">
     --enable-blink-features=CSSSpellingGrammarErrors
@@ -111,7 +110,7 @@ This feature, and the features above, are also behind a flag:
 <h2 markdown="1" id="charlie">[C](https://www.youtube.com/watch?v=qcderLXiwa8)harlie’s ~~bird~~ spec lawyerings</h2>
 
 I’ve learned a lot of things while working on this project.
-One interesting lesson was that no matter how clearly a feature is specified, and how much discussion goes into spec details, half the questions won’t become apparent until implementors start building it.
+One interesting lesson was that no matter how clearly a feature is specified, and how much discussion goes into spec details, half the questions won’t become apparent until someone starts building it.
 
 <img width="300" height="300" src="/images/spammar2-charlie.jpg" class="flight">
 
