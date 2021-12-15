@@ -86,6 +86,7 @@ For more details about the CSS highlight pseudos in particular, check out [my Bl
     * [Pathology in legacy](#pathology-in-legacy)
     * [Paired cascade](#paired-cascade)
     * [Who’s got green?](#fixing-tests)
+* [What now?](#what-now)
 
 ## Current status
 
