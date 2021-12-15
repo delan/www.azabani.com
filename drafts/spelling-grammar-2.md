@@ -364,7 +364,7 @@ To understand the approach we went with, let’s look at how CSS works in Chromi
 
 ### Blink style 101
 
-CSS is managed by Blink’s *style* system, which at its highest level consists of the *engine*, the *resolver*, and the *ComputedStyle* data structure.
+CSS is managed by Blink’s style system, which at its highest level consists of the *engine*, the *resolver*, and the *ComputedStyle* data structure.
 The engine maintains all of the style-related state for a document, including all of its stylesheet rules *and* the information needed to recalculate styles efficiently when the document changes.
 The resolver’s job is to calculate styles for some element, writing the results to a new ComputedStyle object.
 
@@ -373,8 +373,10 @@ The resolver’s job is to calculate styles for some element, writing the result
 </div></figure>
 
 ComputedStyle itself is also interesting.
-There are over 600 properties, including internal properties, shorthands (like ‘margin’), and aliases (like ‘-webkit-transform’), so most of the fields and methods are actually generated (ComputedStyleBase) with the help of some Python scripts.
-These fields are “sharded” into *field groups*, so we can [efficiently reuse] style data from ancestors and previous resolver outputs. Some of these field groups are human-defined, like “surround” for all of the margin/border/padding properties, but there are also several *raredata* groups generated from property popularity stats.
+Blink recognises over 600 properties, including internal properties, shorthands (like ‘margin’), and aliases (like ‘-webkit-transform’), so most of the fields and methods are actually generated (ComputedStyleBase) with the help of some Python scripts.
+
+These fields are “sharded” into *field groups*, so we can [efficiently reuse] style data from ancestors and previous resolver outputs.
+Some of these field groups are human-defined, like “surround” for all of the margin/border/padding properties, but there are also several *raredata* groups generated from property popularity stats.
 
 [efficiently reuse]: https://en.wikipedia.org/wiki/Copy-on-write
 
@@ -382,20 +384,18 @@ These fields are “sharded” into *field groups*, so we can [efficiently reuse
     <img width="587" height="293" src="/images/spammar2-x1.png" srcset="/images/spammar2-x1.png 2x">
 </div></figure>
 
-When resolving styles, we usually start by cloning an [“empty”] ComputedStyle, then we copy over the inherited properties from the parent to this fresh new object.
-Many of these live in the “inherited” field group, so all we need to do for those is copy a single pointer.
+When resolving styles, we usually clone an [“empty”] ComputedStyle, then we copy over the inherited properties from the parent to this fresh new object.
+Many of these live in the “inherited” field group, so all we need to do for them is copy a single pointer.
 At this point, we have the parent’s inherited properties, and everything else as initial values, so if the element doesn’t have any rules of its own, we’re more or less done.
 
 [“empty”]: https://developer.mozilla.org/en-US/docs/Web/CSS/initial_value
-
-<!-- [^2]: Some properties, such as ‘color’, are inherited by default, but most properties aren’t. For example, if you add a ‘border’ to some element, it doesn’t really make sense for all of its descendants to automatically have borders too. -->
 
 <figure><div class="scroll">
     <img width="527" height="334" src="/images/spammar2-x2.png" srcset="/images/spammar2-x2.png 2x">
 </div></figure>
 
 Otherwise, we search for matching rules, [sort all of their declarations] by things like specificity, then *apply* the winning declarations by overwriting various ComputedStyle fields.
-If we’re overwriting fields in field groups, we need to clone the field groups too, to avoid clobbering someone else’s styles.
+If the field we’re overwriting is in a field group, we need to clone the field group too, to avoid clobbering someone else’s styles.
 
 [sort all of their declarations]: https://www.w3.org/TR/css-cascade-4/#cascading
 
