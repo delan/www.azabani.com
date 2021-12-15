@@ -462,10 +462,10 @@ This is usually fine, because most pseudos inherit from the originating element,
 
 ### Storing highlight styles
 
-With the pseudo cache being unsuitable for highlight styles, we need some other way of storing them.
+With the pseudo cache being unsuitable for highlight styles, we needed some other way of storing them.
 Only a handful of properties are allowed in highlight styles, so why not make a dedicated type with only those fields?
 
-The declarations and basic methods for CSS properties is entirely generated, so let’s write some new templates…
+The declarations and basic methods for CSS properties are entirely generated, so let’s write some new templates…
 
 <figure><div class="scroll" markdown="1">
 ```jinja
@@ -509,7 +509,7 @@ class {{ "{{" }}name}} : public RefCounted<{{ "{{" }}name}}> {
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/13..16"><code>PS16</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-Trouble is, all of the methods that apply and serialise property values — and there are hundreds of them — accept ComputedStyle, not some other type.
+Trouble is, all of the methods that apply and serialise property values — and there are *hundreds* of them — take a ComputedStyle, not some other type.
 
 <figure><div class="scroll" markdown="1">
 ```c++
@@ -524,7 +524,7 @@ const CSSValue* Color::CSSValueFromComputedStyleInternal(
 ```
 </div></figure>
 
-Combined with the fact that our copy-on-write field group system mitigates a lot of the wasted memory, well hopefully anyway, we quickly abandoned this dedicated type.
+Combined with the fact that our copy-on-write field groups mitigate a lot of the wasted memory (well hopefully anyway), we quickly abandoned this dedicated type.
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/16..25"><code>PS25</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
@@ -532,7 +532,7 @@ Combined with the fact that our copy-on-write field group system mitigates a lot
 
 We then optimised the top-level struct a bit, saving a few pointer widths by moving the four highlight style pointers into a separate type, but this was still less than ideal.
 We were widening ComputedStyle by one pointer, but the vast majority of web content doesn’t use highlight pseudos at all, and ComputedStyle and ComputedStyleBase are very sensitive to size changes.
-To give you an idea of how much it matters, we even throw a compile-time error if the size inadvertently changes!
+To give you an idea of how much it matters, Blink even throws a compile-time error if the size inadvertently changes!
 
 <figure><div class="scroll" markdown="1">
 ```c++
@@ -555,7 +555,7 @@ ASSERT_SIZE(ComputedStyle, SameSizeAsComputedStyle);
 </div></figure>
 
 To move highlights out of the top-level and into a *raredata* group, we had to get rid of all the fancy generated code and Just write a plain struct, which has the added benefit of making the code easier to read.
-Luckily, at this point we were only using it to loop through the four highlight pseudos, not dozens or hundreds of properties.
+Luckily, we were only using that code to loop through the four highlight pseudos at this point, not dozens or hundreds of properties.
 
 Then all we needed was a bit of JSON to tell the code generator to add an “extra” field, *and* find an appropriate field group for us (`"*"`).
 Because this field is not for a popular CSS property, or a property at all really, it automatically goes in a *raredata* group.
