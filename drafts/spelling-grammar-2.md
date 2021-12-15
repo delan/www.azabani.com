@@ -837,13 +837,20 @@ It’s definitely possible to make the active-selection tests account for this �
 
 </div></div>
 
-## [TODO next steps]
+## What now?
 
+After the holidays, we plan to:
 
+* **Resolve the remaining [spec issues](#charlie).** These issues are critical for finishing highlight inheritance and allowing highlights to add their own decorations.
+* **Port ::selection’s painting logic to the other highlights.** We might even use this as an opportunity to [roll ::selection into the marker system](https://docs.google.com/document/d/1Rfelx4qv-RhQYHUJ74QBU5MjEbmb9Wol9gvyjkywqgE).
 
-## Shouts
+Other work needed before we can ship the spelling and grammar features:
 
-Special thanks to [Rego](https://twitter.com/regocas) (Igalia), [Rune](https://twitter.com/runeLi), andruud (Google), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), as well as [Bloomberg](https://www.bloomberg.com/company/) for sponsoring our work.
+* **Ship highlight inheritance.** This includes addressing any spec resolutions, fixing the performance issues, and [adding devtools support](https://docs.google.com/document/d/1eJn5QIX4JFGackDYmdLxWXEmTDkSGj_ZGz5XY4uCKbY).
+* Integrate spelling and grammar errors with decoration painting ([bug 1257553](https://crbug.com/1257553)).
+* Make automated testing possible for spelling and grammar errors ([wpt#30863](https://github.com/web-platform-tests/wpt/issues/30863)).
+
+Special thanks to [Rego](https://twitter.com/regocas) (Igalia), [Rune](https://twitter.com/runeLi), andruud (Google), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), Fernando (Microsoft), as well as [Bloomberg](https://www.bloomberg.com/company/) for sponsoring our work.
 
 <hr>
 
