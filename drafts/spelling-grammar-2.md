@@ -161,26 +161,26 @@ In this case, only ::selection had dynamic tests, and only ::selection actually 
 
 ### Platform “conventions”
 
-Blink’s native squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they are painted on unrelated codepaths ([more details]).
-Some older code and docs call these squiggly lines “markers”, but document markers are now a broader concept.
+Blink’s squiggly lines look quite different to anything CSS can achieve with `wavy` or `dotted` decorations, and they’re painted on unrelated codepaths ([more details]).
 We want to unify these codepaths, to make them easier to maintain and help us integrate them with CSS, but this creates a few complications.
 
 [more details]: {% post_url 2021-05-17-spelling-grammar %}#cjk-css-unification
 
-The CSS codepath naïvely paints as many bézier curves as needed to cover the necessary width, but the squiggly codepath has always painted a single rectangle with a cached texture, which is probably more efficient.
-This texture was originally a hardcoded bitmap, but even when we made the decorations scale with the user’s dpi, we still kept the same technique, so performance might be a problem.
+The CSS codepath naïvely paints as many bézier curves as needed to span the necessary width, but the squiggly codepath has always painted a single rectangle with a cached texture, which is probably more efficient.
+This texture used to be a hardcoded bitmap, but even when we made the decorations [scale with the user’s dpi](https://codereview.chromium.org/2674003002), we still kept the same technique, so the approach we use for CSS decorations might be too slow.
 
-Another question is the actual appearance of spelling and grammar decorations ([bug 1257553](https://crbug.com/1257553)).
-We don’t necessarily want to make them *identical* to any — or at least not the default — `wavy` or `dotted` decorations, because it might be nice to tell when, say, a wavy-decorated word is misspelled.
+Another question is the actual appearance of spelling and grammar decorations.
+We don’t necessarily want to make them *identical* to the default `wavy` or `dotted` decorations, because it might be nice to tell when, say, a wavy-decorated word is misspelled.
 
-We also want to conform to platform conventions where possible, and you would think there’s a consistent convention for Windows or at least macOS… but not exactly.
+We also want to conform to platform conventions where possible, and you would think there’s at least a consistent convention for macOS… but not exactly.
+One thing that’s clear is that gradients are no longer conventional.
 
-<figure>
+<figure style="image-rendering: pixelated;">
 <div class="scroll">
 <table class="_table">
     <thead>
         <tr>
-            <th colspan="4">macOS (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=red&style=dotted&line=underline&thickness=3px&ink=none">demo<sub>0</sub></a>)</th>
+            <th colspan="4">macOS (compare <a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=red&style=dotted&line=underline&thickness=3px&ink=none">demo<sub>0</sub></a>)</th>
         </tr>
     </thead>
     <tbody>
@@ -195,32 +195,13 @@ We also want to conform to platform conventions where possible, and you would th
         <tr><th>Safari</th><th>Notes</th><th>TextEdit</th><th>Keynote</th></tr>
     </tfoot>
 </table>
-<table class="_table">
-    <thead>
-        <tr>
-            <th colspan="4">Windows (<a class="_demo" href="https://bucket.daz.cat/work/igalia/0/0.html?color=red&style=wavy&line=underline&thickness=0&ink=none">demo<sub>0</sub></a>)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-cpf.png"><img width="68" height="39" src="/images/spammar2-cpf.png"></a></td>
-            <td class="_tight" style="vertical-align: bottom;"><a href="/images/spammar2-office.png"><img width="70" height="35" src="/images/spammar2-office.png"></a></td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr><th>Calendar<br>Photos<br>Feedback</th><th>Word<br>Outlook</th></tr>
-    </tfoot>
-</table>
 </div>
 </figure>
-
-In both cases, there’s a split between stock apps and the first-party office suite.
-Either way, one thing that’s clear is that gradients are no longer the macOS convention.
 
 <div class="_commit"><a href="https://crrev.com/c/3139819"><code>CL:3139819</code></a><img width="40" height="40" src="/images/badapple-commit-up.svg"></div>
 
 But anyway, if we’re adding new decoration values that mimic the native ones, which codepath do we paint them with?
-We decided to go with the CSS codepath — leaving native squiggly lines untouched for now — and take this time to refactor and extend that paint code for the needs of spelling and grammar errors.
+We decided to go down the CSS route — leaving native squiggly lines untouched for now — and take this time to refactor and extend those decoration painters for the needs of spelling and grammar errors.
 
 <div class="_commit _commit-none"><a href="https://crrev.com/c/3275457"><code>CL:3275457</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
