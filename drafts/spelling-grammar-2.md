@@ -300,6 +300,8 @@ Clearly, it suggested that the curve *in that example* was bounded by the contro
 ```
 /*                   controlPoint1
  *                         +
+ *
+ *
  *                  . .
  *                .     .
  *              .         .
@@ -307,6 +309,8 @@ Clearly, it suggested that the curve *in that example* was bounded by the contro
  *                          .         .
  *                            .     .
  *                              . .
+ *
+ *
  *                         +
  *                   controlPoint2
  */
