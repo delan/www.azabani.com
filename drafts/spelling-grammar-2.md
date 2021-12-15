@@ -405,19 +405,19 @@ If the field we’re overwriting is in a field group, we need to clone the field
 
 <h3 id="blink-style-102">Blink style 102: pseudo-elements</h3>
 
-For ordinary elements (including pseudo-elements with a clear place in the DOM tree, like ::before or ::marker), we determine styles as part of *style*’s regular tree traversal.
+For ordinary elements, as well as pseudo-elements with a clear place in the DOM tree (e.g. ::before, ::marker), we resolve styles as part of *style*’s regular tree traversal.
 We start by updating :root’s styles, then any children affected by the update, and so on.
-But for other pseudos we usually use a “lazy” approach, where we don’t bother determining styles until they are needed by later phases of the rendering process, like *layout* or *paint*.
+But for other pseudos we usually use a “lazy” approach, where we don’t bother resolving styles unless they are needed by a later phase of the rendering process, like layout or paint.
 
-Let’s say we’re determining styles for some ordinary element.
-When we’re searching for matching rules, if we find one that *actually* matches our ::selection, we make a note in our *pseudo bits* that we’ve seen rules for that pseudo, but otherwise ignore the rule.
+Let’s say we’re resolving styles for some ordinary element.
+When we’re searching for matching rules, if we find one that *actually* matches our ::selection, we make a note in our *pseudo bits* saying we’ve seen rules for that pseudo, but otherwise ignore the rule.
 
 <figure><div class="scroll">
     <img width="467" height="107" src="/images/spammar2-y0.png" srcset="/images/spammar2-y0.png 2x">
 </div></figure>
 
-Once we’re in *paint*, if the user has selected some text, then we need to know our ::selection styles.
-So we check our *pseudo bits*, and if the ::selection bit was set, we call our *resolver* with a special request for pseudo styles, then cache the result into a vector inside the originating element’s ComputedStyle.
+Once we’re in *paint*, if the user has selected some text, then we need to know our ::selection styles, so we check our pseudo bits.
+If the ::selection bit was set, we call our *resolver* with a special request for pseudo styles, then cache the result into a vector inside the originating element’s ComputedStyle.
 
 <figure><div class="scroll">
     <img width="547" height="97" src="/images/spammar2-y1.png" srcset="/images/spammar2-y1.png 2x">
