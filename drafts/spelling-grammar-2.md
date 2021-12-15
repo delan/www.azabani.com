@@ -72,7 +72,7 @@ For more details about the CSS highlight pseudos in particular, check out [my Bl
 * [Charlie’s lawyerings](#charlie)
 * [Squiggly lines](#squiggly-lines)
     * [Platform “conventions”](#platform-conventions)
-    * [Precise decoration lengths](#precise-decoration-lengths)
+    * [Precise wavy decorations](#precise-wavy-decorations)
 * [Phase-locked decorations](#phase-locked-decorations)
     * [Bézier bounding box](#bézier-bounding-box)
     * [Cover me!](#cover-me)
@@ -213,10 +213,10 @@ We decided to go down the CSS route — leaving native squiggly lines untouched 
 
 <div class="_commit"><a href="https://crrev.com/c/3297885"><code>CL:3297885</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-### Precise decoration lengths
+### Precise wavy decorations
 
-To that end, one of the biggest changes we’ve landed is making `wavy` decorations start and stop exactly where needed, rather than falling short.
-This includes the new spelling and grammar lines, other than on macOS.
+To that end, one of the biggest improvements we’ve landed is making wavy decorations start and stop exactly where needed, rather than falling short.
+This includes the new spelling and grammar decoration values, other than on macOS.
 
 <figure><div class="scroll"><div class="flex" style="flex-direction: column;"><div class="_gifs _paused">
     <!-- ffmpeg -y -video_size 384x216 -framerate 60 -f x11grab -i :0+15,307 \%03d.png -->
@@ -237,11 +237,10 @@ This includes the new spelling and grammar lines, other than on macOS.
 
 <div class="_commit _commit-none"><a href="https://crrev.com/c/3264203"><code>CL:3264203</code></a><img width="40" height="40" src="/images/badapple-commit-none.svg"></div>
 
-You might have noticed that the decorations in that last example sometimes extend to the right of “h”.
+You may have noticed that the decorations in that last example sometimes extend to the right of “h”.
 This is working as expected: ‘letter-spacing’ adds a space <em>after</em> letters, not <em>between</em> them, <a href="https://www.w3.org/TR/css-text-3/#letter-spacing-property">even though it <span style="font-variant: small-caps;">Really Should Not</span></a>.
-I tried wrapping the last letter of each word in a span[^1], but that creates a new problem where the letter appears to have its own decoration, out of phase with the rest of the word.
-
-[^1]: just like my name at the top of this page
+I tried wrapping the last letter of each word in a `span`, but then the letter appears to have its own decoration, out of phase with the rest of the word.
+This is because Blink lacks *phase-locked decorations*.
 
 <figure><div class="scroll"><div class="flex"><div class="_gifs _paused">
     <video loop playsinline tabindex="-1" width="384" height="216" poster="/images/spammar2-w4.png"><source src="/images/spammar2-w4.mp4"><source src="/images/spammar2-w4.webm"></video>
