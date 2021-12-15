@@ -55,7 +55,16 @@ At its core, the client funding this work had an internal patch that did just en
 But turning that into something that’s suitable for adoption by the general public, that interacts well with other features, and can be specified *and tested* in a cohesive way that makes sense to other implementors?
 That’s a lot more involved than merging a branch.
 
-Check out our [project index](https://bucket.daz.cat/work/igalia/0/) for a complete list of demos, tests, patches, and issues.
+Check out [our project index](https://bucket.daz.cat/work/igalia/0/) for a complete list of demos, tests, patches, and issues.
+For more details about the CSS highlight pseudos in particular, check out [my BlinkOn 15 talk], including the [highlight painting visualiser](https://bucket.daz.cat/work/igalia/0/29.html).
+
+[my BlinkOn 15 talk]: https://www.youtube.com/watch?v=Vh2niGIqtOc
+
+<figure><div class="scroll"><div class="flex">
+    <iframe class="local-video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/Vh2niGIqtOc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></div><figcaption>
+    (<a class="_demo" href="https://www.azabani.com/talks/2021-11-17-css-highlight-pseudos/">slides</a>)
+</figcaption></figure>
 
 ## Contents
 
@@ -97,8 +106,6 @@ This feature, and the features above, are also behind a flag:
 <figure><div class="scroll" markdown="1">
     --enable-blink-features=CSSSpellingGrammarErrors
 </div></figure>
-
-[TODO shill blinkon talk here]
 
 <h2 markdown="1" id="charlie">[C](https://www.youtube.com/watch?v=qcderLXiwa8)harlie’s ~~bird~~ spec lawyerings</h2>
 
