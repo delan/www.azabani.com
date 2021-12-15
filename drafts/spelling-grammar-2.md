@@ -429,55 +429,35 @@ This is how ::selection used to work, and at first I tried to keep it that way.
 
 ### Status quo
 
-<!-- 7 27/4 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-6e35ffa1c80f3b2f5e6bbf67a57455cae4cbf62a
-* status quo, but set parent_override
-* had to disable early return optimisation
-* had to disable pseudo style cache
-* copy *all* properties to base style
-* treat *all* properties as inherited when applying -->
-
 My initial solution was to make *paint* pass in a custom inheritance parent with its style request.
 Normally pseudo styles inherit from the originating element, but here they would inherit from the parent’s highlight styles, which we would obtain recursively.
 Then in the resolver, if we’re dealing with a highlight, we copy non-inherited properties too.
 
-On the surface, this worked, but to make it correct, we had to work around an optimisation where the resolver would bail out early if there were no matching rules.
+On the surface, this worked, but to make it *correct*, we had to work around an optimisation where the resolver would bail out early if there were no matching rules.
 Worse still, we had to bypass the pseudo cache entirely.
-We already had to do so under :window-inactive, but the performance penalty was fairly contained.
-Not anymore!
+While we already had to do so under :window-inactive, the performance penalty there was at least pretty contained.
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/7"><code>PS7</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
-
-<!-- 9..=10 3/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-e7233cca6fd3946e65013d523c9ebdb7c2e47b63
-* just clone parent (rather than copying properties)
-* active-selection-018 ::selection background inversion
-* still punishes :window-inactive -->
 
 If we copy over the parent’s inherited properties as usual, and for highlights, copy the non-inherited properties too, that more or less means we’re copying *all* the fields, so why not do away with that and just clone the parent’s ComputedStyle?
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/7..10"><code>PS10</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
-<!-- 13 7/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-701cd86b8e72f54623e777d4a1e9a3ece9d4e24d
-* attempt to cache, but no invalidation makes this d.o.a. -->
-
-<!-- I then tried to tackle the complete lack of caching for highlight styles. -->
-
 The pseudo cache is only designed for pseudos whose styles won’t need to change between the originating element’s style updates.
 For most pseudos, this is true anyway, as long as we bypass the cache under pseudo-classes like :window-inactive.
 
-These caches are essentially never cleared as such, but when the next update happens, the whole ComputedStyle (including the cache) gets discarded.
-Caching results with custom inheritance parents is frowned upon, because changing the parent you inherit your styles from can yield different styles, but for highlights, we will always pass in the same parent throughout an update cycle, so surely we can use the cache here?
+These caches are rarely actually cleared, but when the next update happens, the whole ComputedStyle — including the cache — gets discarded.
+Caching results with custom inheritance parents is usually frowned upon, because changing the parent you inherit your styles from can yield different styles.
+But for highlights, we will always have the same parent throughout an update cycle, so surely we can use the cache here?
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/10..13"><code>PS13</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
-
-<!-- 14..=16 28/5 https://chromium-review.googlesource.com/c/chromium/src/+/2850068/76#message-3b9153ca6ae474b6284fe59fb4b84d94bef48c48
-* generated StyleHighlightData (per pseudo) with applicable properties only -->
 
 …well, yes and no.
 
 Given an element that inherits a bunch of highlight styles, the initial styles are correct.
 But when those inherited values change in some ancestor, our highlight styles fail to update!
 This is a classic *cache invalidation* bug.
-Our invalidation system wasn’t even the problem — it’s just inherently unaware of lazily resolved styles in pseudo caches.
+Our invalidation system wasn’t even the problem — it’s just unaware of lazily resolved styles in pseudo caches.
 This is usually fine, because most pseudos inherit from the originating element, but not here.
 
 ### Storing highlight styles
