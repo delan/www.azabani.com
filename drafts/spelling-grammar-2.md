@@ -4,7 +4,7 @@ title: "Chromium spelling and grammar, part 2"
 date: 2022-01-01 00:00:00 +0800
 ---
 
-Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="_spelling">spelling</span> or <span class="_grammar">grammar</span> errors in their input.
+Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="_spelling">spelling</span> or <span class="_grammar"><span>grammar</span></span> errors in their input.
 CSS will give authors more control over when and how they appear, with the new ::spelling- and ::grammar-error pseudo-elements, and spelling- and grammar-error text decorations.
 [Since part 1] in May, we’ve done a fair bit of work in both Chromium and the CSSWG towards making this possible.
 
@@ -16,9 +16,9 @@ article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right:
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
 article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before { width: 13em; display: block; overflow: hidden; content: ""; }
 ._demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
-._spelling, ._grammar { text-decoration-thickness: 0; text-decoration-skip-ink: none; }
-._spelling { text-decoration: red wavy underline; }
-._grammar { text-decoration: green wavy underline; }
+._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
+._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
+._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
 ._table { font-size: 0.75em; }
 ._table td, ._table th { vertical-align: top; border: 1px solid black; }
 ._table td:not(._tight), ._table th:not(._tight) { padding: 0.5em; }
