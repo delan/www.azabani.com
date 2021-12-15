@@ -839,9 +839,11 @@ Itâ€™s definitely possible to make the active-selection tests account for this â
 
 ## [TODO next steps]
 
-## [TODO thanks]
 
-* rego, andruud, futhark, florian, fantasai, emilio
+
+## Shouts
+
+Special thanks to [Rego](https://twitter.com/regocas) (Igalia), [Rune](https://twitter.com/runeLi), andruud (Google), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), as well as [Bloomberg](https://www.bloomberg.com/company/) for sponsoring our work.
 
 <hr>
 
