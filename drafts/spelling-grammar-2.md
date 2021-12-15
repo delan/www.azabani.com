@@ -722,7 +722,7 @@ While they aren’t *entirely* resolved, we’ve been getting pretty close over 
 
 <h3 id="fixing-tests">Who’s got green<a href="https://www.youtube.com/watch?v=ul6VV8XW9xw">?</a></h3>
 
-Aside from cleanup and polish, the remaining work was to fix test failures and other bugs.
+Much of the remaining work was to fix test failures and other bugs.
 These included crashes under legacy layout, since we only implemented this for LayoutNG, and functional changes leaking out of the feature gate.
 One of the reftest failures was also interesting to deal with.
 Let’s minimise it and take a look.
@@ -788,7 +788,7 @@ Let me illustrate with an exaggerated example:
     <img width="167" height="102" src="/images/spammar2-ink-overflow.png" srcset="/images/spammar2-ink-overflow.png 2x">
 </div></figure>
 
-To be clear, this behaviour is generally considered desirable, and Firefox even supports it for all markup, not just ::selection.
+This behaviour is generally considered desirable, at least when there are unselected characters, so Blink isn’t exactly *wrong* here.
 It’s definitely possible to make the active-selection tests account for this — and the tools to do so already exist in the Web Platform Tests — but I don’t have the time to pursue this right now.
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/52..76"><code>PS76</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
