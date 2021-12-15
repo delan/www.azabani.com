@@ -673,10 +673,8 @@ StyleRecalcChange Element::RecalcOwnStyle(
 
 So far, I had been writing this patch as a *replacement* for the old inheritance logic, but since we decided to defer highlight inheritance for ::highlight to a later patch, we had to undelete the old behaviour and switch between them with a Blink feature.
 
-<!-- While this also proved prudent due to a compat risk we weren’t aware of ([csswg-drafts#6774](https://github.com/w3c/csswg-drafts/issues/6774)), the other reason why we did this was performance. --> Another reason for the feature gate was performance.
+Another reason for the feature gate was performance.
 Of the pages in the wild already using highlight pseudos, most of them probably use universal ::selection rules, if only because of how useless the old model was for more complex use cases.
-
-<!-- though some use counters might be a good idea -->
 
 <figure><div class="scroll" markdown="1">
 ```css
