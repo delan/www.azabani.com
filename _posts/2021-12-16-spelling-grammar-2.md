@@ -829,7 +829,7 @@ Other work needed before we can ship the spelling and grammar features:
 * Integrate spelling and grammar errors with decoration painting ([bug 1257553](https://crbug.com/1257553)).
 * Make automated testing possible for spelling and grammar errors ([wpt#30863](https://github.com/web-platform-tests/wpt/issues/30863)).
 
-Special thanks to [Rego](https://twitter.com/regocas) (Igalia), [Rune](https://twitter.com/runeLi), andruud (Google), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), Fernando (Microsoft), as well as [Bloomberg](https://www.bloomberg.com/company/) for sponsoring our work.
+Special thanks to [Rego](https://twitter.com/regocas), Frédéric (Igalia), [Rune](https://twitter.com/runeLi), andruud (Google), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), Fernando (Microsoft), as well as [Bloomberg](https://www.bloomberg.com/company/) for sponsoring our work.
 
 <hr>
 
