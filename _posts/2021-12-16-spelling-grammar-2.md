@@ -5,7 +5,7 @@ date: 2021-12-16 20:30:00 +0800
 tags: home igalia
 _preview_description: "Status update on the new CSS features, plus deep dives into spec writing, squiggly lines, and highlight inheritance."
 _preview_image: /images/spammar2-preview.png
-# _footer_twitter: https://twitter.com/dazabani/status/1394284456354013190
+_footer_twitter: https://twitter.com/dazabani/status/1471460499086741505
 ---
 
 Modern web browsers can help users with their word processing needs by drawing squiggly lines under possible <span class="_spelling">spelling</span> or <span class="_grammar"><span>grammar</span></span> errors in their input.
