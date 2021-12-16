@@ -14,6 +14,8 @@ CSS will give authors more control over when and how they appear, with the new :
 article figure > img { max-width: 100%; }
 article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
+article blockquote { max-width: 27rem; margin-inline: auto; }
+article blockquote > footer { text-align: right; }
 article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before { width: 13em; display: block; overflow: hidden; content: ""; }
 ._demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
 ._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
@@ -640,6 +642,8 @@ Looking at the resolver, I thought wow, there does seem to be a lot of redundant
 </div></figure>
 
 > In general we must find a less intrusive way to implement this. We can not have \|highlight\| params on everything.
+>
+> <footer>— <cite>andruud</cite>, Blink <em>style</em> owner</footer>
 
 You know what? Fair enough.
 
