@@ -3,7 +3,7 @@ layout: default
 title: "Chromium spelling and grammar, part 2"
 date: 2021-12-16 20:30:00 +0800
 tags: home igalia
-_preview_description: "Status update on the new spelling and grammar features, plus deep dives into spec writing, squiggly lines, and highlight inheritance."
+_preview_description: "Status update on spelling and grammar, plus deep dives into spec writing, squiggly lines, and highlight inheritance."
 _preview_image: /images/spammar2-preview.png
 # _footer_twitter: https://twitter.com/dazabani/status/1394284456354013190
 ---
