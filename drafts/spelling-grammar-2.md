@@ -103,7 +103,7 @@ Adding to our initial support for ::{spelling,grammar}-error, we’ve since made
 While they are accepted but ignored in Chromium 96, you’ll be able to *see* them in Chromium 98, with our early paint support.
 
 Chromium 96 also makes it possible to change the color of native squiggly lines by setting ‘text-decoration-color’ on either of the new pseudo-elements.
-This feature, and the features above, are behind a Blink feature:
+This feature, and the features above, are behind another flag:
 
 <figure><div class="scroll" markdown="1">
     --enable-blink-features=CSSSpellingGrammarErrors
