@@ -697,14 +697,17 @@ Of the pages in the wild already using highlight pseudos, most of them probably 
 </div></figure>
 
 But `::selection` isn’t magic — it literally means `*::selection`, which makes the rule match everywhere in the ::selection tree.
-As a result, we end up cloning highlight styles for each descendant, only to apply the *same* property values, which wastes time and memory.
-This will need to be fixed before we can enable the feature for everyone.
+When highlight inheritance is enabled, that means we end up cloning highlight styles for each descendant, only to apply the *same* property values, which wastes time and memory.
 
 <figure><div class="scroll">
     <img width="448" height="378" src="/images/spammar2-z0.png" srcset="/images/spammar2-z0.png 2x">
 </div><figcaption>
 The reality is a bit more complicated than this, because ‘color’ and ‘background-color’ are actually in field groups that would also need to be cloned.
 </figcaption></figure>
+
+Under the old model, where lack of inheritance made this necessary, `*::selection` rules suffered from roughly the same problem, but the lazy style resolution meant that time and memory was only wasted on the elements *directly containing* selected content.
+
+As a result, this will need to be fixed before we can enable the feature for everyone.
 
 <div class="_commit"><a href="https://crrev.com/c/2850068/43..51"><code>PS51</code></a><img width="40" height="40" src="/images/badapple-commit-dot.svg"></div>
 
