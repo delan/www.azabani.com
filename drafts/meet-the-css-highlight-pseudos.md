@@ -28,6 +28,48 @@ article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before 
 ._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
+
+._checker { position: relative; }
+._checker:focus { outline: none; }
+._checker::before { display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
+._checker:not(:focus)::before { color: rebeccapurple; background: #66339940; }
+._checker *::selection { color: currentColor; background: transparent; }
+._checker:not(:focus) td > div { visibility: hidden; }
+._checker:not([data-phase=done]):not(#specificity) td > div,
+._checker:not([data-phase=done]):not(#specificity) td > div * { color: transparent; }
+._checker:not([data-phase=done]):not(#specificity) td > div::selection,
+._checker:not([data-phase=done]):not(#specificity) td > div *::selection { color: transparent; }
+._checker:not([data-phase=done]):not(#specificity) td > div::highlight(checker),
+._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(checker),
+._checker:not([data-phase=done]):not(#specificity) td > div::highlight(upper),
+._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(upper) { color: transparent; }
+._checker td > div { width: 5em; }
+._checker td > div { position: relative; line-height: 1; }
+._checker td > div > span { position: absolute; margin: 0; padding-top: calc((1.5em - 1em) / 2); width: 5em; }
+._checker ._custom :nth-child(2),
+._checker [spellcheck] :nth-child(2),
+._checker ._hih,
+._checker ._his,
+._checker ._hop { color: transparent; background: transparent; }
+._checker ._custom :nth-child(1)::highlight(checker) { color: transparent; }
+._checker [spellcheck] :nth-child(1)::spelling-error { color: transparent; }
+._checker ._custom :nth-child(2)::highlight(checker) { color: CanvasText; background: Canvas; }
+._checker [spellcheck] :nth-child(2)::spelling-error { color: CanvasText; background: Canvas; }
+._checker [spellcheck] *::spelling-error { text-decoration: none; }
+._checker ._hih::highlight(checker) { --t: transparent; --x: CanvasText; --y: Canvas; }
+._checker ._hih :nth-child(1)::highlight(checker) { color: var(--t, CanvasText); background: var(--t, Canvas); }
+._checker ._hih :nth-child(2)::highlight(checker) { color: var(--x, transparent); background: var(--y, transparent); }
+._checker ._his::selection { --t: transparent; --x: CanvasText; --y: Canvas; }
+._checker ._his :nth-child(1)::selection { color: var(--t, CanvasText); background: var(--t, Canvas); }
+._checker ._his :nth-child(2)::selection { color: var(--x, transparent); background: var(--y, transparent); }
+._checker ._hop :nth-child(1) { color: CanvasText; }
+._checker ._hop :nth-child(1)::highlight(checker) { color: transparent; }
+._checker ._hop :nth-child(1)::highlight(upper) { color: currentColor; }
+._checker ._hop :nth-child(2) { color: transparent; }
+._checker ._hop :nth-child(2)::highlight(checker) { color: CanvasText; -webkit-text-fill-color: transparent; }
+._checker ._hop :nth-child(2)::highlight(upper) { color: currentColor; -webkit-text-fill-color: currentColor; }
+._checker._table th { text-align: left; }
+
 ._table { font-size: 0.75em; }
 ._table td, ._table th { vertical-align: top; border: 1px solid black; }
 ._table td:not(._tight), ._table th:not(._tight) { padding: 0.5em; }
@@ -88,6 +130,82 @@ You can enable these features at
 > chrome://flags/#enable-experimental-web-platform-features
 
 ^ FIXME check version
+
+<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+    <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>Spelling</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
+</table>
+<script>
+    let checkerTimer = null;
+    const checker = document.querySelector("._checker");
+    checker.addEventListener("focus", ({target}) => {
+        console.log("focus");
+        if (target.dataset.phase == "fresh") {
+            target.dataset.phase = "spell";
+            checkerTimer = setTimeout(finish, 250);
+            const range = new Range;
+            range.selectNodeContents(target.querySelector("[spellcheck]"));
+            getSelection().removeAllRanges();
+            getSelection().addRange(range);
+            if (this.internals)
+                internals.setMarker(document, range, "spelling");
+        } else if (target.dataset.phase == "spell") {
+            clearTimeout(checkerTimer);
+            checkerTimer = setTimeout(finish, 250);
+        } else {
+            finish();
+        }
+
+        function finish() {
+            target.dataset.phase = "done";
+            checkerTimer = null;
+            if (this.CSS && CSS.highlights) {
+                const custom = new Range;
+                custom.selectNodeContents(target.children[0].children[0]);
+                const hop = new Range;
+                hop.selectNodeContents(target.children[0].children[2]);
+                const hih = new Range;
+                hih.selectNodeContents(target.children[0].children[4]);
+                CSS.highlights.set("checker", new Highlight(custom, hop, hih));
+                CSS.highlights.set("upper", new Highlight(hop));
+            }
+            fixCheckerSelectionIfNeeded();
+        }
+    });
+    checker.addEventListener("click", ({target}) => {
+        if (target.dataset.phase != "done")
+            return;
+        console.log("click");
+        fixCheckerSelectionIfNeeded();
+    });
+    checker.addEventListener("beforeinput", event => {
+        event.preventDefault();
+    });
+    document.addEventListener("selectionchange", event => {
+        console.log("selectionchange");
+        if (checker.dataset.phase != "done")
+            return;
+        if (document.activeElement != checker)
+            return;
+        fixCheckerSelectionIfNeeded();
+    });
+    function fixCheckerSelectionIfNeeded() {
+        const row = checker.children[0].children[3];
+        const sel = getSelection();
+        if (sel.anchorNode == row
+            && sel.focusNode == row
+            && sel.anchorOffset == 0
+            && sel.focusOffset == row.childNodes.length)
+            return;
+        const his = new Range;
+        his.selectNodeContents(row);
+        getSelection().removeAllRanges();
+        getSelection().addRange(his);
+    }
+</script>
 
 ## How do I use them?
 
