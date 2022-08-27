@@ -82,6 +82,13 @@ This includes highlight overlay painting, which was enabled for all highlight ps
 [::selection]: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
 [::target-text]: https://developer.mozilla.org/en-US/docs/Web/CSS/::target-text
 
+Chromium 107 includes ::spelling-error and ::grammar-error as an experimental feature.
+You can enable these features at
+
+> chrome://flags/#enable-experimental-web-platform-features
+
+^ FIXME check version
+
 ## How do I use them?
 
 While you can write rules for highlight pseudos that target all elements, as was commonly done for pre-standard ::selection, selecting specific elements can be more powerful, allowing descendants to cleanly override highlight styles.
@@ -263,7 +270,7 @@ This code hides any original decorations (in visual media), because those decora
 
 In fact, because of ‘-webkit-text-fill-color’ and [its stroke-related siblings], it isn’t always possible for highlight pseudos to avoid changing the foreground colors of text, at least not without out-of-band knowledge of what those colors are.
 
-[its stroke-related siblings]: .
+[its stroke-related siblings]: https://compat.spec.whatwg.org/#the-webkit-text-stroke
 
 <figure><div class="scroll" markdown="1">
 ```css
@@ -323,13 +330,16 @@ You can work around this by adding selectors for the necessary highlight pseudos
 ```css
 @property --primary {
     initial-value: #420420;
-    syntax: "*"; inherits: false; }
+    syntax: "*"; inherits: false;
+}
 @property --secondary {
     initial-value: #C0FFEE;
-    syntax: "*"; inherits: false; }
+    syntax: "*"; inherits: false;
+}
 @property --accent {
     initial-value: #663399;
-    syntax: "*"; inherits: false; }
+    syntax: "*"; inherits: false;
+}
 ```
 </div></div></figure>
 
