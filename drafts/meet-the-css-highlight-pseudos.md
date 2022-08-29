@@ -215,11 +215,11 @@ While you can write rules for highlight pseudos that target all elements, as was
 ```css
 ::selection {
     color: white;
-    background: blue;
+    background-color: blue;
 }
 aside::selection,
 aside *::selection {
-    background: green;
+    background-color: green;
 }
 ```
 <div class="gap"></div>
@@ -228,13 +228,15 @@ aside *::selection {
 ```css
 :root::selection {
     color: white;
-    background: blue;
+    background-color: blue;
 }
 aside::selection {
-    background: green;
+    background-color: green;
 }
 ```
-</div></div></figure>
+</div></div><figcaption markdown="1">
+With highlight inheritance (right), aside::selection can now override ‘background-color’ cleanly without needing to select all of its descendants (left).
+</figcaption></figure>
 
 ::selection is primarily controlled by user input, though pages can both read and write the active ranges via the [Selection] API with [getSelection()].
 
@@ -307,7 +309,7 @@ Regardless of which parts (if any) are highlighted, the styles returned are as i
 
 ## How do they work?
 
-They are defined as pseudo-elements, but they actually have very little in common with other pseudo-elements like ::before and ::first-line.
+Highlight pseudos are defined as pseudo-elements, but they actually have very little in common with other pseudo-elements like ::before and ::first-line.
 Unlike other pseudos, they generate _highlight overlays_, not boxes, and these overlays are like layers over the original content.
 Where text is highlighted, a highlight overlay can add backgrounds and text shadows, while the text proper and any other decorations are “lifted” to the very top.
 
