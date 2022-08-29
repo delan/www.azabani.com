@@ -131,14 +131,14 @@ You can enable these features at
 
 ^ FIXME check version
 
-<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh" style="/* FIXME */ display: none;">
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Spelling</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
 </table>
-<script>
+<script>/*
     let checkerTimer = null;
     const checker = document.querySelector("._checker");
     checker.addEventListener("focus", ({target}) => {
@@ -205,7 +205,7 @@ You can enable these features at
         getSelection().removeAllRanges();
         getSelection().addRange(his);
     }
-</script>
+*/</script>
 
 ## How do I use them?
 
