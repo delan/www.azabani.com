@@ -313,7 +313,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
 
 <style>@import url(/images/hpdemo.css);</style>
 <script src="/images/hpdemo.js"></script>
-<div class="_demo _hpdemo" data-_demo="_hpdemo" style="--h: calc(var(--inner-width) * 11/16); height: calc(var(--inner-width) * 3/8); width: var(--inner-width);">
+<figure><div class="_demo _hpdemo" data-_demo="_hpdemo" style="--w: var(--inner-width);">
     <script type="text/x-choreography">
         q   q   q   q   q   q
         0   3   6   6   9   9
@@ -342,7 +342,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
             <span>qui<span style="color: initial;"><span style="text-decoration: red wavy underline;">kc</span> br</span>own fox</span>
         </div>
     </main></div>
-</div>
+</div></figure>
 <script>
     const hpdemo = {
         update() {

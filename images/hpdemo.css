@@ -1,7 +1,8 @@
 ._hpdemo {
-    --h: 500px;
-    display: flex;
-    align-items: center;
+    --w: 800px;
+    --h: calc(var(--w) * 6/16);
+    width: var(--w);
+    height: var(--h);
 }
 ._hpdemo * {
     box-sizing: border-box;
@@ -9,7 +10,7 @@
     text-decoration-skip: none;
 }
 ._hpdemo > div {
-    --base: calc(var(--h) / 40);
+    --base: calc(var(--h) * 11/240);
     position: relative;
     inset: 0 50% 0 50%;
     width: 0;
