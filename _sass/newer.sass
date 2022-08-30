@@ -1,3 +1,12 @@
+html
+    --inner-width: calc(100vw - #{$outer-width - $inner-width})
+
+@media (min-width: #{$outer-width})
+    html
+        --inner-width: #{$inner-width}
+    header
+        font-size: 4em
+
 pre, code
     font-family: Inconsolata, monospace, monospace
     font-size: 0.75em

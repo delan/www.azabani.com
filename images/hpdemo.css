@@ -1,0 +1,89 @@
+._hpdemo {
+    --h: 500px;
+    display: flex;
+    align-items: center;
+}
+._hpdemo * {
+    box-sizing: border-box;
+    text-decoration-skip-ink: none;
+    text-decoration-skip: none;
+}
+._hpdemo > div {
+    --base: calc(var(--h) / 40);
+    position: relative;
+    inset: 0 50% 0 50%;
+    width: 0;
+    height: var(--h);
+    font-family: Helvetica, sans-serif;
+    font-size: var(--base);
+}
+._hpdemo > div > main {
+    --r: 37.5deg;
+    width: 0;
+    height: 0;
+    position: relative;
+    inset: 50% 50% 50% 50%;
+    perspective: 100vh;
+    perspective-origin: center 50vh;
+}
+._hpdemo > div > main > div {
+    --w: 52em;
+    --h: 20em;
+    --t: rotateX(var(--r));
+    --step-y: 0;
+    --step-c: 0;
+    --step-u: 0;
+    --step-r: 0;
+    --label-shift: 0;
+    width: var(--w);
+    height: calc(var(--h) - var(--label-shift) * 1em);
+    padding: 1em;
+    position: absolute;
+    inset: calc(0em - var(--h) / 2) 0 0 calc(0em - var(--w) / 2);
+    transform: translateZ(calc(
+        0em
+        /* if u, then (7n)em */
+        + var(--step-u) * var(--n) * 7em
+        /* else... */
+        + (1 - var(--step-u)) * (
+            -5em
+            /* if c, raise 3em */
+            + var(--step-c) * 3em
+            /* raise (y)em */
+            + 1em * var(--step-y)
+        )
+    )) translateY(calc(
+        0em
+        /* if u, push back (7n)em */
+        - var(--step-u) * var(--n) * 7em
+        /* if c, push back 7em */
+        - var(--step-c) * 7em
+    )) var(--t) translateX(calc(
+        0em
+        + var(--step-r) * 2 * var(--w)
+    ));
+    transition: all 0.5s;
+}
+._hpdemo > div > main > div > span {
+    font-size: 7em;
+    color: transparent;
+}
+._hpdemo > div > main > div > label {
+    color: initial;
+    font-size: var(--base);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+._hpdemo > div > main > div.h,
+._hpdemo > div > main > div.q > label {
+    opacity: 0;
+}
+._hpdemo > div > main > div.q {
+    background-color: transparent !important;
+    outline-color: transparent !important;
+}
+._hpdemo > div > main > div.f {
+    --r: 0deg;
+}

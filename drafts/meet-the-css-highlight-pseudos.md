@@ -23,8 +23,6 @@ article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right:
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
 article blockquote { max-width: 27rem; margin-inline: auto; }
 article blockquote > footer { text-align: right; }
-article > /* gross and fragile hack */ :not(img):not(hr):not(blockquote):before { width: 13em; display: block; overflow: hidden; content: ""; }
-._demo { font-style: italic; font-weight: bold; color: rebeccapurple; }
 ._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
@@ -313,7 +311,62 @@ Highlight pseudos are defined as pseudo-elements, but they actually have very li
 Unlike other pseudos, they generate _highlight overlays_, not boxes, and these overlays are like layers over the original content.
 Where text is highlighted, a highlight overlay can add backgrounds and text shadows, while the text proper and any other decorations are “lifted” to the very top.
 
-Highlight pseudos can be thought of as _innermost_ pseudo-elements that always exist at the bottom of any tree of elements and other pseudos, but they don’t inherit their styles from that element tree.
+<style>@import url(/images/hpdemo.css);</style>
+<script src="/images/hpdemo.js"></script>
+<div class="_demo _hpdemo" data-_demo="_hpdemo" style="--h: calc(var(--inner-width) * 11/16); height: calc(var(--inner-width) * 3/8); width: var(--inner-width);">
+    <script type="text/x-choreography">
+        q   q   q   q   q   q
+        0   3   6   6   9   9
+    </script>
+    <div><main style="--n: 7;">
+        <div style="outline: 3px dotted #00000070; background: #70700038;">
+            <span>quikc brown<span style="color: initial;"> fox</span></span>
+            <label>originating element</label>
+        </div>
+        <div style="outline: 3px dotted #00000070; background: #A8000038;">
+            <span><span style="color: initial; text-decoration: red wavy underline;">qui</span>kc brown fox</span>
+            <label>::spelling-error</label>
+        </div>
+        <div style="outline: 3px dotted #00000070; background: #66339938;">
+            <span>quikc <span style="background: #D070D0C0;">br<span>own</span></span> fox</span>
+            <label>::target-text</label>
+        </div>
+        <div class="q">
+            <span>quikc <span>br<span style="color: initial;">own</span></span> fox</span>
+        </div>
+        <div style="outline: 3px dotted #00000070; background: #3838C038;">
+            <span>qui<span style="background: #3838C0C0;"><span>kc</span> br</span>own fox</span>
+            <label>::selection</label>
+        </div>
+        <div class="q">
+            <span>qui<span style="color: initial;"><span style="text-decoration: red wavy underline;">kc</span> br</span>own fox</span>
+        </div>
+    </main></div>
+</div>
+<script>
+    const hpdemo = {
+        update() {
+            const t = this.tFunction();
+            if (t == this.t) return;
+            this.t = t;
+            this.state = _hpdemo(this.state, this.root, this.t);
+        },
+        tFunction() {
+            const rect = this.root.getBoundingClientRect();
+            const y = rect.top + (rect.bottom - rect.top) / 2;
+            return Number(y < innerHeight / 2);
+        },
+        state: {},
+        root: document.querySelector("._hpdemo"),
+        t: 0,
+    };
+    hpdemo.update();
+    addEventListener("scroll", () => {
+        hpdemo.update();
+    });
+</script>
+
+You can think of them as _innermost_ pseudo-elements that always exist at the bottom of any tree of elements and other pseudos, but they don’t inherit their styles from that element tree.
 Instead each highlight pseudo forms its own inheritance tree, parallel to the element tree.
 
 <hr>
