@@ -316,7 +316,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
 <figure><div class="_demo _hpdemo" data-_demo="_hpdemo" style="--w: var(--inner-width);">
     <script type="text/x-choreography">
         q   q   q   q   q   q
-        0   3   6   6   9   9
+        0   1   2   2   3   3
     </script>
     <div><main style="--n: 7;">
         <div style="outline: 3px dotted #00000070; background: #70700038;">

@@ -12,35 +12,35 @@
 ._hpdemo > div {
     --base: calc(var(--h) * 11/240);
     position: relative;
-    inset: 0 50% 0 50%;
-    width: 0;
+    inset: 0;
+    width: var(--w);
     height: var(--h);
     font-family: Helvetica, sans-serif;
     font-size: var(--base);
 }
 ._hpdemo > div > main {
     --r: 37.5deg;
-    width: 0;
-    height: 0;
+    width: var(--w);
+    height: var(--h);
     position: relative;
-    inset: 50% 50% 50% 50%;
-    perspective: 100vh;
-    perspective-origin: center 50vh;
+    inset: 0;
+    perspective: calc(var(--h) * 3);
+    perspective-origin: center bottom;
 }
 ._hpdemo > div > main > div {
-    --w: 52em;
-    --h: 20em;
+    --self-w: 52em;
+    --self-h: 20em;
     --t: rotateX(var(--r));
     --step-y: 0;
     --step-c: 0;
     --step-u: 0;
     --step-r: 0;
     --label-shift: 0;
-    width: var(--w);
-    height: calc(var(--h) - var(--label-shift) * 1em);
+    width: var(--self-w);
+    height: calc(var(--self-h) - var(--label-shift) * 2em);
     padding: 1em;
     position: absolute;
-    inset: calc(0em - var(--h) / 2) 0 0 calc(0em - var(--w) / 2);
+    inset: calc(var(--h)/2 - var(--self-h)/2) 0 0 calc(var(--w)/2 - var(--self-w)/2);
     transform: translateZ(calc(
         0em
         /* if u, then (7n)em */
@@ -51,7 +51,7 @@
             /* if c, raise 3em */
             + var(--step-c) * 3em
             /* raise (y)em */
-            + 1em * var(--step-y)
+            + 2em * var(--step-y)
         )
     )) translateY(calc(
         0em
@@ -61,7 +61,7 @@
         - var(--step-c) * 7em
     )) var(--t) translateX(calc(
         0em
-        + var(--step-r) * 2 * var(--w)
+        + var(--step-r) * 2 * var(--self-w)
     ));
     transition: all 0.5s;
 }
