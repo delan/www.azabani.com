@@ -358,7 +358,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
         },
         state: {},
         root: document.querySelector("._hpdemo"),
-        t: 0,
+        t: null,
     };
     hpdemo.update();
     addEventListener("scroll", () => {
