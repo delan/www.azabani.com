@@ -221,6 +221,11 @@ Click the table below to see if your browser supports these features.
         }
     });
 
+    checker.addEventListener("blur", ({target}) => {
+        if (target.dataset.phase == "done")
+            getSelection().removeAllRanges();
+    });
+
     checker.addEventListener("click", ({target}) => {
         if (target.dataset.phase != "done")
             return;
