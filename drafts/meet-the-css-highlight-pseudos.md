@@ -365,14 +365,14 @@ Regardless of which parts (if any) are highlighted, the styles returned are as i
     getSelection().removeAllRanges();
     getSelection().selectAllChildren(document.body);
 
-    // = rgb(255, 0, 255)
-    // even though only ::selection is active
-    getComputedStyle(document.body, "::highlight(foo)")
-        .backgroundColor;
+    const style = getComputedStyle(document.body, "::highlight(foo)");
+    console.log(style.backgroundColor);
 </script>
 <body>Hello, world!</body>
 ```
-</div></figure>
+</div><figcaption markdown="1">
+This code always prints “rgb(255, 0, 255)”, even though only ::selection is active.
+</figcaption></figure>
 
 ## How do they work?
 
