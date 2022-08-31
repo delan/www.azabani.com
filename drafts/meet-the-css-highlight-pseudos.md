@@ -18,6 +18,7 @@ This is the third part of a series ([part one], [part two]) about Igalia’s wor
 [part two]: {% post_url 2021-12-16-spelling-grammar-2 %}
 
 <style>
+article { --cr-highlight: #3584E4; --cr-highlight-aC0h: #3584E4C0; }
 article figure > img { max-width: 100%; }
 article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
@@ -328,7 +329,7 @@ Previously the same code would yield…
     <span style="color: HighlightText; background: Highlight;">the fox jumps over the dog</span>
     <div>
         <span style="color: white; background: darkred;">(the </span
-        ><sup style="color: white; background: #3584e4;">quick</sup
+        ><sup style="color: white; background: var(--cr-highlight);">quick</sup
         ><span style="color: white; background: darkred;"> fox, mind you)</span>
     </div>
 </div>
@@ -627,7 +628,7 @@ For compatibility with ::selection in old browsers, the UA default ‘color’ a
 This rule is known as _paired cascade_, and for consistency it also applies to ::target-text.
 
 <figure><div class="scroll"><div class="flex"><table class="_sum">
-<tr><td></td><td><span style="color: white; background: #3584e4;">default on default</span></td></tr>
+<tr><td></td><td><span style="color: white; background: var(--cr-highlight);">default on default</span></td></tr>
 <tr><td>+</td><td markdown="1">
 ```css
 ::selection { background: yellow; }
@@ -636,7 +637,7 @@ This rule is known as _paired cascade_, and for consistency it also applies to :
 <tr><td>=</td><td><span style="color: black; background: yellow;">initial on yellow</span></td></tr>
 </table></div></div></figure>
 
-It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: #3584e4;">white on blue</span>, for example.
+It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: var(--cr-highlight);">white on blue</span>, for example.
 To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), originating decorations are recolored to the highlight ‘color’.
 This doesn’t apply to decorations added by highlights though, because that would break the typical appearance of <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors.
 
@@ -713,6 +714,51 @@ This code means that ::highlight(undelete) adds no decorations or shadows, not t
 </figcaption></figure>
 
 Removing shadows that might clash with highlight backgrounds (as suggested in the tutorial above) will no longer be as necessary anyway, since highlight backgrounds now paint *on top of* the original text shadows.
+
+<figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
+<div class="_example" style="width: max-content; font-size: 2em; font-weight: bold; padding-right: 0.25em;">
+    <div style="position: relative; color: transparent;">
+        <div style="position: absolute; bottom: 0; text-shadow: 0.25em 0.25em magenta;">
+            <span style="color: white; background: var(--cr-highlight);">Faultlore</span>
+        </div>
+        <!-- sizer -->
+        Faultlore
+    </div>
+    <div style="position: relative; color: transparent;">
+        <div style="position: absolute; bottom: 0; text-shadow: 0.25em 0.25em magenta;">
+            <span style="color: white; background: var(--cr-highlight-aC0h);">Faultlore</span>
+        </div>
+        <!-- sizer -->
+        Faultlore
+    </div>
+</div>
+<div class="gap"></div>
+→
+<div class="gap"></div>
+<div class="_example" style="width: max-content; font-size: 2em; font-weight: bold; padding-right: 0.25em;">
+    <div style="position: relative; color: transparent;">
+        <div style="position: absolute; bottom: 0; text-shadow: 0.25em 0.25em magenta;">
+            Faultlore
+        </div>
+        <div style="position: absolute; bottom: 0;">
+            <span style="color: white; background: var(--cr-highlight);">Faultlore</span>
+        </div>
+        <!-- sizer -->
+        Faultlore
+    </div>
+    <div style="position: relative; color: transparent;">
+        <div style="position: absolute; bottom: 0; text-shadow: 0.25em 0.25em magenta;">
+            Faultlore
+        </div>
+        <div style="position: absolute; bottom: 0;">
+            <span style="color: white; background: var(--cr-highlight-aC0h);">Faultlore</span>
+        </div>
+        <!-- sizer -->
+        Faultlore
+    </div>
+</div>
+</div></div></figure>
+
 If you still want to ensure those shadows don’t clash with highlights in older browsers, you can set ‘text-shadow’ to ‘none’, which is harmless in newer browsers.
 
 <figure><div class="scroll" markdown="1">
