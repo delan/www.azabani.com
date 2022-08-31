@@ -736,7 +736,7 @@ Removing shadows that might clash with highlight backgrounds (as suggested in th
     </div>
 </div>
 <div class="gap"></div>
-→
+<a href="https://gankra.github.io">→</a>
 <div class="gap"></div>
 <div class="_example" style="width: max-content; font-size: 2em; font-weight: bold; padding-right: 0.25em;">
     <div style="position: relative; color: transparent;">
