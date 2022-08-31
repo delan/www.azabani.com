@@ -328,7 +328,7 @@ Previously the same code would yield…
     <span style="color: HighlightText; background: Highlight;">the fox jumps over the dog</span>
     <div>
         <span style="color: white; background: darkred;">(the </span
-        ><sup style="color: HighlightText; background: Highlight;">quick</sup
+        ><sup style="color: white; background: #3584e4;">quick</sup
         ><span style="color: white; background: darkred;"> fox, mind you)</span>
     </div>
 </div>
@@ -635,7 +635,7 @@ This rule is known as _paired cascade_, and for consistency it also applies to :
 <tr><td>=</td><td><span style="color: black; background: yellow;">initial on yellow</span></td></tr>
 </table></div></div></figure>
 
-It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: darkblue;">white on blue</span>, for example.
+It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: #3584e4;">white on blue</span>, for example.
 To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), originating decorations are recolored to the highlight ‘color’.
 This doesn’t apply to decorations added by highlights though, because that would break the typical appearance of <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors.
 
