@@ -470,6 +470,7 @@ That escape hatch is to set ‘color’ itself to ‘currentColor’, which is t
     <br>
     <span style="color: rebeccapurple;">quick → <span class="_spelling">quikc</span></span>
 </div>
+<div class="gap"></div>
 ```css
 :root::spelling-error {
     /* color: currentColor; */
@@ -493,6 +494,7 @@ To make highlight inheritance actually useful for <span class="_spelling">‘tex
 <div class="_example" style="width: max-content; font-size: 3em;">
     <sup style="background-color: yellow;">quick</sup><span style="background-color: yellow;"> fox</span>
 </div>
+<div class="gap"></div>
 ```html
 <style>
     aside::selection {
@@ -526,6 +528,7 @@ We resolved this by making decorations added by highlights not propagate to any 
         <sup class="_spelling">quikc</sup> <span class="_spelling">fxo</span>
     </div>
 </div>
+<div class="gap"></div>
 ```html
 <style>
     .blue {
@@ -579,6 +582,7 @@ This doesn’t apply to decorations added by highlights though, because that wou
         buy bread
     </span></div>
 </div>
+<div class="gap"></div>
 ```html
 <style>
     del {

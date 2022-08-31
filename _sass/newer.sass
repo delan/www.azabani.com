@@ -65,11 +65,12 @@ figure
             > *
                 margin: 0
 
+            // iOS only supports gap in flexbox since 14.5
             > div.gap
                 width: 1em
+                height: 1em
 
             &.row_bag, &.column_bag
-                gap: 1em
                 align-items: center
 
             &.row_bag
