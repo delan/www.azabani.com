@@ -21,9 +21,12 @@ This is the third part of a series ([part one], [part two]) about Igalia’s wor
 article figure > img { max-width: 100%; }
 article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right: auto; }
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
-article blockquote { max-width: 27rem; margin-inline: auto; }
-article blockquote > footer { text-align: right; }
+article aside, article blockquote { font-size: 0.75em; max-width: 30rem; }
+article aside { margin-left: 0; padding-left: 1rem; border-left: 3px double rebeccapurple; }
 ._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
+article blockquote { margin-left: 3rem; }
+article blockquote:before { margin-left: -2rem; }
+
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
 
@@ -386,6 +389,7 @@ This code always prints “rgb(255, 0, 255)”, even though only ::selection is 
 ## How do they work?
 
 Highlight pseudos are defined as pseudo-elements, but they actually have very little in common with other pseudo-elements like ::before and ::first-line.
+
 Unlike other pseudos, they generate _highlight overlays_, not boxes, and these overlays are like layers over the original content.
 Where text is highlighted, a highlight overlay can add backgrounds and text shadows, while the text proper and any other decorations are “lifted” to the very top.
 
@@ -444,20 +448,44 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
     });
 </script>
 
-You can think of them as _innermost_ pseudo-elements that always exist at the bottom of any tree of elements and other pseudos, but they don’t inherit their styles from that element tree.
+You can think of highlight pseudos as _innermost_ pseudo-elements that always exist at the bottom of any tree of elements and other pseudos, but unlike other pseudos, they don’t inherit their styles from that element tree.
+
 Instead each highlight pseudo forms its own inheritance tree, parallel to the element tree.
+This means body::selection inherits from html::selection, not from ‘body’ itself.
 
 <hr>
 
 At this point, you can probably see that the highlight pseudos are quite different from the rest of CSS, but there are also several special cases and rules needed to make them a coherent system.
 
 For the typical appearance of <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors, highlight pseudos need to be able to add their own decorations, and they need to be able to leave the underlying foreground color unchanged.
-_Highlight inheritance_ happens separately from the element tree, so we need some way to refer to the underlying foreground color.
-That escape hatch is to set ‘color’ itself to ‘currentColor’, which is a special case within a special case.
+Highlight inheritance happens separately from the element tree, so we need some way to refer to the underlying foreground color.
+
+That escape hatch is to set ‘color’ itself to ‘currentColor’, which is the default if nothing in the highlight tree sets ‘color’.
+
+<figure><div class="scroll" markdown="1">
+```css
+::spelling-error {
+    /* color: currentColor; */
+    text-decoration: red wavy underline;
+}
+```
+<div style="width: max-content; font-size: 3em;">
+    quick → <span class="_spelling">quikc</span>
+    <br>
+    <span style="color: rebeccapurple;">quick → <span class="_spelling">quikc</span></span>
+</div>
+</div></figure>
+
+<aside markdown="1">
+This is a bit of a special case within a special case.
 
 You see, ‘currentColor’ is usually defined as “the computed value of ‘color’”, but the way I like to think of it is “don’t change the foreground color”, and most color-valued properties like ‘text-decoration-color’ default to this value.
+
 For ‘color’ itself that wouldn’t make sense, so we instead define ‘color:currentColor’ as equivalent to ‘color:inherit’, which still fits that mental model.
 But for highlights, that definition would no longer fit, so we redefine it as being the ‘color’ of the next active highlight below.
+</aside>
+
+<hr>
 
 To make highlight inheritance actually useful for <span class="_spelling">‘text-decoration’</span> and <span style="background: yellow;">‘background-color’</span>, _all properties are inherited_ in highlight styles, even those that are not usually inherited.
 This would conflict with the usual rules for decorating box[^1] propagation, so we resolved this by making decorations added by highlights not propagate to any descendants.
