@@ -326,7 +326,7 @@ Previously the same code would yield…
 
 <figure markdown="1"><div markdown="1" class="scroll">
 <div class="_example" style="width: max-content; font-size: 2em; color: white;">
-    <span style="color: HighlightText; background: Highlight;">the fox jumps over the dog</span>
+    <span style="color: white; background: var(--cr-highlight);">the fox jumps over the dog</span>
     <div>
         <span style="color: white; background: darkred;">(the </span
         ><sup style="color: white; background: var(--cr-highlight);">quick</sup
