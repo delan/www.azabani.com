@@ -23,13 +23,14 @@ article figure > figcaption { max-width: 30rem; margin-left: auto; margin-right:
 article pre, article code { font-family: Inconsolata, monospace, monospace; }
 article aside, article blockquote { font-size: 0.75em; max-width: 30rem; }
 article aside { margin-left: 0; padding-left: 1rem; border-left: 3px double rebeccapurple; }
-._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
 article blockquote { margin-left: 3rem; }
 article blockquote:before { margin-left: -2rem; }
 
+._spelling, ._grammar { text-decoration-thickness: /* iOS takes 0 literally */ 1px; text-decoration-skip-ink: none; }
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
 ._example { border: 2px dotted rebeccapurple; }
+._example * + * { margin-top: 0; }
 
 ._checker { position: relative; margin-left: auto; margin-right: auto; }
 ._checker:focus { outline: none; }
@@ -555,9 +556,39 @@ This rule is known as _paired cascade_, and for consistency it also applies to :
 <tr><td>=</td><td><span style="color: black; background: yellow;">initial on yellow</span></td></tr>
 </table></div></div></figure>
 
-It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: cornflowerblue;">white on blue</span>, for example.
-To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), _originating decorations are recolored_ to the highlight ‘color’.
+It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: darkblue;">white on blue</span>, for example.
+To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), originating decorations are recolored to the highlight ‘color’.
 This doesn’t apply to decorations added by highlights though, because that would break the typical appearance of <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors.
+
+<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em; flex-direction: column;">
+<div class="_example" style="width: max-content; font-size: 3em;">
+    <div>
+        do
+        <span style="text-decoration: darkred line-through;">not</span>
+        buy bread
+    </div><div><span style="color: white; background: darkblue;">
+        do
+        <span style="text-decoration: line-through;">not</span>
+        buy bread
+    </span></div>
+</div>
+```html
+<style>
+    del {
+        text-decoration: darkred line-through;
+    }
+    ::selection {
+        color: white;
+        background: darkblue;
+    }
+</style>
+<div>
+    do <del>not</del> buy bread
+</div>
+```
+</div></div><figcaption markdown="1">
+This line-through decoration becomes white like the rest of the text when selected, even though it was explicitly set to ‘darkred’ in the original content.
+</figcaption></figure>
 
 The default style rules for highlight pseudos might look something like this.
 Notice the new ‘spelling-error’ and ‘grammar-error’ decorations, which authors can use to imitate native spelling and grammar errors.
