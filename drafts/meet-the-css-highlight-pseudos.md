@@ -788,7 +788,27 @@ In fact, because of ‘-webkit-text-fill-color’ and [its stroke-related siblin
 
 [its stroke-related siblings]: https://compat.spec.whatwg.org/#the-webkit-text-stroke
 
-<figure><div class="scroll" markdown="1">
+<figure><div class="scroll" markdown="1"><div class="flex column_bag" markdown="1">
+<div class="flex column_bag">
+    <div class="_example" style="width: max-content; font-size: 3em; color: blue;">
+        the
+        <em style="-webkit-text-fill-color: yellow; -webkit-text-stroke: 1px green;">
+            quick
+            fox
+        </em>
+    </div>
+    <div class="gap"></div>
+    ↓
+    <div class="gap"></div>
+    <div class="_example" style="width: max-content; font-size: 3em; color: blue;">
+        the
+        <em style="-webkit-text-fill-color: yellow; -webkit-text-stroke: 1px green;">
+            <span class="_spelling" style="-webkit-text-fill-color: currentColor; -webkit-text-stroke: 0 currentColor;">quikc</span>
+            fox
+        </em>
+    </div>
+</div>
+<div class="gap"></div>
 ```css
 p { color: blue; }
 em {
@@ -808,7 +828,7 @@ em::spelling-error {
     -webkit-text-stroke: 1px green;
 }
 ```
-</div><figcaption markdown="1">
+</div></div><figcaption markdown="1">
 When a word in `em` is misspelled, it will become blue like the rest of `p`, unless the fill and stroke properties are set in ::spelling-error accordingly.
 </figcaption></figure>
 
