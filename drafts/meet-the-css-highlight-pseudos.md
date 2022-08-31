@@ -512,7 +512,14 @@ We resolved this by making decorations added by highlights not propagate to any 
 
 <figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
-    <div style="text-decoration: blue underline;">
+    <div style="position: relative; color: transparent;">
+        <div style="position: absolute; bottom: 0; text-decoration: 0.25rem blue underline; text-decoration-skip: none; text-decoration-skip-ink: none;">
+            <span style="font-size: 0.75em;">quick</span> fox
+        </div>
+        <div style="position: absolute; bottom: 0; color: CanvasText;">
+            <sup>quick</sup> fox
+        </div>
+        <!-- sizer -->
         <sup>quick</sup> fox
     </div>
     <div>
