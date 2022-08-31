@@ -415,7 +415,10 @@ Highlight objects, in turn, are *setlike* objects, which you can use like a [Set
 [Range]: https://developer.mozilla.org/en-US/docs/Web/API/Range
 [StaticRange]: https://developer.mozilla.org/en-US/docs/Web/API/StaticRange
 
-<figure><div class="scroll" markdown="1">
+<figure><div class="scroll" markdown="1"><div class="flex column_bag" markdown="1">
+<div class="_example" style="width: max-content; font-size: 3em;">
+    <span style="background: yellow;">Hello</span>, world!
+</div>
 ```html
 <style>
     ::highlight(foo) { background: yellow; }
@@ -431,9 +434,7 @@ Highlight objects, in turn, are *setlike* objects, which you can use like a [Set
 </script>
 <body>Hello, world!</body>
 ```
-</div><figcaption markdown="1">
-<span style="background: yellow;">Hello</span>, world!
-</figcaption></figure>
+</div></div></figure>
 
 You can use [getComputedStyle()] to query resolved highlight styles under a particular element.
 Regardless of which parts (if any) are highlighted, the styles returned are as if the given highlight is active and all other highlights are inactive.
