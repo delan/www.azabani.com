@@ -464,7 +464,7 @@ Highlight inheritance happens separately from the element tree, so we need some 
 
 That escape hatch is to set ‘color’ itself to ‘currentColor’, which is the default if nothing in the highlight tree sets ‘color’.
 
-<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="flex-direction: column; gap: 1em;">
+<figure><div class="scroll" markdown="1"><div class="flex column_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
     quick → <span class="_spelling">quikc</span>
     <br>
@@ -489,7 +489,7 @@ But for highlights, that definition would no longer fit, so we redefine it as be
 
 To make highlight inheritance actually useful for <span class="_spelling">‘text-decoration’</span> and <span style="background: yellow;">‘background-color’</span>, _all properties are inherited_ in highlight styles, even those that are not usually inherited.
 
-<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em;">
+<figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
     <sup style="background-color: yellow;">quick</sup><span style="background-color: yellow;"> fox</span>
 </div>
@@ -510,7 +510,7 @@ We resolved this by making decorations added by highlights not propagate to any 
 
 [^1]: CSSWG discussion also found that decorating box semantics are undesirable for decorations added by highlights anyway.
 
-<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em;">
+<figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
     <div style="text-decoration: blue underline;">
         <sup>quick</sup> fox
@@ -560,7 +560,7 @@ It’s common for selected text to almost invert the original text colors, turni
 To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), originating decorations are recolored to the highlight ‘color’.
 This doesn’t apply to decorations added by highlights though, because that would break the typical appearance of <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors.
 
-<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em; flex-direction: column;">
+<figure><div class="scroll" markdown="1"><div class="flex column_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
     <div>
         do

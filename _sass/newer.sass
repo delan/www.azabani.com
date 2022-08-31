@@ -67,7 +67,17 @@ figure
 
             > div.gap
                 width: 1em
-        
+
+            &.row_bag, &.column_bag
+                gap: 1em
+                align-items: center
+
+            &.row_bag
+                flex-direction: row
+
+            &.column_bag
+                flex-direction: column
+
         > pre,
         > div.highlighter-rouge,
         > div.highlighter-rouge > div.highlight,
