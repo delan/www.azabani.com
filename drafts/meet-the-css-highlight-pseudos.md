@@ -30,7 +30,7 @@ article blockquote:before { margin-left: -2rem; }
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
 ._example { border: 2px dotted rebeccapurple; }
-._example * + * { margin-top: 0; }
+._example * + *, ._hpdemo * + * { margin-top: 0; }
 
 ._checker { position: relative; margin-left: auto; margin-right: auto; }
 ._checker:focus { outline: none; }
