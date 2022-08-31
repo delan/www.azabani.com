@@ -772,7 +772,7 @@ If you still want to ensure those shadows don’t clash with highlights in older
 This rule might be helpful for older browsers, but note that like any universal rule, it can interfere with inheritance of ‘text-shadow’ when combined with more specific rules.
 </figcaption></figure>
 
-If you’re really determined, you can work around this limitation for line decorations by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^2].
+As for line decorations, if you’re really determined, you can work around this limitation by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^2].
 
 [^2]: This is actually the case everywhere the WHATWG compat spec applies, at all times. If you think about it, the only reason why setting ‘color’ to ‘red’ makes your text red is because ‘-webkit-text-fill-color’ defaults to ‘currentColor’.
 
