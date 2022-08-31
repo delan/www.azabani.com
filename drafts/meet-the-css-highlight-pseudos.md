@@ -484,18 +484,39 @@ The way the highlight pseudos have been designed naturally leads to some limitat
 
 ## Removing decorations and shadows
 
-Highlight pseudos can’t remove or really change the original content’s text shadows or other decorations, even though in practice that was sometimes possible for ::selection prior to standardisation.
+Older browsers with ::selection tend to treat it purely as a way to *change* the original content’s styles, including text shadows and other decorations.
+[Some tutorial content] has even been written to that effect:
+
+[Some tutorial content]: https://css-tricks.com/almanac/selectors/s/selection/
+
+> One of the most helpful uses for `::selection` is turning off a `text-shadow` during selection.
+> A `text-shadow` can clash with the selection’s background color and make the text difficult to read.
+> Set `text-shadow: none;` to make text clear and easy to read during selection.
+
+Under the spec, highlight pseudos can no longer remove or really change the original content’s decorations and shadows.
+Setting these properties in highlight pseudos to values other than ‘none’ *adds* decorations and shadows to the overlays when they are active.
 
 <figure><div class="scroll" markdown="1">
 ```css
-del { text-decoration: line-through; }
-::highlight(undelete) { text-decoration: none; }
+del { text-decoration: line-through; text-shadow: 2px 2px red; }
+::highlight(undelete) { text-decoration: none; text-shadow: none; }
 ```
 </div><figcaption markdown="1">
-This code means that ::highlight(undelete) adds no decorations, not that it removes the line-through when `del` is highlighted.
+This code means that ::highlight(undelete) adds no decorations or shadows, not that it removes the line-through and red shadow when `del` is highlighted.
 </figcaption></figure>
 
-But if you’re really determined, you can work around this by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^2].
+Removing shadows that might clash with highlight backgrounds (as suggested in the tutorial above) will no longer be as necessary anyway, since highlight backgrounds now paint *on top of* the original text shadows.
+If you still want to ensure those shadows don’t clash with highlights in older browsers, you can set ‘text-shadow’ to ‘none’, which is harmless in newer browsers.
+
+<figure><div class="scroll" markdown="1">
+```css
+::selection { text-shadow: none; }
+```
+</div><figcaption markdown="1">
+This rule might be helpful for older browsers, but note that like any universal rule, it can interfere with inheritance of ‘text-shadow’ when combined with more specific rules.
+</figcaption></figure>
+
+If you’re really determined, you can work around this limitation for line decorations by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^2].
 
 [^2]: This is actually the case everywhere the WHATWG compat spec applies, at all times. If you think about it, the only reason why setting ‘color’ to ‘red’ makes your text red is because ‘-webkit-text-fill-color’ defaults to ‘currentColor’.
 
@@ -507,7 +528,7 @@ But if you’re really determined, you can work around this by using ‘-webkit-
 }
 ```
 </div><figcaption markdown="1">
-This code hides any original decorations (in visual media), because those decorations are recolored to the highlight ‘color’, but it might change the text color too.
+This hack hides any original decorations (in visual media), because those decorations are recolored to the highlight ‘color’, but it might change the text color too.
 </figcaption></figure>
 
 In fact, because of ‘-webkit-text-fill-color’ and [its stroke-related siblings], it isn’t always possible for highlight pseudos to avoid changing the foreground colors of text, at least not without out-of-band knowledge of what those colors are.
