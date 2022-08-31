@@ -292,29 +292,47 @@ Click the table below to see if your browser supports these features.
 
 While you can write rules for highlight pseudos that target all elements, as was commonly done for pre-standard ::selection, selecting specific elements can be more powerful, allowing descendants to cleanly override highlight styles.
 
-<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
-```css
-::selection {
-    color: white;
-    background-color: blue;
-}
-aside::selection,
-aside *::selection {
-    background-color: green;
-}
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex column_bag">
+<div class="_example" style="width: max-content; font-size: 3em;">
+    quick → <span class="_spelling">quikc</span>
+    <br>
+    <span style="color: rebeccapurple;">quick → <span class="_spelling">quikc</span></span>
+</div>
+<div class="gap"></div>
+<div markdown="1" class="flex row_bag">
+```html
+<style>
+    ::selection {
+        color: white;
+        background-color: blue;
+    }
+    aside::selection,
+    aside *::selection {
+        background-color: green;
+    }
+</style>
+<aside>
+    <sup>quick</sup> fox
+</aside>
 ```
 <div class="gap"></div>
 ≈
 <div class="gap"></div>
-```css
-:root::selection {
-    color: white;
-    background-color: blue;
-}
-aside::selection {
-    background-color: green;
-}
+```html
+<style>
+    :root::selection {
+        color: white;
+        background-color: blue;
+    }
+    aside::selection {
+        background-color: green;
+    }
+</style>
+<aside>
+    <sup>quick</sup> fox
+</aside>
 ```
+</div>
 </div></div><figcaption markdown="1">
 With highlight inheritance (right), aside::selection can now override ‘background-color’ cleanly without needing to select all of its descendants (left).
 </figcaption></figure>
