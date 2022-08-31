@@ -29,6 +29,7 @@ article blockquote:before { margin-left: -2rem; }
 
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
+._example { border: 2px dotted rebeccapurple; }
 
 ._checker { position: relative; margin-left: auto; margin-right: auto; }
 ._checker:focus { outline: none; }
@@ -462,19 +463,19 @@ Highlight inheritance happens separately from the element tree, so we need some 
 
 That escape hatch is to set ‘color’ itself to ‘currentColor’, which is the default if nothing in the highlight tree sets ‘color’.
 
-<figure><div class="scroll" markdown="1">
-```css
-::spelling-error {
-    /* color: currentColor; */
-    text-decoration: red wavy underline;
-}
-```
-<div style="width: max-content; font-size: 3em;">
+<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="flex-direction: column; gap: 1em;">
+<div class="_example" style="width: max-content; font-size: 3em;">
     quick → <span class="_spelling">quikc</span>
     <br>
     <span style="color: rebeccapurple;">quick → <span class="_spelling">quikc</span></span>
 </div>
-</div></figure>
+```css
+:root::spelling-error {
+    /* color: currentColor; */
+    text-decoration: red wavy underline;
+}
+```
+</div></div></figure>
 
 <aside markdown="1">
 This is a bit of a special case within a special case.
@@ -485,17 +486,74 @@ For ‘color’ itself that wouldn’t make sense, so we instead define ‘color
 But for highlights, that definition would no longer fit, so we redefine it as being the ‘color’ of the next active highlight below.
 </aside>
 
-<hr>
-
 To make highlight inheritance actually useful for <span class="_spelling">‘text-decoration’</span> and <span style="background: yellow;">‘background-color’</span>, _all properties are inherited_ in highlight styles, even those that are not usually inherited.
-This would conflict with the usual rules for decorating box[^1] propagation, so we resolved this by making decorations added by highlights not propagate to any descendants.
+
+<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em;">
+<div class="_example" style="width: max-content; font-size: 3em;">
+    <sup style="background-color: yellow;">quick</sup><span style="background-color: yellow;"> fox</span>
+</div>
+```html
+<style>
+    aside::selection {
+        background-color: yellow;
+    }
+</style>
+<aside>
+    <sup>quick</sup> fox
+</aside>
+```
+</div></div></figure>
+
+This would conflict with the usual rules[^1] for decorating boxes, because descendants would get two decorations, one propagated and one inherited.
+We resolved this by making decorations added by highlights not propagate to any descendants.
 
 [^1]: CSSWG discussion also found that decorating box semantics are undesirable for decorations added by highlights anyway.
 
+<figure><div class="scroll" markdown="1"><div class="flex" markdown="1" style="gap: 1em;">
+<div class="_example" style="width: max-content; font-size: 3em;">
+    <div style="text-decoration: blue underline;">
+        <sup>quick</sup> fox
+    </div>
+    <div>
+        <sup class="_spelling">quikc</sup> <span class="_spelling">fxo</span>
+    </div>
+</div>
+```html
+<style>
+    .blue {
+        text-decoration: blue underline;
+    }
+    :root::spelling-error {
+        text-decoration: red wavy underline;
+    }
+</style>
+<div class="blue">
+    <sup>quick</sup> fox
+</div>
+<div contenteditable spellcheck lang="en">
+    <sup>quikc</sup> fxo
+</div>
+```
+</div></div><figcaption markdown="1">
+The blue decoration *propagates* to the sup element from the decorating box, so there should be a single line at the normal baseline.
+On the other hand, the spelling decoration is *inherited* by sup::spelling-error, so there should be separate lines for “quikc” and “fxo” at their respective baselines.
+</figcaption></figure>
+
 Unstyled highlight pseudos generally don’t change the appearance of the original content, so the default ‘color’ and ‘background-color’ in highlights are ‘currentColor’ and ‘transparent’ respectively, the latter being the property’s initial value.
 But two highlight pseudos, ::selection and ::target-text, have UA default foreground and background colors.
+
 For compatibility with ::selection in old browsers, the UA default ‘color’ and ‘background-color’ (e.g. white on blue) is only used if _neither_ of them were set by the author.
 This rule is known as _paired cascade_, and for consistency it also applies to ::target-text.
+
+<figure><div class="scroll"><div class="flex"><table class="_sum">
+<tr><td></td><td><span style="color: white; background: #3584e4;">default on default</span></td></tr>
+<tr><td>+</td><td markdown="1">
+```css
+::selection { background: yellow; }
+```
+</td></tr>
+<tr><td>=</td><td><span style="color: black; background: yellow;">initial on yellow</span></td></tr>
+</table></div></div></figure>
 
 It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: cornflowerblue;">white on blue</span>, for example.
 To guarantee that the original decorations remain as legible as the text when highlighted, which is especially important for decorations with semantic meaning (e.g. <span style="text-decoration: line-through;">line-through</span>), _originating decorations are recolored_ to the highlight ‘color’.
@@ -506,10 +564,10 @@ Notice the new ‘spelling-error’ and ‘grammar-error’ decorations, which a
 
 <figure><div class="scroll" markdown="1">
 ```css
-::selection { background-color: Highlight; color: HighlightText; }
-::target-text { background-color: Mark; color: MarkText; }
-::spelling-error { text-decoration: spelling-error; }
-::grammar-error { text-decoration: grammar-error; }
+:root::selection { background-color: Highlight; color: HighlightText; }
+:root::target-text { background-color: Mark; color: MarkText; }
+:root::spelling-error { text-decoration: spelling-error; }
+:root::grammar-error { text-decoration: grammar-error; }
 ```
 </div><figcaption markdown="1">
 This doesn’t completely describe ::selection and ::target-text, due to paired cascade.
