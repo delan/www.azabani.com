@@ -112,8 +112,9 @@ article blockquote:before { margin-left: -2rem; }
 * [Can I use them?](#can-i-use-them)
 * [How do I use them?](#how-do-i-use-them)
 * [How do they work?](#how-do-they-work)
-* [Gotcha: removing decorations and shadows](#removing-decorations-and-shadows)
-* [Gotcha: accessing global constants](#accessing-global-constants)
+* [Gotchas](#gotchas)
+    * [Removing decorations and shadows](#removing-decorations-and-shadows)
+    * [Accessing global constants](#accessing-global-constants)
 
 ## What are they?
 
@@ -690,7 +691,9 @@ This doesn’t completely describe ::selection and ::target-text, due to paired 
 
 The way the highlight pseudos have been designed naturally leads to some limitations.
 
-## Removing decorations and shadows
+## Gotchas
+
+### Removing decorations and shadows
 
 Older browsers with ::selection tend to treat it purely as a way to *change* the original content’s styles, including text shadows and other decorations.
 [Some tutorial content] has even been written to that effect:
@@ -832,7 +835,7 @@ em::spelling-error {
 When a word in `em` is misspelled, it will become blue like the rest of `p`, unless the fill and stroke properties are set in ::spelling-error accordingly.
 </figcaption></figure>
 
-## Accessing global constants
+### Accessing global constants
 
 Highlight pseudos also don’t automatically have access to custom properties set in the element tree, which can make things tricky if you have a design system that exposes a color palette via custom properties on :root.
 
