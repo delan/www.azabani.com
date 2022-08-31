@@ -131,6 +131,7 @@ But for most of that time, no browser had yet implemented the more robust highli
 [CSS pseudo spec]: https://drafts.csswg.org/css-pseudo/
 
 ::highlight() and the custom highlight API shipped in Chromium 105, thanks to the work by members of the Microsoft Edge team (Dan, Fernando, Sanket, Luis, Bo).
+They are also available on Safari [since Technology Preview 99](https://developer.apple.com/safari/technology-preview/release-notes/#r99).
 
 Chromium 105 also implements the vast majority of the new highlight pseudo system.
 This includes highlight overlay painting, which was enabled for all highlight pseudos, and highlight inheritance, which was enabled for ::highlight() only.
@@ -143,14 +144,14 @@ You can enable these features at
 
 > chrome://flags/#enable-experimental-web-platform-features
 
-^ FIXME check version
+^ FIXME [CL:3867154](https://crrev.com/c/3867154)
 
 Click the table below to see if your browser supports these features.
 
 <pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0;">act: <span id="debug_active"></span><br>sel: <span id="debug_selection"></span><br><span id="debug_count"></span></pre>
 <figure><table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>Spelling</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>::spelling-error</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
