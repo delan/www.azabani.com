@@ -100,6 +100,15 @@ article blockquote > footer { text-align: right; }
 ._commit-none > a { color: rgba(102,51,153,0.5); }
 </style>
 
+## Contents
+
+* [What are they?](#what-are-they)
+* [Can I use them?](#can-i-use-them)
+* [How do I use them?](#how-do-i-use-them)
+* [How do they work?](#how-do-they-work)
+* [Gotcha: removing decorations and shadows](#removing-decorations-and-shadows)
+* [Gotcha: accessing global constants](#accessing-global-constants)
+
 ## What are they?
 
 CSS has four highlight pseudos and an open set of author-defined custom highlight pseudos.
