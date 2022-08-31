@@ -403,22 +403,22 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
         0   1   2   2   3   3
     </script>
     <div><main style="--n: 7;">
-        <div style="outline: 3px dotted #00000070; background: #70700038;">
+        <div class="q" style="outline: 3px dotted #00000070; background: #70700038;">
             <span>quikc brown<span style="color: initial;"> fox</span></span>
             <label>originating element</label>
         </div>
-        <div style="outline: 3px dotted #00000070; background: #A8000038;">
+        <div class="q" style="outline: 3px dotted #00000070; background: #A8000038;">
             <span><span style="color: initial; text-decoration: red wavy underline;">qui</span>kc brown fox</span>
             <label>::spelling-error</label>
         </div>
-        <div style="outline: 3px dotted #00000070; background: #66339938;">
+        <div class="q" style="outline: 3px dotted #00000070; background: #66339938;">
             <span>quikc <span style="background: #D070D0C0;">br<span>own</span></span> fox</span>
             <label>::target-text</label>
         </div>
         <div class="q">
             <span>quikc <span>br<span style="color: initial;">own</span></span> fox</span>
         </div>
-        <div style="outline: 3px dotted #00000070; background: #3838C038;">
+        <div class="q" style="outline: 3px dotted #00000070; background: #3838C038;">
             <span>qui<span style="background: #3838C0C0;"><span>kc</span> br</span>own fox</span>
             <label>::selection</label>
         </div>
