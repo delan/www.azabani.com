@@ -293,48 +293,99 @@ Click the table below to see if your browser supports these features.
 While you can write rules for highlight pseudos that target all elements, as was commonly done for pre-standard ::selection, selecting specific elements can be more powerful, allowing descendants to cleanly override highlight styles.
 
 <figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex column_bag">
-<div class="_example" style="width: max-content; font-size: 3em;">
-    quick → <span class="_spelling">quikc</span>
-    <br>
-    <span style="color: rebeccapurple;">quick → <span class="_spelling">quikc</span></span>
+<div class="_example" style="width: max-content; font-size: 2em; color: white;">
+    <span style="color: white; background: black;">the fox jumps over the dog</span>
+    <div>
+        <span style="color: white; background: darkred;">(the </span
+        ><sup style="color: white; background: darkred;">quick</sup
+        ><span style="color: white; background: darkred;"> fox, mind you)</span>
+    </div>
 </div>
-<div class="gap"></div>
-<div markdown="1" class="flex row_bag">
-```html
-<style>
-    ::selection {
-        color: white;
-        background-color: blue;
-    }
-    aside::selection,
-    aside *::selection {
-        background-color: green;
-    }
-</style>
-<aside>
-    <sup>quick</sup> fox
-</aside>
-```
-<div class="gap"></div>
-≈
 <div class="gap"></div>
 ```html
 <style>
     :root::selection {
         color: white;
-        background-color: blue;
+        background-color: black;
     }
     aside::selection {
-        background-color: green;
+        background-color: darkred;
     }
 </style>
-<aside>
-    <sup>quick</sup> fox
-</aside>
+<body>
+    <p>the fox jumps over the dog
+    <aside>
+        (the <sup>quick</sup> fox, mind you)
+    </aside>
+</body>
 ```
+</div></div></figure>
+
+Previously the same code would yield…
+
+<figure markdown="1"><div markdown="1" class="scroll">
+<div class="_example" style="width: max-content; font-size: 2em; color: white;">
+    <span style="color: HighlightText; background: Highlight;">the fox jumps over the dog</span>
+    <div>
+        <span style="color: white; background: darkred;">(the </span
+        ><sup style="color: HighlightText; background: Highlight;">quick</sup
+        ><span style="color: white; background: darkred;"> fox, mind you)</span>
+    </div>
 </div>
+</div><figcaption markdown="1">
+(in older browsers)
+
+Notice how *none* of the text is white on black, because there are always other elements (body, p, aside, sup) between the root and the text.
+</figcaption></figure>
+
+…unless you also select the *descendants* of :root and aside:
+
+<figure markdown="1"><div markdown="1" class="scroll">
+```css
+:root::selection,
+:root *::selection
+/* (or just ::selection) */ {
+    color: white;
+    background-color: black;
+}
+aside::selection,
+aside *::selection {
+    background-color: green;
+}
+```
+</div></figure>
+
+Note that a bare ::selection rule still means *::selection, and like any universal rule, it can interfere with inheritance when mixed with non-universal highlight rules.
+
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex column_bag">
+<div class="_example" style="width: max-content; font-size: 2em; color: white;">
+    <span style="color: white; background: black;">the fox jumps over the dog</span>
+    <div>
+        <span style="color: white; background: darkred;">(the </span
+        ><sup style="color: white; background: black;">quick</sup
+        ><span style="color: white; background: darkred;"> fox, mind you)</span>
+    </div>
+</div>
+<div class="gap"></div>
+```html
+<style>
+    ::selection {
+        color: white;
+        background-color: black;
+    }
+    aside::selection {
+        background-color: darkred;
+    }
+</style>
+<body>
+    <p>the fox jumps over the dog
+    <aside>
+        (the <sup>quick</sup> fox, mind you)
+    </aside>
+</body>
+```
 </div></div><figcaption markdown="1">
-With highlight inheritance (right), aside::selection can now override ‘background-color’ cleanly without needing to select all of its descendants (left).
+sup::selection *would have* inherited ‘darkred’ from aside::selection, but the universal ::selection rule matches it directly, so it becomes black.
 </figcaption></figure>
 
 ::selection is primarily controlled by user input, though pages can both read and write the active ranges via the [Selection] API with [getSelection()].
