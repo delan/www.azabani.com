@@ -36,7 +36,7 @@ article blockquote:before { margin-left: -2rem; }
 ._checker:focus { outline: none; }
 ._checker::before { display: flex; align-items: center; justify-content: center; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
 ._checker:not(:focus)::before { color: rebeccapurple; background: #66339940; }
-._checker *::selection { color: currentColor; background: transparent; }
+._checker td::selection, ._checker td *::selection { color: currentColor; background: transparent; }
 ._checker:not(:focus) td > div { visibility: hidden; }
 ._checker:not([data-phase=done]):not(#specificity) td > div,
 ._checker:not([data-phase=done]):not(#specificity) td > div * { color: transparent; }
