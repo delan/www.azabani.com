@@ -27,9 +27,9 @@ article blockquote > footer { text-align: right; }
 ._spelling { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: red; }
 ._grammar { text-decoration: /* not a shorthand on iOS */ underline; text-decoration-style: wavy; text-decoration-color: green; }
 
-._checker { position: relative; }
+._checker { position: relative; margin-left: auto; margin-right: auto; }
 ._checker:focus { outline: none; }
-._checker::before { display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
+._checker::before { display: flex; align-items: center; justify-content: center; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
 ._checker:not(:focus)::before { color: rebeccapurple; background: #66339940; }
 ._checker *::selection { color: currentColor; background: transparent; }
 ._checker:not(:focus) td > div { visibility: hidden; }
@@ -129,14 +129,16 @@ You can enable these features at
 
 ^ FIXME check version
 
+Click the table below to see if your browser supports these features.
+
 <pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0;">act: <span id="debug_active"></span><br>sel: <span id="debug_selection"></span><br><span id="debug_count"></span></pre>
-<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+<figure><table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Spelling</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
-</table>
+</table></figure>
 <script>
     let checkerTimer = null;
 
