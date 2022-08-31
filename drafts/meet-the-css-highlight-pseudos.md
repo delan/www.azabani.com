@@ -129,18 +129,63 @@ You can enable these features at
 
 ^ FIXME check version
 
-<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh" style="/* FIXME */ display: none;">
+<pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0;">act: <span id="debug_active"></span><br>sel: <span id="debug_selection"></span><br><span id="debug_count"></span></pre>
+<table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Spelling</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
 </table>
-<script>/*
+<script>
     let checkerTimer = null;
+
+    // selectionchange events can get stuck in infinite loops if they get
+    // normalised in a way that fixCheckerSelectionIfNeeded doesn’t expect
+    const selectionchangeTimes = [...Array(10)].map(_ => null);
+
     const checker = document.querySelector("._checker");
+    const counts = new Map;
+
+    function debug_active() {
+        if (document.querySelector("#debug").hidden)
+            return;
+        const debug = document.querySelector("#debug_active");
+        debug.textContent = document.activeElement;
+    }
+
+    function debug_selection() {
+        if (document.querySelector("#debug").hidden)
+            return;
+        const debug = document.querySelector("#debug_selection");
+        const sel = getSelection();
+        debug.textContent =
+            `${sel.anchorOffset} ${sel.anchorNode.nodeName}${format(sel.anchorNode)}`
+            + `\n     `
+            + `${sel.focusOffset} ${sel.focusNode.nodeName}${format(sel.focusNode)}`;
+        function format(node) {
+            if (node.nodeValue == null)
+                return "";
+            if (node.nodeValue.length < 30)
+                return ` "${node.nodeValue}"`;
+            return ` "${node.nodeValue.slice(0,27)}"...`;
+        }
+    }
+
+    function debug_count(eventType) {
+        if (document.querySelector("#debug").hidden)
+            return;
+        console.log(eventType);
+        counts.set(eventType, (counts.get(eventType) ?? 0) + 1);
+        const debug = document.querySelector("#debug_count");
+        debug.textContent = "";
+        for (const [i, n] of counts)
+            debug.textContent += (debug.textContent ? "    " : "cou:")
+                + ` • ${n} x ${i}\n`;
+    }
+
     checker.addEventListener("focus", ({target}) => {
-        console.log("focus");
+        debug_count("focus");
         if (target.dataset.phase == "fresh") {
             target.dataset.phase = "spell";
             checkerTimer = setTimeout(finish, 250);
@@ -173,37 +218,54 @@ You can enable these features at
             fixCheckerSelectionIfNeeded();
         }
     });
+
     checker.addEventListener("click", ({target}) => {
         if (target.dataset.phase != "done")
             return;
-        console.log("click");
+        debug_count("click");
         fixCheckerSelectionIfNeeded();
     });
+
     checker.addEventListener("beforeinput", event => {
         event.preventDefault();
     });
+
     document.addEventListener("selectionchange", event => {
-        console.log("selectionchange");
+        const now = performance.now();
+        const front = selectionchangeTimes.shift();
+        selectionchangeTimes.push(now);
+        if (now - front < 1000)
+            return;
+        debug_count("selectionchange");
         if (checker.dataset.phase != "done")
             return;
+        debug_active();
         if (document.activeElement != checker)
             return;
         fixCheckerSelectionIfNeeded();
     });
+
     function fixCheckerSelectionIfNeeded() {
-        const row = checker.children[0].children[3];
+        debug_count("fix");
+        const row = checker.querySelector("._his");
         const sel = getSelection();
-        if (sel.anchorNode == row
-            && sel.focusNode == row
-            && sel.anchorOffset == 0
-            && sel.focusOffset == row.childNodes.length)
+        let anchorOk = false, focusOk = false;
+        for (let node = row; node != null; node = node.firstChild)
+            if (sel.anchorNode == node && sel.anchorOffset == 0)
+                anchorOk = true;
+        for (let node = row; node != null; node = node.lastChild)
+            if (sel.focusNode == node && sel.focusOffset == (
+                    node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length))
+                focusOk = true;
+        if (anchorOk && focusOk)
             return;
+        debug_selection();
         const his = new Range;
         his.selectNodeContents(row);
         getSelection().removeAllRanges();
         getSelection().addRange(his);
     }
-*/</script>
+</script>
 
 ## How do I use them?
 
