@@ -4,7 +4,7 @@ layout: default
 
 {{ content }}
 
-{% for talk in site.talks %}
+{% for talk in site.talks reversed %}
 	<div class="post_summary">
 	<div class="post_date">
 		<time datetime="{{ talk.date | date: '%Y-%m-%d' }}">
