@@ -26,7 +26,7 @@ function _hpdemo(state, root, t = 0) {
             // increment S if layer not skipped and y/order increases
             const S = prevS + Number(!skips[i] && o > prevO);
             return [...r, [i,s,o,z,S]];
-        }, [[null,null,-1]]).slice(1)
+        }, [[null,null,null,null,-1]]).slice(1)
         // sort [i,s,o,z,S] by original layer definition in HTML
         // 0:[2,"",0,0,0], 1:[3,"",0,1,0], 2:[0,"",3,2,1], 1:[1,"",6,3,2], ...
         .sort(([pi],[qi]) => pi - qi)
@@ -47,7 +47,7 @@ function _hpdemo(state, root, t = 0) {
         layer.style.setProperty("--step-c", Number(s.includes("c")));
         layer.style.setProperty("--step-u", Number(s.includes("u")));
         layer.style.setProperty("--step-r", Number(s.includes("r")));
-        layer.style.setProperty("--label-shift", order[i].s);
+        layer.style.setProperty("--label-shift", order[i].S);
     }
 
     return {layers, sss, quiets, t};
