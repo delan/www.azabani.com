@@ -480,7 +480,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
             <label>originating element</label>
         </div>
         <div class="q" style="outline: 3px dotted #00000070; background: #A8000038;">
-            <span><span style="color: initial; text-decoration: red wavy underline;">qui</span>kc brown fox</span>
+            <span><span style="color: initial; text-decoration: underline; text-decoration-style: wavy; text-decoration-color: red;">qui</span>kc brown fox</span>
             <label>::spelling-error</label>
         </div>
         <div class="q" style="outline: 3px dotted #00000070; background: #66339938;">
@@ -495,7 +495,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
             <label>::selection</label>
         </div>
         <div class="q">
-            <span>qui<span style="color: initial;"><span style="text-decoration: red wavy underline;">kc</span> br</span>own fox</span>
+            <span>qui<span style="color: initial;"><span style="text-decoration: underline; text-decoration-style: wavy; text-decoration-color: red;">kc</span> br</span>own fox</span>
         </div>
     </main></div>
 </div></figure>
@@ -587,7 +587,7 @@ We resolved this by making decorations added by highlights not propagate to any 
 <figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
     <div style="position: relative; color: transparent;">
-        <div style="position: absolute; bottom: 0; text-decoration: 0.25rem blue underline; text-decoration-skip: none; text-decoration-skip-ink: none;">
+        <div style="position: absolute; bottom: 0; text-decoration: underline; text-decoration-color: blue; text-decoration-thickness: 0.25rem; text-decoration-skip: none; text-decoration-skip-ink: none;">
             <span style="font-size: 0.75em;">quick</span> fox
         </div>
         <div style="position: absolute; bottom: 0; color: CanvasText;">
@@ -646,7 +646,7 @@ This doesn’t apply to decorations added by highlights though, because that wou
 <div class="_example" style="width: max-content; font-size: 3em;">
     <div>
         do
-        <span style="text-decoration: darkred line-through;">not</span>
+        <span style="text-decoration: line-through; text-decoration-color: darkred;">not</span>
         buy bread
     </div><div><span style="color: white; background: darkblue;">
         do
