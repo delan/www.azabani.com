@@ -45,33 +45,81 @@ article blockquote:before { margin-left: -2rem; }
 ._checker:not([data-phase=done]):not(#specificity) td > div *::selection { color: transparent; }
 ._checker:not([data-phase=done]):not(#specificity) td > div::highlight(checker),
 ._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(checker),
-._checker:not([data-phase=done]):not(#specificity) td > div::highlight(upper),
-._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(upper) { color: transparent; }
+._checker:not([data-phase=done]):not(#specificity) td > div::highlight(lower),
+._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(lower) { color: transparent; }
 ._checker td > div { width: 5em; }
 ._checker td > div { position: relative; line-height: 1; }
 ._checker td > div > span { position: absolute; margin: 0; padding-top: calc((1.5em - 1em) / 2); width: 5em; }
-._checker ._custom :nth-child(2),
-._checker [spellcheck] :nth-child(2),
-._checker ._hih,
-._checker ._his,
-._checker ._hop { color: transparent; background: transparent; }
-._checker ._custom :nth-child(1)::highlight(checker) { color: transparent; }
-._checker [spellcheck] :nth-child(1)::spelling-error { color: transparent; }
-._checker ._custom :nth-child(2)::highlight(checker) { color: CanvasText; background: Canvas; }
-._checker [spellcheck] :nth-child(2)::spelling-error { color: CanvasText; background: Canvas; }
-._checker [spellcheck] *::spelling-error { text-decoration: none; }
-._checker ._hih::highlight(checker) { --t: transparent; --x: CanvasText; --y: Canvas; }
-._checker ._hih :nth-child(1)::highlight(checker) { color: var(--t, CanvasText); background: var(--t, Canvas); }
-._checker ._hih :nth-child(2)::highlight(checker) { color: var(--x, transparent); background: var(--y, transparent); }
-._checker ._his::selection { --t: transparent; --x: CanvasText; --y: Canvas; }
-._checker ._his :nth-child(1)::selection { color: var(--t, CanvasText); background: var(--t, Canvas); }
-._checker ._his :nth-child(2)::selection { color: var(--x, transparent); background: var(--y, transparent); }
+
+/*
+    ::highlight() [end-to-end test]
+    = no, if the pseudo selector is unsupported
+    = yes, if the pseudo selector is supported
+*/
+._checker ._custom
+    :nth-child(2) { color: transparent; background: transparent; }
+._checker ._custom
+    :nth-child(1)::highlight(checker) { color: transparent; }
+._checker ._custom
+    :nth-child(2)::highlight(checker) { color: CanvasText; background: Canvas; }
+
+/*
+    ::spelling-error [end-to-end test]
+    = no, if the pseudo selector is unsupported
+    = yes, if the pseudo selector is supported
+*/
+._checker [spellcheck]
+    :nth-child(2) { color: transparent; background: transparent; }
+._checker [spellcheck]
+    :nth-child(1)::spelling-error { color: transparent; }
+._checker [spellcheck]
+    :nth-child(2)::spelling-error { color: CanvasText; background: Canvas; }
+._checker [spellcheck]
+    *::spelling-error { text-decoration: none; }
+
+/*
+    Highlight inheritance (::highlight)
+    = no, if var() inherits from originating element
+    = yes, if var() ignores originating element and uses fallback
+*/
+._checker ._hih
+    { color: transparent; background: transparent; }
+._checker ._hih::highlight(checker)
+    { --t: transparent; --x: CanvasText; --y: Canvas; }
+._checker ._hih :nth-child(1)::highlight(checker)
+    { color: var(--t, CanvasText); background: var(--t, Canvas); }
+._checker ._hih :nth-child(2)::highlight(checker)
+    { color: var(--x, transparent); background: var(--y, transparent); }
+
+/*
+    Highlight inheritance (::selection)
+    = no, if var() inherits from originating element
+    = yes, if var() ignores originating element and uses fallback
+*/
+._checker ._his
+    { color: transparent; background: transparent; }
+._checker ._his::selection
+    { --t: transparent; --x: CanvasText; --y: Canvas; }
+._checker ._his :nth-child(1)::selection
+    { color: var(--t, CanvasText); background: var(--t, Canvas); }
+._checker ._his :nth-child(2)::selection
+    { color: var(--x, transparent); background: var(--y, transparent); }
+
+/*
+    Highlight overlay painting
+    = no, if currentColor takes color from originating element only
+    = yes, if currentColor takes color from next active highlight
+    • lower highlight “yes” is hidden by ‘-webkit-text-fill-color’
+*/
+._checker ._hop
+    { color: transparent; background: transparent; }
 ._checker ._hop :nth-child(1) { color: CanvasText; }
-._checker ._hop :nth-child(1)::highlight(checker) { color: transparent; }
-._checker ._hop :nth-child(1)::highlight(upper) { color: currentColor; }
+._checker ._hop :nth-child(1)::highlight(lower) { color: transparent; }
+._checker ._hop :nth-child(1)::highlight(checker) { color: currentColor; }
 ._checker ._hop :nth-child(2) { color: transparent; }
-._checker ._hop :nth-child(2)::highlight(checker) { color: CanvasText; -webkit-text-fill-color: transparent; }
-._checker ._hop :nth-child(2)::highlight(upper) { color: currentColor; -webkit-text-fill-color: currentColor; }
+._checker ._hop :nth-child(2)::highlight(lower) { color: CanvasText; -webkit-text-fill-color: transparent; }
+._checker ._hop :nth-child(2)::highlight(checker) { color: currentColor; -webkit-text-fill-color: currentColor; }
+
 ._checker._table th { text-align: left; }
 
 ._table { font-size: 0.75em; }
@@ -226,13 +274,13 @@ Click the table below to see if your browser supports these features.
             checkerTimer = null;
             if (this.CSS && CSS.highlights) {
                 const custom = new Range;
-                custom.selectNodeContents(target.children[0].children[0]);
+                custom.selectNodeContents(checker.querySelector("._custom"));
                 const hop = new Range;
-                hop.selectNodeContents(target.children[0].children[2]);
+                hop.selectNodeContents(checker.querySelector("._hop"));
                 const hih = new Range;
-                hih.selectNodeContents(target.children[0].children[4]);
+                hih.selectNodeContents(checker.querySelector("._hih"));
+                CSS.highlights.set("lower", new Highlight(hop));
                 CSS.highlights.set("checker", new Highlight(custom, hop, hih));
-                CSS.highlights.set("upper", new Highlight(hop));
             }
             fixCheckerSelectionIfNeeded();
         }
