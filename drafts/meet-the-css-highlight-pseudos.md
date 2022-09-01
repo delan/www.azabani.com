@@ -53,8 +53,8 @@ article blockquote:before { margin-left: -2rem; }
 
 /*
     ::highlight() [end-to-end test]
-    = no, if the pseudo selector is unsupported
-    = yes, if the pseudo selector is supported
+    = no, if the pseudo selector is broken and/or no active highlight
+    = yes, if the pseudo selector works and highlight is active
 */
 ._checker ._custom
     :nth-child(2) { color: transparent; background: transparent; }
@@ -64,9 +64,34 @@ article blockquote:before { margin-left: -2rem; }
     :nth-child(2)::highlight(checker) { color: CanvasText; background: Canvas; }
 
 /*
-    ::spelling-error [end-to-end test]
+    ::highlight() [selector]
     = no, if the pseudo selector is unsupported
     = yes, if the pseudo selector is supported
+    • highlight not active, only for selector list validity
+*/
+._checker ._chps
+    :nth-child(2) { color: transparent; }
+._checker ._chps
+    :nth-child(1), :not(*)::highlight(checker) { color: transparent; }
+._checker ._chps
+    :nth-child(2), :not(*)::highlight(checker) { color: CanvasText; }
+
+/*
+    ::highlight() [API]
+    = no, if the API is missing or broken
+    = yes, if the API is present and working
+*/
+._checker ._cha
+    :nth-child(2) { color: transparent; }
+._checker ._cha._yes
+    :nth-child(1) { color: transparent; }
+._checker ._cha._yes
+    :nth-child(2) { color: CanvasText; }
+
+/*
+    ::spelling-error [end-to-end test]
+    = no, if the pseudo selector is broken and/or no active highlight
+    = yes, if the pseudo selector works and highlight is active
 */
 ._checker [spellcheck]
     :nth-child(2) { color: transparent; background: transparent; }
@@ -197,6 +222,8 @@ Click the table below to see if your browser supports these features.
 <pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0;">act: <span id="debug_active"></span><br>sel: <span id="debug_selection"></span><br><span id="debug_count"></span></pre>
 <figure><table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>• ::highlight()</th><td><div class="_chps"><span>no</span><span>yes</span></div></td></tr>
+    <tr><th>• CSS.highlights</th><td><div class="_cha"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>::spelling-error</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
@@ -279,6 +306,11 @@ Click the table below to see if your browser supports these features.
                 hih.selectNodeContents(checker.querySelector("._hih"));
                 CSS.highlights.set("lower", new Highlight(hop));
                 CSS.highlights.set("checker", new Highlight(custom, hop, hih));
+
+                const a = [...CSS.highlights.get("checker").values()];
+                const e = [custom, hop, hih];
+                if (a.length == e.length && a.every((x,i) => x == e[i]))
+                    checker.querySelector("._cha").classList.add("_yes");
             }
             fixCheckerSelectionIfNeeded();
         }
