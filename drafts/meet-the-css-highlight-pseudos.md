@@ -187,12 +187,10 @@ This includes highlight overlay painting, which was enabled for all highlight ps
 [::selection]: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
 [::target-text]: https://developer.mozilla.org/en-US/docs/Web/CSS/::target-text
 
-Chromium 107 includes ::spelling-error and ::grammar-error as an experimental feature.
+Chromium 108 includes ::spelling-error and ::grammar-error as an experimental feature.
 You can enable these features at
 
 > chrome://flags/#enable-experimental-web-platform-features
-
-^ FIXME [CL:3867154](https://crrev.com/c/3867154)
 
 Click the table below to see if your browser supports these features.
 
