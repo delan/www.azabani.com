@@ -10,7 +10,7 @@ _footer_twitter: https://twitter.com/dazabani
 
 A year and a half ago, I was asked to help upstream a Chromium patch allowing authors to recolor <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors in CSS.
 At the time, I didn’t realise that this was part of a far more ambitious effort to reimagine spelling errors, grammar errors, text selections, and more as a coherent system that didn’t yet exist as such in any browser.
-That system is known as the _highlight pseudos_, and this post will focus on the design of said system and its consequences.
+That system is known as the _highlight pseudos_, and this post will focus on the design of said system and its consequences for authors.
 
 This is the third part of a series ([part one], [part two]) about Igalia’s work towards making the CSS highlight pseudos a reality.
 
