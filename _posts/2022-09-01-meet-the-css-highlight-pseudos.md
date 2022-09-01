@@ -5,7 +5,7 @@ date: 2022-09-01 23:00:00 +0800
 tags: home igalia
 _preview_description: "Everything you wanted to know about custom highlights, spelling and grammar errors, and how ::selection is changing in CSS."
 _preview_image: /images/meethp-preview.jpg
-_footer_twitter: https://twitter.com/dazabani
+_footer_twitter: https://twitter.com/dazabani/status/1565367814591901696
 ---
 
 A year and a half ago, I was asked to help upstream a Chromium patch allowing authors to recolor <span class="_spelling">spelling</span> and <span class="_grammar">grammar</span> errors in CSS.
