@@ -1,10 +1,10 @@
 ---
 layout: default
 title: "Meet the CSS highlight pseudos"
-date: 2022-08-26 22:00:00 +0800
+date: 2022-09-01 23:00:00 +0800
 tags: home igalia
-# _preview_description: "..."
-# _preview_image: ...
+_preview_description: "Everything you wanted to know about custom highlights, spelling and grammar errors, and how ::selection is changing in CSS."
+_preview_image: /images/meethp-preview.png
 _footer_twitter: https://twitter.com/dazabani
 ---
 
@@ -194,7 +194,7 @@ The built-in highlights are ::selection for user-selected content, ::target-text
 
 ## Can I use them?
 
-Prior to our efforts, [::selection] was already widely supported, and [::target-text] shipped in Chromium 89.
+[::selection] has long been supported by all of the major browsers, and [::target-text] shipped in Chromium 89.
 But for most of that time, no browser had yet implemented the more robust highlight pseudo system in the [CSS pseudo spec].
 
 [::selection]: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
@@ -202,8 +202,8 @@ But for most of that time, no browser had yet implemented the more robust highli
 [CSS pseudo spec]: https://drafts.csswg.org/css-pseudo/
 
 ::highlight() and the custom highlight API shipped in Chromium 105, thanks to the work by members[^1] of the Microsoft Edge team.
-These features are also available in Safari 14.1 (iOS 14.5) as an experimental feature (Highlight API).
-You can enable them in the Develop menu, or for iOS, under Settings > Safari > Advanced.
+They are also available in Safari 14.1 (including iOS 14.5) as an experimental feature (Highlight API).
+You can enable that feature in the Develop menu, or for iOS, under Settings > Safari > Advanced.
 
 [^1]: Dan, Fernando, Sanket, Luis, Bo, and anyone else I missed.
 
@@ -216,17 +216,17 @@ To create a Highlight with no ranges, first create one with a dummy range, then 
 Chromium 105 also implements the vast majority of the new highlight pseudo system.
 This includes highlight overlay painting, which was enabled for all highlight pseudos, and highlight inheritance, which was enabled for ::highlight() only.
 
-<aside markdown="1">
-Chromium’s support also currently has some bugs, as of r1041796.
-Notably, highlights don’t yet work under ::first-line and ::first-letter[^2], ‘text-shadow’ is [not yet enabled](https://crbug.com/1350475) for ::highlight(), computedStyleMap [results are wrong](https://crbug.com/1099874) for ‘currentColor’, and highlights that split ligatures (e.g. for complex scripts) only render accurately in ::selection[^2].
-</aside>
-
 [^2]: See [this demo](https://codepen.io/dazabani13/full/KKqzOJp) for more details.
 
 Chromium 108 includes ::spelling-error and ::grammar-error as an experimental feature, together with the new ‘text-decoration-line’ values ‘spelling-error’ and ‘grammar-error’.
 You can enable these features at
 
 > chrome://flags/#enable-experimental-web-platform-features
+
+<aside markdown="1">
+Chromium’s support also currently has some bugs, as of r1041796.
+Notably, highlights don’t yet work under ::first-line and ::first-letter[^2], ‘text-shadow’ is [not yet enabled](https://crbug.com/1350475) for ::highlight(), computedStyleMap [results are wrong](https://crbug.com/1099874) for ‘currentColor’, and highlights that split ligatures (e.g. for complex scripts) only render accurately in ::selection[^2].
+</aside>
 
 Click the table below to see if your browser supports these features.
 
@@ -251,10 +251,10 @@ cha: <span id="debug_cha"></span>
     <tr><th>Custom highlights</th>
         <td class="_live"><div class="_custom"><span>no</span><span>yes</span></div></td>
         <td>105</td><td>14.1*</td><td>?</td>
-    </tr><tr><th>• ::highlight()</th>
+    </tr><tr><th>• ::highlight()</th>
         <td class="_live"><div class="_chps"><span>no</span><span>yes</span></div></td>
         <td>105</td><td>14.1*</td><td>?</td>
-    </tr><tr><th>• CSSOM API</th>
+    </tr><tr><th>• CSSOM API</th>
         <td class="_live"><div class="_cha"><span>no</span><span>yes</span></div></td>
         <td>105</td><td>14.1* (ab)</td><td>?</td>
     </tr><tr><th>::spelling-error</th>
@@ -561,7 +561,7 @@ Previously the same code would yield…
 Notice how *none* of the text is white on black, because there are always other elements (body, p, aside, sup) between the root and the text.
 </figcaption></figure>
 
-…unless you also select the *descendants* of :root and aside:
+…unless you also selected the descendants of :root and aside:
 
 <figure markdown="1"><div markdown="1" class="scroll">
 ```css
@@ -846,17 +846,18 @@ On the other hand, the spelling decoration is *inherited* by sup::spelling-error
 Unstyled highlight pseudos generally don’t change the appearance of the original content, so the default ‘color’ and ‘background-color’ in highlights are ‘currentColor’ and ‘transparent’ respectively, the latter being the property’s initial value.
 But two highlight pseudos, ::selection and ::target-text, have UA default foreground and background colors.
 
-For compatibility with ::selection in old browsers, the UA default ‘color’ and ‘background-color’ (e.g. white on blue) is only used if _neither_ of them were set by the author.
+For compatibility with ::selection in older browsers, the UA default ‘color’ and ‘background-color’ (e.g. white on blue) is only used if _neither_ were set by the author.
 This rule is known as _paired cascade_, and for consistency it also applies to ::target-text.
 
 <figure><div class="scroll"><div class="flex"><table class="_sum">
-<tr><td></td><td><span style="color: white; background: var(--cr-highlight);">default on default</span></td></tr>
+<tr><td></td><td><span style="color: white; background: var(--cr-highlight);">default on default</span><span style="color: rebeccapurple;"> plus more text</span></td></tr>
 <tr><td>+</td><td markdown="1">
 ```css
+p { color: rebeccapurple; }
 ::selection { background: yellow; }
 ```
 </td></tr>
-<tr><td>=</td><td><span style="color: black; background: yellow;">initial on yellow</span></td></tr>
+<tr><td>=</td><td><span style="color: rebeccapurple; background: yellow;">currentColor on yellow</span><span style="color: rebeccapurple;"> plus more text</span></td></tr>
 </table></div></div></figure>
 
 It’s common for selected text to almost invert the original text colors, turning <span style="color: black; background: white;">black on white</span> into <span style="color: white; background: var(--cr-highlight);">white on blue</span>, for example.
