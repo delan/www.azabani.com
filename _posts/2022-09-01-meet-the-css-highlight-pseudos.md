@@ -690,7 +690,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
 
 <style>@import url(/images/hpdemo.css);</style>
 <script src="/images/hpdemo.js"></script>
-<figure><div class="_demo _hpdemo" data-_demo="_hpdemo" style="--w: var(--inner-width);">
+<figure><div class="_demo _hpdemo" data-_demo="_hpdemo" style="--w: var(--inner-width); user-select: none; cursor: pointer;">
     <script type="text/x-choreography">
         q   q   q   q   q   q
         0   1   2   2   3   3
@@ -729,6 +729,7 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
             this.state = _hpdemo(this.state, this.root, this.t);
         },
         tFunction() {
+            if (hpdemo.clicked) return 1 - hpdemo.t;
             const rect = this.root.getBoundingClientRect();
             const y = rect.top + (rect.bottom - rect.top) / 2;
             return Number(y < innerHeight / 2);
@@ -736,9 +737,15 @@ Where text is highlighted, a highlight overlay can add backgrounds and text shad
         state: {},
         root: document.querySelector("._hpdemo"),
         t: null,
+        clicked: false,
     };
     hpdemo.update();
     addEventListener("scroll", () => {
+        if (hpdemo.clicked) return;
+        hpdemo.update();
+    });
+    hpdemo.root.addEventListener("click", () => {
+        hpdemo.clicked = true;
         hpdemo.update();
     });
 </script>
