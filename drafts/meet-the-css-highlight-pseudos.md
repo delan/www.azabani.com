@@ -219,8 +219,17 @@ You can enable these features at
 
 Click the table below to see if your browser supports these features.
 
-<pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0;">act: <span id="debug_active"></span><br>sel: <span id="debug_selection"></span><br><span id="debug_count"></span></pre>
-<figure><table id="checker" class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+<pre id="debug" hidden style="position: fixed; color: white; background: black; left: 0; top: 0; right: 0; margin: 0; white-space: pre-wrap;">act: <span id="debug_active"></span>
+sel: <span id="debug_selection"></span>
+cha: <span id="debug_cha"></span>
+<span id="debug_count" hidden></span></pre>
+<figure><div class="scroll"><div class="flex"><table class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+    <!--
+        Safari 14.0.3 (iOS 14.4.2):     -selector +CSS.highlights -Highlight
+        Safari 14.1 (macOS 11):         +selector +CSS.highlights +Highlight StaticRange ctor1
+        Safari 15.6? (iOS 15.6.1):      +selector +CSS.highlights +Highlight StaticRange ctor1
+        Safari 15.6.1 (macOS 11):       +selector +CSS.highlights +Highlight StaticRange ctor1
+    -->
     <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>• ::highlight()</th><td><div class="_chps"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>• CSS.highlights</th><td><div class="_cha"><span>no</span><span>yes</span></div></td></tr>
@@ -228,7 +237,7 @@ Click the table below to see if your browser supports these features.
     <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
     <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
-</table></figure>
+</table></div></div></figure>
 <script>
     let checkerTimer = null;
 
@@ -252,15 +261,15 @@ Click the table below to see if your browser supports these features.
         const debug = document.querySelector("#debug_selection");
         const sel = getSelection();
         debug.textContent =
-            `${sel.anchorOffset} ${sel.anchorNode.nodeName}${format(sel.anchorNode)}`
+            `${sel.anchorOffset} ${format(sel.anchorNode)}`
             + `\n     `
-            + `${sel.focusOffset} ${sel.focusNode.nodeName}${format(sel.focusNode)}`;
+            + `${sel.focusOffset} ${format(sel.focusNode)}`;
         function format(node) {
-            if (node.nodeValue == null)
+            if (node == null || node.nodeValue == null)
                 return "";
             if (node.nodeValue.length < 30)
-                return ` "${node.nodeValue}"`;
-            return ` "${node.nodeValue.slice(0,27)}"...`;
+                return `${node.nodeName} "${node.nodeValue}"`;
+            return ` "${node.nodeName} ${node.nodeValue.slice(0,27)}"...`;
         }
     }
 
@@ -274,6 +283,13 @@ Click the table below to see if your browser supports these features.
         for (const [i, n] of counts)
             debug.textContent += (debug.textContent ? "    " : "cou:")
                 + ` • ${n} x ${i}\n`;
+    }
+
+    function debug_cha(message) {
+        if (document.querySelector("#debug").hidden)
+            return;
+        const debug = document.querySelector("#debug_cha");
+        debug.textContent = message;
     }
 
     checker.addEventListener("focus", ({target}) => {
@@ -297,20 +313,45 @@ Click the table below to see if your browser supports these features.
         function finish() {
             target.dataset.phase = "done";
             checkerTimer = null;
-            if (this.CSS && CSS.highlights) {
-                const custom = new Range;
-                custom.selectNodeContents(checker.querySelector("._custom"));
-                const hop = new Range;
-                hop.selectNodeContents(checker.querySelector("._hop"));
-                const hih = new Range;
-                hih.selectNodeContents(checker.querySelector("._hih"));
-                CSS.highlights.set("lower", new Highlight(hop));
-                CSS.highlights.set("checker", new Highlight(custom, hop, hih));
+            try {
+                if (this.CSS && CSS.highlights) {
+                    const hop = new StaticRange({
+                        startOffset: 0, endOffset: 2,
+                        startContainer: checker.querySelector("._hop"),
+                        endContainer: checker.querySelector("._hop"),
+                    });
+                    const custom = new StaticRange({
+                        startOffset: 0, endOffset: 2,
+                        startContainer: checker.querySelector("._custom"),
+                        endContainer: checker.querySelector("._custom"),
+                    });
+                    const hih = new StaticRange({
+                        startOffset: 0, endOffset: 2,
+                        startContainer: checker.querySelector("._hih"),
+                        endContainer: checker.querySelector("._hih"),
+                    });
 
-                const a = [...CSS.highlights.get("checker").values()];
-                const e = [custom, hop, hih];
-                if (a.length == e.length && a.every((x,i) => x == e[i]))
-                    checker.querySelector("._cha").classList.add("_yes");
+                    CSS.highlights.set("lower", new Highlight(hop));
+
+                    // work around Safari bug where ctor takes exactly one range
+                    // (beware that having hop highlighted by lower but not by
+                    // checker causes false “yes”, because Safari does not seem
+                    // to support ‘-webkit-text-fill-color’ in highlights)
+                    const h = new Highlight(hop, custom, hih);
+                    CSS.highlights.set("checker", h);
+                    if (CSS.highlights.get("checker").size == 1) {
+                        h.add(custom);
+                        h.add(hih);
+                    }
+
+                    debug_cha("ok: " + [...CSS.highlights.keys()].join(" "));
+                    const a = [...CSS.highlights.get("checker").values()];
+                    const e = [custom, hop, hih];
+                    if (a.length == e.length && a.every((x,i) => x == e[i]))
+                        checker.querySelector("._cha").classList.add("_yes");
+                }
+            } catch (e) {
+                debug_cha("ex: " + e + "\n" + e.stack + "\n" + this.Highlight);
             }
             fixCheckerSelectionIfNeeded();
         }
