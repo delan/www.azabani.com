@@ -931,11 +931,30 @@ Setting these properties in highlight pseudos to values other than ‘none’ *a
 
 <figure><div class="scroll" markdown="1">
 ```css
-del { text-decoration: line-through; text-shadow: 2px 2px red; }
-::highlight(undelete) { text-decoration: none; text-shadow: none; }
+del {
+    text-decoration: line-through;
+    text-shadow: 2px 2px red;
+}
+::highlight(undelete) {
+    text-decoration: none;
+    text-shadow: none;
+}
 ```
 </div><figcaption markdown="1">
 This code means that ::highlight(undelete) adds no decorations or shadows, not that it removes the line-through and red shadow when `del` is highlighted.
+</figcaption></figure>
+
+While the new :has() selector might appear to offer a solution to this problem, pseudo-element selectors are not allowed in :has(), at least not yet.
+
+<figure><div class="scroll" markdown="1">
+```css
+del:has(::highlight(undelete)) {
+    text-decoration: none;
+    text-shadow: none;
+}
+```
+</div><figcaption markdown="1">
+This code does not work.
 </figcaption></figure>
 
 Removing shadows that might clash with highlight backgrounds (as suggested in the tutorial above) will no longer be as necessary anyway, since highlight backgrounds now paint *on top of* the original text shadows.
@@ -1010,7 +1029,7 @@ As for line decorations, if you’re really determined, you can work around this
 This hack hides any original decorations (in visual media), because those decorations are recolored to the highlight ‘color’, but it might change the text color too.
 </figcaption></figure>
 
-In fact, because of ‘-webkit-text-fill-color’ and [its stroke-related siblings], it isn’t always possible for highlight pseudos to avoid changing the foreground colors of text, at least not without out-of-band knowledge of what those colors are.
+Fun fact: because of ‘-webkit-text-fill-color’ and [its stroke-related siblings], it isn’t always possible for highlight pseudos to avoid changing the foreground colors of text, at least not without out-of-band knowledge of what those colors are.
 
 [its stroke-related siblings]: https://compat.spec.whatwg.org/#the-webkit-text-stroke
 
