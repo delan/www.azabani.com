@@ -37,19 +37,21 @@ article blockquote:before { margin-left: -2rem; }
 ._checker:focus { outline: none; }
 ._checker::before { display: flex; align-items: center; justify-content: center; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; font-size: 7em; color: transparent; background: transparent; content: "▶"; }
 ._checker:not(:focus)::before { color: rebeccapurple; background: #66339940; }
-._checker td::selection, ._checker td *::selection { color: currentColor; background: transparent; }
-._checker:not(:focus) td > div { visibility: hidden; }
-._checker:not([data-phase=done]):not(#specificity) td > div,
-._checker:not([data-phase=done]):not(#specificity) td > div * { color: transparent; }
-._checker:not([data-phase=done]):not(#specificity) td > div::selection,
-._checker:not([data-phase=done]):not(#specificity) td > div *::selection { color: transparent; }
-._checker:not([data-phase=done]):not(#specificity) td > div::highlight(checker),
-._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(checker),
-._checker:not([data-phase=done]):not(#specificity) td > div::highlight(lower),
-._checker:not([data-phase=done]):not(#specificity) td > div *::highlight(lower) { color: transparent; }
-._checker td > div { width: 5em; }
-._checker td > div { position: relative; line-height: 1; }
-._checker td > div > span { position: absolute; margin: 0; padding-top: calc((1.5em - 1em) / 2); width: 5em; }
+
+._checker tbody th { text-align: left; }
+._checker ._live::selection, ._checker ._live *::selection { color: currentColor; background: transparent; }
+._checker:not(:focus) ._live > div { visibility: hidden; }
+._checker:not([data-phase=done]):not(#specificity) ._live > div,
+._checker:not([data-phase=done]):not(#specificity) ._live > div * { color: transparent; }
+._checker:not([data-phase=done]):not(#specificity) ._live > div::selection,
+._checker:not([data-phase=done]):not(#specificity) ._live > div *::selection { color: transparent; }
+._checker:not([data-phase=done]):not(#specificity) ._live > div::highlight(checker),
+._checker:not([data-phase=done]):not(#specificity) ._live > div *::highlight(checker),
+._checker:not([data-phase=done]):not(#specificity) ._live > div::highlight(lower),
+._checker:not([data-phase=done]):not(#specificity) ._live > div *::highlight(lower) { color: transparent; }
+._checker ._live > div { width: 5em; }
+._checker ._live > div { position: relative; line-height: 1; }
+._checker ._live > div > span { position: absolute; margin: 0; padding-top: calc((1.5em - 1em) / 2); width: 5em; }
 
 /*
     ::highlight() [end-to-end test]
@@ -81,12 +83,7 @@ article blockquote:before { margin-left: -2rem; }
     = no, if the API is missing or broken
     = yes, if the API is present and working
 */
-._checker ._cha
-    :nth-child(2) { color: transparent; }
-._checker ._cha._yes
-    :nth-child(1) { color: transparent; }
-._checker ._cha._yes
-    :nth-child(2) { color: CanvasText; }
+._checker ._cha {}
 
 /*
     ::spelling-error [end-to-end test]
@@ -145,8 +142,6 @@ article blockquote:before { margin-left: -2rem; }
 ._checker ._hop :nth-child(2)::highlight(lower) { color: CanvasText; -webkit-text-fill-color: transparent; }
 ._checker ._hop :nth-child(2)::highlight(checker) { color: currentColor; -webkit-text-fill-color: currentColor; }
 
-._checker._table th { text-align: left; }
-
 ._table { font-size: 0.75em; }
 ._table td, ._table th { vertical-align: top; border: 1px solid black; }
 ._table td:not(._tight), ._table th:not(._tight) { padding: 0.5em; }
@@ -201,18 +196,33 @@ The built-in highlights are ::selection for user-selected content, ::target-text
 Prior to our efforts, [::selection] was already widely supported, and [::target-text] shipped in Chromium 89.
 But for most of that time, no browser had yet implemented the more robust highlight pseudo system in the [CSS pseudo spec].
 
+[::selection]: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
+[::target-text]: https://developer.mozilla.org/en-US/docs/Web/CSS/::target-text
 [CSS pseudo spec]: https://drafts.csswg.org/css-pseudo/
 
-::highlight() and the custom highlight API shipped in Chromium 105, thanks to the work by members of the Microsoft Edge team (Dan, Fernando, Sanket, Luis, Bo).
-They are also available on Safari [since Technology Preview 99](https://developer.apple.com/safari/technology-preview/release-notes/#r99).
+::highlight() and the custom highlight API shipped in Chromium 105, thanks to the work by members[^1] of the Microsoft Edge team.
+These features are also available in Safari 14.1 (iOS 14.5) as an experimental feature (Highlight API).
+You can enable them in the Develop menu, or for iOS, under Settings > Safari > Advanced.
+
+[^1]: Dan, Fernando, Sanket, Luis, Bo, and anyone else I missed.
+
+<aside markdown="1">
+Safari’s support currently has a couple of quirks, as of TP 152.
+Range is not supported for custom highlights yet, only StaticRange, and the Highlight constructor has a bug where it requires passing exactly one range, ignoring any additional arguments.
+To create a Highlight with no ranges, first create one with a dummy range, then call the `clear` or `delete` methods.
+</aside>
 
 Chromium 105 also implements the vast majority of the new highlight pseudo system.
 This includes highlight overlay painting, which was enabled for all highlight pseudos, and highlight inheritance, which was enabled for ::highlight() only.
 
-[::selection]: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection
-[::target-text]: https://developer.mozilla.org/en-US/docs/Web/CSS/::target-text
+<aside markdown="1">
+Chromium’s support also currently has some bugs, as of r1041796.
+Notably, highlights don’t yet work under ::first-line and ::first-letter[^2], ‘text-shadow’ is [not yet enabled](https://crbug.com/1350475) for ::highlight(), computedStyleMap [results are wrong](https://crbug.com/1099874) for ‘currentColor’, and highlights that split ligatures (e.g. for complex scripts) only render accurately in ::selection[^2].
+</aside>
 
-Chromium 108 includes ::spelling-error and ::grammar-error as an experimental feature.
+[^2]: See [this demo](https://codepen.io/dazabani13/full/KKqzOJp) for more details.
+
+Chromium 108 includes ::spelling-error and ::grammar-error as an experimental feature, together with the new ‘text-decoration-line’ values ‘spelling-error’ and ‘grammar-error’.
 You can enable these features at
 
 > chrome://flags/#enable-experimental-web-platform-features
@@ -223,21 +233,54 @@ Click the table below to see if your browser supports these features.
 sel: <span id="debug_selection"></span>
 cha: <span id="debug_cha"></span>
 <span id="debug_count" hidden></span></pre>
-<figure><div class="scroll"><div class="flex"><table class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+
+<figure><div class="scroll"><div class="flex column_bag">
+<table class="_table _checker" contenteditable spellcheck="false" data-phase="fresh">
+    <thead><tr>
+        <th></th><th>yours</th><th>Chromium</th><th>Safari</th><th>Firefox</th>
+    </tr></thead>
     <!--
-        Safari 14.0.3 (iOS 14.4.2):     -selector +CSS.highlights -Highlight
-        Safari 14.1 (macOS 11):         +selector +CSS.highlights +Highlight StaticRange ctor1
-        Safari 15.6? (iOS 15.6.1):      +selector +CSS.highlights +Highlight StaticRange ctor1
-        Safari 15.6.1 (macOS 11):       +selector +CSS.highlights +Highlight StaticRange ctor1
+        Safari 14.0.3 (iOS 14.4.2): -selector (H)
+        Safari 14.1.2 (macOS 11): +selector (ab)
+        Safari 15.6? (iOS 15.6.1): +selector (ab)
+        Safari 15.6.1 (macOS 11): +selector (ab)
+        Safari TP 152 (macOS 12.5.1): +selector (ab)
+            (16.0, WebKit 17615.1.2.3)
     -->
-    <tr><th>Custom highlights</th><td><div class="_custom"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>• ::highlight()</th><td><div class="_chps"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>• CSS.highlights</th><td><div class="_cha"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>::spelling-error</th><td><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>Highlight overlay painting</th><td><div class="_hop"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>Highlight inheritance (::selection)</th><td><div class="_his"><span>no</span><span>yes</span></div></td></tr>
-    <tr><th>Highlight inheritance (::highlight)</th><td><div class="_hih"><span>no</span><span>yes</span></div></td></tr>
-</table></div></div></figure>
+    <tr><th>Custom highlights</th>
+        <td class="_live"><div class="_custom"><span>no</span><span>yes</span></div></td>
+        <td>105</td><td>14.1*</td><td>?</td>
+    </tr><tr><th>• ::highlight()</th>
+        <td class="_live"><div class="_chps"><span>no</span><span>yes</span></div></td>
+        <td>105</td><td>14.1*</td><td>?</td>
+    </tr><tr><th>• CSSOM API</th>
+        <td class="_live"><div class="_cha"><span>no</span><span>yes</span></div></td>
+        <td>105</td><td>14.1* (ab)</td><td>?</td>
+    </tr><tr><th>::spelling-error</th>
+        <td class="_live"><div spellcheck="true" lang="en"><span>no</span><span>yes</span></div></td>
+        <td>108*</td><td>?</td><td>?</td>
+    </tr><tr><th>Highlight overlay painting</th>
+        <td class="_live"><div class="_hop"><span>no</span><span>yes</span></div></td>
+        <td>105</td><td>?</td><td>?</td>
+    </tr><tr><th>Highlight inheritance (::selection)</th>
+        <td class="_live"><div class="_his"><span>no</span><span>yes</span></div></td>
+        <td>?</td><td>?</td><td>?</td>
+    </tr><tr><th>Highlight inheritance (::highlight)</th>
+        <td class="_live"><div class="_hih"><span>no</span><span>yes</span></div></td>
+        <td>105</td><td>?</td><td>?</td>
+    </tr>
+</table>
+<div class="gap"></div>
+<aside markdown="1">
+* \* = experimental (can be enabled in UI)
+* S = ::highlight() unsupported in querySelector
+* C = CSS.highlights missing or setlike ([older API from 2020](https://www.w3.org/TR/2020/WD-css-highlight-api-1-20201208/))
+* H = new Highlight() missing
+* a = StaticRange only (no support for Range)
+* b = new Highlight() requires exactly one range argument
+</aside>
+</div></div></figure>
+
 <script>
     let checkerTimer = null;
 
@@ -313,6 +356,69 @@ cha: <span id="debug_cha"></span>
         function finish() {
             target.dataset.phase = "done";
             checkerTimer = null;
+
+            const selector = (() => {
+                try {
+                    return !document.querySelector(":not(*)::highlight(checker)");
+                } catch (e) {}
+                return false;
+            })();
+            const collection = !!(this.CSS && CSS.highlights && CSS.highlights.set);
+            const ctor = !!this.Highlight;
+            const staticRangesOnly = ctor ? (() => {
+                try {
+                    const range = new Range;
+                    range.selectNodeContents(document.body);
+                    return !new Highlight(range);
+                } catch (e) {}
+                try {
+                    const range = new StaticRange({
+                        startOffset: 0, endOffset: 0,
+                        startContainer: document.body,
+                        endContainer: document.body,
+                    });
+                    return !!new Highlight(range);
+                } catch (e) {}
+                return null;
+            })() : null;
+            const ctorTakesExactlyOneRange = ctor ? (() => {
+                try {
+                    const foo = new StaticRange({
+                        startOffset: 0, endOffset: 0,
+                        startContainer: document.body,
+                        endContainer: document.body,
+                    });
+                    const bar = new StaticRange({
+                        startOffset: 1, endOffset: 1,
+                        startContainer: document.body,
+                        endContainer: document.body,
+                    });
+                    switch (new Highlight(foo, bar).size) {
+                        case 1: return true;
+                        case 2: return false;
+                    }
+                } catch (e) {}
+                return null;
+            })() : null;
+
+            checker.querySelector("._cha").textContent = (() => {
+                if (selector && collection && ctor && !staticRangesOnly && !ctorTakesExactlyOneRange)
+                    return "yes";
+                if (!selector || !collection || !ctor) {
+                    let result = "no (";
+                    result += !selector ? "S" : "";
+                    result += !collection ? "C" : "";
+                    result += !ctor ? "H" : "";
+                    return result + ")";
+                }
+                if (staticRangesOnly || ctorTakesExactlyOneRange) {
+                    let result = "buggy (";
+                    result += staticRangesOnly ? "a" : "";
+                    result += ctorTakesExactlyOneRange ? "b" : "";
+                    return result + ")";
+                }
+            })();
+
             try {
                 if (this.CSS && CSS.highlights) {
                     const hop = new StaticRange({
@@ -343,12 +449,6 @@ cha: <span id="debug_cha"></span>
                         h.add(custom);
                         h.add(hih);
                     }
-
-                    debug_cha("ok: " + [...CSS.highlights.keys()].join(" "));
-                    const a = [...CSS.highlights.get("checker").values()];
-                    const e = [custom, hop, hih];
-                    if (a.length == e.length && a.every((x,i) => x == e[i]))
-                        checker.querySelector("._cha").classList.add("_yes");
                 }
             } catch (e) {
                 debug_cha("ex: " + e + "\n" + e.stack + "\n" + this.Highlight);
@@ -699,10 +799,10 @@ To make highlight inheritance actually useful for <span class="_spelling">‘tex
 ```
 </div></div></figure>
 
-This would conflict with the usual rules[^1] for decorating boxes, because descendants would get two decorations, one propagated and one inherited.
+This would conflict with the usual rules[^3] for decorating boxes, because descendants would get two decorations, one propagated and one inherited.
 We resolved this by making decorations added by highlights not propagate to any descendants.
 
-[^1]: CSSWG discussion also found that decorating box semantics are undesirable for decorations added by highlights anyway.
+[^3]: [CSSWG discussion](https://github.com/w3c/csswg-drafts/issues/6829#issuecomment-1098255113) also found that decorating box semantics are undesirable for decorations added by highlights anyway.
 
 <figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
 <div class="_example" style="width: max-content; font-size: 3em;">
@@ -892,9 +992,9 @@ If you still want to ensure those shadows don’t clash with highlights in older
 This rule might be helpful for older browsers, but note that like any universal rule, it can interfere with inheritance of ‘text-shadow’ when combined with more specific rules.
 </figcaption></figure>
 
-As for line decorations, if you’re really determined, you can work around this limitation by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^2].
+As for line decorations, if you’re really determined, you can work around this limitation by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^4].
 
-[^2]: This is actually the case everywhere the WHATWG compat spec applies, at all times. If you think about it, the only reason why setting ‘color’ to ‘red’ makes your text red is because ‘-webkit-text-fill-color’ defaults to ‘currentColor’.
+[^4]: This is actually the case everywhere the WHATWG compat spec applies, at all times. If you think about it, the only reason why setting ‘color’ to ‘red’ makes your text red is because ‘-webkit-text-fill-color’ defaults to ‘currentColor’.
 
 <figure><div class="scroll" markdown="1">
 ```css
