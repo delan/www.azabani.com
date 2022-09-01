@@ -4,7 +4,7 @@ title: "Meet the CSS highlight pseudos"
 date: 2022-09-01 23:00:00 +0800
 tags: home igalia
 _preview_description: "Everything you wanted to know about custom highlights, spelling and grammar errors, and how ::selection is changing in CSS."
-_preview_image: /images/meethp-preview.png
+_preview_image: /images/meethp-preview.jpg
 _footer_twitter: https://twitter.com/dazabani
 ---
 
