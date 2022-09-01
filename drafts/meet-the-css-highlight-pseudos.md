@@ -183,6 +183,7 @@ article blockquote:before { margin-left: -2rem; }
 * [Gotchas](#gotchas)
     * [Removing decorations and shadows](#removing-decorations-and-shadows)
     * [Accessing global constants](#accessing-global-constants)
+    * [Spec issues](#spec-issues)
 
 ## What are they?
 
@@ -994,6 +995,7 @@ This rule might be helpful for older browsers, but note that like any universal 
 
 As for line decorations, if you’re really determined, you can work around this limitation by using ‘-webkit-text-fill-color’, [a standard property] (believe it or not) that controls the foreground fill color of text[^4].
 
+[a standard property]: https://compat.spec.whatwg.org/#the-webkit-text-fill-color
 [^4]: This is actually the case everywhere the WHATWG compat spec applies, at all times. If you think about it, the only reason why setting ‘color’ to ‘red’ makes your text red is because ‘-webkit-text-fill-color’ defaults to ‘currentColor’.
 
 <figure><div class="scroll" markdown="1">
@@ -1102,6 +1104,23 @@ You can work around this by adding selectors for the necessary highlight pseudos
 ```
 </div></div></figure>
 
-<hr>
+### Spec issues
 
-[a standard property]: https://compat.spec.whatwg.org/#the-webkit-text-fill-color
+While the design of the highlight pseudos has mostly settled, there are still some unresolved issues to watch out for.
+
+* how to use spelling and grammar decorations with the UA default colors ([#7522](https://github.com/w3c/csswg-drafts/issues/7522))
+* values of non-applicable properties, e.g. ‘text-shadow’ with em units ([#7591](https://github.com/w3c/csswg-drafts/issues/7591))
+* the meaning of underline- and emphasis-related properties in highlights ([#7101](https://github.com/w3c/csswg-drafts/issues/7101))
+* whether ‘-webkit-text-fill-color’ and friends are allowed in highlights ([#7580](https://github.com/w3c/csswg-drafts/issues/7580))
+* some browsers “tweak” the colors or alphas set in highlight styles ([#6853](https://github.com/w3c/csswg-drafts/issues/6853))
+* how the highlight pseudos are supposed to interact with SVG ([svgwg#894](https://github.com/w3c/svgwg/issues/894))
+
+## What now?
+
+The highlight pseudos are a radical departure from older browsers with ::selection, and have some significant differences with CSS as we know it.
+Now that we have some experimental support, we want *your* help to play around with these features and help us make them as useful and ergonomic as possible before they’re set in stone.
+
+Special thanks to [Rego](https://twitter.com/regocas), [Brian](https://twitter.com/briankardell), [Eric](https://twitter.com/meyerweb) (Igalia), [Florian](https://twitter.com/frivoal), [fantasai](https://twitter.com/fantasai) (CSSWG), [Emilio](https://twitter.com/ecbos_) (Mozilla), and [Dan](https://twitter.com/dandclark1) for their work in shaping the highlight pseudos (and this post).
+We would also like to thank [Bloomberg](https://www.bloomberg.com/company/) for sponsoring this work.
+
+<hr>
