@@ -17,11 +17,13 @@ layout: default
 		</time>
 	</div>
 	<div class="post_combo">
-		<h2>{{ talk.title }} ({{ talk._event }})</h2><i>
+		<h2>{{ talk.title }}</h2>
+		<p><i>
+			at {{ talk._event }}
 			{%- if talk._video %}{{- " " -}}[<a href="{{ talk._video }}">video</a>]{% endif -%}
 			{%- if talk._slides %}{{- " " -}}[<a href="https://www.azabani.com/talks/{{ talk._slides }}/">slides</a>]{% endif -%}
-		</i>
+		</i></p>
 	</div>
-	{{ talk.excerpt }}
+	{{ talk.content }}
 	</div>
 {% endfor %}
