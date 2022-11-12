@@ -37,6 +37,10 @@ and the president of its [Computer Science Students Association].
 [Curtin University]: https://www.curtin.edu.au
 [Computer Science Students Association]: https://www.comssa.org.au
 
+* Curriculum vitæ as of 2021-01-02: [<span
+  class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
+* Academic transcript as of 2017-01-13: [PDF][transcript]
+
 I’m an active user of [GitHub] and [Bitbucket]. I usually release all of my code
 and content under the terms of the [ISC licence] and the [CC BY licence]
 respectively. In fact, even the [source of this site] is available on GitHub!
@@ -47,15 +51,13 @@ respectively. In fact, even the [source of this site] is available on GitHub!
 [CC BY licence]: https://creativecommons.org/licenses/by/4.0/
 [source of this site]: https://github.com/delan/delan.github.io
 
-You can reach me at [delan@azabani.com], [@dazabani], or [+61 466 442 256].
+You can reach me at [delan@azabani.com], [+61 466 442 256], or at:
+
+* [@dazabani](https://twitter.com/dazabani) on Twitter
+* [@delan](https://cohost.org/delan) on Cohost
 
 [delan@azabani.com]: mailto:delan@azabani.com
-[@dazabani]: https://twitter.com/dazabani
 [+61 466 442 256]: tel:+61466442256
-
-* Curriculum vitæ as of 2021-01-02: [<span
-  class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
-* Academic transcript as of 2017-01-13: [PDF][transcript]
 
 [LaTeX]: public/cv.tex
 [PDF]: public/cv.pdf
