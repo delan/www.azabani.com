@@ -10,6 +10,10 @@ ul {
 }
 </style>
 
+<h2>2022</h2>
+
+* [reverssg](https://github.com/delan/reverssg) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> decompilation and reverse engineering.
+
 <h2>2021</h2>
 
 * [fuckgitmemory](https://bitbucket.org/delan/fuckgitmemory) — user script that blocks GitHub scrapers, taking you to real issue pages.
@@ -19,6 +23,8 @@ ul {
 * [osmpip](https://bitbucket.org/delan/osmpip) — OpenStreetMap renderer for dashcam GPS data.
 
 * [mmm](https://bitbucket.org/delan/mmm) — <em>Mini Metro</em> maps, including <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
+
+* [cursedtv](https://bitbucket.org/delan/cursedtv) 🦀 — Generates XSPF playlists with TV shows, bumpers, and ads.
 
 <h2>2020</h2>
 
