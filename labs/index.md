@@ -16,7 +16,7 @@ ul {
 
 <h2>2021</h2>
 
-* [fuckgitmemory](https://bitbucket.org/delan/fuckgitmemory) — user script that blocks GitHub scrapers, taking you to real issue pages.
+* [fuckgitmemory](https://bitbucket.org/delan/fuckgitmemory) — User script that blocks GitHub scrapers, taking you to real issue pages.
 
 * [ssgesus](https://bitbucket.org/delan/ssgesus) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
 
@@ -28,7 +28,7 @@ ul {
 
 <h2>2020</h2>
 
-* [xd](https://bitbucket.org/delan/xd) 🦀 — tool that dumps binary input in a more human-readable format.
+* [xd](https://bitbucket.org/delan/xd) 🦀 — Tool that dumps binary input in a more human-readable format.
 
 * [dis2ello](https://bitbucket.org/delan/dis2ello) 🦀 — Discord bot that posts tasks or shopping list items to Trello.
 
@@ -66,7 +66,7 @@ ul {
 
 * [halokey](halokey) — DigitalProductId generator for the Gearbox port of Halo: Combat Evolved.
 
-* [peereval](peereval) — calculator for peer evaluations in group projects adding up to 100%.
+* [peereval](peereval) — Calculator for peer evaluations in group projects adding up to 100%.
 
 * [cygmake](https://github.com/delan/cygmake) — Clean room Cygwin package builder, used to compile [Irssi’s](http://irssi.org/) Windows builds.
 
@@ -86,7 +86,7 @@ ul {
 
 * [cabinvis](cabinvis) — Visualise binary files using Hilbert curves, inspired by [Aldo Cortesi’s blog post](http://corte.si/posts/visualisation/binvis/index.html).
 
-* [charming](https://charming.daz.cat) 🦀 — fast mobile-friendly Unicode character map.
+* [charming](https://charming.daz.cat) 🦀 — Fast mobile-friendly Unicode character map.
 
 * [utf8check](https://github.com/delan/utf8check) — Extremely fast and strict UTF-8 stream validator, inspector and sanitiser.
 
