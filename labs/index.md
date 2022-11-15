@@ -59,10 +59,10 @@ OpenStreetMap renderer for dashcam GPS data.
 <aside><div markdown="1">
 <img src="/images/mmm.png" width="238">
 <hgroup>
-<h3 markdown="1">[mmm](https://bitbucket.org/delan/mmm)</h3>
+<h3 markdown="1">[mmm](https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046)</h3>
 <em markdown="1"> [[source](https://bitbucket.org/delan/mmm)]</em>
 </hgroup>
-<em>Mini Metro</em> map for <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
+<em>Mini Metro</em> map for Perth, Australia.
 
 Maps for this minimalist rail transit strategy game are written in JSON, and include the visible geometry of land masses and water bodies, plus invisible geometry for things like the regions that stations can spawn in.
 
