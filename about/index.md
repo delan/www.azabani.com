@@ -30,7 +30,7 @@ I currently hold world record times in [<em>Super Solvers: Gizmos &amp; Gadgets!
 [<em>Super Solvers: Gizmos &amp; Gadgets!</em>]: https://www.speedrun.com/super_solvers_gizmos_and_gadgets
 [reverse]: https://www.speedrun.com/super_solvers_gizmos_and_gadgets/thread/gggvs
 [engineering]: https://github.com/delan/reverssg
-[route planner]: https://bitbucket.org/delan/ssgesus
+[route planner]: https://bucket.daz.cat/ssgesus/
 
 I’ve worked with a wide range of stacks at a wide range of levels, including
 frontend and backend web development, builds and releases, sysadmin and devops,
