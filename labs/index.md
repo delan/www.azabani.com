@@ -37,8 +37,12 @@ aside hgroup > * {
 <h3 markdown="1">[ssgesus](https://bucket.daz.cat/ssgesus/)</h3>
 <em markdown="1"> [[source](https://bitbucket.org/delan/ssgesus)]</em>
 </hgroup>
-
 <em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
+
+This 1990s educational puzzle platformer game has been a favourite of mine since I was six years old, but I’m now speedrunning and reverse engineering it.
+
+The objective of the game is to find the best parts to build vehicles that win races, solving STEM puzzles along the way.
+The parts are placed randomly, but the RNG is seeded with the Unix time, so we can predict where the best parts will be for any given run.
 <br style="clear: both;">
 </div></aside>
 
@@ -58,7 +62,7 @@ OpenStreetMap renderer for dashcam GPS data.
 <h3 markdown="1">[mmm](https://bitbucket.org/delan/mmm)</h3>
 <em markdown="1"> [[source](https://bitbucket.org/delan/mmm)]</em>
 </hgroup>
-<em>Mini Metro</em> maps, including <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
+<em>Mini Metro</em> map for <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
 
 Maps for this minimalist rail transit strategy game are written in JSON, and include the visible geometry of land masses and water bodies, plus invisible geometry for things like the regions that stations can spawn in.
 
