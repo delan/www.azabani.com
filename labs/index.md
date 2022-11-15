@@ -8,6 +8,21 @@ ul {
 	margin-left: 0;
 	list-style: none;
 }
+aside {
+	margin-left: 0;
+	margin-right: 0;
+	border: 1px solid black;
+}
+aside > div {
+	margin: 1em;
+}
+aside img {
+	float: right;
+	margin: 1em;
+}
+aside hgroup > * {
+	display: inline;
+}
 </style>
 
 <h2>2022</h2>
@@ -16,17 +31,58 @@ ul {
 
 <h2>2021</h2>
 
+<aside><div markdown="1">
+<img src="/images/ssgesus.png" width="238">
+<hgroup>
+<h3 markdown="1">[ssgesus](https://bucket.daz.cat/ssgesus/)</h3>
+<em markdown="1"> [[source](https://bitbucket.org/delan/ssgesus)]</em>
+</hgroup>
+
+<em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
+<br style="clear: both;">
+</div></aside>
+
+<aside><div markdown="1">
+<img src="/images/osmpip.png" width="238">
+<hgroup>
+<h3 markdown="1">[osmpip](https://bitbucket.org/delan/osmpip)</h3>
+<em markdown="1"> [[source](https://bitbucket.org/delan/osmpip)]</em>
+</hgroup>
+OpenStreetMap renderer for dashcam GPS data.
+<br style="clear: both;">
+</div></aside>
+
+<aside><div markdown="1">
+<img src="/images/mmm.png" width="238">
+<hgroup>
+<h3 markdown="1">[mmm](https://bitbucket.org/delan/mmm)</h3>
+<em markdown="1"> [[source](https://bitbucket.org/delan/mmm)]</em>
+</hgroup>
+<em>Mini Metro</em> maps, including <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
+
+Maps for this minimalist rail transit strategy game are written in JSON, and include the visible geometry of land masses and water bodies, plus invisible geometry for things like the regions that stations can spawn in.
+
+I traced the land masses and defined the other geometry in Inkscape, but there’s no level editor available to the public, so I embedded a script in the SVG that reads *its own path data* and generates a valid <em>Mini Metro</em> map.
+<br style="clear: both;">
+</div></aside>
+
 * [fuckgitmemory](https://bitbucket.org/delan/fuckgitmemory) — User script that blocks GitHub scrapers, taking you to real issue pages.
-
-* [ssgesus](https://bitbucket.org/delan/ssgesus) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> route planner.
-
-* [osmpip](https://bitbucket.org/delan/osmpip) — OpenStreetMap renderer for dashcam GPS data.
-
-* [mmm](https://bitbucket.org/delan/mmm) — <em>Mini Metro</em> maps, including <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046">Perth, Australia</a>.
 
 * [cursedtv](https://bitbucket.org/delan/cursedtv) 🦀 — Generates XSPF playlists with TV shows, bumpers, and ads.
 
 <h2>2020</h2>
+
+<aside><div markdown="1">
+<img src="/images/badapple.png" width="238">
+<hgroup>
+<h3 markdown="1">[badapple.rs](https://bitbucket.org/delan/badapple.rs)</h3>
+<span> 🦀</span>
+<em markdown="1"> [[source](https://bitbucket.org/delan/badapple.rs)]</em>
+<em markdown="1"> [[blog post]({% post_url 2020-06-29-bad-apple-for-taskmgr %})]</em>
+</hgroup>
+Video player for Task Manager’s CPU graphs.
+<br style="clear: both;">
+</div></aside>
 
 * [xd](https://bitbucket.org/delan/xd) 🦀 — Tool that dumps binary input in a more human-readable format.
 
@@ -35,8 +91,6 @@ ul {
 * [togpac](https://bitbucket.org/delan/togpac) — [Firefox extension](https://addons.mozilla.org/firefox/addon/togpac/) for a button that disables your proxy settings.
 
 * [memories](https://bitbucket.org/delan/memories) — Self-hosted photo viewer for sharing with family and friends.
-
-* [badapple.rs](https://bitbucket.org/delan/badapple.rs) 🦀 — Video player for Task Manager’s CPU graphs ([more details]({% post_url 2020-06-29-bad-apple-for-taskmgr %})).
 
 <h2>2019</h2>
 
@@ -58,7 +112,15 @@ ul {
 
 <h2>2015</h2>
 
-* [matrix86](https://bitbucket.org/delan/matrix86) — Real mode demo inspired by [cmatrix](http://www.asty.org/cmatrix/) in 188 bytes of 80286 machine code.
+<aside><div markdown="1">
+<img src="/images/matrix86.png" width="238">
+<hgroup>
+<h3 markdown="1">[matrix86](https://bitbucket.org/delan/matrix86)</h3>
+<em markdown="1"> [[source](https://bitbucket.org/delan/matrix86)]</em>
+</hgroup>
+Real mode demo inspired by [cmatrix](http://www.asty.org/cmatrix/) in 188 bytes of 80286 machine code.
+<br style="clear: both;">
+</div></aside>
 
 * [floatvis](floatvis) — Online IEEE 754 playground.
 
@@ -84,9 +146,18 @@ ul {
 
 <h2>2012</h2>
 
-* [cabinvis](cabinvis) — Visualise binary files using Hilbert curves, inspired by [Aldo Cortesi’s blog post](http://corte.si/posts/visualisation/binvis/index.html).
+<aside><div markdown="1">
+<img src="/images/charming.png" width="238">
+<hgroup>
+<h3 markdown="1">[charming](https://charming.daz.cat)</h3>
+<span> 🦀</span>
+<em markdown="1"> [[source](https://github.com/delan/charming)]</em>
+</hgroup>
+Fast mobile-friendly Unicode character map.
+<br style="clear: both;">
+</div></aside>
 
-* [charming](https://charming.daz.cat) 🦀 — Fast mobile-friendly Unicode character map.
+* [cabinvis](cabinvis) — Visualise binary files using Hilbert curves, inspired by [Aldo Cortesi’s blog post](http://corte.si/posts/visualisation/binvis/index.html).
 
 * [utf8check](https://github.com/delan/utf8check) — Extremely fast and strict UTF-8 stream validator, inspector and sanitiser.
 
