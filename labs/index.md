@@ -53,6 +53,11 @@ The parts are placed randomly, but the RNG is seeded with the Unix time, so we c
 <em markdown="1"> [[source](https://bitbucket.org/delan/osmpip)]</em>
 </hgroup>
 OpenStreetMap renderer for dashcam GPS data.
+
+I wrote this program to make a map overlay for my road trip music videos (not yet publicly released), inspired by the map window in [Dashcam Viewer](https://dashcamviewer.com/), without hammering map services like Google Maps or the public OpenStreetMap server with requests.
+It instead uses an OpenStreetMap tile server the user sets up on their own machine.
+
+This was feasible because many dashcams embed hidden but machine-readable GPS data in each video file, in addition to optionally burning the coordinates as text into the video frames.
 <br style="clear: both;">
 </div></aside>
 
@@ -85,6 +90,10 @@ I traced the land masses and defined the other geometry in Inkscape, but there�
 <em markdown="1"> [[blog post]({% post_url 2020-06-29-bad-apple-for-taskmgr %})]</em>
 </hgroup>
 Video player for Task Manager’s CPU graphs.
+
+This project generates real CPU load with thread affinity to shade the usage tiles, unlike the more common approaches of hacking the taskmgr process or using video editing.
+
+I managed to make a passable 11x6 canvas with only six cores and twelve hardware threads, with libvirt and KVM and careful guest configuration.
 <br style="clear: both;">
 </div></aside>
 
@@ -158,6 +167,11 @@ Real mode demo inspired by [cmatrix](http://www.asty.org/cmatrix/) in 188 bytes 
 <em markdown="1"> [[source](https://github.com/delan/charming)]</em>
 </hgroup>
 Fast mobile-friendly Unicode character map.
+
+Search for characters and named sequences by their names, aliases, Unihan definitions, code points, or paste them in directly to break down the grapheme clusters into their constituent parts.
+
+This progressive web app can run completely offline, since the entire working data set is downloaded to the client at once.
+Novel techniques for packing the Unicode data keep the page weight under 2 MB over the wire and under 9 MB in RAM, so that it can even run comfortably on my ancient iPhone SE.
 <br style="clear: both;">
 </div></aside>
 
