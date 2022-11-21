@@ -1,8 +1,8 @@
 ---
 title: Faster style and paint for CSS highlights
 _event: BlinkOn 17
-# _video:
-# _slides: 2022-11-17-faster-style-and-paint-for-css-highlights
+_video: https://www.youtube.com/watch?v=9UfpkZYxbyY
+_slides: 2022-11-16-faster-style-and-paint-for-css-highlights
 ---
 
 CSS highlight pseudos extend the familiar ::selection feature into a far more powerful system that coherently integrates user selections, spelling and grammar errors, author highlights, and more.
