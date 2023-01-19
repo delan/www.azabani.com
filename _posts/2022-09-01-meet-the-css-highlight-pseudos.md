@@ -219,6 +219,7 @@ This includes highlight overlay painting, which was enabled for all highlight ps
 [^2]: See [this demo](https://codepen.io/dazabani13/full/KKqzOJp) for more details.
 
 Chromium 108 includes ::spelling-error and ::grammar-error as an experimental feature, together with the new ‘text-decoration-line’ values ‘spelling-error’ and ‘grammar-error’.
+Chromium 111 enables highlight inheritance for ::selection and ::target-text as an experimental feature, in addition to ::highlight() and the spelling and grammar pseudos (which always use highlight inheritance).
 You can enable these features at
 
 > chrome://flags/#enable-experimental-web-platform-features
@@ -265,7 +266,7 @@ cha: <span id="debug_cha"></span>
         <td>105</td><td>?</td><td>?</td>
     </tr><tr><th>Highlight inheritance (::selection)</th>
         <td class="_live"><div class="_his"><span>no</span><span>yes</span></div></td>
-        <td>?</td><td>?</td><td>?</td>
+        <td>111*</td><td>?</td><td>?</td>
     </tr><tr><th>Highlight inheritance (::highlight)</th>
         <td class="_live"><div class="_hih"><span>no</span><span>yes</span></div></td>
         <td>105</td><td>?</td><td>?</td>
