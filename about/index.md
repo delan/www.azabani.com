@@ -53,6 +53,7 @@ You can reach me at [delan@azabani.com], [+61 466 442 256], or at:
 * <a rel="me" href="https://cohost.org/delan">@delan</a> on Cohost
 * <a rel="me" href="https://kolektiva.social/@delan">@delan@kolektiva.social</a> on Mastodon
 * <a rel="me" href="https://twitter.com/dazabani">@dazabani</a> on Twitter
+* <a rel="me" href="https://github.com/delan">@delan</a> on GitHub
 
 [delan@azabani.com]: mailto:delan@azabani.com
 [+61 466 442 256]: tel:+61466442256
