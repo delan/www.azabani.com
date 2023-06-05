@@ -25,8 +25,14 @@ aside hgroup > * {
 }
 </style>
 
+<h2>2023</h2>
+
+* [wbe.rs](https://github.com/delan/wbe.rs) 🦀 — Loose implementation of the [*Web Browser Engineering*](https://browser.engineering) book in Rust.
+* [worstpractice](https://github.com/delan/worstpractice) — Viewer for XML patient records exported by Best Practice (Bp Premier).
+
 <h2>2022</h2>
 
+* [usb3sun](https://github.com/delan/usb3sun) — USB input adapter (open hardware, open firmware) for Sun workstations.
 * [reverssg](https://github.com/delan/reverssg) — <em>Super Solvers: Gizmos &amp; Gadgets!</em> decompilation and reverse engineering.
 
 <h2>2021</h2>
@@ -64,8 +70,9 @@ This was feasible because many dashcams embed hidden but machine-readable GPS da
 <aside><div markdown="1">
 <img src="/images/mmm.png" width="238">
 <hgroup>
-<h3 markdown="1">[mmm](https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046)</h3>
+<h3 markdown="1">[mmm](https://bucket.daz.cat/mmm/per/drawing.svg)</h3>
 <em markdown="1"> [[source](https://bitbucket.org/delan/mmm)]</em>
+<em markdown="1"> [[Steam page](https://steamcommunity.com/sharedfiles/filedetails/?id=2575991046)]</em>
 </hgroup>
 <em>Mini Metro</em> map for Perth, Australia.
 
