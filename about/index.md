@@ -4,7 +4,13 @@ title: /diːˈlan(.)ˌazabaniː/
 ---
 
 <link rel="preload" as="font" crossorigin href="/asset/-Symbola.woff2">
-<style>h1 { font-family: Symbola, serif; }</style>
+<link rel="preload" as="font" crossorigin href="/asset/-NotoNaskhArabic-Regular.woff2">
+<link rel="preload" as="font" crossorigin href="/asset/-NotoSansSC-Regular.woff2">
+<h1><span lang="ckb">دیلان ازابانی</span> — <span lang="zh">致迪兰</span></h1>
+<style>
+  h1 { font-family: Symbola, serif; }
+  article, article > h1 { margin-top: 0; }
+</style>
 
 I’m a computer programmer and trans woman (she/her) based in Perth, Australia.
 
