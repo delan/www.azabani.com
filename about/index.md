@@ -15,14 +15,14 @@ title: /diːˈlan(.)ˌazabaniː/
 I’m a computer programmer and trans woman (she/her) based in Perth, Australia.
 
 My passions include all kinds of systems programming from [Rust] to [x86 assembly] and beyond,
-internationalisation and [Unicode], [digital preservation] and [retrocomputing],
+internationalisation and [Unicode], [retrocomputing] and [digital preservation],
 typography, cryptography, and above all, [teaching].
 
 [Rust]: https://crates.io/crates/nonymous
 [x86 assembly]: https://bitbucket.org/delan/matrix86
 [Unicode]: https://charming.daz.cat
 [digital preservation]: https://archive.org/details/msdn-200711
-[retrocomputing]: https://cohost.org/delan/post/219862-funny-computers
+[retrocomputing]: http://funny.computer.daz.cat
 [teaching]: https://docs.google.com/presentation/d/1V0daPBXxOrxb4Ckrfhodf2QO-6Ag067y8am479oIjB0
 
 When I’m away from my computer, I enjoy [cooking], solving [cubes], [folk punk], [road trips], and [speedrunning].
