@@ -44,7 +44,7 @@ and the president of its [Computer Science Students Association].
 [Curtin University]: https://www.curtin.edu.au
 [Computer Science Students Association]: https://www.comssa.org.au
 
-* Curriculum vitæ as of 2021-01-02: [<span
+* Curriculum vitæ as of 2023-06-05: [<span
   class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
 * Academic transcript as of 2017-01-13: [PDF][transcript]
 
