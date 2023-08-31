@@ -1,6 +1,6 @@
 ---
 layout: default
-title: /diːˈlan(.)ˌazabaniː/
+title: /diːˈlaːn(.)ˌʕaːzəbaːniː/
 ---
 
 <link rel="preload" as="font" crossorigin href="/asset/-Symbola.woff2">
