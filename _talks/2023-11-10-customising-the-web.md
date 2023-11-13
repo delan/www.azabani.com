@@ -1,7 +1,7 @@
 ---
 title: "Customising the web: browsers as user agents"
 _event: Igalia web platform meetup, November 2023
-# _video: https://www.youtube.com/watch?v=9UfpkZYxbyY
+_video: https://www.youtube.com/watch?v=xLFQejlPf6U
 _slides: 2023-11-10-customising-the-web
 ---
 
