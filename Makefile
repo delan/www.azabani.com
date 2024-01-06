@@ -37,6 +37,12 @@ assets: helper/font.sh
 	>> _sass/fonts.scss helper/font.sh SourceSerifPro-Italic.ttf 'Source Serif Pro' normal italic
 	>> _sass/fonts.scss helper/font.sh SourceSerifPro-Bold.ttf 'Source Serif Pro' bold normal
 	>> _sass/fonts.scss helper/font.sh SourceSerifPro-BoldItalic.ttf 'Source Serif Pro' bold italic
+	>> _sass/fonts.scss helper/font.sh Atkinson-Hyperlegible-Regular-102.ttf 'Atkinson Hyperlegible' normal normal
+	>> _sass/fonts.scss helper/font.sh Atkinson-Hyperlegible-Italic-102.ttf 'Atkinson Hyperlegible' normal italic
+	>> _sass/fonts.scss helper/font.sh Atkinson-Hyperlegible-Bold-102.ttf 'Atkinson Hyperlegible' bold normal
+	>> _sass/fonts.scss helper/font.sh Atkinson-Hyperlegible-BoldItalic-102.ttf 'Atkinson Hyperlegible' bold italic
+	>> _sass/fonts.scss helper/font.sh Comic_Sans_MS.ttf 'Comic Sans MS' normal normal
+	>> _sass/fonts.scss helper/font.sh Comic_Sans_MS_Bold.ttf 'Comic Sans MS' bold normal
 
 init: helper/.venv helper/requirements.txt
 	. helper/.venv/bin/activate && pip install -r helper/requirements.txt
