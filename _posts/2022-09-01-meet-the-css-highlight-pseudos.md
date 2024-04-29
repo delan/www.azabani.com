@@ -17,6 +17,13 @@ This is the third part of a series ([part one], [part two]) about Igalia’s wor
 [part one]: {% post_url 2021-05-17-spelling-grammar %}
 [part two]: {% post_url 2021-12-16-spelling-grammar-2 %}
 
+<aside markdown="1">
+**Update (2024-04-29):**
+- added [details about applicable properties](#applicable-properties)
+- removed [§ _Accessing global constants_](#accessing-global-constants)
+- added [§ _Custom properties_](#custom-properties)
+</aside>
+
 <style>
 article { --cr-highlight: #3584E4; --cr-highlight-aC0h: #3584E4C0; }
 article figure > img { max-width: 100%; }
@@ -808,6 +815,33 @@ To make highlight inheritance actually useful for <span class="_spelling">‘tex
 ```
 </div></div></figure>
 
+<a name="applicable-properties"></a>Only a [handful of properties](https://drafts.csswg.org/css-pseudo/#highlight-styling) are settable in highlight styles, for performance and privacy reasons.
+In general, properties that you can’t set in highlight styles come from the _originating element_, which is to say from the non-highlight styles.
+
+<figure><div class="scroll" markdown="1"><div class="flex row_bag" markdown="1">
+<div class="_example" style="width: max-content; font-size: 3em; padding-right: 0.5em;">
+    <span style="text-shadow: 0.25em 0.25lh lightblue;">A</span><big style="font-size: 2em; line-height: 1.5; text-shadow: 0.25em 0.25lh lightblue;"> A</big>
+</div>
+<div class="gap"></div>
+```html
+<style>
+    :root::selection {
+        text-shadow: 0.25em 0.25lh lightblue;
+        background-color: transparent;
+    }
+    big {
+        font-size: 2em;
+        line-height: 1;
+    }
+</style>
+<aside>
+    <sup>quick</sup> fox
+</aside>
+```
+</div></div><figcaption markdown="1">
+When selected, the &lt;big> is still 2em/1, and the selection shadow takes that into account, even though you are not allowed to set ‘font-size’ or ‘line-height’ in :root::selection.
+</figcaption></figure>
+
 This would conflict with the usual rules[^3] for decorating boxes, because descendants would get two decorations, one propagated and one inherited.
 We resolved this by making decorations added by highlights not propagate to any descendants.
 
@@ -1087,7 +1121,9 @@ When a word in `em` is misspelled, it will become blue like the rest of `p`, unl
 
 ### Accessing global constants
 
-Highlight pseudos also don’t automatically have access to custom properties set in the element tree, which can make things tricky if you have a design system that exposes a color palette via custom properties on :root.
+<details markdown="1"><summary><strong>Update (2024-04-29):</strong> this section is no longer true (see <a href="#custom-properties">§ <em>Custom properties</em></a>), but you can click here to read what I wrote originally.</summary>
+
+<del>Highlight pseudos also don’t automatically have access to custom properties set in the element tree, which can make things tricky if you have a design system that exposes a color palette via custom properties on :root.</del>
 
 <figure><div class="scroll" markdown="1">
 ```css
@@ -1105,7 +1141,7 @@ Highlight pseudos also don’t automatically have access to custom properties se
 This code does not work.
 </figcaption></figure>
 
-You can work around this by adding selectors for the necessary highlight pseudos to the rule defining the constants, or if the necessary highlight pseudos are unknown, by rewriting each constant as a custom @property rule.
+<del>You can work around this by adding selectors for the necessary highlight pseudos to the rule defining the constants, or if the necessary highlight pseudos are unknown, by rewriting each constant as a custom @property rule.</del>
 
 <figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex">
 ```css
@@ -1129,6 +1165,54 @@ You can work around this by adding selectors for the necessary highlight pseudos
     initial-value: #663399;
     syntax: "*"; inherits: false;
 }
+```
+</div></div></figure>
+</details>
+
+### Custom properties
+
+You can _use_ custom properties in highlight styles, but you will not be able to set or override them there.
+Custom property values come from the nearest originating element.
+
+This is unfortunate, but allowing you to set custom properties in highlight styles broke a lot of existing content on the web (and existing advice on Stack Overflow).
+For more details, see these posts by my colleague Stephen Chenney:
+
+- [The CSS Highlight Inheritance Model](https://blogs.igalia.com/schenney/the-css-highlight-inheritance-model/) (January 2024)
+- [CSS Custom Properties in Highlight Pseudos](https://blogs.igalia.com/schenney/css-custom-properties-in-highlight-pseudos/) (April 2024)
+- (and the CSSWG issues, [#6641](https://github.com/w3c/csswg-drafts/issues/6641) and [#9909](https://github.com/w3c/csswg-drafts/issues/9909))
+
+<figure markdown="1"><div markdown="1" class="scroll"><div markdown="1" class="flex column_bag">
+<div class="_example" style="width: max-content; font-size: 2em; color: black;">
+    <span style="color: black; background: lightgreen;">the fox jumps over the dog</span>
+    <div>
+        <span style="color: black; background: yellow;">(the </span
+        ><sup style="color: black; background: yellow;">quick</sup
+        ><span style="color: black; background: yellow;"> fox, mind you)</span>
+    </div>
+</div>
+<div class="gap"></div>
+```html
+<style>
+    ::selection /* = *::selection (universal) */ {
+        /* using --selection-color in ::selection is ok... */
+        background-color: var(--selection-color); /* 🙆‍♀️ */
+
+        /* ...but you will no longer be allowed to set it! */
+        --selection-color: red; /* 🙅‍♀️ */
+    }
+    body {
+        --selection-color: lightgreen;
+    }
+    aside {
+        --selection-color: yellow;
+    }
+</style>
+<body>
+    <p>the fox jumps over the dog
+    <aside>
+        (the <sup>quick</sup> fox, mind you)
+    </aside>
+</body>
 ```
 </div></div></figure>
 
