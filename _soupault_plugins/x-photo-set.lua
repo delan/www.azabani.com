@@ -133,7 +133,7 @@ while x_photo_sets[i] do
         j = j + 1
     end
 
-    -- 2. <x-photo-set> <h2/> text <dl/> </x-photo-set> <figure/>...
+    -- 2. <x-photo-set> <h2/> text <dl/> <figure/>... </x-photo-set>
     local j = 1
     while cohost_imgs[j] do
         local id = HTML.get_attribute(cohost_imgs[j], "id")
@@ -144,7 +144,7 @@ while x_photo_sets[i] do
 
         local figure = HTML.create_element("figure")
         HTML.replace_element(cohost_imgs[j], figure)
-        HTML.insert_after(x_photo_sets[i], figure)
+        HTML.append_child(x_photo_sets[i], figure)
 
         local figcaption = HTML.create_element("figcaption", String.join(", ", {
             "ISO " .. get_exif_data(id, "ISO"),

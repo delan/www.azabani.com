@@ -107,10 +107,10 @@
     <scope>Nikon Aculon A211 10-22x50</scope>
     <bird>Australian ringneck, twenty-eight parrot (<i>Barnardius zonarius semitorquatus</i>)</bird>
     <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
-    <cohost-img id=8295b356-f5c2-44c9-a100-07b36bc76ece width=2500 height=2500></cohost-img>
-    <cohost-img id=f7b96996-a344-4c1f-9ee1-73bd78a7ec84 width=3001 height=3000></cohost-img>
-    <cohost-img id=55af8710-c238-47d4-a9ea-c39879dc5ff9 width=3001 height=3000></cohost-img>
     <cohost-img id=1711d847-b039-4128-a88c-c95f98bf9f01 width=3001 height=3000></cohost-img>
+    <cohost-img id=55af8710-c238-47d4-a9ea-c39879dc5ff9 width=3001 height=3000></cohost-img>
+    <cohost-img id=f7b96996-a344-4c1f-9ee1-73bd78a7ec84 width=3001 height=3000></cohost-img>
+    <cohost-img id=8295b356-f5c2-44c9-a100-07b36bc76ece width=2500 height=2500></cohost-img>
 </x-photo-set>
 <x-photo-set title="powerline sucks… hit da bricks!!">
     <camera>Google Pixel 8</camera>
