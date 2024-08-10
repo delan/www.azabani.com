@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import (fetchTarball { url = "https://github.com/NixOS/nixpkgs/archive/21cc704b5e918c5fbf4f9fff22b4ac2681706d90.tar.gz"; }) {} }:
 pkgs.mkShell {
   shellHook = ''
     # Gemfile > jekyll
@@ -24,5 +24,8 @@ pkgs.mkShell {
 
     # helper > package.json
     pkgs.nodejs
+
+    # soupault.toml
+    pkgs.soupault
   ];
 }

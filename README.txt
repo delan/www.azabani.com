@@ -14,15 +14,15 @@ Welcome! You’ll need:
 bundle install
 make [init-clean] init
 
-# compile the site
-bundle exec jekyll build
-
 # spin up a dev server
 bundle exec jekyll serve
 
+# compile (jekyll always, soupault only if needed)
+make [BUNDLE=bundle24]
+
 # compile and stage
 # you must deploy or reject any previous changes first
-make [BUNDLE=bundle24]
+make [BUNDLE=bundle24] dry
 
 # examine staging area
 make examine
@@ -35,3 +35,6 @@ make reject
 
 # recompile assets
 make assets
+
+# recompile soupault
+make soupault

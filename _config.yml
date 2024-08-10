@@ -5,7 +5,9 @@ timezone: Etc/UTC
 url: https://www.azabani.com
 title: delan azabani
 collections:
-  - talks
+  talks:
+  soupault_build:
+    permalink: /:path
 plugins:
   - jekyll-feed
 feed:

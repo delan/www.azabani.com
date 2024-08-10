@@ -1,0 +1,64 @@
+[settings]
+  soupault_version = "4.7.0"
+  strict = true
+  verbose = true
+  debug = true
+
+  # We can’t use “.” because that would contain the build_dir; since there’s no
+  # way to exclude directories, each run would clone /build/ into /build/build/.
+  site_dir = "_soupault_site"
+  build_dir = "_soupault_build"
+
+  # Some pages (notably /acid{1,2}/*.{html,htm}) must be completely untouched,
+  # so we use “in” here to ensure that only our own pages are processed.
+  # soupault does not support values like “in.html” or “html.in”.
+  page_file_extensions = ["in"]
+
+  # Off, since rewriting foo.html to foo/index.html breaks existing URL tree.
+  clean_urls = false
+
+  # (not used yet)
+  keep_extensions = ["html", "htm"]
+  default_extension = "html"
+  ignore_extensions = []
+
+  # Wrap pages that look “partial” in the main element of the template file.
+  # https://soupault.app/reference-manual/#partial-and-complete-pages
+  generator_mode = true
+  complete_page_selector = "html"
+  default_template_file = "_soupault_templates/default.html"
+  default_content_selector = "article"
+  default_content_action = "append_child"
+
+  # Keep existing doctype if any, otherwise insert this doctype verbatim.
+  # Note that a kept doctype of “<!doctype html>” becomes “<!DOCTYPE html>”,
+  # so we might as well match that capitalisation in the doctype below.
+  keep_doctype = true
+  doctype = "<!DOCTYPE html>"
+
+  # Off, since this makes unsafe whitespace changes that affect text nodes.
+  pretty_print_html = false
+
+  # (not used yet)
+  plugin_discovery = true
+  plugin_dirs = ["_soupault_plugins"]
+  caching = false
+  cache_dir = ".soupault-cache"
+  page_character_encoding = "utf-8"
+
+
+# (not used yet)
+#[preprocessors]
+#  md = "cmark --unsafe --smart"
+#  adoc = "asciidoctor -o -"
+
+
+[widgets.page-title]
+  widget = "title"
+  selector = ".title"
+  default = "delan azabani"
+  append = " | delan azabani"
+  force = false
+
+[widgets.title-h1-out-of-article]
+  widget = "title-h1-out-of-article"

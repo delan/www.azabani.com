@@ -4,6 +4,7 @@
 /_site/
 /_staging/
 /_production/
+/_soupault_build/
 /about/private/
 /about/public/*.aux
 /about/public/*.fdb_latexmk

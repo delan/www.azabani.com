@@ -2,11 +2,17 @@
 
 BUNDLE = bundle
 
-dry: _staging
+jekyll:
 	rm -Rf _site
 	mkdir -p _site
 	$(BUNDLE) exec jekyll build
 
+soupault:
+	rm -Rf _soupault_build
+	$(MAKE) _soupault_build
+
+dry: _staging
+	$(MAKE) jekyll
 	rsync -a --delete _site _staging
 	git -C _staging diff --cached --quiet
 	git -C _staging add _site
@@ -62,4 +68,7 @@ _production:
 helper/.venv:
 	python3 -m venv -- '$@'
 
-.PHONY: dry examine deploy reject assets init init-clean
+_soupault_build:
+	soupault
+
+.PHONY: jekyll soupault dry examine deploy reject assets init init-clean
