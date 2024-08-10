@@ -62,3 +62,6 @@
 
 [widgets.title-h1-out-of-article]
   widget = "title-h1-out-of-article"
+
+[widgets.x-photo-set]
+  widget = "x-photo-set"

@@ -1,0 +1,281 @@
+<h1 class="title">Bird photography</h1>
+
+<x-photo-set title="eucalyptus crimes">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>rainbow lorikeet (<i>Trichoglossus moluccanus</i>)</bird>
+    <cohost-img id=c9518efe-aa2f-4f89-9bdb-ebf54b43c00a width=2499 height=2500></cohost-img>
+    <cohost-img id=4254a335-594c-4008-9b57-9775b73d64f2 width=2499 height=2500></cohost-img>
+</x-photo-set>
+<x-photo-set title="bloody hell! magpie almost swooped me">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=9c2db0f1-5b2b-4578-ba55-73c57e49c847 width=3906 height=2602></cohost-img>
+    <cohost-img id=a5d03dbd-d43b-4753-999d-cdddd6f35356 width=3906 height=2602></cohost-img>
+    <cohost-img id=8d671b17-3ad5-46e5-bc9a-c40cf87dc805 width=3906 height=2602></cohost-img>
+    <cohost-img id=39718167-04b3-4e4b-b619-ec71cba1ce51 width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="preening below">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=ffd46e6c-7d96-4b68-b27d-df5a9ced28fc width=3906 height=2602></cohost-img>
+    <cohost-img id=f6ea52de-e7aa-4c7f-acda-8ae5c2de60f1 width=3906 height=2602></cohost-img>
+    <cohost-img id=1237a832-467d-4e87-97f3-ba1c643ecabb width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="preening behind">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=06a86f77-1590-4d07-993c-5ae2c3e96eed width=1999 height=2000></cohost-img>
+    <cohost-img id=270a177e-15f1-4420-8d75-7d3845823cdf width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="scrunkle caruncle">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=bce5b28d-8be9-49e0-8fb9-3de7514e5c82 width=1800 height=1200></cohost-img>
+    <cohost-img id=b8796818-8f17-4d97-ad7f-2fad34d64874 width=1800 height=1200></cohost-img>
+</x-photo-set>
+<x-photo-set title="the gang">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=35a2d512-919b-479a-bf45-7478bc6f8a0f width=2699 height=1800></cohost-img>
+    <cohost-img id=329eadcc-32e2-4be5-aec4-9b3132c9570e width=3906 height=2602></cohost-img>
+    <cohost-img id=c1b3fa08-f07b-4553-8ec4-76b7b34e4b69 width=2300 height=2300></cohost-img>
+</x-photo-set>
+<x-photo-set title="full circle" scope="Nikon Aculon A211 10-22x50">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>rainbow lorikeet (<i>Trichoglossus moluccanus</i>)</bird>
+    <cohost-img id=8d901931-501c-4ba8-ae66-a62c3a0aa99b width=2700 height=2700></cohost-img>
+</x-photo-set>
+<x-photo-set title="spotless">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>laughing dove (<i>Spilopelia senegalensis</i>), formerly <em>Streptopelia</em></bird>
+    <cohost-img id=4009af89-8dff-44a5-8d5b-5d196a7062fe width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="king of the gum tree">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=16fd3522-0ab5-4ba3-8d65-5559e6c651c7 width=2399 height=1600></cohost-img>
+</x-photo-set>
+<x-photo-set title="wet and dry and somewhere in between">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>Australian wood duck (<i>Chenonetta jubata</i>)</bird>
+    <cohost-img id=aa4f0d57-f07d-4a1a-8774-1d67e2bde8d3 width=2599 height=2600></cohost-img>
+    <cohost-img id=bcfe20e9-015b-499b-b0e1-4c641cbd0341 width=2600 height=2601></cohost-img>
+    <cohost-img id=75231996-e13f-4124-b0d7-00aac30ac3a0 width=2599 height=2600></cohost-img>
+</x-photo-set>
+<x-photo-set title="bin chicken">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>Australian white ibis (<i>Threskiornis molucca</i>)</bird>
+    <cohost-img id=4495e117-8718-48d4-8c82-642165903f33 width=3906 height=2602></cohost-img>
+    <cohost-img id=512ea0fb-46da-4230-8545-ec9347cf6678 width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="sing to me, erbarme dich">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>singing honeyeater (<i>Gavicalis virescens</i>)</bird>
+    <cohost-img id=c1241ab0-3e42-419b-ac14-f12292647831 width=2599 height=2600></cohost-img>
+    <cohost-img id=011497dc-2a61-47c8-8691-6d2f69428cd1 width=3906 height=2602></cohost-img>
+    <cohost-img id=2b68f1ea-7582-4b04-b08f-f2bcc0c0e15d width=3906 height=2602></cohost-img>
+</x-photo-set>
+<x-photo-set title="brown honeyeater?">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>brown honeyeater (<i>Lichmera indistincta</i>)</bird>
+    <cohost-img id=279ba479-ffa4-49e1-bebe-6b86f4036a8b width=2401 height=2400></cohost-img>
+</x-photo-set>
+<x-photo-set title="family of non-magpie magpies">
+    <p>left to right: female adult, male adult, juvenile</p>
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>Australian magpie, western magpie (<i>Gymnorhina tibicen dorsalis</i>)</bird>
+    <cohost-img id=d35cb304-4fdb-4de0-b85d-440d6d414e8a width=2601 height=2600></cohost-img>
+    <cohost-img id=b4efe28b-d5e5-42db-bb10-c5d870c8bf02 width=2601 height=2600></cohost-img>
+    <cohost-img id=f4a2a91e-5a2b-4685-9a58-c229986cadaa width=2700 height=2700></cohost-img>
+</x-photo-set>
+<x-photo-set title="local parrot conference 2">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>Australian ringneck, twenty-eight parrot (<i>Barnardius zonarius semitorquatus</i>)</bird>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=8295b356-f5c2-44c9-a100-07b36bc76ece width=2500 height=2500></cohost-img>
+    <cohost-img id=f7b96996-a344-4c1f-9ee1-73bd78a7ec84 width=3001 height=3000></cohost-img>
+    <cohost-img id=55af8710-c238-47d4-a9ea-c39879dc5ff9 width=3001 height=3000></cohost-img>
+    <cohost-img id=1711d847-b039-4128-a88c-c95f98bf9f01 width=3001 height=3000></cohost-img>
+</x-photo-set>
+<x-photo-set title="powerline sucks… hit da bricks!!">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>willie wagtail (<i>Rhipidura leucophrys</i>)</bird>
+    <cohost-img id=c73b6301-29a8-4d65-afed-1402bdba409e width=2601 height=2600></cohost-img>
+    <cohost-img id=3367325a-0aee-48bc-aa16-fb012475bc3f width=2601 height=2600></cohost-img>
+    <cohost-img id=05c02470-7fa1-4deb-9e6a-67f77df3be75 width=2601 height=2600></cohost-img>
+</x-photo-set>
+<x-photo-set title="fence wagger">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>willie wagtail (<i>Rhipidura leucophrys</i>)</bird>
+    <cohost-img id=5275b71b-7d6c-4df4-a7c2-e222f04fed3b width=1920 height=1280></cohost-img>
+</x-photo-set>
+<x-photo-set title="ornithologist (culinary)">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>cat (<i>Felis catus</i>)</bird>
+    <cohost-img id=4c4c0cfe-73eb-4851-9870-3cb0f179efe4 width=2901 height=2900></cohost-img>
+    <cohost-img id=2c64b78e-ffc3-4707-8f01-185bcc654b8d width=3051 height=3050></cohost-img>
+</x-photo-set>
+<x-photo-set title="local parrot conference">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>Australian ringneck, Port Lincoln parrot (<i>Barnardius zonarius zonarius</i>)</bird>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=bfb8282b-b6e2-407d-bad1-0f4b7b8d9691 width=2200 height=2200></cohost-img>
+    <cohost-img id=b521a4b1-3949-4db5-92c3-b28ca69d2f9d width=2400 height=2400></cohost-img>
+    <cohost-img id=a0be71e8-dea0-4d8f-ae2a-13ceaf4e38f8 width=2500 height=2500></cohost-img>
+</x-photo-set>
+<x-photo-set title="you can paddle there? that’s adorable. i can walk there">
+    <camera>Google Pixel 8</camera>
+    <bird>Australasian swamphen (<i>Porphyrio melanotus</i>), formerly purple swamphen</bird>
+    <cohost-img id=b6ad78e0-8574-4cb2-9564-c3187b5687bf width=3300 height=2200></cohost-img>
+</x-photo-set>
+<x-photo-set title="that’s a paddlin">
+    <camera>Google Pixel 8</camera>
+    <bird>Pacific black duck (<i>Anas superciliosa</i>)</bird>
+    <cohost-img id=f7c723cf-8b03-4008-8056-7a876d83f5b7 width=3000 height=2000></cohost-img>
+</x-photo-set>
+<x-photo-set title="beep!! i’m a ringneck">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>Australian ringneck, twenty-eight parrot (<i>Barnardius zonarius semitorquatus</i>)</bird>
+    <cohost-img id=b8fd4ca9-80e6-48f8-8f27-5eed5b24ad64 width=2600 height=2600></cohost-img>
+    <cohost-img id=326ff328-2b60-4321-96b0-aff8aefc9247 width=2700 height=2700></cohost-img>
+    <cohost-img id=3c009c68-4a0a-4ff5-8248-2ba953843f44 width=3000 height=3000></cohost-img>
+</x-photo-set>
+<x-photo-set title="banksia banquet">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>New Holland honeyeater (<i>Phylidonyris novaehollandiae</i>)</bird>
+    <cohost-img id=833b499c-0b99-4282-8300-97bd7aa83785 width=2700 height=2700></cohost-img>
+    <cohost-img id=40904195-0424-4103-8557-a093b1211968 width=2700 height=2700></cohost-img>
+</x-photo-set>
+<x-photo-set title="i am not a magpie (and nor are they)">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>magpie-lark (<i>Grallina cyanoleuca</i>)</bird>
+    <cohost-img id=40239ba1-3d59-4064-bf24-fc3826e55777 width=2250 height=1500></cohost-img>
+</x-photo-set>
+<x-photo-set title="when will my {wagtail,wattlebird} return from war">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>willie wagtail (<i>Rhipidura leucophrys</i>)</bird>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=87b6a1f3-db56-4be7-aafa-2fe09d6a2351 width=2600 height=2600></cohost-img>
+    <cohost-img id=c6e4c099-2fc2-4bc4-93de-89d29f720892 width=2100 height=2100></cohost-img>
+</x-photo-set>
+<x-photo-set title="caught red beaked">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>New Holland honeyeater (<i>Phylidonyris novaehollandiae</i>)</bird>
+    <cohost-img id=b5959929-1e27-4fa5-b4d4-c45c9c530034 width=2700 height=2700></cohost-img>
+    <cohost-img id=53b21c63-334b-4419-b0b4-8734b1e674b8 width=1500 height=1500></cohost-img>
+</x-photo-set>
+<x-photo-set title="bird modem">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>Australian magpie, western magpie (<i>Gymnorhina tibicen dorsalis</i>)</bird>
+    <cohost-img id=f3fcaeee-5422-4409-b6a8-ce3cdfbfd876 width=2250 height=1500></cohost-img>
+</x-photo-set>
+<x-photo-set title="squawk squawk">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=5df4dd32-f8ac-4f5f-aba7-7340bd0f5dfc width=1500 height=1500></cohost-img>
+    <cohost-img id=82d9b418-6e25-4586-9969-6297fb155ac8 width=1600 height=1600></cohost-img>
+</x-photo-set>
+<x-photo-set title="this machine kills snakes">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>laughing kookaburra (<i>Dacelo novaeguineae</i>)</bird>
+    <cohost-img id=83424a8e-1cda-49c8-ac4e-b9f2620e6a70 width=2700 height=2700></cohost-img>
+    <cohost-img id=784f071c-c971-4c68-bc02-b939e275bc52 width=2700 height=2700></cohost-img>
+    <cohost-img id=965ba9b2-37d9-4de7-9b3d-963b90c27b81 width=2700 height=2700></cohost-img>
+    <cohost-img id=9d89884b-afff-4809-bcfe-220deab64866 width=2700 height=2700></cohost-img>
+</x-photo-set>
+<x-photo-set title="what’s all this racket?">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=415c7f03-878c-452f-b80d-684d84c65aef width=1250 height=2000></cohost-img>
+    <cohost-img id=e0f06cbc-29eb-4297-8d06-03a2c1f2597c width=1250 height=2000></cohost-img>
+    <cohost-img id=9e650269-dc37-40d2-948a-2edd344c21e5 width=1250 height=2000></cohost-img>
+</x-photo-set>
+<x-photo-set title="two galahs">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=98451342-90db-493e-b908-cf9e1fcaeca4 width=3000 height=3000></cohost-img>
+    <cohost-img id=fe56ebd0-1535-4269-885f-1d23ecd19967 width=3000 height=3000></cohost-img>
+    <cohost-img id=f503a36a-a98a-45f2-83ff-2b6699d9efe1 width=3000 height=3000></cohost-img>
+    <cohost-img id=f9802ffa-919e-46c8-8649-60a67994f28a width=3000 height=3000></cohost-img>
+</x-photo-set>
+<x-photo-set title="singing honeyeater">
+    <camera>Google Pixel 8</camera>
+    <scope>Nikon Aculon A211 10-22x50</scope>
+    <bird>singing honeyeater (<i>Gavicalis virescens</i>)</bird>
+    <cohost-img id=c06c701c-e8d6-4209-ab4f-c563a2f2aea1 width=2250 height=1500></cohost-img>
+    <cohost-img id=455b33b4-e040-4e70-a2b1-fd47a2ba31e9 width=1500 height=1500></cohost-img>
+    <cohost-img id=b795670d-08b3-44f9-aedb-7e74cb62a4ab width=2250 height=1500></cohost-img>
+    <cohost-img id=4788ac76-53e5-4738-b4d6-a72e4358a39d width=2277 height=1518></cohost-img>
+</x-photo-set>
+<x-photo-set title="crime babys">
+    <camera>Google Pixel 8</camera>
+    <scope>Wuciray 10x50</scope>
+    <bird>rainbow lorikeet (<i>Trichoglossus moluccanus</i>)</bird>
+    <p>can you tell i paid 34.95 aud for these binoculars?</p>
+    <cohost-img id=527e5f0f-7608-422b-9d6a-8e04130f6167 width=4072 height=2290></cohost-img>
+</x-photo-set>
+
+<script>
+    const checkWidthHeightAttributes = false;
+    if (checkWidthHeightAttributes) {
+        const imgs = document.querySelectorAll("article img");
+        for (const img of imgs) {
+            // FIXME: may not be 100% reliable; sometimes reports 0x0 or a downscaled size
+            if (img.width != img.naturalWidth || img.height != img.naturalHeight) {
+                console.warn(img.naturalWidth, img.naturalHeight, img.width, img.height, img.src);
+            } else {
+                console.debug(img.naturalWidth, img.naturalHeight, img.width, img.height, img.src);
+            }
+        }
+    }
+</script>
+<style>
+    article img {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+    }
+    article small {
+        font-size: 75%;
+    }
+    article dl {
+        margin-left: 0;
+        font-size: 75%;
+    }
+    article dt {
+        display: none;
+    }
+    article dd {
+        display: list-item;
+        margin-top: 0;
+    }
+</style>
