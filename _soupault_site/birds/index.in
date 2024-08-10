@@ -53,6 +53,13 @@
     <cohost-img id=bce5b28d-8be9-49e0-8fb9-3de7514e5c82 width=1800 height=1200></cohost-img>
     <cohost-img id=b8796818-8f17-4d97-ad7f-2fad34d64874 width=1800 height=1200></cohost-img>
 </x-photo-set>
+<x-photo-set title="time to go the fuck home again">
+    <camera>Google Pixel 8</camera>
+    <camera><del>Canon 1000D</del></camera>
+    <lens><del>Canon EF 75-300mm f/4-5.6 III</del></lens>
+    <bird>no hat, no play, no card, no bird</bird>
+    <cohost-img id=f64c0902-9884-4885-b41e-1ffef223a5ae width=4080 height=3072></cohost-img>
+</x-photo-set>
 <x-photo-set title="the gang">
     <camera>Canon 1000D</camera>
     <lens>Canon EF 75-300mm f/4-5.6 III</lens>

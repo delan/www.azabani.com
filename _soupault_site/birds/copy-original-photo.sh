@@ -14,6 +14,7 @@ fi
 for raw_dir in \
   /mnt/ocean/private/delan/photos/pixel8/rawtherapee-2024-05-25 \
   /mnt/ocean/private/delan/photos/pixel8/darktable_exported \
+  /mnt/ocean/private/delan/photos/pixel8 \
   /mnt/ocean/private/delan/photos/1000d/darktable_exported \
 ; do
   input_path=$raw_dir/$filename
