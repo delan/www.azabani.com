@@ -27,5 +27,6 @@ for raw_dir in \
   exiftool -overwrite_original -geotag= "$output_path" || continue
   exiftool -j "$output_path" > "$output_path.json" || continue
   >&2 echo "$output_path"
-  break
+  exit
 done
+exit 1
