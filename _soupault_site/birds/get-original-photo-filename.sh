@@ -3,7 +3,8 @@
 set -euo pipefail -o bsdecho
 id=$1
 output_dir=$2
-cd -- "$output_dir"
+mkdir -p "$output_dir/_cohost"
+cd -- "$output_dir/_cohost"
 
 if ! [ -e "$id" ]; then
     curl -IO "https://cohost.org/rc/attachment-redirect/$id"

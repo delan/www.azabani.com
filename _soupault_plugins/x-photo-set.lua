@@ -8,8 +8,12 @@ set_details_defs = {
 
 function copy_original_photo(filename)
     local script_path = Sys.join_path(page_dir, "copy-original-photo.sh")
-    local photo_path = Sys.join_path(page_dir, filename)
-    if not Sys.file_exists(photo_path) then
+    local photo_path = Sys.join_path(Sys.join_path(page_dir, "_"), filename)
+    local small_path = Sys.join_path(Sys.join_path(page_dir, "_small"), filename)
+    local exif_path = Sys.join_path(Sys.join_path(page_dir, "_exif"), filename .. ".json")
+    local photo_url = "_/" .. filename
+    local small_url = "_small/" .. filename
+    if not Sys.file_exists(photo_path) or not Sys.file_exists(small_path) or not Sys.file_exists(exif_path) then
         Log.debug("x-photo-set: copying " .. filename)
     end
     if Sys.run_program(String.join(" ", {
@@ -17,7 +21,13 @@ function copy_original_photo(filename)
         "'" .. filename .. "'",
         "'" .. page_dir .. "'",
     })) then
-        return photo_path
+        return {
+            photo_path = photo_path,
+            small_path = small_path,
+            exif_path = exif_path,
+            photo_url = photo_url,
+            small_url = small_url,
+        }
     else
         Log.error("Failed to copy original photo for " .. filename)
     end
@@ -25,7 +35,7 @@ end
 
 function get_original_photo_filename(id)
     local script_path = Sys.join_path(page_dir, "get-original-photo-filename.sh")
-    local response_path = Sys.join_path(page_dir, id)
+    local response_path = Sys.join_path(Sys.join_path(page_dir, "_cohost"), id)
     if not Sys.file_exists(response_path) then
         Log.debug("x-photo-set: making cohost request for " .. id)
     end
@@ -41,17 +51,14 @@ function get_original_photo_filename(id)
     end
 end
 
-function get_photo_path(id)
-    -- local location_path = Sys.join_path(page_dir, id .. ".location")
-    -- local photo_url = String.trim(Sys.read_file(location_path))
-    -- local photo_filename = Sys.basename_url(photo_url)
+function get_photo_paths(id)
     local photo_filename = get_original_photo_filename(id)
     return copy_original_photo(photo_filename)
 end
 
 function get_exif_data(id, key)
-    local path = get_photo_path(id)
-    local result = Sys.read_file(path .. ".json")
+    local paths = get_photo_paths(id)
+    local result = Sys.read_file(paths.exif_path)
     result = JSON.from_string(result)
     if result[1] then
         return result[1][key]
@@ -137,8 +144,7 @@ while x_photo_sets[i] do
     local j = 1
     while cohost_imgs[j] do
         local id = HTML.get_attribute(cohost_imgs[j], "id")
-        -- local url = "https://cohost.org/rc/attachment-redirect/" .. id
-        local url = Sys.basename_url(get_photo_path(id))
+        local paths = get_photo_paths(id)
         local width = HTML.get_attribute(cohost_imgs[j], "width")
         local height = HTML.get_attribute(cohost_imgs[j], "height")
 
@@ -155,13 +161,13 @@ while x_photo_sets[i] do
 
         local a = HTML.create_element("a")
         HTML.set_attribute(a, "target", "_blank")
-        HTML.set_attribute(a, "href", url)
+        HTML.set_attribute(a, "href", paths.photo_url)
         HTML.append_child(figure, a)
 
         -- FIXME: soupault bug (PataphysicalSociety/soupault#66)
         local img = HTML.select_one(HTML.parse("<img>"), "*")
         HTML.set_attribute(img, "loading", "lazy")
-        HTML.set_attribute(img, "src", url)
+        HTML.set_attribute(img, "src", paths.small_url)
         if width then
             HTML.set_attribute(img, "width", width)
         end

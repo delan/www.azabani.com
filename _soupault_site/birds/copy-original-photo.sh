@@ -3,10 +3,12 @@
 set -euo pipefail -o bsdecho
 filename=${1##*/}
 output_dir=$2
-output_path=$output_dir/$filename
-json_path=$output_path.json
+output_path=$output_dir/_/$filename
+small_path=$output_dir/_small/$filename
+exif_path=$output_dir/_exif/$filename.json
 
-if [ -e "$output_path" ] && [ -e "$json_path" ]; then
+mkdir -p -- "$output_dir/_" "$output_dir/_small" "$output_dir/_exif"
+if [ -e "$output_path" ] && [ -e "$small_path" ] && [ -e "$exif_path" ]; then
   >&2 echo "$output_path"
   exit
 fi
@@ -18,15 +20,30 @@ for raw_dir in \
   /mnt/ocean/private/delan/photos/1000d/darktable_exported \
 ; do
   input_path=$raw_dir/$filename
-  if [ "$input_path" -ef "$output_path" ]; then
-    >&2 echo "fatal: attempting to modify original"
+  if [ "$output_path" -ef "$input_path" ]; then
+    >&2 echo "fatal: attempting to modify original: $output_path"
+    exit 1
+  fi
+  if [ "$small_path" -ef "$input_path" ]; then
+    >&2 echo "fatal: attempting to modify original: $small_path"
+    exit 1
+  fi
+  if [ "$exif_path" -ef "$input_path" ]; then
+    >&2 echo "fatal: attempting to modify original: $exif_path"
     exit 1
   fi
   > /dev/null cat "$input_path" || continue
   # Copy first, to avoid exiftool file I/O errors on sshfs
   cp -- "$input_path" "$output_path" || continue
+  # Strip geotag data
   exiftool -overwrite_original -geotag= "$output_path" || continue
-  exiftool -j "$output_path" > "$output_path.json" || continue
+  # Scale the stripped version, but use the imagemagick jpeg encoder
+  # because the ffmpeg mjpeg encoder has fixed low-quality output
+  ffmpeg -i "$output_path" -filter:v thumbnail,scale=w=900:h=900:force_original_aspect_ratio=decrease -frames:v 1 "$small_path.png"
+  convert "$small_path.png" "$small_path"
+  rm "$small_path.png"
+  # Extract metadata from the stripped version
+  exiftool -j "$output_path" > "$exif_path" || continue
   >&2 echo "$output_path"
   exit
 done

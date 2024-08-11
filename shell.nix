@@ -27,5 +27,9 @@ pkgs.mkShell {
 
     # soupault.toml
     pkgs.soupault
+
+    # _soupault_site/birds
+    pkgs.ffmpeg
+    pkgs.imagemagick
   ];
 }
