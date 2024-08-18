@@ -1,5 +1,13 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="sits in the old gum tree">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>laughing kookaburra (<i>Dacelo novaeguineae</i>)</bird>
+    <cohost-img id=0fcac434-b32d-443f-9de4-b9e79a4c1865 width=2399 height=2400></cohost-img>
+    <cohost-img id=78a848e5-9445-4304-b321-9f84a10b008f width=2399 height=2400></cohost-img>
+    <cohost-img id=9dc7a43d-e9a5-4317-bf35-3eb5add6d4d4 width=2399 height=2400></cohost-img>
+</x-photo-set>
 <x-photo-set title="ow my poor neck">
     <camera>Google Pixel 8</camera>
     <scope>Nikon Aculon A211 10-22x50</scope>
