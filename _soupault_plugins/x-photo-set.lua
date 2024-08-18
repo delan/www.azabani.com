@@ -156,6 +156,7 @@ while x_photo_sets[i] do
             "ISO " .. get_exif_data(id, "ISO"),
             "f/" .. get_exif_data(id, "Aperture"),
             get_exif_data(id, "ShutterSpeed"),
+            get_exif_data(id, "FocalLength"),
         }))
         HTML.append_child(figure, figcaption)
 
