@@ -1,4 +1,4 @@
-include: [".well-known"]
+include: [".well-known", "birds/_/*", "birds/_small/*", "birds/_exif/*"]
 exclude: [".bundle", ".sass-cache", "vendor", "helper/node_modules", "helper/.venv"]
 timezone: Etc/UTC
 # highlighter: none # FIXME check pre/code style rules in older posts

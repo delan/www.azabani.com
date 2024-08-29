@@ -1,5 +1,12 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="metal gear solid alert">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>willie wagtail (<i>Rhipidura leucophrys</i>)</bird>
+    <cohost-img id=48e2a6e8-56f9-4f21-a055-0757a727b2dd width=1899 height=1900></cohost-img>
+    <cohost-img id=78d9ecc8-c05b-4102-8bd8-7b9e2b501dae width=1899 height=1900></cohost-img>
+</x-photo-set>
 <x-photo-set title="sits in the old gum tree">
     <camera>Canon 1000D</camera>
     <lens>Canon EF 75-300mm f/4-5.6 III</lens>
