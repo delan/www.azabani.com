@@ -1,5 +1,28 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="hey check out how hard i can scream">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=7c182aad-95d8-431b-997f-b8e2701c5586 width=2500 height=2500></cohost-img>
+    <cohost-img id=33ad0a66-7ac5-405e-a1a3-8c870d883219 width=2499 height=2500></cohost-img>
+    <cohost-img id=07769192-f407-4c0a-9182-edd4ea989dc3 width=2499 height=2500></cohost-img>
+    <cohost-img id=3eb05ab3-c92a-42a7-9e0c-87b9ea8121fa width=2499 height=2500></cohost-img>
+</x-photo-set>
+<x-photo-set title="coming of age">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>Australian magpie, western magpie (<i>Gymnorhina tibicen dorsalis</i>)</bird>
+    <cohost-img id=9c7428cc-caa0-4315-9998-ad469175c403 width=1799 height=2400></cohost-img>
+    <cohost-img id=53eec5d5-c4db-4a23-8109-c167f10e5c0d width=1800 height=2400></cohost-img>
+    <cohost-img id=aea81238-f7ed-4641-83bd-91eaf5e03946 width=1799 height=2401></cohost-img>
+</x-photo-set>
+<x-photo-set title="i’m flying! jack!">
+    <camera>Canon 1000D</camera>
+    <lens>Canon EF 75-300mm f/4-5.6 III</lens>
+    <bird>magpie-lark (<i>Grallina cyanoleuca</i>)</bird>
+    <cohost-img id=1b93dcc3-03ac-4643-bb3f-60266740287c width=2699 height=1800></cohost-img>
+</x-photo-set>
 <x-photo-set title="metal gear solid alert">
     <camera>Canon 1000D</camera>
     <lens>Canon EF 75-300mm f/4-5.6 III</lens>
