@@ -18,6 +18,7 @@ for raw_dir in \
   /mnt/ocean/private/delan/photos/pixel8/darktable_exported \
   /mnt/ocean/private/delan/photos/pixel8 \
   /mnt/ocean/private/delan/photos/1000d/darktable_exported \
+  /mnt/ocean/private/delan/photos/d3200/darktable_exported \
 ; do
   input_path=$raw_dir/$filename
   if [ "$output_path" -ef "$input_path" ]; then

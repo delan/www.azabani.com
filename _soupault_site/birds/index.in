@@ -1,5 +1,14 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="is this thing on?">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>Australian magpie, western magpie (<i>Gymnorhina tibicen dorsalis</i>)</bird>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <p>testing my new camera right after sunset. not gonna pretend these are great shots, but the fact that i can get something almost usable out of it at iso 3200 is neat.</p>
+    <cohost-img id=3db8a521-dce1-48eb-99db-4330febd462f width=2301 height=2299></cohost-img>
+    <cohost-img id=57e0afed-36fd-4e57-a002-ca8b2ce09c47 width=3500 height=3497></cohost-img>
+</x-photo-set>
 <x-photo-set title="hey check out how hard i can scream">
     <camera>Canon 1000D</camera>
     <lens>Canon EF 75-300mm f/4-5.6 III</lens>
