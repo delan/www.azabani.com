@@ -1,5 +1,25 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="great white staunch">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>Muscovy duck (<i>Cairina moschata</i>)</bird>
+    <cohost-img id=be92dbca-ca6c-4150-88a1-611126c7b949 width=3601 height=3598></cohost-img>
+    <cohost-img id=ee533fbb-64ea-48ab-a934-da6bd15b9c09 width=3601 height=3598></cohost-img>
+</x-photo-set>
+<x-photo-set title="eyebrows and a handlebar">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>willie wagtail (<i>Rhipidura leucophrys</i>)</bird>
+    <cohost-img id=c84f3b0e-c845-4821-b5c9-7498c04a9e34 width=4501 height=2998></cohost-img>
+</x-photo-set>
+<x-photo-set title="brown honeyeater!">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>brown honeyeater (<i>Lichmera indistincta</i>)</bird>
+    <p>i was unsure of this one and <a href="#brown honeyeater?">this other one</a>, because they seemed way too round to be brown honeyeaters! but now i think these are <a href="https://web.archive.org/web/20240326120012/https://absa.asn.au/wp-content/uploads/2015/03/Brown-Honeyeater-1.pdf">just</a> <a href="https://web.archive.org/web/20240412164329/https://mdahlem.net/birds/18/brownhon.php">juveniles</a>.</p>
+    <cohost-img id=34beebcd-ff43-403d-bf12-38fbce2bc1a2 width=2101 height=1399></cohost-img>
+</x-photo-set>
 <x-photo-set title="is this thing on?">
     <camera>Nikon D3200</camera>
     <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
