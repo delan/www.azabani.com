@@ -1,5 +1,26 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="nictitating membrane">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=eaff00e2-6220-45d6-ac95-dc10e7049324 width=1350 height=899></cohost-img>
+</x-photo-set>
+<x-photo-set title="nooo where did my nut go?">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=d39d8f3e-c880-4a40-9003-f733314927ea width=3501 height=3498></cohost-img>
+    <cohost-img id=d3ce7979-2417-4c8b-9714-b5ef8449d345 width=3500 height=3498></cohost-img>
+    <cohost-img id=4e193c37-b3bd-4100-a3b8-ac8179edf603 width=3501 height=3498></cohost-img>
+    <cohost-img id=74ab17de-d628-4398-b013-27f0d4a8f054 width=3501 height=3498></cohost-img>
+</x-photo-set>
+<x-photo-set title="gotta bounce!">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red wattlebird (<i>Anthochaera carunculata</i>)</bird>
+    <cohost-img id=5c00353f-3029-44d5-af28-3b09c97f683d width=3750 height=2498></cohost-img>
+</x-photo-set>
 <x-photo-set title="great white staunch">
     <camera>Nikon D3200</camera>
     <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
