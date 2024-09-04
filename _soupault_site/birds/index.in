@@ -1,5 +1,44 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="hole time o/">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-capped parrot (<i>Purpureicephalus spurius</i>)</bird>
+    <cohost-img id=1ccd85dd-7cd9-4293-9b95-033c5c7200b0 width=2200 height=2199></cohost-img>
+    <cohost-img id=1f3c1972-fb81-4c9b-bb64-eb5591e2568b width=2200 height=2198></cohost-img>
+    <cohost-img id=e906e69f-72ec-406e-996d-170f9f7ae88e width=2201 height=2199></cohost-img>
+    <cohost-img id=cb8070a1-715b-4aa9-b03d-332a6eb5104b width=2200 height=2199></cohost-img>
+</x-photo-set>
+<x-photo-set title="red-capped parrots">
+    <p>top to bottom: male, female</p>
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-capped parrot (<i>Purpureicephalus spurius</i>)</bird>
+    <cohost-img id=8224b9c0-0659-4eee-8fde-63889b5432c7 width=3600 height=2398></cohost-img>
+    <cohost-img id=9eb8eb6e-015f-49c3-9cd4-5f66d66d2fba width=3600 height=2398></cohost-img>
+</x-photo-set>
+<x-photo-set title="messy eaters">
+    <p>top to bottom: female, male</p>
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=423cab1b-92ab-44fb-9f8d-03299f6ce981 width=1601 height=1599></cohost-img>
+    <cohost-img id=e8e20d08-588c-438b-8896-ee380f522ec4 width=1601 height=1599></cohost-img>
+</x-photo-set>
+<x-photo-set title="little miss photobomb">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=5cd33c25-6b13-4c18-ad2d-1b80ffba4a48 width=3801 height=3798></cohost-img>
+    <cohost-img id=5659121a-3517-4ea4-9c09-b081bf09f2de width=3801 height=3797></cohost-img>
+</x-photo-set>
+<x-photo-set title="black-faced cuckooshrike">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>black-faced cuckooshrike (<i>Coracina novaehollandiae</i>)</bird>
+    <cohost-img id=596e700e-817a-408e-b7e5-a0a1e32aeaa7 width=3001 height=2998></cohost-img>
+    <cohost-img id=eb32112e-040e-4aed-ada1-9101897e3724 width=3000 height=2998></cohost-img>
+</x-photo-set>
 <x-photo-set title="nictitating membrane">
     <camera>Nikon D3200</camera>
     <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
@@ -204,7 +243,7 @@
     <cohost-img id=279ba479-ffa4-49e1-bebe-6b86f4036a8b width=2401 height=2400></cohost-img>
 </x-photo-set>
 <x-photo-set title="family of non-magpie magpies">
-    <p>left to right: female adult, male adult, juvenile</p>
+    <p>top to bottom: female adult, male adult, juvenile</p>
     <camera>Google Pixel 8</camera>
     <scope>Nikon Aculon A211 10-22x50</scope>
     <bird>Australian magpie, western magpie (<i>Gymnorhina tibicen dorsalis</i>)</bird>
