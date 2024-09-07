@@ -1,5 +1,39 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="oh a portrait? happy to oblige">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=75ab8949-9a5b-4122-a901-8706956cd07a width=2500 height=2498></cohost-img>
+    <cohost-img id=e447806a-14e5-4d5b-b2b1-b6aca0e786a5 width=2500 height=2498></cohost-img>
+    <cohost-img id=0ae6a90f-8b85-4a82-92dc-92b7af6fe5d5 width=2500 height=2498></cohost-img>
+</x-photo-set>
+<x-photo-set title="raven takeoff">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>Australian raven (<i>Corvus coronoides</i>)</bird>
+    <cohost-img id=2964c721-707c-4625-a3ef-d3615d9b3483 width=3600 height=2398></cohost-img>
+</x-photo-set>
+<x-photo-set title="cogs are turning">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>Australian raven (<i>Corvus coronoides</i>)</bird>
+    <cohost-img id=d4c09103-9f2b-496c-b66b-03229598cf51 width=4201 height=2798></cohost-img>
+</x-photo-set>
+<x-photo-set title="the pink underneath">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=afe69aac-9abc-481b-b203-84c53a3a8bbe width=2501 height=2499></cohost-img>
+    <cohost-img id=09da74e6-fb34-4024-bcc3-3d6b9ac82aeb width=2500 height=2498></cohost-img>
+    <cohost-img id=50bb442e-7867-42b5-8c42-6b4926085ac7 width=2501 height=2499></cohost-img>
+</x-photo-set>
+<x-photo-set title="scritch scritch">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>galah (<i>Eolophus roseicapilla</i>)</bird>
+    <cohost-img id=0540b56b-d19d-403e-b8d6-62de7df8f41a width=2501 height=2499></cohost-img>
+</x-photo-set>
 <x-photo-set title="hole time o/">
     <camera>Nikon D3200</camera>
     <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
