@@ -1,5 +1,25 @@
 <h1 class="title">Bird photography</h1>
 
+<x-photo-set title="raven grab">
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>Australian raven (<i>Corvus coronoides</i>)</bird>
+    <cohost-img id=d5e39b42-ff37-4be3-8429-513ed7cce253 width=2100 height=1399></cohost-img>
+</x-photo-set>
+<x-photo-set title="more graceful than she might sound">
+    <p>turns out 3d-tracking mode is pretty good.</p>
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>red-tailed black cockatoo (<i>Calyptorhynchus banksii</i>)</bird>
+    <cohost-img id=63a2e653-0dd2-47ae-b100-d0a7ad101b38 width=3000 height=1998></cohost-img>
+</x-photo-set>
+<x-photo-set title="leaden crow-shrike">
+    <p>i saw my first ever currawong! this guy belongs to the western subspecies of grey currawong (<i>Strepera versicolor plumbea</i>), historically known as the leaden crow-shrike. the wikipedia page listed it as a “leaden cuckoo-shrike” in some places, but checking the cited Whitlock (1910), that seems to have been a mistake.</p>
+    <camera>Nikon D3200</camera>
+    <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
+    <bird>grey currawong, subspecies leaden crow-shrike (<i>Strepera versicolor plumbea</i>)</bird>
+    <cohost-img id=9b5eefcc-8ff2-48ee-aaaa-be2dc2f4bd9d width=3751 height=2498></cohost-img>
+</x-photo-set>
 <x-photo-set title="oh a portrait? happy to oblige">
     <camera>Nikon D3200</camera>
     <lens>AF-S DX NIKKOR 55-300mm f/4.5-5.6G ED VR</lens>
