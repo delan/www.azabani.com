@@ -1,11 +1,12 @@
 .POSIX:
 
 BUNDLE = bundle
+JEKYLL_FLAGS =
 
 jekyll:
 	rm -Rf _site
 	mkdir -p _site
-	$(BUNDLE) exec jekyll build
+	$(BUNDLE) exec jekyll build $(JEKYLL_FLAGS)
 
 soupault:
 	rm -Rf _soupault_build
