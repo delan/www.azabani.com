@@ -54,17 +54,14 @@ and the president of its [Computer Science Students Association].
   class="latex">L<sup>a</sup>T<sub>e</sub>X</span>][LaTeX], [PDF]
 * Academic transcript as of 2017-01-13: [PDF][transcript]
 
-You can reach me at [delan@azabani.com], [+61 466 442 256], or find me at:
+You can reach me at [delan@azabani.com], or find me at:
 
 * <a rel="me" href="https://github.com/delan">@delan</a> on GitHub
 * <a rel="me" href="https://cohost.org/delan">@delan</a> on Cohost
-* <a rel="me" href="https://kolektiva.social/@delan">@delan@kolektiva.social</a> on Mastodon
-* <a rel="me" href="https://twitter.com/dazabani">@dazabani</a> on Twitter
-* on Discord (ask)
-* on Telegram (ask)
+* <a rel="me" href="https://kolektiva.social/@delan">@delan@kolektiva.social</a> on the Fediverse
+* on Matrix (ask)
 
 [delan@azabani.com]: mailto:delan@azabani.com
-[+61 466 442 256]: tel:+61466442256
 
 [LaTeX]: public/cv.tex
 [PDF]: public/cv.pdf
