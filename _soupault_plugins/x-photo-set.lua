@@ -81,6 +81,13 @@ local article = HTML.select_one(page, "article")
 local toc = HTML.create_element("ul")
 HTML.prepend_child(article, toc)
 
+HTML.prepend_child(article, HTML.create_text(")"))
+local fediverse_link = HTML.create_element("a")
+HTML.prepend_child(fediverse_link, HTML.create_text("@delan@kolektiva.social"))
+HTML.set_attribute(fediverse_link, "href", "https://kolektiva.social/@delan")
+HTML.prepend_child(article, fediverse_link)
+HTML.prepend_child(article, HTML.create_text("(for more, follow "))
+
 local x_photo_sets = HTML.select(article, "x-photo-set")
 local meta = {}
 local i = 1
